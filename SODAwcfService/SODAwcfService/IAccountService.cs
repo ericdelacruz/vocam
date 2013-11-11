@@ -35,5 +35,8 @@ namespace SODAwcfService
         [OperationContract]
         bool Authenticate(string Password);
 
+        [OperationContract]
+        void LogOff(string UserName);
+
     }
 }
