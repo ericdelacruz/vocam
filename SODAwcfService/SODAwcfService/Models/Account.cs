@@ -29,7 +29,7 @@ namespace SODAwcfService.Models
         [DataMember]
         public string Country { get; set; }
         [DataMember]
-        public string Gender { get; set; }
+        public char Gender { get; set; }
         [DataMember]
         public string ContactNo { get; set; }
         [DataMember]

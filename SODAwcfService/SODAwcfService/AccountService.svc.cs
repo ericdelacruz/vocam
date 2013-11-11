@@ -14,6 +14,21 @@ namespace SODAwcfService
         SodaDBDataSetTableAdapters.AccountsTableAdapter AccountsTableAdapter;
         private string asdasd = EncDec.EncryptData("myS0D@P@ssw0rd");
         private bool Allowed = false;
+       
+        enum Roles
+        {
+            Admin = 0,
+            Market = 1,
+            Sales = 2,
+            User = 3
+        };
+        enum AccountStatus
+        {
+            Suspended = -1,
+            InActive = 0,
+            Active = 1
+            
+        }
         public AccountService()
         {
             AccountsTableAdapter = new SodaDBDataSetTableAdapters.AccountsTableAdapter();
@@ -36,8 +51,8 @@ namespace SODAwcfService
             if (isUserNameExists(account.USERNAME))
                 throw new FaultException("UserName already existing", new FaultCode("UserExists"));
             else
-            return AccountsTableAdapter.InsertAccount(account.USERNAME, account.PASSWORD, account.FirstName, account.LastName, account.Role, account.Status, account.Email, account.Address,
-                account.City, account.Country, account.Gender, account.ContactNo, account.Company, account.ContractEndDate);
+            return AccountsTableAdapter.InsertAccount(account.USERNAME, EncDec.EncryptData(account.PASSWORD), account.FirstName, account.LastName, account.Role, account.Status, account.Email, account.Address,
+                account.City, account.Country, account.Gender.ToString(), account.ContactNo, account.Company, account.ContractEndDate);
         }
         /// <summary>
         /// Update Acccount by Username
@@ -47,7 +62,7 @@ namespace SODAwcfService
         public int updateAccount(Models.Account account)
         {
             return AccountsTableAdapter.UpdateAccount(account.FirstName, account.LastName, account.Role, account.Status, account.Email, account.Address,
-                account.City, account.Country, account.Gender, account.ContactNo, account.Company, account.ContractEndDate, account.USERNAME);
+                account.City, account.Country, account.Gender.ToString(), account.ContactNo, account.Company, account.ContractEndDate, account.USERNAME);
         }
         /// <summary>
         /// Get Account record
@@ -80,10 +95,10 @@ namespace SODAwcfService
                     Email = row["Email"].ToString(),
                     Address = row["Address"].ToString(),
                     City = row["City"].ToString(),
-                    Gender = row["Gender"].ToString(),
+                    Gender =  row["Gender"].ToString() == ""?'0': row["Gender"].ToString().ToCharArray()[0],
                     ContactNo = row["ContactNo"].ToString(),
                     Company = row["Company"].ToString(),
-                    ContractEndDate = (DateTime)row["ContractEndDate"]
+                    ContractEndDate = row["ContractEndDate"].ToString() == "" ? new DateTime() : (DateTime)row["ContractEndDate"]
                 });
             }
             return listAccounts;
@@ -100,17 +115,42 @@ namespace SODAwcfService
 
         public bool AuthenticateUser(string UserName, string Password)
         {
-            throw new NotImplementedException();
-        }
+            if (isUserNameExists(UserName))
+            {
+                string decPassword = EncDec.DecryptString(getAccount(UserName).First().PASSWORD);
 
+                if (decPassword.CompareTo(Password) == 0)
+                {
+                    UpdateStatus(UserName, (short)AccountStatus.Active);
+                    return true;
+                }
+                else
+                    return false;
+            }
+            else
+                return false;
+        }
+        
         public bool isUserNameExists(string UserName)
         {
             return getAccount(UserName).Count() > 0;
         }
-
         public bool sendEmailForPassword(Models.Account account)
         {
             throw new NotImplementedException();
         }
+        public void LogOff(string UserName)
+        {
+            if( isUserNameExists(UserName))
+            {
+                UpdateStatus(UserName, (short)AccountStatus.InActive);
+            }
+        }
+        private void UpdateStatus(string Username, short status)
+        {
+            AccountsTableAdapter.UpdateAccountStatus(status, Username);
+        }
+        
+        
     }
 }
