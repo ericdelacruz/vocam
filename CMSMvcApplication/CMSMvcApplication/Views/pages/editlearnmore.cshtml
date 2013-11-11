@@ -21,11 +21,9 @@
     @using(Html.BeginForm("EditLearnMore","Pages", FormMethod.Post))
     { 
         <label>Page Title*</label>
-        <input type="text" class="form-control" placeholder="" name="Title" value=@MvcHtmlString.Create(@getVal("LearnMore_Title","text")) autofocus="">
+        <input type="text" class="form-control" placeholder="" name="Title" value="@getVal("LearnMore_Title","text")" autofocus="">
         <label>Content</label>
-        <textarea class="field span12 form-control" id="textarea" name="Desc" rows="15" cols="49" placeholder="">
-            @MvcHtmlString.Create(@getVal("LearnMore_Desc", "text"))
-        </textarea>
+        <textarea class="field span12 form-control" id="textarea" name="Desc" rows="15" cols="49" placeholder="">@getVal("LearnMore_Desc", "text").Replace("<br/>", "\n")</textarea>
         <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">UPDATE</button>
     }
 </div>
