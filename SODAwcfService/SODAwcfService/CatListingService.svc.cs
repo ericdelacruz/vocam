@@ -23,6 +23,7 @@ namespace SODAwcfService
             //Authenticate(password);
             catTableAdaptor = new SodaDBDataSetTableAdapters.CategoryTableAdapter();
             specTableAdaptor = new SodaDBDataSetTableAdapters.SpecificTableAdapter();
+            relTableAdaptor = new SodaDBDataSetTableAdapters.RelatedTableAdapter();
         }
         public bool Authenticate(string Password)
         {
