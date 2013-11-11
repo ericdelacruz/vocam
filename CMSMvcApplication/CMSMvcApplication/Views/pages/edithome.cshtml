@@ -3,7 +3,7 @@
     private string getVal(string sectionName, string strType)
     {
         var result = from content in @Model
-                     where content.PageCode == "Categories" && content.SectionName == sectionName && content.Type == strType
+                     where content.PageCode == "Home" && content.SectionName == sectionName && content.Type == strType
                      select content;
 
         return result.Count() > 0 ? result.First().Value.ToString() : "";
@@ -30,9 +30,9 @@
         </div>
         <div class="panel-body">
             <label>Background Image <span class="uploadTxtCont">(recommended dimension:1500 x 525)</span></label>
-            <input type="file" name="TOP_BG" value=@getVal("header_banner_bg_IMG", "href")>
+            <input type="file" name="TOP_BG" value="@getVal("header_banner_bg_IMG", "href")">
             <label>Headline 1*</label>
-            <textarea class="field span12 form-control" id="textarea" rows="3" cols="49" placeholder="" name="Top_Headline1"> @getVal("header_banner_Title", "text").Replace("<br/>", "\n")</textarea>
+            <textarea class="field span12 form-control" id="textarea" rows="3" cols="49" placeholder="" name="Top_Headline1">@getVal("header_banner_Title", "text").Replace("<br/>", "\n")</textarea>
             <label>Subheadline 2</label>
             <textarea class="field span12 form-control" id="textarea" rows="5" cols="49" placeholder="" name="Top_SubHeadline2">@getVal("header_banner_txt", "text").Replace("<br/>", "\n")</textarea>
         </div>
