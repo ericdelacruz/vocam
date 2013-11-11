@@ -1,0 +1,70 @@
+﻿@model SODAMvcApplication.CategoriesServiceReference.Specific
+
+
+@{
+    ViewBag.Title = !string.IsNullOrEmpty(Model.PageTitle)? Model.PageTitle:"Details";
+    ViewBag.Description = Model.Description;
+    ViewBag.Keywords = Model.Metatags;
+
+    var related = ViewBag.Related as IEnumerable<SODAMvcApplication.CategoriesServiceReference.Specific>;
+    var selCat = ViewBag.SelCategory as SODAMvcApplication.CategoriesServiceReference.Category;
+}
+
+<div class="landingSection" style="background: url(@Model.BG_Img) top center no-repeat;">
+    <div class="landingWrapper">
+        <div class="margin15">Category &nbsp; <span class="glyphicon glyphicon-play"></span>&nbsp; <span id="active2">@selCat.CategoryName</span></div>
+        <div class="row">
+            <h1 class="col-md-8">@Model.Title</h1>
+            <a class="purchaseBtn fr col-md-4">Purchase</a>
+        </div>
+
+        <div class="videoArea">
+            <video style="width:968px; height:608px;" controls="" name="media"><source src="@Model.VideoURL" type="video/mp4"></video>
+        </div>
+
+        <div class="lCont border">
+            <h1 class="videoHead">About</h1>
+            <div class="videoDetails">
+                <p>@Model.Description</p>
+                <p><br></p>
+                <p>Category &nbsp; &nbsp; @selCat.CategoryName</p>
+            </div>
+        </div>
+
+        <div class="lCont border">
+            <h2>Related Titles</h2>
+
+            @{int i = 1;}
+            @while (related != null && i < related.Count())
+            {
+                if (i > 1 && (i - 1) % 4 == 0 && i <= related.Count())
+                {
+                    <hr class="hrLine clearfix">
+                }
+                <div class="catThumbWrapper clearfix">
+                    @for (int j = 0; j < 4 && i <= related.Count(); j++, i++)
+                    {
+                        var spec = related.ElementAt(i);
+                        <div class="catThumb2">
+                            <a href=@Url.Action("Details", new { id = spec.Id })>
+
+                                <img alt=@spec.Title src=@spec.ImageURL>
+                                <h3>@spec.Title</h3>
+                            </a>
+                        </div>
+                    }
+                </div>@*end catThumbWrapper clearfix*@
+            }
+
+
+
+
+            <div class="purchBrowse clearfix">
+                <a href="#" class="purchaseBtn2 fl">Purchase</a>
+                <a href=@Url.Action("Browse") class="browseCatBtn fr">Browse Category</a>
+            </div>
+        </div>
+    </div>
+
+
+</div>

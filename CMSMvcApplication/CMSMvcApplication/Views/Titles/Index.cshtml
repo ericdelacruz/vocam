@@ -1,0 +1,45 @@
+﻿@model IEnumerable<CMSMvcApplication.ViewModels.Title>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h1 class="margin15">Titles <span><a href="@Url.Action("create")"><img src="Content/images/cms/addNew.gif"></a></span></h1>
+
+<table class="cmsTable">
+    @{
+        if(Model.Count() > 0)
+        {
+             <thead>
+                <tr style="background-color:#fff;">
+                    <th>Title</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                    <th>View</th>
+                    <th>Categories</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach(var title in Model)
+            {
+                <tr>
+                    <td width="415"> &nbsp; @title.Specific.Title</td>
+                    <td width="100"><a href=@Url.Action("edit",new{id=title.Specific.Id})><img src="Content/images/cms/edit.png"></a></td>
+                    <td width="100"><a href=@Url.Action("delete",new{id=title.Specific.Id})><img src="Content/images/cms/delete.png"></a></td>
+                    <td width="100"><a href="http://localhost:51219/categories/details/@title.Specific.Id"><img src="Content/images/cms/view.png"></a></td>
+
+                    <td>@title.Category.CategoryName</td>
+                </tr>
+            }
+        
+
+
+            </tbody>
+        }
+        else
+        {
+            <p>No Titles Added</p>
+        }
+    }
+   
+    
+</table>

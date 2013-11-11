@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Safety On Demand - Portal</title>
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="~/Content/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="~/Content/css/main.css" rel="stylesheet" media="screen">
+    <link href="~/Content/css/portal.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/jquery.datepick.css">
+    <script type="text/javascript" src="~/Content/js/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/jquery.datepick.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#popupDatepicker').datepick();
+        });
+
+        function showDate(date) {
+            alert('The date chosen is ' + date);
+        }
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#popupDatepicker2').datepick();
+        });
+
+        function showDate(date) {
+            alert('The date chosen is ' + date);
+        }
+    </script>
+</head>
+<body>
+    <!--[if lt IE 9]>
+      <script type="text/javascript" src="~/Content/js/respond.min.js"></script>
+    <![endif]-->
+    <header>
+        <div class="container row">
+            <div class="col-md-2"><a href="home.html"><img class="logo" src="~/Content/images/safetyOnDemand-logo.jpg" alt="Safety On Demand"></a></div>
+            <div class="headerRight fr col-md-10">
+                <div class="call"><span class="calltxt">CALL</span> 03 9809 7777</div>
+                <div class="socialBtns clearfix">
+
+                    <ul>
+                        <li><a class="socialTwitter" href="#">twitter</a></li>
+                        <li><a class="socialYoutube" href="#">youtube</a></li>
+                        <li><a class="socialFacebook" href="#">facebook</a></li>
+                        <li><a class="socialLinkdin" href="#">linkdin</a></li>
+                    </ul>
+
+                </div>
+
+                <div class="navbar2 fr clearfix">
+
+                </div>
+            </div> <!-- end of headerRight-->
+        </div>
+    </header>
+
+   
+
+    <div class="container row portalContainer">
+
+        @RenderBody()
+
+    </div>
+
+
+    <footer>
+        <div class="whitespace container row">
+            <div class="col-md-2"><a href="home.html"><img src="~/Content/images/safetyOnDemand-logoFooter.jpg" alt="Safety On Demand"></a></div>
+            <div align="right" class="ftrLinks col-md-10">
+                <div class="clearfix">
+                    <ul>
+                        <li>@Html.ActionLink("HOME", "Index", "Home")</li>
+                        <li>@Html.ActionLink("CONTACT", "Contact", "Home")</li>
+                        <li><a href="#">SITEMAP</a></li>
+                        <li><a href="#">LEGALS</a></li>
+                    </ul>
+                </div>
+                <div class="clearfix"><span>Copyright &copy; 2013</span></div>
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="//code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

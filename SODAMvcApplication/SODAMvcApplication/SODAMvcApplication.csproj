@@ -1,0 +1,414 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{41C75326-4533-41BC-A2A9-2F69334DA874}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SODAMvcApplication</RootNamespace>
+    <AssemblyName>SODAMvcApplication</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Mvc.FixedDisplayModes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.FixedDisplayModes.1.0.0\lib\net40\Microsoft.Web.Mvc.FixedDisplayModes.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.30506.0\lib\net40\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.30506.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.30506.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.30506.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.30506.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\CategoriesServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\CMSServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\css\bootstrap-responsive.css" />
+    <Content Include="Content\css\bootstrap-responsive.min.css" />
+    <Content Include="Content\css\bootstrap-theme.css" />
+    <Content Include="Content\css\bootstrap-theme.min.css" />
+    <Content Include="Content\css\bootstrap.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\main.css" />
+    <Content Include="Content\css\mainOLD.css" />
+    <Content Include="Content\fonts\helvetica\4864-webfont.svg" />
+    <Content Include="Content\fonts\lato\lato-bol-webfont.svg" />
+    <Content Include="Content\fonts\lato\lato-reg-demo.html" />
+    <Content Include="Content\fonts\lato\lato-reg-webfont.svg" />
+    <Content Include="Content\fonts\openSans\opensans-semibold-webfont.svg" />
+    <Content Include="Content\images\arrowActive.png" />
+    <Content Include="Content\images\bannerbg2.jpg" />
+    <Content Include="Content\images\browseCategories.png" />
+    <Content Include="Content\images\browseCategoriesBtn.png" />
+    <Content Include="Content\images\categoriesBg.jpg" />
+    <Content Include="Content\images\commonBg.jpg" />
+    <Content Include="Content\images\footerBg.jpg" />
+    <Content Include="Content\images\home\browseChannelBtn.png" />
+    <Content Include="Content\images\home\featThumb1.jpg" />
+    <Content Include="Content\images\home\featThumb2.jpg" />
+    <Content Include="Content\images\home\featThumb3.jpg" />
+    <Content Include="Content\images\home\mac.png" />
+    <Content Include="Content\images\home\moreBtn.png" />
+    <Content Include="Content\images\home\previewNowBtn.png" />
+    <Content Include="Content\images\home\topBanner.jpg" />
+    <Content Include="Content\images\categories\agedCare_thumb.jpg" />
+    <Content Include="Content\images\categories\bullyingAndHarassement_thumb.jpg" />
+    <Content Include="Content\images\categories\confinedSpaceSafety_thumb.jpg" />
+    <Content Include="Content\images\categories\constructionSafety_thumb.jpg" />
+    <Content Include="Content\images\categories\driverSafety_thumb.jpg" />
+    <Content Include="Content\images\categories\dutch_thumb.jpg" />
+    <Content Include="Content\images\categories\eLearning_thumb.jpg" />
+    <Content Include="Content\images\categories\electricalSafety_thumb.jpg" />
+    <Content Include="Content\images\categories\environmental_thumb.jpg" />
+    <Content Include="Content\images\categories\ergonomics_thumb.jpg" />
+    <Content Include="Content\images\categories\fireSafety_thumb.jpg" />
+    <Content Include="Content\images\categories\forkliftSafety_thumb.jpg" />
+    <Content Include="Content\images\categories\french_thumb.jpg" />
+    <Content Include="Content\images\categories\hazardousSubstances_thumb.jpg" />
+    <Content Include="Content\images\categories\healthAndHygiene_thumb.jpg" />
+    <Content Include="Content\images\categories\heightSafety_thumb.jpg" />
+    <Content Include="Content\images\categories\purchaseBtn.png" />
+    <Content Include="Content\images\landing\browseCategories.jpg" />
+    <Content Include="Content\images\landing\drugAndAlcoholAwareness_thumb.jpg" />
+    <Content Include="Content\images\landing\landingBg.jpg" />
+    <Content Include="Content\images\landing\purchaseBtn2.jpg" />
+    <Content Include="Content\images\landing\runaSuccessfulMeeting_thumb.jpg" />
+    <Content Include="Content\images\landing\video.jpg" />
+    <Content Include="Content\images\landing\workplaceBullyingandHarrassment_thumb.jpg" />
+    <Content Include="Content\images\listings\agedCare\agedCareBg.jpg" />
+    <Content Include="Content\images\listings\agedCare\agedCareHead.jpg" />
+    <Content Include="Content\images\safetyOnDemand-logo.jpg" />
+    <Content Include="Content\images\safetyOnDemand-logoFooter.jpg" />
+    <Content Include="Content\images\socialFacebook.jpg" />
+    <Content Include="Content\images\socialLinkdin.jpg" />
+    <Content Include="Content\images\socialTwitter.jpg" />
+    <Content Include="Content\images\socialYoutube.jpg" />
+    <Content Include="Content\Uploaded\agedCareBg110613.jpg" />
+    <Content Include="Content\Uploaded\agedCareHead110613.jpg" />
+    <Content Include="Content\Uploaded\agedCareThumb110613.jpg" />
+    <Content Include="Content\Uploaded\AZListingBg110613.jpg" />
+    <Content Include="Content\Uploaded\AZListingHead110613.jpg" />
+    <Content Include="Content\Uploaded\AZListingThumb110613.jpg" />
+    <Content Include="Content\Uploaded\bullyingAndHarassmentBg110613.jpg" />
+    <Content Include="Content\Uploaded\bullyingAndharassmentHead110613.jpg" />
+    <Content Include="Content\Uploaded\bullyingAndHarassmentThumb110613.jpg" />
+    <Content Include="Content\Uploaded\ConfinedSpaceSafetyBg110613.jpg" />
+    <Content Include="Content\Uploaded\ConfinedSpaceSafetyHead110613.jpg" />
+    <Content Include="Content\Uploaded\ConfinedSpaceSafetyThumb110613.jpg" />
+    <Content Include="Content\Uploaded\ConstructionSafetyBg110613.jpg" />
+    <Content Include="Content\Uploaded\ConstructionSafetyHead110613.jpg" />
+    <Content Include="Content\Uploaded\ConstructionSafetyThumb110613.jpg" />
+    <Content Include="Content\Uploaded\CranesSafetyBg110613.jpg" />
+    <Content Include="Content\Uploaded\CranesSafetyHead110613.jpg" />
+    <Content Include="Content\Uploaded\CranesSafetyThumb110613.jpg" />
+    <Content Include="Content\Uploaded\downloadsBg110613.jpg" />
+    <Content Include="Content\Uploaded\downloadsHead110613.jpg" />
+    <Content Include="Content\Uploaded\downloadsThumb110613.jpg" />
+    <Content Include="Content\Uploaded\driverSafetyBg110613.jpg" />
+    <Content Include="Content\Uploaded\driverSafetyHead110613.jpg" />
+    <Content Include="Content\Uploaded\driverSafetyThumb110613.jpg" />
+    <Content Include="Content\Uploaded\ElectricalSafetyBg110613.jpg" />
+    <Content Include="Content\Uploaded\ElectricalSafetyHead110613.jpg" />
+    <Content Include="Content\Uploaded\ElectricalSafetyThumb110613.jpg" />
+    <Content Include="Content\Uploaded\EnvironmentalSafetyBg110613.jpg" />
+    <Content Include="Content\Uploaded\EnvironmentalSafetyHead110613.jpg" />
+    <Content Include="Content\Uploaded\EnvironmentalSafetyThumb110613.jpg" />
+    <Content Include="Content\Uploaded\ErgonomicsBg110613.jpg" />
+    <Content Include="Content\Uploaded\ErgonomicsHead110613.jpg" />
+    <Content Include="Content\Uploaded\ErgonomicsThumb110613.jpg" />
+    <Content Include="Content\Uploaded\FireSafetyBg110613.jpg" />
+    <Content Include="Content\Uploaded\FireSafetyHead110613.jpg" />
+    <Content Include="Content\Uploaded\FireSafetyThumb110613.jpg" />
+    <Content Include="Content\Uploaded\ForkliftSafetyBg110613.jpg" />
+    <Content Include="Content\Uploaded\ForkliftSafetyHead110613.jpg" />
+    <Content Include="Content\Uploaded\ForkliftSafetyThumb110613.jpg" />
+    <Content Include="Content\Uploaded\HazardousWasteSafetyBg110613.jpg" />
+    <Content Include="Content\Uploaded\HazardousWasteSafetyHead110613.jpg" />
+    <Content Include="Content\Uploaded\HazardousWasteSafetyThumb110613.jpg" />
+    <Content Include="Content\Uploaded\HealthandHygieneBg110613.jpg" />
+    <Content Include="Content\Uploaded\HealthandHygieneHead110613.jpg" />
+    <Content Include="Content\Uploaded\HealthandHygieneThumb110613.jpg" />
+    <Content Include="Content\Uploaded\HeightSafetyBg110613.jpg" />
+    <Content Include="Content\Uploaded\HeightSafetyHead110613.jpg" />
+    <Content Include="Content\Uploaded\HeightSafetyThumb110613.jpg" />
+    <Content Include="Content\Uploaded\HospitalityandFoodSafetyBg110613.jpg" />
+    <Content Include="Content\Uploaded\HospitalityandFoodSafetyHead110613.jpg" />
+    <Content Include="Content\Uploaded\HospitalityandFoodSafetyThumb110613.jpg" />
+    <Content Include="Content\Uploaded\HRELearningBg110613.jpg" />
+    <Content Include="Content\Uploaded\HRELearningHead110613.jpg" />
+    <Content Include="Content\Uploaded\HRELearningThumb110613.jpg" />
+    <Content Include="Content\Uploaded\InductionBg110613.jpg" />
+    <Content Include="Content\Uploaded\InductionHead110613.jpg" />
+    <Content Include="Content\Uploaded\InductionThumb110613.jpg" />
+    <Content Include="Content\Uploaded\IndustrialSkillsBg110613.jpg" />
+    <Content Include="Content\Uploaded\IndustrialSkillsHead110613.jpg" />
+    <Content Include="Content\Uploaded\IndustrialSkillsThumb110613.jpg" />
+    <Content Include="Content\Uploaded\latestReleasesBg110613.jpg" />
+    <Content Include="Content\Uploaded\latestReleasesHead110613.jpg" />
+    <Content Include="Content\Uploaded\latestReleasesThumb110613.jpg" />
+    <Content Include="Content\Uploaded\LockoutTagoutBg110613.jpg" />
+    <Content Include="Content\Uploaded\LockoutTagoutHead110613.jpg" />
+    <Content Include="Content\Uploaded\LockoutTagoutThumb110613.jpg" />
+    <Content Include="Content\Uploaded\ManualHandlingBg110613.jpg" />
+    <Content Include="Content\Uploaded\ManualHandlingHead110613.jpg" />
+    <Content Include="Content\Uploaded\ManualHandlingThumb110613.jpg" />
+    <Content Include="Content\Uploaded\OfficeSafetyBg110613.jpg" />
+    <Content Include="Content\Uploaded\OfficeSafetyHead110613.jpg" />
+    <Content Include="Content\Uploaded\OfficeSafetyThumb110613.jpg" />
+    <Content Include="Content\Uploaded\OutdoorSafetyBg110613.jpg" />
+    <Content Include="Content\Uploaded\OutdoorSafetyHead110613.jpg" />
+    <Content Include="Content\Uploaded\OutdoorSafetyThumb110613.jpg" />
+    <Content Include="Content\Uploaded\PPESafetyBg110613.jpg" />
+    <Content Include="Content\Uploaded\PPESafetyHead110613.jpg" />
+    <Content Include="Content\Uploaded\PPESafetyThumb110613.jpg" />
+    <Content Include="Content\Uploaded\RetailSafetyBg110613.jpg" />
+    <Content Include="Content\Uploaded\RetailSafetyHead110613.jpg" />
+    <Content Include="Content\Uploaded\RetailSafetyThumb110613.jpg" />
+    <Content Include="Content\Uploaded\riskManagementBg110613.jpg" />
+    <Content Include="Content\Uploaded\riskManagementHead110613.jpg" />
+    <Content Include="Content\Uploaded\riskManagementThumb110613.jpg" />
+    <Content Include="Content\Uploaded\ShiftworkandFatigueManagementBg110613.jpg" />
+    <Content Include="Content\Uploaded\ShiftworkandFatigueManagementHead110613.jpg" />
+    <Content Include="Content\Uploaded\ShiftworkandFatigueManagementThumb110613.jpg" />
+    <Content Include="Content\Uploaded\SupervisorandLeadershipBg110613.jpg" />
+    <Content Include="Content\Uploaded\SupervisorandLeadershipHead110613.jpg" />
+    <Content Include="Content\Uploaded\SupervisorandLeadershipThumb110613.jpg" />
+    <Content Include="Content\Uploaded\topBanner110613.jpg" />
+    <Content Include="Content\Uploaded\WarehouseSafetyBg110613.jpg" />
+    <Content Include="Content\Uploaded\WarehouseSafetyHead110613.jpg" />
+    <Content Include="Content\Uploaded\WarehouseSafetyThumb110613.jpg" />
+    <Content Include="Global.asax" />
+    <Content Include="Properties\DataSources\System.Data.DataTable.datasource" />
+    <Content Include="Content\fonts\helvetica\4864-webfont.eot" />
+    <Content Include="Content\fonts\helvetica\4864-webfont.ttf" />
+    <Content Include="Content\fonts\helvetica\4864-webfont.woff" />
+    <Content Include="Content\fonts\lato\lato-bol-webfont.eot" />
+    <Content Include="Content\fonts\lato\lato-bol-webfont.ttf" />
+    <Content Include="Content\fonts\lato\lato-bol-webfont.woff" />
+    <Content Include="Content\fonts\lato\lato-reg-webfont.eot" />
+    <Content Include="Content\fonts\lato\lato-reg-webfont.ttf" />
+    <Content Include="Content\fonts\lato\lato-reg-webfont.woff" />
+    <Content Include="Content\fonts\openSans\opensans-semibold-webfont.eot" />
+    <Content Include="Content\fonts\openSans\opensans-semibold-webfont.ttf" />
+    <Content Include="Content\fonts\openSans\opensans-semibold-webfont.woff" />
+    <None Include="Service References\CategoriesServiceReference\CatListingService.wsdl" />
+    <None Include="Service References\CategoriesServiceReference\CatListingService.xsd" />
+    <None Include="Service References\CategoriesServiceReference\CatListingService2.xsd" />
+    <None Include="Service References\CategoriesServiceReference\CatListingService3.xsd" />
+    <Content Include="Service References\CategoriesServiceReference\SODAMvcApplication.CategoriesServiceReference.Category.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\CategoriesServiceReference\SODAMvcApplication.CategoriesServiceReference.Specific.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\CMSServiceReference\CMS_Service.disco" />
+    <None Include="Service References\CMSServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\CMSServiceReference\configuration.svcinfo" />
+    <None Include="Service References\CMSServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\CategoriesServiceReference\CatListingService.disco" />
+    <None Include="Service References\CategoriesServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\CategoriesServiceReference\configuration.svcinfo" />
+    <None Include="Service References\CategoriesServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery.backstretch.min.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <None Include="Service References\CMSServiceReference\CMS_Service.wsdl" />
+    <None Include="Service References\CMSServiceReference\CMS_Service.xsd" />
+    <None Include="Service References\CMSServiceReference\CMS_Service2.xsd" />
+    <None Include="Service References\CMSServiceReference\CMS_Service3.xsd" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\LearnMore.cshtml" />
+    <Content Include="Service References\CMSServiceReference\SODAMvcApplication.CMSServiceReference.ContentDef.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Categories\Browse.cshtml" />
+    <Content Include="Views\Categories\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\CategoriesServiceReference\" />
+    <WCFMetadataStorage Include="Service References\CMSServiceReference\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SODAwcfService\SODAwcfService\SODAwcfService.csproj">
+      <Project>{0b9504c7-fe75-43b7-ba4c-2e26eb2a1e71}</Project>
+      <Name>SODAwcfService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51219</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:51219/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:51219/</IISAppRootUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

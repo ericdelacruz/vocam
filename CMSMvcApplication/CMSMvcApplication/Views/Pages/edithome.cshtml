@@ -1,0 +1,114 @@
+﻿@model IEnumerable<CMSMvcApplication.CMSServiceReference.ContentDef>
+@functions{
+    private string getVal(string sectionName, string strType)
+    {
+        var result = from content in @Model
+                     where content.PageCode == "Home" && content.SectionName == sectionName && content.Type == strType
+                     select content;
+
+        return result.Count() > 0 ? result.First().Value.ToString() : "";
+
+    }
+}
+
+
+@{
+    ViewBag.Title = "EditHome";
+}
+
+<h1 class="margin15">Edit Page</h1>
+ 
+<div class="cmsForm">
+   @using(Html.BeginForm("EditHome","Pages", FormMethod.Post, new{enctype="multipart/form-data"}))
+{
+     @*<label>Title*</label>
+    <input type="text" class="form-control" name="Home" value= autofocus="">*@
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Top Banner Content</h3>
+        </div>
+        <div class="panel-body">
+            <label>Background Image <span class="uploadTxtCont">(recommended dimension:1500 x 525)</span></label>
+            <input type="file" name="TOP_BG" value=@getVal("header_banner_bg_IMG", "href")>
+            <label>Headline 1*</label>
+            <textarea class="field span12 form-control" id="textarea" rows="3" cols="49" placeholder="" name="Top_Headline1"> @getVal("header_banner_Title", "text").Replace("<br/>", "\n")</textarea>
+            <label>Subheadline 2</label>
+            <textarea class="field span12 form-control" id="textarea" rows="5" cols="49" placeholder="" name="Top_SubHeadline2">@getVal("header_banner_txt", "text").Replace("<br/>", "\n")
+            </textarea>
+        </div>
+    </div> <!-- end of panel:top banner-->
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Featured Post 1</h3>
+        </div>
+        <div class="panel-body">
+            <label>Thumbnail Image <span class="uploadTxtCont">(recommended dimension:346 x 169)</span></label>
+            <input type="file" name="FP1_Thumb" value="@getVal("thumbPost_thum_Pic_href", "href")">
+            <label>Post Title*</label>
+            <input type="text" class="form-control" name="FTitle1" value=@getVal("thumbPost_thum_Title", "text").Replace("<br/>", "\n") autofocus="">
+            <label>Description</label>
+            <textarea class="field span12 form-control" name="fDesc1" id="textarea" rows="5" cols="49" placeholder="" name="FP1_textarea">
+               @getVal("thumbPost_thum_details", "text").Replace("<br/>", "\n")
+            </textarea>
+            <label>Featured URL 1</label>
+            <input type="text" class="form-control" name="FURL1" value=@getVal("thumbPost_thum_href", "href") autofocus="">
+        </div>
+    </div> <!-- end of panel:featured post 1-->
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Featured Post 2</h3>
+        </div>
+        <div class="panel-body">
+            <label>Thumbnail Image <span class="uploadTxtCont">(recommended dimension:346 x 169)</span></label>
+            <input type="file" name="FP2_Thumb" value="@getVal("thumbPost_thum2_Title", "text")">
+            <label>Post Title*</label>
+            <input type="text" class="form-control" name="FTitle2" value=@getVal("thumbPost_thum2_Title", "text").Replace("<br/>", "\n") autofocus="">
+           
+            <label>Description</label>
+            <textarea class="field span12 form-control" name="FDesc2" id="textarea" rows="5" cols="49" placeholder="">
+               @getVal("thumbPost_thum2_Details", "text").Replace("<br/>", "\n")
+            </textarea>
+            <label>Featured URL 2</label>
+    <input type="text" class="form-control" name="FURL2" value=@getVal("thumbPost_thum2_href", "href") autofocus="">
+           </div>
+    </div> <!-- end of panel:featured post 2-->
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Featured Post 3</h3>
+        </div>
+        <div class="panel-body">
+            <label>Thumbnail Image <span class="uploadTxtCont">(recommended dimension:346 x 169)</span></label>
+            <input type="file" name="FP3_Thumb" value=@getVal("thumbPost_thum3_Pic_href", "href")>
+            <label>Post Title*</label>
+            <input type="text" class="form-control" name="FTitle3" value=@MvcHtmlString.Create(@getVal("thumbPost_thum3_Title", "text"))
+                   autofocus="">
+            <label>Description</label>
+            <textarea class="field span12 form-control" id="textarea" name="FDesc3" rows="5" cols="49" placeholder=""> @getVal("thumbPost_thum3_Details", "text").Replace("<br/>", "\n")
+            </textarea>
+            <label>Featured URL 3</label>
+            <input type="text" class="form-control" name="FURL3" value=@getVal("thumbPost_thum3_href", "href") autofocus="">
+        </div>
+    </div> <!-- end of panel:featured post 3-->
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Bottom Banner Content</h3>
+        </div>
+        <div class="panel-body">
+            @*<label>Image <span class="uploadTxtCont">(recommended dimension:200 x 108)</span></label>
+            <input type="file" name="Bottom_BG">*@
+            <label>Headline 2*</label>
+            <textarea class="field span12 form-control" id="textarea" rows="3" cols="49" placeholder="" name="Bottom_Headline2">@getVal("footer_banner_Title", "text").Replace("<br/>", "\n")</textarea>
+            <label>Subheadline 2</label>
+            <textarea class="field span12 form-control" id="textarea" rows="5" cols="49" placeholder="" name="Bottom_Subheadline2">@getVal("footer_banner_Desc", "text").Replace("<br/>", "\n")</textarea>
+        </div>
+    </div> <!-- end of panel:bottom banner-->
+    <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">UPDATE</button>
+
+}
+
+</div>

@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    @if(ViewBag.Title !=null)
+    {
+           <title>@ViewBag.Title</title>
+    }
+    else
+    {
+        <title>Safety On Demand</title>
+    }
+    
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="~/Content/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="~/Content/css/main.css" rel="stylesheet" media="screen"/>
+
+    @if(ViewBag.Description != null)
+    {
+        <meta name="description" content="@ViewBag.Description"/>
+    }
+    @if(ViewBag.Keywords != null)
+    {
+        <meta name="keywords" content="@ViewBag.Keywords"/>
+    }
+
+</head>
+<body>
+    <!--[if lt IE 9]>
+      <script type="text/javascript" src="js/respond.min.js"></script>
+    <![endif]-->
+    <header>
+        <div class="container row">
+            <div class="col-md-2"><a href="home.html"><img class="logo" src="~/Content/images/safetyOnDemand-logo.jpg" alt="Safety On Demand"></a></div>
+            <div class="headerRight fr col-md-10">
+                <div class="call"><span class="calltxt">CALL</span> 03 9809 7777</div>
+                <div class="socialBtns clearfix">
+
+                    <ul>
+                        <li><a class="socialTwitter" href="#">twitter</a></li>
+                        <li><a class="socialYoutube" href="#">youtube</a></li>
+                        <li><a class="socialFacebook" href="#">facebook</a></li>
+                        <li><a class="socialLinkdin" href="#">linkdin</a></li>
+                    </ul>
+
+                </div>
+             
+                <div class="navbar2 fr clearfix">
+                    <ul class="menuNav">
+                        <li>@Html.ActionLink("HOME", "Index","Home") @{
+                            if(ViewBag.CurPage == "Home")
+                            {
+                               <div class="arrowActive"></div>
+                            }
+                        }</li>
+                        <li>@Html.ActionLink("CATEGORIES","Index","Categories")@{
+                             if (ViewBag.CurPage == "Category")
+                              {
+                                <div class="arrowActive"></div>
+                              } 
+                         }</li>
+                        <li>@Html.ActionLink("LEARN MORE", "LearnMore", "Home")@{
+                                    if (ViewBag.CurPage == "LearnMore")
+                                    {
+                                       <div class="arrowActive"></div>
+                                    }
+                         }</li>
+                        <li>
+                            @Html.ActionLink("CONTACT", "Contact", "Home")@{
+                                if (ViewBag.CurPage == "Contact")
+                                {
+                                     <div class="arrowActive"></div>
+                                }
+                         }</li>
+
+                    </ul>
+
+                </div>
+            
+            
+                @*<div class="arrowActive arrowHome"></div>*@
+            </div> <!-- end of headerRight-->
+        </div>
+    </header>
+
+    <div>
+        @RenderBody()
+    </div>
+
+    <footer>
+        <div class="whitespace container row">
+            <div class="col-md-2"><a href="home.html"><img src="~/Content/images/safetyOnDemand-logoFooter.jpg" alt="Safety On Demand"></a></div>
+            <div align="right" class="ftrLinks col-md-10">
+                <div class="clearfix">
+                    <ul>
+                        <li>@Html.ActionLink("HOME", "Index", "Home")</li>
+                        <li><a href="categories.html">CATEGORIES</a></li>
+                        <li>@Html.ActionLink("LEARN MORE", "Learn", "Home")</li>
+                        <li>@Html.ActionLink("CONTACT", "Contact", "Home")</li>
+                        <li><a href="#">SITEMAP</a></li>
+                        <li><a href="#">LEGALS</a></li>
+                    </ul>
+                </div>
+                <div class="clearfix"><span>Copyright &copy; 2013</span></div>
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="//code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>
