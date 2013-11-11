@@ -1,0 +1,55 @@
+﻿@model IEnumerable<SODAMvcApplication.CategoriesServiceReference.Category>
+@{
+    ViewBag.Title = "Index";
+    ViewBag.Description = ""; 
+    ViewBag.Keywords = "";
+    ViewBag.CurPage = "Category";
+}
+
+<div class="categorySection">
+    <div class="container">
+        <div class="content border">
+            <div class="contentHeading border">
+                <h1>Browse all of Safety on Demand's Online Training Channels</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin non imperdiet turpis, et tincidunt arcu. Morbi sed euismod sapien, sed auctor dui. Donec pellentesque volutpat risus et cursusiaculis viverra. </p>
+            </div>
+            <div class="contentBody border clearfix">
+               
+                @{int i =1;}
+                @while(i <= Model.Count())
+                {
+                     
+                     if( i>1 && (i-1) % 4 == 0 && i <= Model.Count())
+                     { 
+                        <hr class="hrLine clearfix">  
+                     } 
+                     
+                    <div class="catThumbWrapper clearfix">
+                    @for (int j = 0; j < 4 && i <= Model.Count(); j++,i++ )
+                    {
+                        var cat = Model.ElementAt(i - 1);
+                        <div class="catThumb">
+                           <a href=@Url.Action("Browse", new { cID = cat.CategoryId })>
+                                  <img alt=@cat.CategoryName src=@HttpUtility.UrlPathEncode(cat.IMG_URL)>
+                                       <h2>@cat.CategoryName</h2>
+                                                
+                                </a>
+                        </div>
+                    }
+                       
+                    </div>
+                }
+              
+
+                <p>&nbsp;</p>
+                <p>Health and safety management is a vital part of looking after your company or organisation. Effective health and safety training will help your business avoid the distress and financial costs of accidents and occupational ill health.</p>
+
+                 <p>Safety-TV’s online videos and e-learning courses allow you to schedule and monitor training across your entire organisation. You’ll be able to easily train and then assess your employees' knowledge, as well as gain unlimited access to individual trainee and group results and their complete training history.</p>
+                <p>&nbsp;</p>
+                <a class="purchaseBtn" href="#">Purchase</a>
+
+            </div>
+        </div>
+    </div>
+
+</div>

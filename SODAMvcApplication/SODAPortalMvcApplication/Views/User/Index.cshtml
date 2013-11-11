@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div class="portalWrap border">
+    <div class="fr">
+        <ul class="portalUserMenu">
+            <li style="padding-left:0px;"><a href="@Url.Action("Index")">BUY/CANCEL</a></li>
+            <li><a href="@Url.Action("Profile")">MY PROFILE</a></li>
+            <li><a href="@Url.Action("Downloads")">DOWNLOADS</a></li>
+            <li><a href="@Url.Action("TermsConditions")">TERMS AND CONDITIONS</a></li>
+        </ul> <!-- end of portal user menu-->
+        <div class="logoutSec fr clearfix">Hi user! <a href="">(logout)</a></div>
+    </div>
+
+    <div class="portalCont margin15">
+        <h2>Buy/Cancel</h2>
+        <p>Product description here, with clear statement of it is monthly subscription with minimum 6 months contract.....</p>
+
+        <h2>Sales code/Promo code </h2>
+        <p>$59.95 p/m  (this monthly subscription change based on the rate of the sales code)</p>
+
+        BUY NOW (if the contract end date is NULL)
+        CANCEL Service (Only show this when contract end date is less than datetime.now)
+
+        If the user clicked buy now,  the user will be redirected to T&C page.
+
+        The user will be redirected to PAYPAL for the payment.
+
+        If the user stop at the PAYPAL section, nothing will happen. The user need to click on buy now again and accept T&C again.
+
+        If the user paid from PAYPAL, paypal will:
+        - send a message to the dedicated web service address about the payment status.
+        - if the payment is valid, the end of contract will be 6 months from now (first time)
+        - The expiry date will be 30 days from now
+    </div>
+</div>

@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="SODAwcfService.CMS_Service" CodeBehind="CMS_Service.svc.cs" %>

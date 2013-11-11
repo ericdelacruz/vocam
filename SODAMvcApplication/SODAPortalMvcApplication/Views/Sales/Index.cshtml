@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div class="portalWrap border">
+    <div class="fr">
+        <ul class="portalUserMenu">
+            <li style="padding-left:0px;"><a href="@Url.Action("Index")">REPORTS</a></li>
+            <li><a href="@Url.Action("AddUser")">ADD USER</a></li>
+        </ul> <!-- end of portal user menu-->
+        <div class="logoutSec fr clearfix">Hi user! <a href="">(logout)</a></div>
+    </div>
+
+    <div class="portalCont margin15">
+        <h2>Report</h2>
+        <div class="panel-body">
+            From Date: <input type="text" id="popupDatepicker" class="form-control" placeholder="Click to choose date"> To Date: <input type="text" id="popupDatepicker2" class="form-control" placeholder="Click to choose date"> <button class="btn btn-s btn-primary" type="submit">VIEW REPORT</button>
+        </div>
+        <p>&nbsp;</p>
+        <table class="portTable">
+
+            <thead>
+                <tr style="background-color:#fff;">
+                    <th>Purchase Date</th>
+                    <th>Contract End Date</th>
+                    <th>Company</th>
+                    <th>Full Name</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td width="200">March 8, 2013</td>
+                    <td width="200">November 21, 2014</td>
+                    <td width="200">Straight Arrow</td>
+                    <td width="200">Samantha Smith</td>
+                </tr>
+                <tr>
+                    <td width="200">March 8, 2013</td>
+                    <td width="200">November 21, 2014</td>
+                    <td width="200">Straight Arrow</td>
+                    <td width="200">Samantha Smith</td>
+                </tr>
+                <tr>
+                    <td width="200">March 8, 2013</td>
+                    <td width="200">November 21, 2014</td>
+                    <td width="200">Straight Arrow</td>
+                    <td width="200">Samantha Smith</td>
+                </tr>
+                <tr>
+                    <td width="200">March 8, 2013</td>
+                    <td width="200">November 21, 2014</td>
+                    <td width="200">Straight Arrow</td>
+                    <td width="200">Samantha Smith</td>
+                </tr>
+                <tr>
+                    <td width="200">March 8, 2013</td>
+                    <td width="200">November 21, 2014</td>
+                    <td width="200">Straight Arrow</td>
+                    <td width="200">Samantha Smith</td>
+                </tr>
+
+
+
+            </tbody>
+        </table>
+
+    </div>
+</div>

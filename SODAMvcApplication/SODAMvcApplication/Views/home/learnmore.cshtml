@@ -1,0 +1,43 @@
+﻿@model IEnumerable<SODAMvcApplication.CMSServiceReference.ContentDef>
+@functions
+{
+    private string getVal(string sectionName, string strType)
+    {
+        var result = from content in @Model
+                     where content.PageCode == "Learn" && content.SectionName == sectionName && content.Type == strType
+                     select content;
+
+        return result.Count() > 0 ? result.First().Value.ToString() : "Error";
+
+    }
+}
+@{
+    ViewBag.Title = "Safety On Demand - Learn More";
+    ViewBag.Description = "";
+    ViewBag.Keywords = "";
+    ViewBag.CurPage = "LearnMore";
+}
+    <div class="commonSection">
+        <div class="container row">
+            <div class="col-md-6 marginCommon leftCont  border">
+                <div class="contentHeading headCommonh1 videoHead">@MvcHtmlString.Create(@getVal("LearnMore_Title", "text"))</div>
+                <div class="padding20">
+
+                    @MvcHtmlString.Create(@getVal("LearnMore_Desc", "text"))
+
+                    <a href="@Url.Action("index","categories")" class="browseCatBtn fr">Browse Category</a>
+
+                    <p><br><br></p>
+
+                </div>
+            </div>
+            <div align="right" class="col-md-6 fr marginCommon">
+                <a class="browseCatBtn2" href="@Url.Action("index","categories")">Browser Categories</a>
+               
+                <a href="@Url.Action("index","categories")"><img src=@getVal("LearnMore_IMG_href","href") alt="Browse Categories"></a>
+                <p><br><br><br></p>
+            </div>
+        </div>
+
+    </div>
+
