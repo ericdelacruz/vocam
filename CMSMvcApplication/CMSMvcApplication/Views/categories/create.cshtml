@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+
+<h1 class="margin15">Add New Category</h1>
+
+<div class="cmsForm">
+    @using (Html.BeginForm("Create", "Categories", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    { 
+        <label>Category Title*</label>
+    <input type="text" class="form-control" placeholder="Enter Title of the Category" autofocus="" name="CategoryTitle" required>
+        <label>Overview</label>
+    <textarea class="field span12 form-control" id="textarea" rows="3" cols="49" placeholder="" name="Overview" required></textarea>
+        <label>Description</label>
+        <textarea class="field span12 form-control" id="textarea" rows="5" cols="49" placeholder="" name="Description" required></textarea>
+        <label>Thumbnail Image<span class="uploadTxtCont"> (recommended dimension:200 x 108)</span></label>
+        <input type="file" name="Thumb">
+        <label>Banner Image<span class="uploadTxtCont"> (recommended dimension:389 x 147)</span></label>
+        <input type="file" name="Banner">
+        <label>Background Image<span class="uploadTxtCont"> (recommended dimension:1500 x 947)</span></label>
+        <input type="file" name="BG">
+        <br />
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">SEO</h3>
+            </div>
+            <div class="panel-body"> 
+                <label>Page Title</label>
+                <input type="text" class="form-control" placeholder="Enter Page Title" autofocus="" name="CategoryPageTitle" required>   
+                <label>Metatag Keywords</label>
+                <input type="text" class="form-control" placeholder="Enter Meta Keywords" autofocus="" name="CategoryMetaKeywords" required>
+                <label>Metatag Description</label>
+                <input type="text" class="form-control" placeholder="Enter Meta Description" autofocus="" name="CategoryMetaDescription" required>
+            </div>
+        </div> <!-- end of panel:SEO-->
+        <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">PUBLISH</button>
+    }
+</div>

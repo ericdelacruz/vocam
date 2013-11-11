@@ -1,0 +1,139 @@
+@charset "UTF-8";
+/* CSS Document */
+body {background-color:#f8f8f8 !important;}
+.cmsWrap {
+	margin-top:20px; 
+	margin-bottom:25px; }
+.cmsWrapCont {
+	text-align:right; 
+	padding-right:5px !important;}
+.cmsWrapCont2 {
+	background-color:#fff; 
+	border:1px solid #c9c9c9; 
+	padding:45px;
+	min-height: 465px; }
+.cms li 
+	{
+		list-style:none;
+		padding:0;
+		padding-left:28px;
+		margin:0;}
+.cms a {
+	margin-bottom:5px; 
+	margin-right:0px !important; 
+	padding-right:0px !important; 
+	text-align:right;}
+.col-md-10 h1 {color: #f8981d;}
+#activeMenu {border-right:2px dotted #C9C9C4;}
+.homeMenu {
+	display: block;
+	width: 93px;
+	height: 38px;
+	background: url('../images/cms/home.jpg') bottom;
+	text-indent: -99999px;
+	font-size: 5px;
+	color:transparent;
+}
+.homeMenu:hover {
+	background-position: 0 0;
+	color:transparent;
+}
+
+.pageMenu {
+	display: block;
+	width: 93px;
+	height: 91px;
+	background: url('../images/cms/pages.jpg') bottom;
+	text-indent: -99999px;
+	font-size: 5px;
+	color:transparent;
+}
+.pageMenu:hover {
+	background-position: 0 0;
+	color:transparent;
+}
+
+.categoryMenu {
+	display: block;
+	width: 93px;
+	height: 91px;
+	background: url('../images/cms/categories.jpg') bottom;
+	text-indent: -99999px;
+	font-size: 5px;
+	color:transparent;
+}
+.categoryMenu:hover {
+	background-position: 0 0;
+	color:transparent;
+}
+
+.titleMenu {
+	display: block;
+	width: 93px;
+	height: 91px;
+	background: url('../images/cms/posts.jpg') bottom;
+	text-indent: -99999px;
+	font-size: 5px;
+	color:transparent;
+}
+.titleMenu:hover {
+	background-position: 0 0;
+	color:transparent;
+}
+
+
+.profileMenu {
+	display: block;
+	width: 93px;
+	height: 91px;
+	background: url('../images/cms/profile.jpg') bottom;
+	text-indent: -99999px;
+	font-size: 5px;
+	color:transparent;
+}
+.profileMenu:hover {
+	background-position: 0 0;
+	color:transparent;
+}
+
+
+.logoutMenu {
+	display: block;
+	width: 93px;
+	height: 38px;
+	background: url('../images/cms/logout.jpg') bottom;
+	text-indent: -99999px;
+	font-size: 5px;
+	color:transparent;
+}
+.logoutMenu:hover {
+	background-position: 0 0;
+	color:transparent;
+}
+
+.cmsTable tr {height: 40px;}
+tr:nth-child(odd)   { background-color:#eee; }
+tr:nth-child(even)    { background-color:#fff; }
+thead {background-color: #fff !important;}
+
+.cmsForm {width: 80%;}
+.cmsForm button {
+	float:right; 
+	width: 24%;}
+.uploadTxtCont { 
+	font-weight: normal; 
+	font: 12px Arial;}
+.cmsForm select {
+	height: 30px; 
+	padding: 5px; 
+	width: 50% !important;}
+.editProfile {
+	font-size: 13px !important; 
+	text-decoration: underline;}
+.editProfile:hover {text-decoration: underline;}
+.selectBdate select {
+	height: 30px !important; 
+	padding: 3px !important; 
+	width: 15% !important; 
+	display: inline;}
+.panel-title {font-weight: bold;}

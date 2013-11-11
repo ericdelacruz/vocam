@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<form class="formSignin border shadow ">
+    <h2 class="margin15">Please sign in</h2>
+    <input type="text" autofocus="" required="" placeholder="Email address" class="form-control">
+    <input type="password" required="" placeholder="Password" class="form-control">
+
+    <button type="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
+    <p>&nbsp;</p>
+    <p>No account yet? <a href="@Url.Action("Registration")">Sign up here</a></p>
+    <p>Forgot password? </p>
+
+</form>
