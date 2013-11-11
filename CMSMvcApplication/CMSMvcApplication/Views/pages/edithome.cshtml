@@ -3,7 +3,7 @@
     private string getVal(string sectionName, string strType)
     {
         var result = from content in @Model
-                     where content.PageCode == "Categories" && content.SectionName == sectionName && content.Type == strType
+                     where content.PageCode == "Home" && content.SectionName == sectionName && content.Type == strType
                      select content;
 
         return result.Count() > 0 ? result.First().Value.ToString() : "";
