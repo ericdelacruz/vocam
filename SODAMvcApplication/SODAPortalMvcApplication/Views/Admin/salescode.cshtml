@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "salescode";
+}
+
+<div class="portalWrap border">
+    <div class="fr">
+        <ul class="portalUserMenu">
+            <li style="padding-left:0px;"><a href="@Url.Action("index")">REPORTS</a></li>
+            <li><a href="@Url.Action("sales")">SALES</a></li>
+            <li><a href="@Url.Action("price")">PRICE</a></li>
+            <li><a href="@Url.Action("region")">REGION</a></li>
+            <li><a href="@Url.Action("salescode")">SALES CODE</a></li>
+        </ul> <!-- end of portal user menu-->
+        <div class="logoutSec fr clearfix">Hi user! <a href="">(logout)</a></div>
+    </div>
+
+    <div class="portalCont margin15">
+        <h2>Sales Code <span><a href="@Url.Action("addsalescode")"<img src="~/Content/images/portal/addNew.gif"></a></span></h2>
+        <p>&nbsp;</p>
+
+        <table class="portTable">
+
+            <thead>
+                <tr style="background-color:#ffffff;">
+
+                    <th>Sales Code</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td width="200">SAC001</td>
+                    <td width="100"><a href="@Url.Action("editsalescode")"><img src="~/Content/images/portal/edit.png"></a></td>
+                    <td width="100"><a id="simpleConfirm"> <img src="~/Content/images/portal/delete.png"></a></td>
+                </tr>
+                <tr>
+                    <td width="200">SAC002</td>
+                    <td width="100"><a href="@Url.Action("editsalescode")"><img src="~/Content/images/portal/edit.png"></a></td>
+                    <td width="100"><img src="~/Content/images/portal/delete.png"></td>
+                </tr>
+                <tr>
+                    <td width="200">VIC Melbourne</td>
+                    <td width="100"><a href="@Url.Action("editsalescode")"><img src="~/Content/images/portal/edit.png"></a></td>
+                    <td width="100"><img src="~/Content/images/portal/delete.png"></td>
+                </tr>
+                <tr>
+                    <td width="200">VIC Melbourne</td>
+                    <td width="100"><a href="@Url.Action("editsalescode")"><img src="~/Content/images/portal/edit.png"></a></td>
+                    <td width="100"><img src="~/Content/images/portal/delete.png"></td>
+                </tr>
+
+
+                <script>
+                    $("#simpleConfirm").confirm();
+                </script>
+
+
+            </tbody>
+        </table>
+
+
+    </div>
+</div>
