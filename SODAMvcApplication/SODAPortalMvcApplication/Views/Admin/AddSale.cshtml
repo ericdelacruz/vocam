@@ -9,7 +9,7 @@
 
 <div class="portalWrap border">
 
-    @*admin menu goes here*@
+    @RenderPage("adminmenu.cshtml")
 
     <div class="portalCont margin15">
         <h2>Add Sales</h2>
@@ -17,7 +17,7 @@
         { 
             <!-- Script by hscripts.com -->
             <label>Region:</label>
-            <select class="form-control" name="" id="regionlist" onkeydown="regionlists', event)">
+            <select class="form-control" name="Region">
                 @foreach (var region in Regionlist)
                 {
 
@@ -40,21 +40,21 @@
             <!-- Script by hscripts.com -->
 
             <label><b>First Name*</label>
-            <input type="text" class="form-control" name="FirstName" value="">
+            <input type="text" class="form-control" required name="FirstName" value="">
             <label>Last Name*</label>
-            <input type="text" class="form-control" value="">
+            <input type="text" class="form-control" required name="LastName" value="">
             <label>Email Address*</label>
-            <input type="text" class="form-control" value="">
+            <input type="text" class="form-control" required value="Email" value="">
             <label>Contact Number (optional)</label>
-            <input type="text" class="form-control" value="">
+            <input type="text" class="form-control" value="ContactNo" value="">
             <label>Company  (optional)</label>
-            <input type="text" class="form-control" value="">
+            <input type="text" class="form-control" value="Company" value="">
             <label>Password</label>
-            <input type="password" class="form-control" value="">
+            <input type="password" class="form-control" required name="Password" value="">
             <label>Confirm Password</label>
-            <input type="password" class="form-control" value="">
+            <input type="password" class="form-control" required  name="Password" value="">
             <label>Discount Rate</label>
-            <input type="" class="form-control" value="">
+            <input type="text" class="form-control" name="Discount" value="">
 
             <br>
             <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">PUBLISH</button>

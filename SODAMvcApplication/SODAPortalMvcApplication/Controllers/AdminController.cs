@@ -246,6 +246,8 @@ namespace SODAPortalMvcApplication.Controllers
         }
 #endregion
 
+
+
         #region Sales Code
         public ActionResult salescode()
         {

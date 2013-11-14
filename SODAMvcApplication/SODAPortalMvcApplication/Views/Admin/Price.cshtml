@@ -5,10 +5,10 @@
 
 <div class="portalWrap border">
     
-    @*admin menu goes here*@
+    @RenderPage("adminmenu.cshtml")
 
     <div class="portalCont margin15">
-        <h2>Price <span><a href="@Url.Action("AddPrice")"><img src="~/Content/images/portal/addNew.gif"></a></span></h2>
+        <h2>Price <span><a href="@Url.Action("addprice")"><img alt="add new" src="~/Content/images/portal/addNew.gif"></a></span></h2>
         <p>&nbsp;</p>
 
         <table class="portTable">
@@ -24,34 +24,18 @@
             </thead>
 
             <tbody>
-                <tr>
-                    <td width="200">VIC Melbourne</td>
-                    <td width="170">46.99AUD</td>
-                    <td width="100"><a href="@Url.Action("editPrice")"><img src="~/Content/images/portal/edit.png"></a></td>
-                    <td width="100"><img src="~/Content/images/portal/delete.png"></td>
-                </tr>
-                <tr>
-                    <td width="200">VIC Melbourne</td>
-                    <td width="170">46.99AUD</td>
-                    <td width="100"><a href="@Url.Action("editPrice")"><img src="~/Content/images/portal/edit.png"></a></td>
-                    <td width="100"><img src="~/Content/images/portal/delete.png"></td>
-                </tr>
-                <tr>
-                    <td width="200">VIC Melbourne</td>
-                    <td width="170">46.99AUD</td>
-                    <td width="100"><a href="@Url.Action("editPrice")"><img src="~/Content/images/portal/edit.png"></a></td>
-                    <td width="100"><img src="~/Content/images/portal/delete.png"></td>
-                </tr>
-                <tr>
-                    <td width="200">VIC Melbourne</td>
-                    <td width="170">46.99AUD</td>
-                    <td width="100"><a href="@Url.Action("editPrice")"><img src="~/Content/images/portal/edit.png"></a></td>
-                    <td width="100"><img src="~/Content/images/portal/delete.png"></td>
-                </tr>
 
+            @foreach(var price in Model)
+                {
 
-
-
+                <tr>
+                    <td width="200">@price.RegionName</td>
+                    <td width="170">@price.PriceAmt</td>
+                    <td width="100"><a href=@Url.Action("editprice",new{id=price.Id}><img alt="edit" src="~/Content/images/portal/edit.png"></a></td>
+                    <td width="100"><a href=@Url.Action("deleteprice",new{id=price.Id}><img alt="delete" src="~/Content/images/portal/delete.png"></a></td>
+                </tr>
+                }
+               
 
             </tbody>
         </table>
