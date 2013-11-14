@@ -75,6 +75,7 @@
     </Content>
     <Content Include="CatListingService.svc" />
     <Content Include="CMS_Service.svc" />
+    <Content Include="PortalService.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -89,16 +90,63 @@
     <Compile Include="CMS_Service.svc.cs">
       <DependentUpon>CMS_Service.svc</DependentUpon>
     </Compile>
+    <Compile Include="Customer.cs">
+      <DependentUpon>PortalModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="EncDec.cs" />
     <Compile Include="IAccountService.cs" />
     <Compile Include="ICatListingService.cs" />
     <Compile Include="ICMS_Service.cs" />
+    <Compile Include="IPortalService.cs" />
+    <Compile Include="LogsTable.cs">
+      <DependentUpon>PortalModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CotentDef.cs" />
+    <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Page.cs" />
+    <Compile Include="Models\Price.cs" />
+    <Compile Include="Models\Region.cs" />
+    <Compile Include="Models\SalesCode.cs" />
+    <Compile Include="Models\SalesPerson.cs" />
     <Compile Include="Models\Specific.cs" />
+    <Compile Include="PortalDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PortalDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PortalModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PortalModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PortalModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PortalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PortalModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PortalModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="PortalService.svc.cs">
+      <DependentUpon>PortalService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="PriceTable.cs">
+      <DependentUpon>PortalModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Region.cs">
+      <DependentUpon>PortalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SalesCode.cs">
+      <DependentUpon>PortalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SalesPerson.cs">
+      <DependentUpon>PortalModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="SodaDBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -112,6 +160,34 @@
     <Content Include="packages.config" />
     <Content Include="SodaDBDataSet.xsc">
       <DependentUpon>SodaDBDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="PortalDataSet.xsc">
+      <DependentUpon>PortalDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="PortalDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>PortalDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="PortalDataSet.xss">
+      <DependentUpon>PortalDataSet.xsd</DependentUpon>
+    </Content>
+    <EntityDeploy Include="PortalModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PortalModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="PortalModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PortalModel.edmx</DependentUpon>
+      <LastGenOutput>PortalModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="PortalModel.edmx.diagram">
+      <DependentUpon>PortalModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="PortalModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PortalModel.edmx</DependentUpon>
+      <LastGenOutput>PortalModel.cs</LastGenOutput>
     </Content>
     <None Include="SodaDBDataSet.xsd">
       <SubType>Designer</SubType>

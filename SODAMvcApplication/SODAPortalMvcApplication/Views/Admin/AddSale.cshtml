@@ -1,5 +1,10 @@
 ﻿@{
     ViewBag.Title = "AddSale";
+    var Regionlist = ViewBag.RegionList as IEnumerable<SODAPortalMvcApplication.PortalServiceReference.Region>;
+    var SalesCodeList = ViewBag.SalesCode as IEnumerable<SODAPortalMvcApplication.PortalServiceReference.SalesCode>;
+    
+    //Jonats Notes: use regionlist and salescode list for combobox values. 
+    //Set name attribute for inputtags according to na controller
 }
 
 <div class="portalWrap border">

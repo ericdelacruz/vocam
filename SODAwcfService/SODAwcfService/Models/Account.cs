@@ -9,6 +9,8 @@ namespace SODAwcfService.Models
     public class Account
     {
         [DataMember]
+        public long Id { get; set; }
+        [DataMember]
         public string USERNAME { get; set; }
         [DataMember]
         public string PASSWORD { get; set; }
@@ -35,6 +37,9 @@ namespace SODAwcfService.Models
         [DataMember]
         public string Company { get; set; }
         [DataMember]
-        public Nullable<System.DateTime> ContractEndDate { get; set; }
+        public Nullable<System.DateTime> DateLogin { get; set; }
+
+        [DataMember]
+        public Nullable<System.DateTime> Birthdate { get; set; }
     }
 }

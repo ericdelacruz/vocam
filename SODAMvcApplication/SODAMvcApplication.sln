@@ -11,8 +11,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SODAwcfService", "..\SODAwcfService\SODAwcfService\SODAwcfService.csproj", "{0B9504C7-FE75-43B7-BA4C-2E26EB2A1E71}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SODAPortalMvcApplication", "SODAPortalMvcApplication\SODAPortalMvcApplication.csproj", "{2092FC9B-48EA-4876-9CAC-B260A5C7C972}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0B9504C7-FE75-43B7-BA4C-2E26EB2A1E71} = {0B9504C7-FE75-43B7-BA4C-2E26EB2A1E71}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMSMvcApplication", "..\CMSMvcApplication\CMSMvcApplication\CMSMvcApplication.csproj", "{AF2AC810-65DF-46FE-8393-70B36F34CFEF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0B9504C7-FE75-43B7-BA4C-2E26EB2A1E71} = {0B9504C7-FE75-43B7-BA4C-2E26EB2A1E71}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

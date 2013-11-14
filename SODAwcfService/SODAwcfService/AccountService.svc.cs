@@ -52,7 +52,7 @@ namespace SODAwcfService
                 throw new FaultException("UserName already existing", new FaultCode("UserExists"));
             else
             return AccountsTableAdapter.InsertAccount(account.USERNAME, EncDec.EncryptData(account.PASSWORD), account.FirstName, account.LastName, account.Role, account.Status, account.Email, account.Address,
-                account.City, account.Country, account.Gender.ToString(), account.ContactNo, account.Company, account.ContractEndDate);
+                account.City, account.Country, account.Gender.ToString(), account.ContactNo, account.Company, account.DateLogin,account.Birthdate);
         }
         /// <summary>
         /// Update Acccount by Username
@@ -62,7 +62,7 @@ namespace SODAwcfService
         public int updateAccount(Models.Account account)
         {
             return AccountsTableAdapter.UpdateAccount(account.FirstName, account.LastName, account.Role, account.Status, account.Email, account.Address,
-                account.City, account.Country, account.Gender.ToString(), account.ContactNo, account.Company, account.ContractEndDate, account.USERNAME);
+                account.City, account.Country, account.Gender.ToString(), account.ContactNo, account.Company, account.DateLogin,account.Birthdate, account.USERNAME);
         }
         /// <summary>
         /// Get Account record
@@ -75,7 +75,10 @@ namespace SODAwcfService
             SodaDBDataSet.AccountsDataTable tbResult = new SodaDBDataSet.AccountsDataTable();
             try
             {
-                AccountsTableAdapter.FillByUserName(tbResult, UserName);
+                if (!string.IsNullOrEmpty(UserName))
+                    AccountsTableAdapter.FillByUserName(tbResult, UserName);
+                else
+                    AccountsTableAdapter.Fill(tbResult);
             }
             catch(Exception ex)
             {
@@ -98,7 +101,9 @@ namespace SODAwcfService
                     Gender =  row["Gender"].ToString() == ""?'0': row["Gender"].ToString().ToCharArray()[0],
                     ContactNo = row["ContactNo"].ToString(),
                     Company = row["Company"].ToString(),
-                    ContractEndDate = row["ContractEndDate"].ToString() == "" ? new DateTime() : (DateTime)row["ContractEndDate"]
+                    DateLogin = row["DateLogin"].ToString() == "" ? default(DateTime) : (DateTime)row["DateLogin"],
+                    Id = (long) row["Id"],
+                    Birthdate = row["Birthdate"].ToString()=="" ? default(DateTime): (DateTime)row["Birthdate"]
                 });
             }
             return listAccounts;
