@@ -13,7 +13,8 @@
         <p>&nbsp;</p>
 
         <table class="portTable">
-
+        @{ if (Model.Count() > 0)
+            {
             <thead>
                 <tr style="background-color:#ffffff;">
 
@@ -25,34 +26,28 @@
             </thead>
 
             <tbody>
-                <tr>
-                    <td width="200">Samantha Smith</td>
-                    <td width="170">Straight Arrow</td>
-                    <td width="100">SACS78</td>
-                    <td width="100"><a href="@Url.Action("EditSale")"><img src="~/Content/images/portal/edit.png"></a></td>
-                </tr>
-                <tr>
-                    <td width="200">Samantha Smith</td>
-                    <td width="170">Straight Arrow</td>
-                    <td width="100">SACS78</td>
-                    <td width="100"><a href="@Url.Action("EditSale")"><img src="~/Content/images/portal/edit.png"></a></td>
-                </tr>
-                <tr>
-                    <td width="200">Samantha Smith</td>
-                    <td width="170">Straight Arrow</td>
-                    <td width="100">SACS78</td>
-                    <td width="100"><a href="@Url.Action("EditSale")"><img src="~/Content/images/portal/edit.png"></a></td>
-                </tr>
-                <tr>
-                    <td width="200">Samantha Smith</td>
-                    <td width="170">Straight Arrow</td>
-                    <td width="100">SACS78</td>
-                    <td width="100"><a href="@Url.Action("EditSale")"><img src="~/Content/images/portal/edit.png"></a></td>
-                </tr>
 
+                @foreach (var salesperson in Model)
+                {
+                    <tr>
+                        <td width="200">@salesperson.FirstName +" "+@salesperson.LastName</td>
+                        <td width="170">CompanyName</td>
+                        <td width="100">@salesperson.Sales_Code</td>
+                        <td width="100"><a href=@Url.Action("editsale", new { id = salesperson.Id })><img alt="Edit" src="~/Content/images/portal/edit.png"></a></td>
+                        <td width="100"><a href=@Url.Action("deletesale", new { id = salesperson.Id})><img alt="delete" src="~/Content/images/portal/delete.png"></a></td>
+                    </tr>
+                }
 
 
             </tbody>
+            }
+            else
+            {
+            <p class="noDisplay">No Sales Record!</p>
+            }
+          }
+
+
         </table>
 
 

@@ -28,6 +28,8 @@
 
         <p>&nbsp;</p>
         <table class="portTable">
+            @{ if (Model.Count() > 0)
+            {
 
             <thead>
                 <tr style="background-color:#fff;">
@@ -40,21 +42,29 @@
             </thead>
             <tbody>
 
-            @foreach (var subscriber in Model)
-            {
-            
-                <tr>
-                    <td width="170">@subscriber.customer.DatePurchase</td>
-                    <td width="170">@subscriber.customer.DateSubscriptionEnd</td>
-                    <td width="170">@subscriber.account.Company</td>
-                    <td width="200">@subscriber.account.FirstName +" "+@subscriber.account.LastName</td>
-                    <td width="100">@subscriber.customer.Sales_Code</td>
-                </tr>
-            }
+                @foreach (var subscriber in Model)
+                {
 
-          
+                    <tr>
+                        <td width="170">@subscriber.customer.DatePurchase</td>
+                        <td width="170">@subscriber.customer.DateSubscriptionEnd</td>
+                        <td width="170">@subscriber.account.Company</td>
+                        <td width="200">@subscriber.account.FirstName +" "+@subscriber.account.LastName</td>
+                        <td width="100">@subscriber.customer.Sales_Code</td>
+                    </tr>
+                }
+
+
 
             </tbody>
+            }
+            else
+            {
+            <p class="noDisplay" >No Reports Yet!</p>
+            }
+            }
+
+
         </table>
 
 
