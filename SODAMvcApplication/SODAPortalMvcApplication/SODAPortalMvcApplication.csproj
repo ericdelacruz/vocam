@@ -431,6 +431,7 @@
     <Content Include="Service References\PortalServiceReference\SODAPortalMvcApplication.PortalServiceReference.Region.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <Content Include="Views\Admin\adminmenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

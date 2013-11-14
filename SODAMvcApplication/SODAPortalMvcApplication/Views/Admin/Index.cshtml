@@ -6,15 +6,8 @@
 }
 
 <div class="portalWrap border">
-    <div class="fr">
-        <ul class="portalUserMenu">
-            <li style="padding-left:0px;"><a href="@Url.Action("Index")">REPORTS</a></li>
-            <li><a href="@Url.Action("Sales")">SALES</a></li>
-            <li><a href="@Url.Action("Price")">PRICE</a></li>
-            <li><a href="@Url.Action("Region")">REGION</a></li>
-        </ul> <!-- end of portal user menu-->
-        <div class="logoutSec fr clearfix">Hi user! <a href="">(logout)</a></div>
-    </div>
+     
+    @*admin menu goes here*@
 
     <div class="portalCont margin15">
         <h2>Report</h2>
@@ -47,36 +40,20 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td width="170">March 8, 2013</td>
-                    <td width="170">November 21, 2014</td>
-                    <td width="170">Straight Arrow</td>
-                    <td width="200">Samantha Smith</td>
-                    <td width="100">SACS78</td>
-                </tr>
-                <tr>
-                    <td width="170">March 8, 2013</td>
-                    <td width="170">November 21, 2014</td>
-                    <td width="170">Straight Arrow</td>
-                    <td width="200">Samantha Smith</td>
-                    <td width="100">SACS78</td>
-                </tr>
-                <tr>
-                    <td width="170">March 8, 2013</td>
-                    <td width="170">November 21, 2014</td>
-                    <td width="170">Straight Arrow</td>
-                    <td width="200">Samantha Smith</td>
-                    <td width="100">SACS78</td>
-                </tr>
-                <tr>
-                    <td width="170">March 8, 2013</td>
-                    <td width="170">November 21, 2014</td>
-                    <td width="170">Straight Arrow</td>
-                    <td width="200">Samantha Smith</td>
-                    <td width="100">SACS78</td>
-                </tr>
 
+            @foreach (var subscriber in Model)
+            {
+            
+                <tr>
+                    <td width="170">@subscriber.customer.DatePurchase</td>
+                    <td width="170">@subscriber.customer.DateSubscriptionEnd</td>
+                    <td width="170">@subscriber.account.Company</td>
+                    <td width="200">@subscriber.account.FirstName +" "+@subscriber.account.LastName</td>
+                    <td width="100">@subscriber.customer.Sales_Code</td>
+                </tr>
+            }
 
+          
 
             </tbody>
         </table>
