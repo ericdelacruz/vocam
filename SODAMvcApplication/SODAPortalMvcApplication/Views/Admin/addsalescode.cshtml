@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "addsalescode";
+    //set name attribute in input tags
+}
+
+<div class="portalWrap border">
+    
+   @RenderPage("adminmenu.cshtml")
+
+    <div class="portalCont margin15">
+        <h2>Add Sales Code</h2>
+        @using (@Html.BeginForm("addsalescode", "admin", FormMethod.Post , new { @class = "portalForm"}))
+        {
+          
+            <label>Sales Code:</label>
+            <input type="text" class="form-control" name="SalesCode" value="">
+           
+            <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">PUBLISH</button>
+            <br><br>
+        }
+    </div>
+</div>

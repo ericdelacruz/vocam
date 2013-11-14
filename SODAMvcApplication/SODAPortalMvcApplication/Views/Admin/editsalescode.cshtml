@@ -1,0 +1,25 @@
+﻿@model SODAPortalMvcApplication.PortalServiceReference.SalesCode
+@{
+    ViewBag.Title = "editsalescode";
+}
+
+<div class="portalWrap border">
+   
+    @RenderPage("adminmenu.cshtml")
+
+    <div class="portalCont margin15">
+        <h2>Edit Sales Code</h2>
+        @using(Html.BeginForm("editsalescode","admin", FormMethod.Post, new{ @class = "portalForm" }))
+        {
+            <!-- Script by hscripts.com -->
+            <label>Sales Code:</label>
+            <input type="text" class="form-control" name="SalesCode" value=@Model.Sales_Code>
+            <!-- Script by hscripts.com -->
+
+
+
+            <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">UPDATE</button>
+            <br><br>
+        }
+    </div>
+</div>

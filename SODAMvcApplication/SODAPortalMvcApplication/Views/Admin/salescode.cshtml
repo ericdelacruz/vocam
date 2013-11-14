@@ -1,0 +1,48 @@
+﻿@model IEnumerable<SODAPortalMvcApplication.PortalServiceReference.SalesCode>
+
+@{
+    //model is list
+    ViewBag.Title = "salescode";
+}
+
+<div class="portalWrap border">
+    
+    @RenderPage("adminmenu.cshtml")
+
+    <div class="portalCont margin15">
+        <h2>Sales Code <span><a href="@Url.Action("addsalescode")"><img alt="Add" src="~/Content/images/portal/addNew.gif"></a></span></h2>
+        <p>&nbsp;</p>
+
+        <table class="portTable">
+        @{ if (Model.Count() > 0)
+             {
+            <thead>
+                <tr style="background-color:#ffffff;">
+
+                    <th>Sales Code</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+               @foreach (var salescode in Model)
+                    {
+                <tr>
+                    <td width="200">@salescode.Sales_Code</td>
+                    <td width="100"><a href=@Url.Action("editsalescode",new{id = salescode.Id})><img alt="edit" src="~/Content/images/portal/edit.png"></a></td>
+                    <td width="100"><a href=@Url.Action("deletesalescode",new{id= salescode.Id})><img alt="delete" src="~/Content/images/portal/delete.png"></a></td>
+                </tr>
+                    } 
+            </tbody>
+             }
+          else
+          {
+                <p class="noDisplay">No Sales Code Record Yet!</p>
+          }
+       }
+        </table>
+
+
+    </div>
+</div>

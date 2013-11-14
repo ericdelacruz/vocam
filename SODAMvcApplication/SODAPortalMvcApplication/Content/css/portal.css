@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /* CSS Document */
 
 .portalContainer {
@@ -12,6 +12,46 @@
 	box-shadow:         0px 0px 13px rgba(50, 50, 50, 0.25);
 
 }
+
+.homePortal 
+{
+	text-align:left;
+	margin:0 auto; 
+	padding:100px 30px;
+	font-family: open_sanssemibold;
+}
+
+.homePortal  h1 {font-family: open_sanssemibold; color:#f8981d; margin-bottom: 25px; }
+
+.buyNow{
+	display: block;
+	width: 365px;
+	height: 110px;
+	background: url('../images/portal/buyNow.gif') bottom;
+	text-indent: -99999px;
+	font-size: 5px;
+	color: transparent;
+	margin:0 auto;
+}
+.buyNow:hover {
+	background-position: 0 0;
+	color:transparent;
+}
+
+.noteBox {
+	background-color:#faf5c7;
+	padding: 30px;
+	font-size: 16px;
+	color:;
+	text-align: left;
+	max-width: 600px;
+	margin: 0 auto;
+	line-height: 30px;
+	border: 1px solid #f1e797;
+}
+
+.noteImg {margin-right: 15px;}
+.noteTxt span {font-size: 20px; font-weight: bold;}
 .formSignin {
     margin:35px auto 50px;
     max-width: 350px;
@@ -106,3 +146,4 @@ thead {background-color: #fff !important;}
 .panel-body input {display: inline; width: 30%;}
 .btn {display:inline;}
 .logoutSec {margin:15px 25px 0px 0px; font-size:12px;}
+.noDisplay {font:20px latobold; color:#570202 !important; background-color:#faf5c7; border:1px solid #f1e797; text-align:center; padding:10px;}

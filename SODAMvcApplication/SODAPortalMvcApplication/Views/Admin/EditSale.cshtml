@@ -1,73 +1,85 @@
-﻿@{
+﻿@model SODAPortalMvcApplication.ViewModel.SalesViewModel
+@{
+    //model is not list 
     ViewBag.Title = "EditSale";
+    var RegionList = ViewBag.RegionList as IEnumerable<SODAPortalMvcApplication.PortalServiceReference.Region>;
+    var SalesCodeList = ViewBag.SalesCodeList as IEnumerable<SODAPortalMvcApplication.PortalServiceReference.SalesCode>;
+
+    var SalesCodeModel = ViewBag.SalesCode as SODAPortalMvcApplication.PortalServiceReference.SalesCode;
+    //JOnats note set name in input tags. same with add     
 }
 
 <div class="portalWrap border">
-    <div class="fr">
-        <ul class="portalUserMenu">
-            <li style="padding-left:0px;"><a href="@Url.Action("Index")">REPORTS</a></li>
-            <li><a href="@Url.Action("Sales")">SALES</a></li>
-            <li><a href="@Url.Action("Price")">PRICE</a></li>
-            <li><a href="@Url.Action("Region")">REGION</a></li>
-        </ul> <!-- end of portal user menu-->
-        <div class="logoutSec fr clearfix">Hi user! <a href="">(logout)</a></div>
-    </div>
+    
+    @RenderPage("adminmenu.cshtml")
 
     <div class="portalCont margin15">
         <h2>Edit Sales</h2>
-        <form class="portalForm">
-
-            <!-- Script by hscripts.com -->
+        @using (Html.BeginForm("editsale", "admin", FormMethod.Post, new { @class = "portalForm" }))
+        {  
+           
+            
+            
+             <!-- Script by hscripts.com -->
             <label>Region:</label>
-            <select class="form-control" name="" id="regionlist" onkeydown="regionlists', event)">
-                <option selected="selected" value="-1">Select a region</option>
-                <option value="-2">--------------------------------------------</option>
-                <option value="21%">NSW Sydney</option>
-                <option value="29%">NSW regional</option>
-                <option value="2%">NSW (all)</option>
-                <option value="71%">VIC Melbourne</option>
-                <option value="79%">VIC regional</option>
-                <option value="7%">VIC (all)</option>
-                <option value="41%">QLD Brisbane</option>
-                <option value="49%">QLD regional</option>
-                <option value="4%">QLD (all)</option>
-                <option value="51%">SA Adelaide</option>
-                <option value="59%">SA regional</option>
-                <option value="5%">SA (all)</option>
-                <option value="81%">WA Perth</option>
-                <option value="89%">WA regional</option>
-                <option value="8%">WA (all)</option>
-                <option value="6%">Tasmania (all)</option>
-                <option value="3%">NT (all)</option>
-                <option value="1%">ACT (all)</option>
+            <select class="form-control" name="Region">
+                @foreach (var region in RegionList)
+                {
+                if (region.Id == Model.salesPerson.RegionId)
+                    {
+                    <option selected value="@region.Id">@region.RegionName</option>
+                    }
+                else
+                    { 
+                    <option value="@region.Id">@region.RegionName</option>
+                    }
+                }
             </select>
             <!-- Script by hscripts.com -->
-
+            
+            
+            <!-- Script by hscripts.com -->
+            <label>Sales Code:</label>
+            <select class="form-control" name="Region">
+                <option selected="selected" value="-1">Select sales code</option>
+                @foreach(var salescode in SalesCodeList)
+                {
+                if (salescode.Id == Model.salesPerson.Id)
+                    {
+                    <option selected value="@salescode.Id">@salescode.Sales_Code</option>
+                    }
+                else
+                    {
+                    <option value="@salescode.Id">@salescode.Sales_Code</option>
+                    }
+                }
+            </select>
+            <!-- Script by hscripts.com -->
+            
 
             <label><b>First Name*</label>
-            <input type="text" class="form-control" value="Samantha">
+            <input type="text" class="form-control" name="FirstName" value=@Model.salesPerson.FirstName>
             <label>Last Name*</label>
-            <input type="text" class="form-control" value="Smith">
+            <input type="text" class="form-control" name="LastName" value=@Model.salesPerson.LastName>
             <label>Email Address*</label>
-            <input type="text" class="form-control" value="smith@gmail.com">
+            <input type="text" class="form-control" name="Email" value=@Model.account.Email>
             <label>Contact Number (optional)</label>
-            <input type="text" class="form-control" value="09174174770">
+            <input type="text" class="form-control" name="ContactNo" value=@Model.account.ContactNo>
             <label>Company  (optional)</label>
-            <input type="text" class="form-control" value="Straight Arrow">
+            <input type="text" class="form-control" name="Company" value=@Model.account.Company>
             <label>Password</label>
-            <input type="password" class="form-control" value="****">
+            <input type="password" name="Password" class="form-control"  value=@Model.account.PASSWORD>
             <label>Confirm Password</label>
-            <input type="password" class="form-control" value="****">
-            <label>Sales code</label>
-            <input type="text" class="form-control" value="SAWDF23">
+            <input type="password" name="Password" class="form-control" value=@Model.account.PASSWORD>
+            
             <label>Discount Rate</label>
-            <input type="" class="form-control" value="12%">
+            <input type="number" class="form-control" value="12%">
 
             <br>
             <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">UPDATE</button>
             <br><br>
             <p style="clear:both;"><br>A verification email will be sent to the user for verification.</p>
     </div>
-    </form>
+        }
 </div>
         </div>
