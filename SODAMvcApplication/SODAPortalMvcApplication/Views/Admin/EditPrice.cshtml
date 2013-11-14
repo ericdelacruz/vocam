@@ -4,11 +4,12 @@
 
 <div class="portalWrap border">
     
-    @*admin menu goes here*@
+    @RenderPage("adminmenu.cshtml")
 
     <div class="portalCont margin15">
         <h2>Edit Price</h2>
-        <form class="portalForm">
+        @using(Html.BeginForm("EditLearnMore","Pages", FormMethod.Post))
+        { 
             <!-- Script by hscripts.com -->
             <label>Region:</label>
             <select class="form-control" name="" id="regionlist" onkeydown="regionlists', event)">
@@ -42,6 +43,6 @@
             <br>
             <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">UPDATE</button>
             <br><br>
-        </form>
+        }
     </div>
 </div>

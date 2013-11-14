@@ -1,23 +1,25 @@
-﻿@{
+﻿@model SODAPortalMvcApplication.PortalServiceReference.Region
+@{
     ViewBag.Title = "EditRegion";
 }
 
 <div class="portalWrap border">
     
-    @*admin menu goes here*@
+    @RenderPage("adminmenu.cshtml")
 
     <div class="portalCont margin15">
         <h2>Edit Region</h2>
-        <form class="portalForm">
+        @using(Html.BeginForm("editregion","admin", FormMethod.Post, new{enctype = "multipart/form-data"}))
+        { 
             <!-- Script by hscripts.com -->
             <label>Region:</label>
-            <input type="text" class="form-control" value="VIC Melbourne">
+            <input type="text" class="form-control" name="RegionName" value=@Model.RegionName>
             <!-- Script by hscripts.com -->
 
 
 
             <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">UPDATE</button>
             <br><br>
-        </form>
+        }
     </div>
 </div>

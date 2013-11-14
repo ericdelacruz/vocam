@@ -11,12 +11,12 @@
 
 <div class="portalWrap border">
     
-    @*admin menu goes here*@
+    @RenderPage("adminmenu.cshtml")
 
     <div class="portalCont margin15">
         <h2>Edit Sales</h2>
-        <form class="portalForm">
-
+        @using(Html.BeginForm("editsale","admin", FormMethod.Post, new { @class = "postalForm"}))
+        {  
             <!-- Script by hscripts.com -->
             <label>Region:</label>
             <select class="form-control" name="" id="regionlist" onkeydown="regionlists', event)">
@@ -43,6 +43,18 @@
             </select>
             <!-- Script by hscripts.com -->
 
+            <!-- Script by hscripts.com -->
+            <label>Region:</label>
+            <select class="form-control" name="Region">
+                <option selected="selected" value="-1">Select a region</option>
+                @foreach(var region in RegionList)
+                {
+                    <option value=@region.Id>@region.RegionName</option>
+                }
+
+            </select>
+            <!-- Script by hscripts.com -->
+            
 
             <label><b>First Name*</label>
             <input type="text" class="form-control" value="Samantha">
@@ -61,7 +73,7 @@
             <label>Sales code</label>
             <input type="text" class="form-control" value="SAWDF23">
             <label>Discount Rate</label>
-            <input type="" class="form-control" value="12%">
+            <input type="number" class="form-control" value="12%">
 
             <br>
             <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">UPDATE</button>

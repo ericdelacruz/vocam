@@ -4,15 +4,16 @@
 }
 
 <div class="portalWrap border">
-    
-    @*admin menu goes here*@
+
+    @RenderPage("adminmenu.cshtml")
 
     <div class="portalCont margin15">
-        <h2>Region <span><a href="@Url.Action("AddRegion")"<img src="~/Content/images/portal/addNew.gif"></a></span></h2>
+        <h2>Region <span><a href="@Url.Action("addregion")"><img alt="Add" src="~/Content/images/portal/addNew.gif"></a></span></h2>
         <p>&nbsp;</p>
 
         <table class="portTable">
-
+        @{ if (Model.Count() > 0)
+             {
             <thead>
 
 
@@ -25,37 +26,24 @@
             </thead>
 
             <tbody>
-
+            
+            @foreach(var region in Model)
+                {
                 <tr>
-                    <td width="200">VIC Melbourne</td>
-                    <td width="100"><a href="@Url.Action("EditRegion")"><img src="~/Content/images/portal/edit.png"></a></td>
-                    <td width="100"><a id="simpleConfirm"> <img src="~/Content/images/portal/delete.png"></a></td>
-                </tr>
-                <tr>
-                    <td width="200">VIC Melbourne</td>
-                    <td width="100"><a href="@Url.Action("EditRegion")"><img src="~/Content/images/portal/edit.png"></a></td>
-                    <td width="100"><img src="~/Content/images/portal/delete.png"></td>
-                </tr>
-                <tr>
-                    <td width="200">VIC Melbourne</td>
-                    <td width="100"><a href="@Url.Action("EditRegion")"><img src="~/Content/images/portal/edit.png"></a></td>
-                    <td width="100"><img src="~/Content/images/portal/delete.png"></td>
-                </tr>
-                <tr>
-                    <td width="200">VIC Melbourne</td>
-                    <td width="100"><a href="@Url.Action("EditRegion")"><img src="~/Content/images/portal/edit.png"></a></td>
-                    <td width="100"><img src="~/Content/images/portal/delete.png"></td>
+                    <td width="200">@region.RegionName</td>
+                    <td width="100"><a href=@Url.Action("editregion",new{id=region.Id})><img src="~/Content/images/portal/edit.png"></a></td>
+                    <td width="100"><a onclick="return confirm('Are you sure you want to delete the item?');" href=@Url.Action("deleteregion",new{id=region.Id})> <img src="~/Content/images/portal/delete.png"></a></td>
                 </tr>
 
-
-                <script>
-                    $("#simpleConfirm").confirm();
-                </script>
-
-
+                }
             </tbody>
+            }
+             else
+             {
+                <p class="noDisplay">No Price Record!</p>
+             }
+            }
         </table>
-
 
     </div>
 </div>
