@@ -8,21 +8,24 @@ namespace CMSMvcApplication.Controllers
 {
     public class HomeController : Controller
     {
-        private static string portalURL = ConfigurationManager.AppSettings["portalURL"].ToString();
+        private static string portalURL = ConfigurationManager.AppSettings["portalURL"].ToString()==""?"http://localhost:53918/":
+                                          ConfigurationManager.AppSettings["portalURL"].ToString();
         private AccountServiceReference.AccountServiceClient accountClient = new AccountServiceReference.AccountServiceClient();
         //
         // GET: /Home/
 
-        public ActionResult Index(string user)
+        public ActionResult Index()
         {
-            AccountServiceReference.Account account;
-            if (!string.IsNullOrEmpty(user) && (account = accountClient.getAccount(user).First()).Status == 1 && account.Role == 0)
-            {
-                Session.Add("Username", user);
-                return View();
-            }
-            else
-                return Redirect(portalURL);
+            //AccountServiceReference.Account account;
+            //if (!string.IsNullOrEmpty(user) && (account = accountClient.getAccount(user).First()).Status == 1 && account.Role == 0)
+            //{
+            //    Session.Add("Username", user);
+            //    return View();
+            //}
+            //else
+            //    return Redirect(portalURL);
+            
+            return View();
         }
 
         public ActionResult logout()

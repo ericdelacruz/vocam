@@ -11,5 +11,9 @@ namespace SODAPortalMvcApplication.Controllers
         {
             return client.getAccount(UserName).First().Status == 1;
         }
+        public static bool isUserSessionActive(HttpSessionStateWrapper Session)
+        {
+            return !string.IsNullOrEmpty(Session["Username"].ToString()) && isActive(Session["Username"].ToString(), account);
+        }
     }
 }
