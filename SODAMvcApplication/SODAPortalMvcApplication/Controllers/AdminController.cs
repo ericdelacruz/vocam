@@ -147,16 +147,12 @@ namespace SODAPortalMvcApplication.Controllers
 
             ViewBag.SalesCodeList = from salesCode in portalClient.getSaleCode()
                                     select salesCode.Sales_Code;
-            
-            var salesPerson_orig = from salesPerson in portalClient.getSalePerson()
-                                   where salesPerson.Id == id
-                                   select salesPerson;
 
-            ViewBag.SalesCode = from salecode in ViewBag.SalesCodeList as IEnumerable<PortalServiceReference.SalesCode>
-                            where salecode.Sales_Code == salesPerson_orig.First().Sales_Code
-                            select salecode;
+            var salesPerson_orig = from salesperson in portalClient.getSalePerson()
+                                   join accnt in account.getAccount("") on salesperson.UserId equals accnt.Id
+                                   select new ViewModel.SalesViewModel() { account = accnt, salesPerson = salesperson };
 
-            ViewBag.Accnt = account.getAccount("").Select(accnt => accnt).Where(accnt => accnt.Id == salesPerson_orig.First().UserId).First();
+          
             return View(salesPerson_orig);
         }
         
