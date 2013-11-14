@@ -12,6 +12,7 @@ namespace SODAPortalMvcApplication.Controllers
         // GET: /Admin/
         private AccountServiceRef.AccountServiceClient account = new AccountServiceRef.AccountServiceClient();
         private PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
+
         public ActionResult Index()
         {
             if (!isUserSessionActive())
@@ -57,7 +58,8 @@ namespace SODAPortalMvcApplication.Controllers
                              select new ViewModel.ReportViewModel() { account = accnt, customer = customer };
             return View(reportlist);
         }
-        
+
+        #region sales
         public ActionResult sales()
         {
             if (!isUserSessionActive())
@@ -190,6 +192,8 @@ namespace SODAPortalMvcApplication.Controllers
             });
             return RedirectToAction("sales");
         }
+        #endregion
+
         #region price
         public ActionResult price()
         {
@@ -322,5 +326,50 @@ namespace SODAPortalMvcApplication.Controllers
 
         #endregion
 
+        #region region
+        public ActionResult region()
+        {
+            var regionList = from region in portalClient.getRegion()
+                             select region;
+            return View(regionList);
+        }
+
+        public ActionResult addRegion()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult addregion(FormCollection collection)
+        {
+            portalClient.addRegion(new PortalServiceReference.Region(){
+                 RegionName = collection["RegionName"]
+            });
+            return RedirectToAction("region");
+        }
+
+        public ActionResult editregion(int id)
+        {
+            var region = portalClient.getRegion().Select(r => r).Where(r => r.Id == id).First();
+
+            return View(region);
+        }
+
+        [HttpPost]
+        public ActionResult editregion(int id, FormCollection collection)
+        {
+            portalClient.updateRegion(new PortalServiceReference.Region()
+            {
+                Id = id,
+                RegionName = collection["RegionName"]
+            });
+            return RedirectToAction("region");
+        }
+
+        public ActionResult deleteregion(int id)
+        {
+            portalClient.deleteRegion(id);
+            return RedirectToAction("region");
+        }
+        #endregion  
     }
 }
