@@ -9,7 +9,8 @@ namespace SODAPortalMvcApplication.Controllers
     public class HomeController : Controller
     {
         private AccountServiceRef.AccountServiceClient accountClient = new AccountServiceRef.AccountServiceClient();
-        private static string CMSURL = System.Configuration.ConfigurationManager.AppSettings["CMSURL"].ToString();
+        private static string CMSURL = System.Configuration.ConfigurationManager.AppSettings["CMSURL"].ToString() == ""? "http://localhost:56146/":
+                                       System.Configuration.ConfigurationManager.AppSettings["CMSURL"].ToString();
         
         public ActionResult Index()
         {
