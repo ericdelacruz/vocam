@@ -30,6 +30,10 @@ namespace SODAPortalMvcApplication.Controllers
         }
         public ActionResult index(DateTime start,DateTime? end)
         {
+            if (!isUserSessionActive())
+            {
+                return RedirectToAction("login", "Home");
+            }
             if (end != null)
             {
                 var reportlist = from customer in portalClient.getCustomer()
@@ -47,8 +51,35 @@ namespace SODAPortalMvcApplication.Controllers
                 return View(reportlist);
             }
         }
-
-
+        
+        public ActionResult addsale()
+        {
+            if (!isUserSessionActive())
+            {
+                return RedirectToAction("login", "Home");
+            }
+            return View();
+        }
+        
+        [HttpPost]
+        public ActionResult addsale(FormCollection collection)
+        {
+            if (!isUserSessionActive())
+            {
+                return RedirectToAction("login", "Home");
+            }
+            account.addAccount(new AccountServiceRef.Account()
+            {
+                USERNAME = collection["Email"],
+                FirstName = collection["FirstName"],
+                LastName = collection["LastName"],
+                Company = collection["Company"],
+                PASSWORD = collection["Password"],
+                ContactNo = collection["ContactNo"],
+                Role = 3
+            });
+            return RedirectToAction("index");
+        }
         private bool isUserSessionActive()
         {
             return !string.IsNullOrEmpty(Session["Username"].ToString()) && AccountHelper.isActive(Session["Username"].ToString(), account);
