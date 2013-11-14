@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /* CSS Document */
 
 .portalContainer {
@@ -146,3 +146,4 @@ thead {background-color: #fff !important;}
 .panel-body input {display: inline; width: 30%;}
 .btn {display:inline;}
 .logoutSec {margin:15px 25px 0px 0px; font-size:12px;}
+.noDisplay {font:20px latobold; color:#570202 !important; background-color:#faf5c7; border:1px solid #f1e797; text-align:center; padding:10px;}
