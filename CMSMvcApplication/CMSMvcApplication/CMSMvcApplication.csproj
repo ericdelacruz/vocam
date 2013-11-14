@@ -142,6 +142,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\AccountServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\CatListingServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -245,7 +250,21 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\_references.js" />
+    <None Include="Service References\AccountServiceReference\AccountService.wsdl" />
+    <None Include="Service References\AccountServiceReference\AccountService.xsd" />
+    <None Include="Service References\AccountServiceReference\AccountService1.xsd" />
+    <None Include="Service References\AccountServiceReference\AccountService2.xsd" />
+    <Content Include="Service References\AccountServiceReference\CMSMvcApplication.AccountServiceReference.Account.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <None Include="Service References\CatListingServiceReference\CatListingService.disco" />
+    <None Include="Service References\AccountServiceReference\AccountService.disco" />
+    <None Include="Service References\AccountServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\AccountServiceReference\configuration.svcinfo" />
+    <None Include="Service References\AccountServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Service References\CatListingServiceReference\CMSMvcApplication.CatListingServiceReference.Category.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -312,6 +331,7 @@
       <BrowseToURL>~/pages/edithome</BrowseToURL>
     </Content>
     <Content Include="Views\pages\editlearnmore.cshtml" />
+    <Content Include="Views\home\EditProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -325,6 +345,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Service References\AccountServiceReference\" />
     <WCFMetadataStorage Include="Service References\CatListingServiceReference\" />
     <WCFMetadataStorage Include="Service References\CMSServiceReference\" />
   </ItemGroup>

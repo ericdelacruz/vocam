@@ -1,5 +1,12 @@
-﻿@{
+﻿@model SODAPortalMvcApplication.PortalServiceReference.SalesPerson
+@{
+    //model is not list 
     ViewBag.Title = "EditSale";
+    var RegionList = ViewBag.RegionList as IEnumerable<SODAPortalMvcApplication.PortalServiceReference.Region>;
+    var SalesCodeList = ViewBag.SalesCodeList as IEnumerable<SODAPortalMvcApplication.PortalServiceReference.SalesCode>;
+
+    var SalesCodeModel = ViewBag.SalesCode as SODAPortalMvcApplication.PortalServiceReference.SalesCode;
+    //JOnats note set name in input tags. same with add     
 }
 
 <div class="portalWrap border">

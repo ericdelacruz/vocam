@@ -736,6 +736,8 @@ namespace SODAwcfService {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class AccountsDataTable : global::System.Data.TypedTableBase<AccountsRow> {
             
+            private global::System.Data.DataColumn columnId;
+            
             private global::System.Data.DataColumn columnUSERNAME;
             
             private global::System.Data.DataColumn columnPASSWORD;
@@ -762,7 +764,9 @@ namespace SODAwcfService {
             
             private global::System.Data.DataColumn columnCompany;
             
-            private global::System.Data.DataColumn columnContractEndDate;
+            private global::System.Data.DataColumn columnDateLogin;
+            
+            private global::System.Data.DataColumn columnBirthdate;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -795,6 +799,14 @@ namespace SODAwcfService {
             protected AccountsDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn IdColumn {
+                get {
+                    return this.columnId;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -903,9 +915,17 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn ContractEndDateColumn {
+            public global::System.Data.DataColumn DateLoginColumn {
                 get {
-                    return this.columnContractEndDate;
+                    return this.columnDateLogin;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn BirthdateColumn {
+                get {
+                    return this.columnBirthdate;
                 }
             }
             
@@ -946,9 +966,10 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public AccountsRow AddAccountsRow(string USERNAME, string PASSWORD, string FirstName, string LastName, int Role, short Status, string Email, string Address, string City, string Country, string Gender, string ContactNo, string Company, System.DateTime ContractEndDate) {
+            public AccountsRow AddAccountsRow(string USERNAME, string PASSWORD, string FirstName, string LastName, int Role, short Status, string Email, string Address, string City, string Country, string Gender, string ContactNo, string Company, System.DateTime DateLogin, System.DateTime Birthdate) {
                 AccountsRow rowAccountsRow = ((AccountsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
+                        null,
                         USERNAME,
                         PASSWORD,
                         FirstName,
@@ -962,7 +983,8 @@ namespace SODAwcfService {
                         Gender,
                         ContactNo,
                         Company,
-                        ContractEndDate};
+                        DateLogin,
+                        Birthdate};
                 rowAccountsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowAccountsRow);
                 return rowAccountsRow;
@@ -970,9 +992,9 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public AccountsRow FindByUSERNAME(string USERNAME) {
+            public AccountsRow FindById(long Id) {
                 return ((AccountsRow)(this.Rows.Find(new object[] {
-                            USERNAME})));
+                            Id})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -992,6 +1014,7 @@ namespace SODAwcfService {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
+                this.columnId = base.Columns["Id"];
                 this.columnUSERNAME = base.Columns["USERNAME"];
                 this.columnPASSWORD = base.Columns["PASSWORD"];
                 this.columnFirstName = base.Columns["FirstName"];
@@ -1005,12 +1028,15 @@ namespace SODAwcfService {
                 this.columnGender = base.Columns["Gender"];
                 this.columnContactNo = base.Columns["ContactNo"];
                 this.columnCompany = base.Columns["Company"];
-                this.columnContractEndDate = base.Columns["ContractEndDate"];
+                this.columnDateLogin = base.Columns["DateLogin"];
+                this.columnBirthdate = base.Columns["Birthdate"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
+                this.columnId = new global::System.Data.DataColumn("Id", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnId);
                 this.columnUSERNAME = new global::System.Data.DataColumn("USERNAME", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnUSERNAME);
                 this.columnPASSWORD = new global::System.Data.DataColumn("PASSWORD", typeof(string), null, global::System.Data.MappingType.Element);
@@ -1037,15 +1063,22 @@ namespace SODAwcfService {
                 base.Columns.Add(this.columnContactNo);
                 this.columnCompany = new global::System.Data.DataColumn("Company", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCompany);
-                this.columnContractEndDate = new global::System.Data.DataColumn("ContractEndDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnContractEndDate);
+                this.columnDateLogin = new global::System.Data.DataColumn("DateLogin", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDateLogin);
+                this.columnBirthdate = new global::System.Data.DataColumn("Birthdate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBirthdate);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnUSERNAME}, true));
+                                this.columnId}, true));
+                this.columnId.AutoIncrement = true;
+                this.columnId.AutoIncrementSeed = -1;
+                this.columnId.AutoIncrementStep = -1;
+                this.columnId.AllowDBNull = false;
+                this.columnId.ReadOnly = true;
+                this.columnId.Unique = true;
                 this.columnUSERNAME.AllowDBNull = false;
-                this.columnUSERNAME.Unique = true;
                 this.columnUSERNAME.MaxLength = 30;
                 this.columnPASSWORD.AllowDBNull = false;
-                this.columnPASSWORD.MaxLength = 50;
+                this.columnPASSWORD.MaxLength = 200;
                 this.columnFirstName.AllowDBNull = false;
                 this.columnFirstName.MaxLength = 50;
                 this.columnLastName.AllowDBNull = false;
@@ -2376,6 +2409,17 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long Id {
+                get {
+                    return ((long)(this[this.tableAccounts.IdColumn]));
+                }
+                set {
+                    this[this.tableAccounts.IdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string USERNAME {
                 get {
                     return ((string)(this[this.tableAccounts.USERNAMEColumn]));
@@ -2549,17 +2593,33 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public System.DateTime ContractEndDate {
+            public System.DateTime DateLogin {
                 get {
                     try {
-                        return ((global::System.DateTime)(this[this.tableAccounts.ContractEndDateColumn]));
+                        return ((global::System.DateTime)(this[this.tableAccounts.DateLoginColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ContractEndDate\' in table \'Accounts\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'DateLogin\' in table \'Accounts\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableAccounts.ContractEndDateColumn] = value;
+                    this[this.tableAccounts.DateLoginColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public System.DateTime Birthdate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableAccounts.BirthdateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Birthdate\' in table \'Accounts\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableAccounts.BirthdateColumn] = value;
                 }
             }
             
@@ -2637,14 +2697,26 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsContractEndDateNull() {
-                return this.IsNull(this.tableAccounts.ContractEndDateColumn);
+            public bool IsDateLoginNull() {
+                return this.IsNull(this.tableAccounts.DateLoginColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetContractEndDateNull() {
-                this[this.tableAccounts.ContractEndDateColumn] = global::System.Convert.DBNull;
+            public void SetDateLoginNull() {
+                this[this.tableAccounts.DateLoginColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsBirthdateNull() {
+                return this.IsNull(this.tableAccounts.BirthdateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetBirthdateNull() {
+                this[this.tableAccounts.BirthdateColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -3872,6 +3944,7 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "Accounts";
+            tableMapping.ColumnMappings.Add("Id", "Id");
             tableMapping.ColumnMappings.Add("USERNAME", "USERNAME");
             tableMapping.ColumnMappings.Add("PASSWORD", "PASSWORD");
             tableMapping.ColumnMappings.Add("FirstName", "FirstName");
@@ -3885,16 +3958,17 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("Gender", "Gender");
             tableMapping.ColumnMappings.Add("ContactNo", "ContactNo");
             tableMapping.ColumnMappings.Add("Company", "Company");
-            tableMapping.ColumnMappings.Add("ContractEndDate", "ContractEndDate");
+            tableMapping.ColumnMappings.Add("DateLogin", "DateLogin");
+            tableMapping.ColumnMappings.Add("Birthdate", "Birthdate");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [ACCOUNTS] WHERE (([USERNAME] = @Original_USERNAME))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [Accounts] WHERE (([Id] = @Original_Id))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_USERNAME", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "USERNAME", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [ACCOUNTS] ([USERNAME], [PASSWORD], [FirstName], [LastName], [Role], [Status], [Email], [Address], [City], [Country], [Gender], [ContactNo], [Company], [ContractEndDate]) VALUES (@USERNAME, @PASSWORD, @FirstName, @LastName, @Role, @Status, @Email, @Address, @City, @Country, @Gender, @ContactNo, @Company, @ContractEndDate)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Accounts] ([USERNAME], [PASSWORD], [FirstName], [LastName], [Role], [Status], [Email], [Address], [City], [Country], [Gender], [ContactNo], [Company], [DateLogin], [Birthdate]) VALUES (@USERNAME, @PASSWORD, @FirstName, @LastName, @Role, @Status, @Email, @Address, @City, @Country, @Gender, @ContactNo, @Company, @DateLogin, @Birthdate)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@USERNAME", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "USERNAME", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PASSWORD", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PASSWORD", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -3909,10 +3983,11 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Gender", global::System.Data.SqlDbType.Char, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Gender", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ContactNo", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ContactNo", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Company", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Company", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ContractEndDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ContractEndDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DateLogin", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DateLogin", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Birthdate", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Birthdate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [ACCOUNTS] SET [USERNAME] = @USERNAME, [PASSWORD] = @PASSWORD, [FirstName] = @FirstName, [LastName] = @LastName, [Role] = @Role, [Status] = @Status, [Email] = @Email, [Address] = @Address, [City] = @City, [Country] = @Country, [Gender] = @Gender, [ContactNo] = @ContactNo, [Company] = @Company, [ContractEndDate] = @ContractEndDate WHERE (([USERNAME] = @Original_USERNAME))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [Accounts] SET [USERNAME] = @USERNAME, [PASSWORD] = @PASSWORD, [FirstName] = @FirstName, [LastName] = @LastName, [Role] = @Role, [Status] = @Status, [Email] = @Email, [Address] = @Address, [City] = @City, [Country] = @Country, [Gender] = @Gender, [ContactNo] = @ContactNo, [Company] = @Company, [DateLogin] = @DateLogin, [Birthdate] = @Birthdate WHERE (([Id] = @Original_Id))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@USERNAME", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "USERNAME", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PASSWORD", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PASSWORD", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -3927,8 +4002,9 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Gender", global::System.Data.SqlDbType.Char, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Gender", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ContactNo", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ContactNo", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Company", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Company", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ContractEndDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ContractEndDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_USERNAME", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "USERNAME", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DateLogin", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DateLogin", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Birthdate", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Birthdate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3944,7 +4020,7 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[7];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT * FROM ACCOUNTS";
+            this._commandCollection[0].CommandText = "SELECT * FROM Accounts";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
@@ -3976,7 +4052,8 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Gender", global::System.Data.SqlDbType.Char, 1, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ContactNo", global::System.Data.SqlDbType.VarChar, 20, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Company", global::System.Data.SqlDbType.VarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ContractEndDate", global::System.Data.SqlDbType.DateTime, 8, global::System.Data.ParameterDirection.Input, 23, 3, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DateLogIn", global::System.Data.SqlDbType.DateTime, 8, global::System.Data.ParameterDirection.Input, 23, 3, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Birthdate", global::System.Data.SqlDbType.Date, 3, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[4] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[4].Connection = this.Connection;
             this._commandCollection[4].CommandText = "dbo.UpdateAccount";
@@ -3993,7 +4070,8 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
             this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Gender", global::System.Data.SqlDbType.Char, 1, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ContactNo", global::System.Data.SqlDbType.VarChar, 20, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Company", global::System.Data.SqlDbType.VarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ContractEndDate", global::System.Data.SqlDbType.DateTime, 8, global::System.Data.ParameterDirection.Input, 23, 3, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DateLogIn", global::System.Data.SqlDbType.DateTime, 8, global::System.Data.ParameterDirection.Input, 23, 3, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Birthdate", global::System.Data.SqlDbType.Date, 3, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@USERNAME", global::System.Data.SqlDbType.VarChar, 30, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[5] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[5].Connection = this.Connection;
@@ -4104,13 +4182,8 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(string Original_USERNAME) {
-            if ((Original_USERNAME == null)) {
-                throw new global::System.ArgumentNullException("Original_USERNAME");
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[0].Value = ((string)(Original_USERNAME));
-            }
+        public virtual int Delete(long Original_Id) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((long)(Original_Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -4131,7 +4204,7 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string USERNAME, string PASSWORD, string FirstName, string LastName, int Role, short Status, string Email, string Address, string City, string Country, string Gender, string ContactNo, string Company, global::System.Nullable<global::System.DateTime> ContractEndDate) {
+        public virtual int Insert(string USERNAME, string PASSWORD, string FirstName, string LastName, int Role, short Status, string Email, string Address, string City, string Country, string Gender, string ContactNo, string Company, global::System.Nullable<global::System.DateTime> DateLogin, global::System.Nullable<global::System.DateTime> Birthdate) {
             if ((USERNAME == null)) {
                 throw new global::System.ArgumentNullException("USERNAME");
             }
@@ -4200,11 +4273,17 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
             else {
                 this.Adapter.InsertCommand.Parameters[12].Value = ((string)(Company));
             }
-            if ((ContractEndDate.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[13].Value = ((System.DateTime)(ContractEndDate.Value));
+            if ((DateLogin.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[13].Value = ((System.DateTime)(DateLogin.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[13].Value = global::System.DBNull.Value;
+            }
+            if ((Birthdate.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[14].Value = ((System.DateTime)(Birthdate.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[14].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -4226,7 +4305,23 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string USERNAME, string PASSWORD, string FirstName, string LastName, int Role, short Status, string Email, string Address, string City, string Country, string Gender, string ContactNo, string Company, global::System.Nullable<global::System.DateTime> ContractEndDate, string Original_USERNAME) {
+        public virtual int Update(
+                    string USERNAME, 
+                    string PASSWORD, 
+                    string FirstName, 
+                    string LastName, 
+                    int Role, 
+                    short Status, 
+                    string Email, 
+                    string Address, 
+                    string City, 
+                    string Country, 
+                    string Gender, 
+                    string ContactNo, 
+                    string Company, 
+                    global::System.Nullable<global::System.DateTime> DateLogin, 
+                    global::System.Nullable<global::System.DateTime> Birthdate, 
+                    long Original_Id) {
             if ((USERNAME == null)) {
                 throw new global::System.ArgumentNullException("USERNAME");
             }
@@ -4295,18 +4390,19 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
             else {
                 this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(Company));
             }
-            if ((ContractEndDate.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((System.DateTime)(ContractEndDate.Value));
+            if ((DateLogin.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((System.DateTime)(DateLogin.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
             }
-            if ((Original_USERNAME == null)) {
-                throw new global::System.ArgumentNullException("Original_USERNAME");
+            if ((Birthdate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((System.DateTime)(Birthdate.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((string)(Original_USERNAME));
+                this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
             }
+            this.Adapter.UpdateCommand.Parameters[15].Value = ((long)(Original_Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -4321,14 +4417,6 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
                     this.Adapter.UpdateCommand.Connection.Close();
                 }
             }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string PASSWORD, string FirstName, string LastName, int Role, short Status, string Email, string Address, string City, string Country, string Gender, string ContactNo, string Company, global::System.Nullable<global::System.DateTime> ContractEndDate, string Original_USERNAME) {
-            return this.Update(Original_USERNAME, PASSWORD, FirstName, LastName, Role, Status, Email, Address, City, Country, Gender, ContactNo, Company, ContractEndDate, Original_USERNAME);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4364,7 +4452,7 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, false)]
-        public virtual int InsertAccount(string USERNAME, string PASSWORD, string FirstName, string LastName, global::System.Nullable<int> Role, global::System.Nullable<short> Status, string Email, string Address, string City, string Country, string Gender, string ContactNo, string Company, global::System.Nullable<global::System.DateTime> ContractEndDate) {
+        public virtual int InsertAccount(string USERNAME, string PASSWORD, string FirstName, string LastName, global::System.Nullable<int> Role, global::System.Nullable<short> Status, string Email, string Address, string City, string Country, string Gender, string ContactNo, string Company, global::System.Nullable<global::System.DateTime> DateLogIn, global::System.Nullable<global::System.DateTime> Birthdate) {
             global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[3];
             if ((USERNAME == null)) {
                 command.Parameters[1].Value = global::System.DBNull.Value;
@@ -4444,11 +4532,17 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
             else {
                 command.Parameters[13].Value = ((string)(Company));
             }
-            if ((ContractEndDate.HasValue == true)) {
-                command.Parameters[14].Value = ((System.DateTime)(ContractEndDate.Value));
+            if ((DateLogIn.HasValue == true)) {
+                command.Parameters[14].Value = ((System.DateTime)(DateLogIn.Value));
             }
             else {
                 command.Parameters[14].Value = global::System.DBNull.Value;
+            }
+            if ((Birthdate.HasValue == true)) {
+                command.Parameters[15].Value = ((System.DateTime)(Birthdate.Value));
+            }
+            else {
+                command.Parameters[15].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -4471,7 +4565,7 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
-        public virtual int UpdateAccount(string FirstName, string LastName, global::System.Nullable<int> Role, global::System.Nullable<short> Status, string Email, string Address, string City, string Country, string Gender, string ContactNo, string Company, global::System.Nullable<global::System.DateTime> ContractEndDate, string USERNAME) {
+        public virtual int UpdateAccount(string FirstName, string LastName, global::System.Nullable<int> Role, global::System.Nullable<short> Status, string Email, string Address, string City, string Country, string Gender, string ContactNo, string Company, global::System.Nullable<global::System.DateTime> DateLogIn, global::System.Nullable<global::System.DateTime> Birthdate, string USERNAME) {
             global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[4];
             if ((FirstName == null)) {
                 command.Parameters[1].Value = global::System.DBNull.Value;
@@ -4539,17 +4633,23 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
             else {
                 command.Parameters[11].Value = ((string)(Company));
             }
-            if ((ContractEndDate.HasValue == true)) {
-                command.Parameters[12].Value = ((System.DateTime)(ContractEndDate.Value));
+            if ((DateLogIn.HasValue == true)) {
+                command.Parameters[12].Value = ((System.DateTime)(DateLogIn.Value));
             }
             else {
                 command.Parameters[12].Value = global::System.DBNull.Value;
             }
-            if ((USERNAME == null)) {
-                command.Parameters[13].Value = global::System.DBNull.Value;
+            if ((Birthdate.HasValue == true)) {
+                command.Parameters[13].Value = ((System.DateTime)(Birthdate.Value));
             }
             else {
-                command.Parameters[13].Value = ((string)(USERNAME));
+                command.Parameters[13].Value = global::System.DBNull.Value;
+            }
+            if ((USERNAME == null)) {
+                command.Parameters[14].Value = global::System.DBNull.Value;
+            }
+            else {
+                command.Parameters[14].Value = ((string)(USERNAME));
             }
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
