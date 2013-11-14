@@ -44,6 +44,11 @@ namespace SODAPortalMvcApplication.Controllers
             }
                 return View(collection);
         }
+        public ActionResult logout(string username)
+        {
+            accountClient.LogOff(username);
+            return RedirectToAction("index");
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your app description page.";
