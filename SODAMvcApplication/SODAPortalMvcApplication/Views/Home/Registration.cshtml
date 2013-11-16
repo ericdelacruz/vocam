@@ -1,23 +1,30 @@
-﻿@{
+﻿@model SODAPortalMvcApplication.ViewModel.UserModel
+@{
     ViewBag.Title = "Registration";
 }
-
-<form class="formRegistration border shadow">
+@using (@Html.BeginForm("registration", "home", FormMethod.Post, new { @class = "formRegistration border shadow" }))
+{ 
+     @Html.ValidationSummary()
     <h2 class="margin15">Sign up</h2>
     <label>First Name *</label>
-    <input type="text" autofocus="" required="" placeholder="First Name" class="form-control">
+    @Html.TextBoxFor(m => m.FirtName, new { placeholder = "First Name", @class = "form-control" })
     <label>Last Name *</label>
-    <input type="text" autofocus="" required="" placeholder="Last Name" class="form-control">
+    @Html.TextBoxFor(m => m.LastName, new {placeholder="Last Name", @class="form-control"})
     <label>Email Address *</label>
-    <input type="text" autofocus="" required="" placeholder="Email Address" class="form-control">
+    @Html.TextBoxFor(m => m.Email, new { placeholder="Email Address", @class="form-control" })
+    
     <label>Contact Number (optional)</label>
-    <input type="text" autofocus="" required="" placeholder="Contact Number" class="form-control">
+    @Html.TextBoxFor(m => m.Contact, new {placeholder="Contact Number", @class="form-control" })
+    
     <label>Company Name (optional)</label>
-    <input type="text" autofocus="" required="" placeholder="Company Name" class="form-control">
+    @Html.TextBoxFor(m => m.Company, new {placeholder="Company Name", @class="form-control" })
+    
     <label>Password</label>
-    <input type="password" required="" placeholder="Password" class="form-control">
+    @Html.PasswordFor(m => m.Password, new { placeholder="Password", @class="form-control"})
+    
     <label>Confirm Password</label>
-    <input type="password" required="" placeholder="Re-type Password" class="form-control">
+    @Html.PasswordFor(m => m.ConfirmPassword, new {placeholder="Re-type Password", @class="form-control" })
+    
     <p>&nbsp;</p>
     <div>
         <button style="width:200px;" type="submit" class="fl btn btn-lg btn-primary">Sign up</button>
@@ -29,4 +36,5 @@
     <p>&nbsp;</p>
     <p>A verification email will be sent to the user for verification. Once verified, the user been redirected the login page.</p>
 
-</form>
+
+}

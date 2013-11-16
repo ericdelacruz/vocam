@@ -12,7 +12,7 @@
 
     <div class="portalCont margin15">
         <h2>Edit Price</h2>
-        @using (Html.BeginForm("editprice", "admin", FormMethod.Post, new { enctype = "multipart/form-data", @class = "portalForm" }))
+        @using (@Html.BeginForm("editprice", "admin", FormMethod.Post, new { enctype = "multipart/form-data", @class = "portalForm" }))
         {
             <label>Region:</label>
             <select class="form-control" name="Region">
@@ -25,16 +25,16 @@
                     }
                     else
                     {
-                        <option value="@region.RegionName>@region.RegionName</option>
+                        <option value="@region.RegionName">@region.RegionName</option>
                     }
                 }
             </select>
             <!-- Script by hscripts.com -->
 
             <label><b>Price (AUD)*</label>
-            <input type="text" class="form-control" value=@Model.PriceAmt>
+            <input type="text" class="form-control" name="Price" value=@Model.PriceAmt>
             <label>Is first month free?</label><br>
-        @{ if (Model.FirstMonthFree)
+         if (Model.FirstMonthFree)
            {
                 <div class="fl" style="margin-right:10px;"><input checked type="radio" name="monthFree" value="Yes"> Yes</div> 
                 <div class="fl"><input type="radio" name="monthFree" value="No"> No </div>
@@ -44,7 +44,7 @@
                 <div class="fl" style="margin-right:10px;"><input type="radio" name="monthFree" value="Yes"> Yes</div> 
                 <div class="fl"><input type="radio" name="monthFree" checked value="No"> No </div>
            }
-         }
+         
            
             <br>
             <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">UPDATE</button>
