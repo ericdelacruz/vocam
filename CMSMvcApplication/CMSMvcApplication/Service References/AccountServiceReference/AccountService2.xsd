@@ -4,14 +4,16 @@
   <xs:complexType name="Account">
     <xs:sequence>
       <xs:element minOccurs="0" name="Address" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Birthdate" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="City" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Company" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ContactNo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ContractEndDate" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Country" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DateLogin" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Gender" type="ser:char" />
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
       <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PASSWORD" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Role" type="xs:int" />
