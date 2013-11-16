@@ -15,6 +15,8 @@ namespace CMSMvcApplication.Controllers
 
         public ActionResult Index()
         {
+            if (Session["Username"] == null)
+                return RedirectToAction("login", "Home");
             var catTitleList = getTitles("", "");
             return View(catTitleList);
         }
@@ -44,6 +46,8 @@ namespace CMSMvcApplication.Controllers
         }
         private IEnumerable<ViewModels.Title> getTitles(string title, string cat)
         {
+            
+
             var titleList = catClient.get();
             var catList = catClient.get_Categories();
 
@@ -82,6 +86,8 @@ namespace CMSMvcApplication.Controllers
 
         public ActionResult Create()
         {
+            if (Session["Username"] == null)
+                return RedirectToAction("login", "Home");
             ViewBag.catList = catClient.get_Categories();
 
             return View();
@@ -106,8 +112,9 @@ namespace CMSMvcApplication.Controllers
                     PageTitle = collection["TitlePageTitle"],
                     Metatags = collection["TitleMetaKeywords"],
                     MetaDesc = collection["TitleMetaDescription"],
-                    ImageURL = !string.IsNullOrEmpty(Request.Files["Thumb"].FileName)?FileTransferHelper.UploadImage(Request.Files["Thumb"],Server):"#",
-                    BG_Img =  !string.IsNullOrEmpty(Request.Files["BG"].FileName)?FileTransferHelper.UploadImage(Request.Files["BG"],Server):"#",
+                    ImageURL = !string.IsNullOrEmpty(Request.Files["Thumb"].FileName)?string.Concat(Request.Url.GetLeftPart(UriPartial.Authority) ,FileTransferHelper.UploadImage(Request.Files["Thumb"],Server)):"#",
+                    BG_Img = !string.IsNullOrEmpty(Request.Files["BG"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority) + "/", FileTransferHelper.UploadImage(Request.Files["BG"], Server)) : "#",
+                   
                     VideoURL = collection["VidURL"],
                     Id = 0 
                 });
@@ -115,7 +122,9 @@ namespace CMSMvcApplication.Controllers
             }
             catch(Exception ex)
             {
-                return View();
+                
+
+                return RedirectToAction("error");
             }
         }
 
@@ -124,6 +133,8 @@ namespace CMSMvcApplication.Controllers
 
         public ActionResult Edit(long id)
         {
+            if (Session["Username"] == null)
+                return RedirectToAction("login", "Home");
             var title = catClient.getSpecificByID(id).First();
             ViewBag.CatList = catClient.get_Categories();
             return View(title);
@@ -149,8 +160,8 @@ namespace CMSMvcApplication.Controllers
                     PageTitle = collection["TitlePageTitle"],
                     Metatags = collection["TitleMetaKeywords"],
                     MetaDesc = collection["TitleMetaDescription"],
-                    ImageURL =  !string.IsNullOrEmpty(Request.Files["Thumb"].FileName)?FileTransferHelper.UploadImage(Request.Files["Thumb"],Server):catClient.getSpecificByID(id).First().ImageURL,
-                    BG_Img = !string.IsNullOrEmpty(Request.Files["BG_IMG"].FileName) ? FileTransferHelper.UploadImage(Request.Files["BG_IMG"], Server) : catClient.getSpecificByID(id).First().BG_Img,
+                    ImageURL = !string.IsNullOrEmpty(Request.Files["Thumb"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority), FileTransferHelper.UploadImage(Request.Files["Thumb"], Server)) : catClient.getSpecificByID(id).First().ImageURL,
+                    BG_Img = !string.IsNullOrEmpty(Request.Files["BG_IMG"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority), FileTransferHelper.UploadImage(Request.Files["Thumb"], Server)) : catClient.getSpecificByID(id).First().BG_Img,
                     VideoURL = collection["VidURL"]
 
                 });
@@ -179,6 +190,11 @@ namespace CMSMvcApplication.Controllers
             }
         }
 
+        public ActionResult error()
+        {
+            
+            return View();
+        }
         
         
     }
