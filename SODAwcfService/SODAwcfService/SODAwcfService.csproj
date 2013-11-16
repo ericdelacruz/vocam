@@ -84,11 +84,20 @@
     <Compile Include="AccountService.svc.cs">
       <DependentUpon>AccountService.svc</DependentUpon>
     </Compile>
+    <Compile Include="Category.cs">
+      <DependentUpon>SODAMvcModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="CatListingService.svc.cs">
       <DependentUpon>CatListingService.svc</DependentUpon>
     </Compile>
     <Compile Include="CMS_Service.svc.cs">
       <DependentUpon>CMS_Service.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Contact.cs">
+      <DependentUpon>SODAMvcModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ContentDef.cs">
+      <DependentUpon>SODAMvcModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Customer.cs">
       <DependentUpon>PortalModel.tt</DependentUpon>
@@ -103,6 +112,7 @@
     </Compile>
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\CotentDef.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Page.cs" />
@@ -111,6 +121,9 @@
     <Compile Include="Models\SalesCode.cs" />
     <Compile Include="Models\SalesPerson.cs" />
     <Compile Include="Models\Specific.cs" />
+    <Compile Include="Page.cs">
+      <DependentUpon>SODAMvcModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="PortalDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -152,6 +165,24 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SodaDBDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="SODAMvcModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SODAMvcModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SODAMvcModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SODAMvcModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SODAMvcModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SODAMvcModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Specific.cs">
+      <DependentUpon>SODAMvcModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -189,6 +220,7 @@
       <DependentUpon>PortalModel.edmx</DependentUpon>
       <LastGenOutput>PortalModel.cs</LastGenOutput>
     </Content>
+    <None Include="Properties\PublishProfiles\Daddy.pubxml" />
     <None Include="SodaDBDataSet.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -196,6 +228,23 @@
     </None>
     <Content Include="SodaDBDataSet.xss">
       <DependentUpon>SodaDBDataSet.xsd</DependentUpon>
+    </Content>
+    <EntityDeploy Include="SODAMvcModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SODAMvcModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="SODAMvcModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SODAMvcModel.edmx</DependentUpon>
+      <LastGenOutput>SODAMvcModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="SODAMvcModel.edmx.diagram">
+      <DependentUpon>SODAMvcModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="SODAMvcModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SODAMvcModel.edmx</DependentUpon>
+      <LastGenOutput>SODAMvcModel.cs</LastGenOutput>
     </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
