@@ -35,8 +35,8 @@ namespace CMSMvcApplication.Controllers
         {
             //UpdateContent("header_banner_bg_IMG", "href", collection["TOP_BG"]);
             UpdateImageContent(cmsService.getContent("Home","header_banner_bg_IMG").First(),"TOP_BG");
-                
-            
+
+            UpdateHomeContent("previewNowBtn_href", "href", collection["PREVURL"]);
             UpdateHomeContent("header_banner_Title", "text", collection["Top_Headline1"]);
             UpdateHomeContent("header_banner_txt", "text", collection["Top_SubHeadline2"]);
 
