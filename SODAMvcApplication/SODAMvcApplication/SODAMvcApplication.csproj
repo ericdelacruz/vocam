@@ -116,6 +116,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\ExceptionUtil.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SalesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -317,6 +318,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <None Include="Service References\CMSServiceReference\CMS_Service.disco" />
+    <None Include="Service References\CMSServiceReference\CMS_Service1.xsd" />
     <None Include="Service References\CMSServiceReference\configuration91.svcinfo" />
     <None Include="Service References\CMSServiceReference\configuration.svcinfo" />
     <None Include="Service References\CMSServiceReference\Reference.svcmap">
@@ -357,6 +359,7 @@
     <Content Include="Views\categories\index.cshtml" />
     <Content Include="Views\categories\browse.cshtml" />
     <Content Include="Views\categories\details.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
