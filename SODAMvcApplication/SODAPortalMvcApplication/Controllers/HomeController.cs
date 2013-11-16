@@ -46,21 +46,15 @@ namespace SODAPortalMvcApplication.Controllers
         }
         public ActionResult logout(string username)
         {
+            if (Session["Username"] == null)
+                return RedirectToAction("index");
+
             accountClient.LogOff(username);
+            Session.RemoveAll();
             return RedirectToAction("index");
         }
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your app description page.";
+       
 
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+       
     }
 }
