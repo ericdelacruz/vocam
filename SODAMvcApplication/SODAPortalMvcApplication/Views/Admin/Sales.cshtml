@@ -22,6 +22,7 @@
                     <th>Company</th>
                     <th>Sales Code</th>
                     <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
 
@@ -30,7 +31,7 @@
                 @foreach (var salesperson in Model)
                 {
                     <tr>
-                        <td width="200">@salesperson.account.FirstName +" "+@salesperson.account.FirstName</td>
+                        <td width="200">@salesperson.account.FirstName @salesperson.account.LastName</td>
                         <td width="170">@salesperson.account.Company</td>
                         <td width="100">@salesperson.salesPerson.Sales_Code</td>
                         <td width="100"><a href=@Url.Action("editsale", new { id = salesperson.salesPerson.Id})><img alt="Edit" src="~/Content/images/portal/edit.png"></a></td>
