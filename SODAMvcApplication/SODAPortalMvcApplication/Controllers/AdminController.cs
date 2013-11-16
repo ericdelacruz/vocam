@@ -80,9 +80,11 @@ namespace SODAPortalMvcApplication.Controllers
         public ActionResult addsale()
         {
             ViewBag.RegionList = from region in portalClient.getRegion()
-                                 select region.RegionName;
+                                 select region;
+            
+            
             ViewBag.SalesCodeList = from salesCode in portalClient.getSaleCode()
-                                    select salesCode.Sales_Code;
+                                    select salesCode;
 
 
             return View();
@@ -127,8 +129,9 @@ namespace SODAPortalMvcApplication.Controllers
                     Id = salesCode.First().Id,
                     Discount = decimal.Parse(collection["Discount"]),
                     DateCreated = DateTime.Now,
-                    SalesPersonID = salesPerson.First().Id 
-
+                    SalesPersonID = salesPerson.First().Id, 
+                    Sales_Code = salesCode.First().Sales_Code,
+                    DateEnd = salesCode.First().DateEnd
                 });
 
                 return RedirectToAction("addSale");
@@ -145,6 +148,7 @@ namespace SODAPortalMvcApplication.Controllers
             ViewBag.RegionList = from region in portalClient.getRegion()
                                  select region.RegionName;
 
+            
             ViewBag.SalesCodeList = from salesCode in portalClient.getSaleCode()
                                     select salesCode.Sales_Code;
 
