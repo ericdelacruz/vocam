@@ -1,9 +1,11 @@
 ﻿@model IEnumerable<CMSMvcApplication.ViewModels.Title>
 @{
     ViewBag.Title = "Index";
+    var webpageUrl = System.Configuration.ConfigurationManager.AppSettings["webpageURL"].ToString() == "" ? "http://localhost:51219" :
+                                          System.Configuration.ConfigurationManager.AppSettings["webpageURL"].ToString();
 }
 
-<h1 class="margin15">Titles <span><a href="@Url.Action("create")"><img src="Content/images/cms/addNew.gif"></a></span></h1>
+<h1 class="margin15">Titles <span><a href="@Url.Action("create")"><img src="/Content/images/cms/addNew.gif"></a></span></h1>
 
 <table class="cmsTable">
     @{
@@ -23,9 +25,9 @@
             {
                 <tr>
                     <td width="415"> &nbsp; @title.Specific.Title</td>
-                    <td width="100"><a href=@Url.Action("edit",new{id=title.Specific.Id})><img src="Content/images/cms/edit.png"></a></td>
-                    <td width="100"><a href=@Url.Action("delete",new{id=title.Specific.Id})><img src="Content/images/cms/delete.png"></a></td>
-                    <td width="100"><a target="_blank" href="http://localhost:51219/categories/details/@title.Specific.Id"><img src="Content/images/cms/view.png"></a></td>
+                    <td width="100"><a href=@Url.Action("edit",new{id=title.Specific.Id})><img src="/Content/images/cms/edit.png"></a></td>
+                    <td width="100"><a href=@Url.Action("delete",new{id=title.Specific.Id})><img src="/Content/images/cms/delete.png"></a></td>
+                    <td width="100"><a target="_blank" href="@webpageUrl/categories/details/@title.Specific.Id"><img src="/Content/images/cms/view.png"></a></td>
 
                     <td>@title.Category.CategoryName</td>
                 </tr>

@@ -16,7 +16,7 @@ namespace SODAwcfService
         private SodaDBDataSetTableAdapters.ContentDefTableAdapter CMSTableAdapter;
         //todo place encrypted string here
         private string asdasd = EncDec.EncryptData("myS0D@P@ssw0rd");
-        private bool Allowed = true;
+        private static bool Allowed = true;//set this to false if prod
         private const string ACCESS_DENIED = "ACCESS DENIED";
      
         
@@ -71,6 +71,8 @@ namespace SODAwcfService
 
         public IEnumerable<Models.ContentDef> getContent(string PageCode, string sectionName)
         {
+            if (!Allowed)
+                throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
             SodaDBDataSet.ContentDefDataTable tbResult = new SodaDBDataSet.ContentDefDataTable();
             List<Models.ContentDef> listContent = new List<Models.ContentDef>();
 
@@ -98,6 +100,17 @@ namespace SODAwcfService
         }
 
 
-        
+
+
+
+        public int addContact(SODAwcfService.Contact contact)
+        {
+            if (!Allowed)
+                throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
+            SodaDBEntities1 entity = new SodaDBEntities1();
+            entity.Contacts.Add(contact);
+            entity.SaveChanges();
+            return 1;
+        }
     }
 }

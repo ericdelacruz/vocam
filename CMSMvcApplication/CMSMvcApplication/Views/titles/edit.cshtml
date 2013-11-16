@@ -43,10 +43,10 @@
     <textarea class="field span12 form-control" id="textarea" rows="5" cols="49" placeholder="" name="Description">@Model.Description.Replace("<br/>","\n")</textarea>
     <label>Thumbnail Image <span class="uploadTxtCont">(recommended dimension:200 x 108)</span></label>
     <input type="file" name="Thumb"> 
-    <img src="http://localhost:51219/@Model.ImageURL"> <br />  <br />
+    <img src="@Model.ImageURL"> <br />  <br />
     <label>Background Image <span class="uploadTxtCont">(recommended dimension:1500 x 947)</span></label>
     <input type="file" name="BG_IMG"> <br />
-    <img width="300" height="189" src="http://localhost:51219/@Model.BG_Img">
+    <img width="300" height="189" src="@Model.BG_Img">
     <label>Video URL</label>
     <input type="text" class="form-control" name="VidURL" value="@Model.VideoURL" autofocus="">
     <br />

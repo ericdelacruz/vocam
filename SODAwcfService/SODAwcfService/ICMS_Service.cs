@@ -30,5 +30,8 @@ namespace SODAwcfService
 
         [OperationContract]
         bool Authenticate(string Password);
+
+        [OperationContract]
+        int addContact(Contact contact);
     }
 }

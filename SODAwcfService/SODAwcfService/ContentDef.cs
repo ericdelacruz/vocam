@@ -12,16 +12,13 @@ namespace SODAwcfService
     using System;
     using System.Collections.Generic;
     
-    public partial class Page
+    public partial class ContentDef
     {
-        public Page()
-        {
-            this.ContentDefs = new HashSet<ContentDef>();
-        }
-    
         public string PageCode { get; set; }
-        public string Name { get; set; }
+        public string SectionName { get; set; }
+        public string Type { get; set; }
+        public string Value { get; set; }
     
-        public virtual ICollection<ContentDef> ContentDefs { get; set; }
+        public virtual Page Page { get; set; }
     }
 }

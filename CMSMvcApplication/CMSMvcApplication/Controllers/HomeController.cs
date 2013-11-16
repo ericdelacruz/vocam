@@ -8,14 +8,14 @@ namespace CMSMvcApplication.Controllers
 {
     public class HomeController : Controller
     {
-        private static string portalURL = ConfigurationManager.AppSettings["portalURL"].ToString()==""?"http://localhost:53918/":
-                                          ConfigurationManager.AppSettings["portalURL"].ToString();
+       
         private AccountServiceReference.AccountServiceClient accountClient = new AccountServiceReference.AccountServiceClient();
         //
         // GET: /Home/
 
         public ActionResult Index()
         {
+            
             //AccountServiceReference.Account account;
             //if (!string.IsNullOrEmpty(user) && (account = accountClient.getAccount(user).First()).Status == 1 && account.Role == 0)
             //{
@@ -24,17 +24,39 @@ namespace CMSMvcApplication.Controllers
             //}
             //else
             //    return Redirect(portalURL);
-            
+            if (Session["Username"] != null)
+                return View();
+            else
+                return RedirectToAction("login");
+        }
+        public ActionResult login()
+        {
             return View();
         }
-
+        [HttpPost]
+        public ActionResult login(FormCollection collection)
+        {
+            if(accountClient.isUserNameExists(collection["Username"]) && accountClient.AuthenticateUser(collection["Username"],collection["Password"]))
+            {
+                Session.Add("Username", collection["Username"]);
+                return RedirectToAction("index");
+            }
+            else
+            {
+                //error
+                return RedirectToAction("login");
+            }
+        }
         public ActionResult logout()
         {
+            if(Session["Username"]==null)
+                return RedirectToAction("login");
+
             string username = Session["Username"].ToString();
 
             accountClient.LogOff(username);
-
-            return Redirect(portalURL);
+            Session["Username"] = null;
+            return RedirectToAction("login");
         }
         //
         // GET: /Home/Profile

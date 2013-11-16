@@ -205,6 +205,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AdminModel.cs" />
+    <Compile Include="ViewModel\UserModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\bootstrap-responsive.css" />

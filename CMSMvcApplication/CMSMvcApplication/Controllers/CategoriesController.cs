@@ -15,6 +15,8 @@ namespace CMSMvcApplication.Controllers
 
         public ActionResult Index()
         {
+            if (Session["Username"] == null)
+                return RedirectToAction("login", "Home");
             var catList = from cat in catListingClient.get_Categories()
                           where cat.CategoryId != 1
                           select cat;
@@ -35,6 +37,8 @@ namespace CMSMvcApplication.Controllers
 
         public ActionResult Create()
         {
+            if (Session["Username"] == null)
+                return RedirectToAction("login", "Home");
             return View();
         }
 
@@ -56,9 +60,9 @@ namespace CMSMvcApplication.Controllers
                     Metatags = collection["CategoryMetaKeywords"],
                     MetaDesc = collection["CategoryMetaDescription"],
                     PageTitile = collection["CategoryPageTitle"],
-                    IMG_URL = !string.IsNullOrEmpty(Request.Files["Thumb"].FileName)?FileTransferHelper.UploadImage(Request.Files["Thumb"],Server):"#",
-                    Banner_IMG = !string.IsNullOrEmpty(Request.Files["Banner"].FileName)?FileTransferHelper.UploadImage(Request.Files["Banner"], Server):"#",
-                    BG_IMG =!string.IsNullOrEmpty(Request.Files["BG"].FileName)? FileTransferHelper.UploadImage(Request.Files["BG"],Server):"#"
+                    IMG_URL = !string.IsNullOrEmpty(Request.Files["Thumb"].FileName)?string.Concat(Request.Url.GetLeftPart(UriPartial.Authority),FileTransferHelper.UploadImage(Request.Files["Thumb"],Server)):"#",
+                    Banner_IMG = !string.IsNullOrEmpty(Request.Files["Banner"].FileName)?string.Concat(Request.Url.GetLeftPart(UriPartial.Authority),FileTransferHelper.UploadImage(Request.Files["Banner"], Server)):"#",
+                    BG_IMG =!string.IsNullOrEmpty(Request.Files["BG"].FileName)? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority),FileTransferHelper.UploadImage(Request.Files["BG"],Server)):"#"
                 });
                 
                 return RedirectToAction("Index");
@@ -77,6 +81,8 @@ namespace CMSMvcApplication.Controllers
 
         public ActionResult Edit(long id)
         {
+            if (Session["Username"] == null)
+                return RedirectToAction("login", "Home");
             CatListingServiceReference.Category category = new CatListingServiceReference.Category();
             category = catListingClient.get_Category(id).First();
 
@@ -102,9 +108,9 @@ namespace CMSMvcApplication.Controllers
                     Metatags = collection["CategoryMetaKeywords"],
                     MetaDesc = collection["CategoryMetaDescription"],
                     PageTitile = collection["CategoryPageTitle"],
-                    IMG_URL = !string.IsNullOrEmpty(Request.Files["Thumb"].FileName) ? FileTransferHelper.UploadImage(Request.Files["Thumb"], Server) : catTemp.IMG_URL,
-                    Banner_IMG = !string.IsNullOrEmpty(Request.Files["Banner"].FileName)?FileTransferHelper.UploadImage(Request.Files["Banner"],Server): catTemp.Banner_IMG,
-                    BG_IMG = !string.IsNullOrEmpty(Request.Files["BG"].FileName)?FileTransferHelper.UploadImage(Request.Files["BG"],Server): catTemp.BG_IMG
+                    IMG_URL = !string.IsNullOrEmpty(Request.Files["Thumb"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority),FileTransferHelper.UploadImage(Request.Files["Thumb"], Server)) : catTemp.IMG_URL,
+                    Banner_IMG = !string.IsNullOrEmpty(Request.Files["Banner"].FileName)?string.Concat(Request.Url.GetLeftPart(UriPartial.Authority),FileTransferHelper.UploadImage(Request.Files["Banner"],Server)): catTemp.Banner_IMG,
+                    BG_IMG = !string.IsNullOrEmpty(Request.Files["BG"].FileName)?string.Concat(Request.Url.GetLeftPart(UriPartial.Authority),FileTransferHelper.UploadImage(Request.Files["BG"],Server)): catTemp.BG_IMG
                 });
                 return RedirectToAction("Index");
             }

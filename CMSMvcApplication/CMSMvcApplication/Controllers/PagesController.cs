@@ -15,12 +15,17 @@ namespace CMSMvcApplication.Controllers
 
         public ActionResult Index()
         {
+            if (Session["Username"] == null)
+                return RedirectToAction("login", "Home");
+
             return View();
         }
         //
         //GET: /Pages/Home
         public ActionResult EditHome()
         {
+            if (Session["Username"] == null)
+                return RedirectToAction("login", "Home");
             var HomeContent = from homeContent in cmsService.getContent("Home", string.Empty)
                               select homeContent;
             return View(HomeContent);
@@ -44,6 +49,7 @@ namespace CMSMvcApplication.Controllers
             UpdateImageContent(cmsService.getContent("Home", "thumbPost_thum2_Title").First(), "FP2_Thumb");
             UpdateHomeContent("thumbPost_thum2_Title", "text", collection["FTitle2"]);
             UpdateHomeContent("thumbPost_thum2_Details", "text", collection["fDesc2"]);
+
             UpdateHomeContent("thumbPost_thum2_href", "href", collection["FURL1"]);
 
             UpdateImageContent(cmsService.getContent("Home", "thumbPost_thum3_Title").First(), "FP3_Thumb");
@@ -60,7 +66,7 @@ namespace CMSMvcApplication.Controllers
         {
             if (contentDef.Value != Request.Files[index].FileName && !string.IsNullOrEmpty(Request.Files[index].FileName))
             {
-                UpdateHomeContent(contentDef.SectionName, contentDef.Type, FileTransferHelper.UploadImage(Request.Files[index],Server));
+                UpdateHomeContent(contentDef.SectionName, contentDef.Type, string.Concat(Request.Url.GetLeftPart(UriPartial.Authority),FileTransferHelper.UploadImage(Request.Files[index],Server)));
             }
         }
 
@@ -70,7 +76,7 @@ namespace CMSMvcApplication.Controllers
             {
                 PageCode = "Home",
                 SectionName = sectionName,
-                Value = strValue.Replace("\n","<br/>"),
+                Value = strValue.Replace("\n","<br/>").Trim(),
                 Type = strType
             });
         }
