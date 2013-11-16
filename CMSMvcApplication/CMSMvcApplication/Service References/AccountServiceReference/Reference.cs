@@ -26,6 +26,9 @@ namespace CMSMvcApplication.AccountServiceReference {
         private string AddressField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> BirthdateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CityField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -35,10 +38,10 @@ namespace CMSMvcApplication.AccountServiceReference {
         private string ContactNoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<System.DateTime> ContractEndDateField;
+        private string CountryField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CountryField;
+        private System.Nullable<System.DateTime> DateLoginField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string EmailField;
@@ -48,6 +51,9 @@ namespace CMSMvcApplication.AccountServiceReference {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private char GenderField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long IdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string LastNameField;
@@ -83,6 +89,19 @@ namespace CMSMvcApplication.AccountServiceReference {
                 if ((object.ReferenceEquals(this.AddressField, value) != true)) {
                     this.AddressField = value;
                     this.RaisePropertyChanged("Address");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> Birthdate {
+            get {
+                return this.BirthdateField;
+            }
+            set {
+                if ((this.BirthdateField.Equals(value) != true)) {
+                    this.BirthdateField = value;
+                    this.RaisePropertyChanged("Birthdate");
                 }
             }
         }
@@ -127,19 +146,6 @@ namespace CMSMvcApplication.AccountServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<System.DateTime> ContractEndDate {
-            get {
-                return this.ContractEndDateField;
-            }
-            set {
-                if ((this.ContractEndDateField.Equals(value) != true)) {
-                    this.ContractEndDateField = value;
-                    this.RaisePropertyChanged("ContractEndDate");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Country {
             get {
                 return this.CountryField;
@@ -148,6 +154,19 @@ namespace CMSMvcApplication.AccountServiceReference {
                 if ((object.ReferenceEquals(this.CountryField, value) != true)) {
                     this.CountryField = value;
                     this.RaisePropertyChanged("Country");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> DateLogin {
+            get {
+                return this.DateLoginField;
+            }
+            set {
+                if ((this.DateLoginField.Equals(value) != true)) {
+                    this.DateLoginField = value;
+                    this.RaisePropertyChanged("DateLogin");
                 }
             }
         }
@@ -187,6 +206,19 @@ namespace CMSMvcApplication.AccountServiceReference {
                 if ((this.GenderField.Equals(value) != true)) {
                     this.GenderField = value;
                     this.RaisePropertyChanged("Gender");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
                 }
             }
         }
