@@ -38,18 +38,20 @@
 
     <div class="">
         <div class="container row cmsWrap">
-            <div class="col-md-2 border cmsWrapCont">
-                <ul class="cms">
-                    <li>@Html.ActionLink("home", "index", "home", new object { }, new { @class = "homeMenu" })</li>
-                    <li>@Html.ActionLink("pages", "index", "pages", new object { }, new { @class = "pageMenu" })</li>
-                    <li>@Html.ActionLink("categories", "index", "categories", new object { }, new { @class = "categoryMenu" })</li>
-                    <li>@Html.ActionLink("titles", "index", "titles", new object { }, new { @class = "titleMenu" })</li>
-                    <li>@Html.ActionLink("profile", "index", "profile", new object { }, new { @class = "profileMenu" })</li>
-                    <li><a class="logoutMenu">Logout</a></li>          
-                </ul>
+            @if(Session["Username"] != null)
+            { 
+                <div class="col-md-2 border cmsWrapCont">
+                    <ul class="cms">
+                        <li>@Html.ActionLink("home", "index", "home", new object { }, new { @class = "homeMenu" })</li>
+                        <li>@Html.ActionLink("pages", "index", "pages", new object { }, new { @class = "pageMenu" })</li>
+                        <li>@Html.ActionLink("categories", "index", "categories", new object { }, new { @class = "categoryMenu" })</li>
+                        <li>@Html.ActionLink("titles", "index", "titles", new object { }, new { @class = "titleMenu" })</li>
+                        <li>@Html.ActionLink("profile", "index", "profile", new object { }, new { @class = "profileMenu" })</li>
+                        <li>@Html.ActionLink("Logout","logout","Home",new object{},new{@class="logoutMenu"})</li>         
+                    </ul>
 
-            </div>
-
+                </div>
+            }
             <div class="col-md-10 border cmsWrapCont2">
 
                 @RenderBody()

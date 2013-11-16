@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "login";
+}
+
+
+<div class="container row cmsWrap">
+
+  
+    @using(@Html.BeginForm("login","home", FormMethod.Post,new{@class="formSignin border shadow "}))
+    { 
+    
+        <h2 class="margin15">Please sign in</h2>
+        <input type="text" autofocus="" required="" placeholder="Email address" name="Username" class="form-control">
+        <input type="password" required="" placeholder="Password" name="Password" class="form-control">
+
+        <button type="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
+        <p>&nbsp;</p>
+  
+        <p>Forgot password? </p>
+
+    
+    }
+
+</div>
