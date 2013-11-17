@@ -18,15 +18,15 @@
                     <p>Please fill in your detailssss and one of our sales consultants will be in touch as soon as possible.</p>
                 </div>
                 <div class="formInput">
-                    @using(@Html.BeginForm("contact","Home", FormMethod.Post))
-                    { 
-                        <label>Name*</label> @Html.TextBoxFor(m=> m.Name,new{@class="form-control", placeholder="Name"})
-                        <label>Company*</label>@Html.TextBoxFor(m => m.Company, new { @class = "form-control", placeholder = "Company" })
-                        <label>Phone*</label>@Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "Phone" })
-                        <label>Email Address*</label>@Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
-                        <label>Postcode/Area Code/Zip*</label>@Html.TextBoxFor(m => m.Postcode, new { @class = "form-control", placeholder = "Postcode/Area Code/Zip" })
+                    @using (@Html.BeginForm("contact", "Home", FormMethod.Post))
+                    {
+                        <label>Name*</label> @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Name", required = "" })
+                        <label>Company*</label>@Html.TextBoxFor(m => m.Company, new { @class = "form-control", placeholder = "Company", required = "" })
+                        <label>Phone*</label>@Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "Phone", required = "" })
+                        <label>Email Address*</label>@Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email", required = "" })
+                        <label>Postcode/Area Code/Zip*</label>@Html.TextBoxFor(m => m.Postcode, new { @class = "form-control", placeholder = "Postcode/Area Code/Zip", required = "" })
                         <label>Enquiry</label>@Html.TextAreaFor(m => m.Message, new { @class = "field span12 form-control", placeholder = "Enter Your Enquiry" })
-                       
+
 
                         <button class="btnSubmit btn btn-lg btn-primary btn-block fl" type="submit">SUBMIT</button>
                         <p><br><br><br></p>

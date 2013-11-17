@@ -32,7 +32,7 @@
     <![endif]-->
     <header>
         <div class="container row">
-            <div class="col-md-2"><a href="home.html"><img class="logo" src="~/Content/images/safetyOnDemand-logo.jpg" alt="Safety On Demand"></a></div>
+            <div class="col-md-2"><a href="http://www.sac-iis.com/"><img class="logo" src="~/Content/images/safetyOnDemand-logo.jpg" alt="Safety On Demand"></a></div>
             <div class="headerRight fr col-md-10">
                 <div class="call"><span class="calltxt">CALL</span> 03 9809 7777</div>
                 <div class="socialBtns clearfix">
@@ -49,7 +49,7 @@
                 <div class="navbar2 fr clearfix">
                     <ul class="menuNav">
                         <li>
-                            @Html.ActionLink("HOME", "Index", "Home") @{
+                            @Html.ActionLink("HOME", "index", "home") @{
                                 if (ViewBag.CurPage == "Home")
                                 {
                                     <div class="arrowActive"></div>
@@ -57,7 +57,7 @@
                             }
                         </li>
                         <li>
-                            @Html.ActionLink("CATEGORIES", "Index", "Categories")@{
+                            @Html.ActionLink("CATEGORIES", "index", "categories")@{
                                 if (ViewBag.CurPage == "Category")
                                 {
                                     <div class="arrowActive"></div>
@@ -65,7 +65,7 @@
                             }
                         </li>
                         <li>
-                            @Html.ActionLink("LEARN MORE", "LearnMore", "Home")@{
+                            @Html.ActionLink("LEARN MORE", "learnmore", "home")@{
                                 if (ViewBag.CurPage == "LearnMore")
                                 {
                                     <div class="arrowActive"></div>
@@ -73,7 +73,7 @@
                             }
                         </li>
                         <li>
-                            @Html.ActionLink("CONTACT", "Contact", "Home")@{
+                            @Html.ActionLink("CONTACT", "contact", "home")@{
                                 if (ViewBag.CurPage == "Contact")
                                 {
                                     <div class="arrowActive"></div>
@@ -97,14 +97,14 @@
 
     <footer>
         <div class="whitespace container row">
-            <div class="col-md-2"><a href="home.html"><img src="~/Content/images/safetyOnDemand-logoFooter.jpg" alt="Safety On Demand"></a></div>
+            <div class="col-md-2"><a href="http://www.sac-iis.com/"><img src="~/Content/images/safetyOnDemand-logoFooter.jpg" alt="Safety On Demand"></a></div>
             <div align="right" class="ftrLinks col-md-10">
                 <div class="clearfix">
                     <ul>
-                        <li>@Html.ActionLink("HOME", "Index", "Home")</li>
-                        <li><a href="categories.html">CATEGORIES</a></li>
-                        <li>@Html.ActionLink("LEARN MORE", "Learn", "Home")</li>
-                        <li>@Html.ActionLink("CONTACT", "Contact", "Home")</li>
+                        <li>@Html.ActionLink("HOME", "index", "home")</li>
+                        <li>@Html.ActionLink("CATEGORIES", "index", "categories")</li>
+                        <li>@Html.ActionLink("LEARN MORE", "learnmore", "home")</li>
+                        <li>@Html.ActionLink("CONTACT", "contact", "home")</li>
                         <li><a href="#">SITEMAP</a></li>
                         <li><a href="#">LEGALS</a></li>
                     </ul>
