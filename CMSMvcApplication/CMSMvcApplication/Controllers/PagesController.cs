@@ -46,13 +46,13 @@ namespace CMSMvcApplication.Controllers
             UpdateHomeContent("thumbPost_thum_href", "href", collection["FURL1"]);
 
             //UpdateContent("thumbPost_thum_Pic_href", "href", collection["FP2_Thumb"]);
-            UpdateImageContent(cmsService.getContent("Home", "thumbPost_thum2_Title").First(), "FP2_Thumb");
+            UpdateImageContent(cmsService.getContent("Home", "thumbPost_thum2_Pic_href").First(), "FP2_Thumb");
             UpdateHomeContent("thumbPost_thum2_Title", "text", collection["FTitle2"]);
             UpdateHomeContent("thumbPost_thum2_Details", "text", collection["fDesc2"]);
 
             UpdateHomeContent("thumbPost_thum2_href", "href", collection["FURL1"]);
 
-            UpdateImageContent(cmsService.getContent("Home", "thumbPost_thum3_Title").First(), "FP3_Thumb");
+            UpdateImageContent(cmsService.getContent("Home", "thumbPost_thum3_Pic_href").First(), "FP3_Thumb");
             UpdateHomeContent("thumbPost_thum3_Title", "text", collection["FTitle3"]);
             UpdateHomeContent("thumbPost_thum3_Details", "text", collection["fDesc3"]);
             UpdateHomeContent("thumbPost_thum3_href", "href", collection["FURL3"]);
