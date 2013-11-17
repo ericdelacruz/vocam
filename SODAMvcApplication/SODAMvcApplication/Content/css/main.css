@@ -154,11 +154,12 @@ header {
 
 .arrowActive{
 	background: url(../images/arrowActive.png) no-repeat;
-	width: 50%;
+	width: 20%;
 	height: 19px;
 	position: absolute;
 	bottom:-41px;
     background-position: center;
+    left:40%;
 }
 
 
@@ -175,7 +176,7 @@ header {
 	float:left; 
 	list-style:none; 
 	margin-top:15px;
-	padding:0 0 0 30px;
+	padding:0 15px 0 15px;
 	font-size:14px;
 }
 .navbar2 a {
