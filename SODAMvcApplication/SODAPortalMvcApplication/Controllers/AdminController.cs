@@ -185,12 +185,41 @@ namespace SODAPortalMvcApplication.Controllers
             portalClient.updateSalsCode(new PortalServiceReference.SalesCode()
             {
                 Id = portalClient.getSaleCode().Select(salecode => salecode).Where(sc => sc.Sales_Code == collection["SalesCode"]).First().Id,
-                // Id = salesCode.First().Id,
+                
                 Discount = decimal.Parse(collection["Discount"]),
                 DateCreated = DateTime.Now,
                 SalesPersonID = salesPerson_orig.First().Id
             });
             return RedirectToAction("sales");
+        }
+
+        public ActionResult deletesale(int id)
+        {
+
+            setSalepersonToNull(id);
+            portalClient.deleteSalePerson(id);
+            return RedirectToAction("sales");
+        }
+
+        private void setSalepersonToNull(int id)
+        {
+            var orig_SalesCode = from sc in portalClient.getSaleCode()
+                             
+                                 where sc.SalesPersonID == id
+                                 select sc;
+
+            if(orig_SalesCode.Count() > 0)
+            portalClient.updateSalsCode(new PortalServiceReference.SalesCode()
+            {
+
+                Id = orig_SalesCode.First().Id,
+                SalesPersonID = null,
+                DateCreated = orig_SalesCode.First().DateCreated,
+                Sales_Code = orig_SalesCode.First().Sales_Code,
+                Discount = orig_SalesCode.First().Discount,
+                DateEnd = orig_SalesCode.First().DateEnd
+
+            });
         }
         #endregion
 
