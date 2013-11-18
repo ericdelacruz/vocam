@@ -52,6 +52,7 @@ namespace CMSMvcApplication.Controllers
             else
             {
                 //error
+                ViewBag.AccessDenied = true;
                 return View(collection);
             }
         }
