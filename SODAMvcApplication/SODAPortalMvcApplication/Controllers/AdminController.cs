@@ -127,7 +127,7 @@ namespace SODAPortalMvcApplication.Controllers
                 {
                     
                     Id = salesCode.First().Id,
-                    Discount = decimal.Parse(collection["Discount"]),
+                    Discount = decimal.Parse(collection["Discount"])/100,
                     DateCreated = DateTime.Now,
                     SalesPersonID = salesPerson.First().Id, 
                     Sales_Code = salesCode.First().Sales_Code,

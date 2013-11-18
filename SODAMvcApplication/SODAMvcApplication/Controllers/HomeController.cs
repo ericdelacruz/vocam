@@ -20,10 +20,10 @@ namespace SODAMvcApplication.Controllers
         {
 
           
-            if (cmsServiceClient.Authenticate(password))
-            {
-                //error page
-            }
+            //if (cmsServiceClient.Authenticate(password))
+            //{
+            //    //error page
+            //}
 
             
               var  lContentDef = cmsServiceClient.getContent(HOME, string.Empty);
