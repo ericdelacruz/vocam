@@ -33,61 +33,63 @@
     <header>
         <div class="container row">
             <div class="col-md-2"><a href="http://www.sac-iis.com/"><img class="logo" src="~/Content/images/safetyOnDemand-logo.jpg" alt="Safety On Demand"></a></div>
-            <div class="headerRight fr col-md-10">
-                <div class="call"><span class="calltxt">CALL</span> 03 9809 7777</div>
-                <div class="socialBtns clearfix">
+            <div class="col-md-10">
+                <div class="headerRight">
+                    <div class="call"><span class="calltxt">CALL</span> 03 9809 7777</div>
+                    <div class="socialBtns clearfix">
 
-                    <ul>
-                        <li><a class="socialTwitter" href="#">twitter</a></li>
-                        <li><a class="socialYoutube" href="#">youtube</a></li>
-                        <li><a class="socialFacebook" href="#">facebook</a></li>
-                        <li><a class="socialLinkdin" href="#">linkdin</a></li>
-                    </ul>
+                        <ul>
+                            <li><a class="socialTwitter" href="#">twitter</a></li>
+                            <li><a class="socialYoutube" href="#">youtube</a></li>
+                            <li><a class="socialFacebook" href="#">facebook</a></li>
+                            <li><a class="socialLinkdin" href="#">linkdin</a></li>
+                        </ul>
 
-                </div>
+                    </div>
 
-                <div class="navbar2 fr clearfix">
-                    <ul class="menuNav">
-                        <li>
-                            @Html.ActionLink("HOME", "index", "home") @{
-                                if (ViewBag.CurPage == "Home")
-                                {
-                                    <div class="arrowActive"></div>
+                    <div class="navbar2 fr clearfix">
+                        <ul class="menuNav">
+                            <li>
+                                @Html.ActionLink("HOME", "index", "home") @{
+                                    if (ViewBag.CurPage == "Home")
+                                    {
+                                        <div class="arrowActive"></div>
+                                    }
                                 }
-                            }
-                        </li>
-                        <li>
-                            @Html.ActionLink("CATEGORIES", "index", "categories")@{
-                                if (ViewBag.CurPage == "Category")
-                                {
-                                    <div class="arrowActive"></div>
+                            </li>
+                            <li>
+                                @Html.ActionLink("CATEGORIES", "index", "categories")@{
+                                    if (ViewBag.CurPage == "Category")
+                                    {
+                                        <div class="arrowActive"></div>
+                                    }
                                 }
-                            }
-                        </li>
-                        <li>
-                            @Html.ActionLink("LEARN MORE", "learnmore", "home")@{
-                                if (ViewBag.CurPage == "LearnMore")
-                                {
-                                    <div class="arrowActive"></div>
+                            </li>
+                            <li>
+                                @Html.ActionLink("LEARN MORE", "learnmore", "home")@{
+                                    if (ViewBag.CurPage == "LearnMore")
+                                    {
+                                        <div class="arrowActive"></div>
+                                    }
                                 }
-                            }
-                        </li>
-                        <li>
-                            @Html.ActionLink("CONTACT", "contact", "home")@{
-                                if (ViewBag.CurPage == "Contact")
-                                {
-                                    <div class="arrowActive"></div>
+                            </li>
+                            <li>
+                                @Html.ActionLink("CONTACT", "contact", "home")@{
+                                    if (ViewBag.CurPage == "Contact")
+                                    {
+                                        <div class="arrowActive"></div>
+                                    }
                                 }
-                            }
-                        </li>
+                            </li>
 
-                    </ul>
+                        </ul>
 
-                </div>
+                    </div>
 
 
-                @*<div class="arrowActive arrowHome"></div>*@
-            </div> <!-- end of headerRight-->
+                    @*<div class="arrowActive arrowHome"></div>*@
+                </div> <!-- end of headerRight-->
+            </div>
         </div>
     </header>
 
@@ -98,20 +100,23 @@
     <footer>
         <div class="whitespace container row">
             <div class="col-md-2"><a href="http://www.sac-iis.com/"><img src="~/Content/images/safetyOnDemand-logoFooter.jpg" alt="Safety On Demand"></a></div>
-            <div align="right" class="ftrLinks col-md-10">
-                <div class="clearfix">
-                    <ul>
-                        <li>@Html.ActionLink("HOME", "index", "home")</li>
-                        <li>@Html.ActionLink("CATEGORIES", "index", "categories")</li>
-                        <li>@Html.ActionLink("LEARN MORE", "learnmore", "home")</li>
-                        <li>@Html.ActionLink("CONTACT", "contact", "home")</li>
-                        <li><a href="#">SITEMAP</a></li>
-                        <li><a href="#">LEGALS</a></li>
-                    </ul>
+            <div align="right" class="col-md-10">
+                <div class="ftrLinks">
+                    <div class="clearfix">
+                        <ul class="footNav">
+                            <li>@Html.ActionLink("HOME", "index", "home")</li>
+                            <li>@Html.ActionLink("CATEGORIES", "index", "categories")</li>
+                            <li>@Html.ActionLink("LEARN MORE", "learnmore", "home")</li>
+                            <li>@Html.ActionLink("CONTACT", "contact", "home")</li>
+                            <li><a href="#">SITEMAP</a></li>
+                            <li><a href="#">LEGALS</a></li>
+                        </ul>
+                    </div>
+                    <div id="copyrightTxt" class="clearfix"><span>Copyright &copy; 2013</span></div>
                 </div>
-                <div class="clearfix"><span>Copyright &copy; 2013</span></div>
+                <s />div>
+
             </div>
-        </div>
     </footer>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="//code.jquery.com/jquery.js"></script>
