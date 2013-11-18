@@ -14,6 +14,9 @@
 
 @{
     ViewBag.Title = "EditHome";
+    var homeContent = ViewBag.HomeContent as IEnumerable<CMSMvcApplication.CMSServiceReference.ContentDef>;
+    //var webpageUrl = System.Configuration.ConfigurationManager.AppSettings["webpageURL"].ToString() == "" ? "http://localhost:51219" :
+    //                                      System.Configuration.ConfigurationManager.AppSettings["webpageURL"].ToString();
 }
 
 <h1 class="margin15">Edit Page</h1>
@@ -30,11 +33,15 @@
         </div>
         <div class="panel-body">
             <label>Background Image <span class="uploadTxtCont">(recommended dimension:1500 x 525)</span></label>
-            <input type="file" name="TOP_BG" value="@getVal("header_banner_bg_IMG", "href")">
+            <input type="file" name="TOP_BG" value=@getVal("header_banner_bg_IMG", "href")>
+            <img width="250" height="100" src="@getVal("header_banner_bg_IMG", "href" )">
+            <br />
             <label>Headline 1*</label>
             <textarea class="field span12 form-control" id="textarea" rows="3" cols="49" placeholder="" name="Top_Headline1">@getVal("header_banner_Title", "text").Replace("<br/>", "\n")</textarea>
             <label>Subheadline 2</label>
             <textarea class="field span12 form-control" id="textarea" rows="5" cols="49" placeholder="" name="Top_SubHeadline2">@getVal("header_banner_txt", "text").Replace("<br/>", "\n")</textarea>
+            <label>Preview Now URL</label>
+            <input type="text" class="form-control" name="PREVURL" value=@getVal("previewNowBtn_href", "href") autofocus="">
         </div>
     </div> <!-- end of panel:top banner-->
 
@@ -45,6 +52,8 @@
         <div class="panel-body">
             <label>Thumbnail Image <span class="uploadTxtCont">(recommended dimension:346 x 169)</span></label>
             <input type="file" name="FP1_Thumb" value=@getVal("thumbPost_thum_Pic_href", "href")>
+            <img width="200" height="100" style="margin-bottom:10px;" src="@getVal("thumbPost_thum_Pic_href", "href")">
+            <br />
             <label>Post Title*</label>
             <input type="text" class="form-control" name="FTitle1" value="@getVal("thumbPost_thum_Title", "text").Replace("<br/>", "\n")" autofocus="">
             <label>Description</label>
@@ -60,14 +69,16 @@
         </div>
         <div class="panel-body">
             <label>Thumbnail Image <span class="uploadTxtCont">(recommended dimension:346 x 169)</span></label>
-            <input type="file" name="FP2_Thumb" value="@getVal("thumbPost_thum2_Title", "text")">
+            <input type="file" name="FP2_Thumb" value="">
+            <img width="200" height="100" style="margin-bottom:10px;" src="@getVal("thumbPost_thum2_Pic_href", "href")">
+            <br />
             <label>Post Title*</label>
             <input type="text" class="form-control" name="FTitle2" value="@getVal("thumbPost_thum2_Title", "text").Replace("<br/>", "\n")" autofocus="">
-           
+
             <label>Description</label>
             <textarea class="field span12 form-control" name="FDesc2" id="textarea" rows="5" cols="49" placeholder="">@getVal("thumbPost_thum2_Details", "text").Replace("<br/>", "\n")</textarea>
             <label>Featured URL 2</label>
-    <input type="text" class="form-control" name="FURL2" value=@getVal("thumbPost_thum2_href", "href") autofocus="">
+            <input type="text" class="form-control" name="FURL2" value=@getVal("thumbPost_thum2_href", "href") autofocus="">
            </div>
     </div> <!-- end of panel:featured post 2-->
 
@@ -78,6 +89,8 @@
         <div class="panel-body">
             <label>Thumbnail Image <span class="uploadTxtCont">(recommended dimension:346 x 169)</span></label>
             <input type="file" name="FP3_Thumb" value=@getVal("thumbPost_thum3_Pic_href", "href")>
+            <img width="200" height="100" style="margin-bottom:10px;" src="@getVal("thumbPost_thum3_Pic_href", "href")">
+            <br />
             <label>Post Title*</label>
             <input type="text" class="form-control" name="FTitle3" value="@getVal("thumbPost_thum3_Title", "text")" autofocus="">
             <label>Description</label>

@@ -15,7 +15,7 @@
     <![endif]-->
     <header>
         <div class="container row">
-            <div class="col-md-2"><a href="home.html"><img class="logo" src="~/Content/images/safetyOnDemand-logo.jpg" alt="Safety On Demand"></a></div>
+            <div class="col-md-2"><a target="_blank" href="http://www.sac-iis.com/"><img class="logo" src="~/Content/images/safetyOnDemand-logo.jpg" alt="Safety On Demand"></a></div>
             <div class="headerRight fr col-md-10">
                 <div class="call"><span class="calltxt">CALL</span> 03 9809 7777</div>
                 <div class="socialBtns clearfix">
@@ -38,18 +38,20 @@
 
     <div class="">
         <div class="container row cmsWrap">
-            <div class="col-md-2 border cmsWrapCont">
-                <ul class="cms">
-                    <li>@Html.ActionLink("home", "index", "home", new object { }, new { @class = "homeMenu" })</li>
-                    <li>@Html.ActionLink("pages", "index", "pages", new object { }, new { @class = "pageMenu" })</li>
-                    <li>@Html.ActionLink("categories", "index", "categories", new object { }, new { @class = "categoryMenu" })</li>
-                    <li>@Html.ActionLink("titles", "index", "titles", new object { }, new { @class = "titleMenu" })</li>
-                    <li>@Html.ActionLink("profile", "index", "profile", new object { }, new { @class = "profileMenu" })</li>
-                    <li><a class="logoutMenu">Logout</a></li>          
-                </ul>
+            @if (Session["Username"] != null)
+            {
+                <div class="col-md-2 border cmsWrapCont">
+                    <ul class="cms">
+                        <li>@Html.ActionLink("home", "index", "home", new object { }, new { @class = "homeMenu" })</li>
+                        <li>@Html.ActionLink("pages", "index", "pages", new object { }, new { @class = "pageMenu" })</li>
+                        <li>@Html.ActionLink("categories", "index", "categories", new object { }, new { @class = "categoryMenu" })</li>
+                        <li>@Html.ActionLink("titles", "index", "titles", new object { }, new { @class = "titleMenu" })</li>
+                        <li>@Html.ActionLink("profile", "index", "profile", new object { }, new { @class = "profileMenu" })</li>
+                        <li>@Html.ActionLink("Logout", "logout", "Home", new object { }, new { @class = "logoutMenu" })</li>
+                    </ul>
 
-            </div>
-
+                </div>
+            }
             <div class="col-md-10 border cmsWrapCont2">
 
                 @RenderBody()
@@ -61,14 +63,14 @@
 
     <footer>
         <div class="whitespace container row">
-            <div class="col-md-2"><a href="home.html"><img src="~/Content/images/safetyOnDemand-logoFooter.jpg" alt="Safety On Demand"></a></div>
+            <div class="col-md-2"><a target="_blank" href="http://www.sac-iis.com/"><img src="~/Content/images/safetyOnDemand-logoFooter.jpg" alt="Safety On Demand"></a></div>
             <div align="right" class="ftrLinks col-md-10">
                 <div class="clearfix">
                     <ul>
-                        <li>@Html.ActionLink("HOME", "Index", "Home")</li>
-                        <li>@Html.ActionLink("CONTACT", "Contact", "Home")</li>
-                        <li><a href="#">SITEMAP</a></li>
-                        <li><a href="#">LEGALS</a></li>
+                        <li><a target="_blank" href="http://www.sac-iis.com/">HOME</a></li>
+                        <li><a target="_blank" href="http://www.sac-iis.com/home/contact">HOME</a></li>
+                        <li><a target="_blank" href="#">SITEMAP</a></li>
+                        <li><a target="_blank" href="#">LEGALS</a></li>
                     </ul>
                 </div>
                 <div class="clearfix"><span>Copyright &copy; 2013</span></div>

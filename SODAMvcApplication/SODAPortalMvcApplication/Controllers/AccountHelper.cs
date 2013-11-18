@@ -11,5 +11,6 @@ namespace SODAPortalMvcApplication.Controllers
         {
             return client.getAccount(UserName).First().Status == 1;
         }
+        
     }
 }

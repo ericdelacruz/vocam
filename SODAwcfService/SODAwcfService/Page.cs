@@ -14,7 +14,14 @@ namespace SODAwcfService
     
     public partial class Page
     {
+        public Page()
+        {
+            this.ContentDefs = new HashSet<ContentDef>();
+        }
+    
         public string PageCode { get; set; }
         public string Name { get; set; }
+    
+        public virtual ICollection<ContentDef> ContentDefs { get; set; }
     }
 }

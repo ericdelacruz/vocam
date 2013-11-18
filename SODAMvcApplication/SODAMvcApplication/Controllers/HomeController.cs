@@ -10,7 +10,7 @@ namespace SODAMvcApplication.Controllers
     {
         //
         // GET: /Home/
-        private CMSServiceReference.CMS_ServiceClient cmsServiceClient = new CMSServiceReference.CMS_ServiceClient();
+        private static CMSServiceReference.CMS_ServiceClient cmsServiceClient = new CMSServiceReference.CMS_ServiceClient();
         private string password = "myS0D@P@ssw0rd";
         private const string HOME = "Home";
         private const string CONTACT = "Contact";
@@ -20,10 +20,10 @@ namespace SODAMvcApplication.Controllers
         {
 
           
-            if (cmsServiceClient.Authenticate(password))
-            {
-                //error page
-            }
+            //if (cmsServiceClient.Authenticate(password))
+            //{
+            //    //error page
+            //}
 
             
               var  lContentDef = cmsServiceClient.getContent(HOME, string.Empty);
@@ -38,21 +38,14 @@ namespace SODAMvcApplication.Controllers
         //GET: /Contact/
         public ActionResult Contact()
         {
-            //if (cmsServiceClient.Authenticate(password))
-            //{
-            //    //error page
-            //}
-            DataTable tbContentDef = new DataTable();
-            //try
-            //{
-            //    tbContentDef = cmsServiceClient.getContent(CONTACT, String.Empty);
-            //}
-
-            //catch (Exception ex)
-            //{
-
-            //}
-            return View(tbContentDef);
+          
+            return View();
+        }
+        [HttpPost]
+        public ActionResult contact(CMSServiceReference.Contact contact)
+        {
+            cmsServiceClient.addContact(contact);
+            return RedirectToAction("Index");
         }
         //
         //GET: /LearnMore/

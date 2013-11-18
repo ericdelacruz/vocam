@@ -2449,11 +2449,11 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string Sales_Code {
                 get {
-                    try {
-                        return ((string)(this[this.tableSalesPerson.Sales_CodeColumn]));
+                    if (this.IsSales_CodeNull()) {
+                        return null;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Sales_Code\' in table \'SalesPerson\' is DBNull.", e);
+                    else {
+                        return ((string)(this[this.tableSalesPerson.Sales_CodeColumn]));
                     }
                 }
                 set {
@@ -2513,6 +2513,8 @@ namespace SODAwcfService {
         public partial class SalesCodeRow : global::System.Data.DataRow {
             
             private SalesCodeDataTable tableSalesCode;
+            
+            private static System.DateTime DateEnd_nullValue = global::System.DateTime.Parse("1901-01-01T00:00:00");
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -2585,11 +2587,11 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public System.DateTime DateEnd {
                 get {
-                    try {
-                        return ((global::System.DateTime)(this[this.tableSalesCode.DateEndColumn]));
+                    if (this.IsDateEndNull()) {
+                        return SalesCodeRow.DateEnd_nullValue;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'DateEnd\' in table \'SalesCode\' is DBNull.", e);
+                    else {
+                        return ((global::System.DateTime)(this[this.tableSalesCode.DateEndColumn]));
                     }
                 }
                 set {

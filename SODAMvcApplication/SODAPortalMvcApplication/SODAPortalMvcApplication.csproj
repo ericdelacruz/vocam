@@ -187,6 +187,7 @@
     <Compile Include="Controllers\AccountHelper.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\salesController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -204,6 +205,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AdminModel.cs" />
+    <Compile Include="ViewModel\UserModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\bootstrap-responsive.css" />
@@ -391,7 +393,7 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\Price.cshtml" />
     <Content Include="Views\Admin\Sales.cshtml" />
-    <Content Include="Views\Sales\AddSale.cshtml" />
+    <Content Include="Views\Sales\AddUser.cshtml" />
     <Content Include="Views\Sales\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Profile.cshtml" />

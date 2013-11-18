@@ -21,13 +21,13 @@ namespace SODAPortalMvcApplication.Controllers
             }
             else
             {
-
+                
                 var reportlist = from customer in portalClient.getCustomer()
                                  join accnt in account.getAccount("") on customer.Id equals accnt.Id
                                  select new ViewModel.ReportViewModel() { account = accnt, customer = customer };
                 return View(reportlist);
             }
-
+            
         }
         [HttpPost]
         public ActionResult index(DateTime start, DateTime? end)
@@ -35,7 +35,7 @@ namespace SODAPortalMvcApplication.Controllers
             if (end != null)
             {
                 var reportlist = from customer in portalClient.getCustomer()
-                                 join accnt in account.getAccount("") on customer.Id equals accnt.Id
+                                 join accnt in account.getAccount("")  on customer.Id equals accnt.Id
                                  where customer.DatePurchase >= start && customer.DatePurchase < end
                                  select new ViewModel.ReportViewModel() { account = accnt, customer = customer };
                 return View(reportlist);
@@ -44,7 +44,7 @@ namespace SODAPortalMvcApplication.Controllers
             {
                 var reportlist = from customer in portalClient.getCustomer()
                                  join accnt in account.getAccount("") on customer.Id equals accnt.Id
-                                 where customer.DatePurchase == start
+                                 where customer.DatePurchase == start 
                                  select new ViewModel.ReportViewModel() { account = accnt, customer = customer };
                 return View(reportlist);
             }
@@ -74,15 +74,17 @@ namespace SODAPortalMvcApplication.Controllers
                 return View(salesList);
             }
 
-
+           
         }
 
         public ActionResult addsale()
         {
             ViewBag.RegionList = from region in portalClient.getRegion()
-                                 select region.RegionName;
+                                 select region;
+            
+            
             ViewBag.SalesCodeList = from salesCode in portalClient.getSaleCode()
-                                    select salesCode.Sales_Code;
+                                    select salesCode;
 
 
             return View();
@@ -106,14 +108,13 @@ namespace SODAPortalMvcApplication.Controllers
                     Status = 0
                 });
                 AccountServiceRef.Account account_New = account.getAccount(collection["Email"].ToString()).First();
-
-                portalClient.addSalesPerson(new PortalServiceReference.SalesPerson()
-                {
-                    UserId = account_New.Id,
-                    Sales_Code = collection["SalesCode"],
-                    RegionId = int.Parse(collection["Region"])
+                
+                portalClient.addSalesPerson(new PortalServiceReference.SalesPerson(){
+                     UserId = account_New.Id,
+                     Sales_Code = collection["SalesCode"],
+                     RegionId = int.Parse(collection["Region"])
                 });
-
+                 
                 var salesCode = from salecode in portalClient.getSaleCode()
                                 where salecode.Sales_Code == collection["SalesCode"]
                                 select salecode;
@@ -124,12 +125,13 @@ namespace SODAPortalMvcApplication.Controllers
 
                 portalClient.updateSalsCode(new PortalServiceReference.SalesCode()
                 {
-
+                    
                     Id = salesCode.First().Id,
-                    Discount = decimal.Parse(collection["Discount"]),
+                    Discount = decimal.Parse(collection["Discount"])/100,
                     DateCreated = DateTime.Now,
-                    SalesPersonID = salesPerson.First().Id
-
+                    SalesPersonID = salesPerson.First().Id, 
+                    Sales_Code = salesCode.First().Sales_Code,
+                    DateEnd = salesCode.First().DateEnd
                 });
 
                 return RedirectToAction("addSale");
@@ -137,15 +139,16 @@ namespace SODAPortalMvcApplication.Controllers
             else
             {
                 //error username/email existing 
-                return RedirectToAction("addSale");
+               return RedirectToAction("addSale");
             }
-
+            
         }
         public ActionResult editsale(int id)
         {
             ViewBag.RegionList = from region in portalClient.getRegion()
                                  select region.RegionName;
 
+            
             ViewBag.SalesCodeList = from salesCode in portalClient.getSaleCode()
                                     select salesCode.Sales_Code;
 
@@ -153,10 +156,10 @@ namespace SODAPortalMvcApplication.Controllers
                                    join accnt in account.getAccount("") on salesperson.UserId equals accnt.Id
                                    select new ViewModel.SalesViewModel() { account = accnt, salesPerson = salesperson };
 
-
+          
             return View(salesPerson_orig);
         }
-
+        
         [HttpPost]
         public ActionResult editsales(int id, FormCollection collection)
         {
@@ -204,7 +207,7 @@ namespace SODAPortalMvcApplication.Controllers
                                  select region;
             return View();
         }
-
+        
         [HttpPost]
         public ActionResult addprice(FormCollection collection)
         {
@@ -245,7 +248,7 @@ namespace SODAPortalMvcApplication.Controllers
             portalClient.deletePrice(id);
             return RedirectToAction("price");
         }
-        #endregion
+#endregion
 
         #region Sales Code
         public ActionResult salescode()
@@ -255,7 +258,7 @@ namespace SODAPortalMvcApplication.Controllers
             return View(SalesCodeList);
         }
 
-
+        
         public ActionResult addsalescode()
         {
             return View();
@@ -266,11 +269,11 @@ namespace SODAPortalMvcApplication.Controllers
             if (portalClient.getSaleCode().Select(sales => sales).Where(sales => sales.Sales_Code == collection["SalesCode"]).Count() == 0)
             {
                 portalClient.addSalesCode(new PortalServiceReference.SalesCode()
-                {
-                    DateCreated = DateTime.Now,
-                    Discount = 0,
-                    Sales_Code = collection["SalesCode"]
-                });
+                    {
+                        DateCreated = DateTime.Now,
+                        Discount = 0,
+                        Sales_Code = collection["SalesCode"]
+                    });
                 return RedirectToAction("salescode");
             }
             else
@@ -278,7 +281,7 @@ namespace SODAPortalMvcApplication.Controllers
                 //Error sales code already exists
                 return RedirectToAction("addsalescode");
             }
-
+            
         }
 
         public ActionResult editsalescode(int id)
@@ -298,18 +301,18 @@ namespace SODAPortalMvcApplication.Controllers
                                  select salesCode;
             portalClient.updateSalsCode(new PortalServiceReference.SalesCode()
             {
-                Id = id,
-                DateCreated = salesCode_orig.First().DateCreated,
+                 Id = id,
+                DateCreated  =salesCode_orig.First().DateCreated,
                 Discount = salesCode_orig.First().Discount,
                 SalesPersonID = salesCode_orig.First().SalesPersonID,
                 DateEnd = salesCode_orig.First().DateEnd,
-
+                     
                 Sales_Code = collection["SalesCode"]
             });
 
             return RedirectToAction("salescode");
         }
-
+        
         public ActionResult deletesalescode(int id)
         {
             portalClient.deleteSalesCode(id);
@@ -338,9 +341,8 @@ namespace SODAPortalMvcApplication.Controllers
         [HttpPost]
         public ActionResult addregion(FormCollection collection)
         {
-            portalClient.addRegion(new PortalServiceReference.Region()
-            {
-                RegionName = collection["RegionName"]
+            portalClient.addRegion(new PortalServiceReference.Region(){
+                 RegionName = collection["RegionName"]
             });
             return RedirectToAction("region");
         }
@@ -368,6 +370,6 @@ namespace SODAPortalMvcApplication.Controllers
             portalClient.deleteRegion(id);
             return RedirectToAction("region");
         }
-        #endregion
+        #endregion  
     }
 }

@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /* CSS Document */
 body {background-color:#f8f8f8 !important;}
 .cmsWrap {
@@ -12,6 +12,34 @@ body {background-color:#f8f8f8 !important;}
 	border:1px solid #c9c9c9; 
 	padding:45px;
 	min-height: 465px; }
+
+.formSignin {
+margin: 35px auto 50px;
+max-width: 450px;
+padding: 35px;
+}
+
+    .formSignin input {
+        margin-bottom:10px !important;
+    }
+
+.noteBox {
+	background-color:#faf5c7;
+	padding: 30px;
+	font-size: 16px;
+	color:;
+	text-align: left;
+	max-width: 600px;
+	margin: 0 auto;
+	line-height: 30px;
+	border: 1px solid #f1e797;
+}
+
+.noteImg {margin-right: 15px;}
+.noteTxt span {font-size: 20px; font-weight: bold;}
+
+
+
 .cms li 
 	{
 		list-style:none;

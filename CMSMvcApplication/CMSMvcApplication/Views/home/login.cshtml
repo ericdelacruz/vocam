@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "login";
+    
+}
+
+
+<div class="container row cmsWrap">
+
+    @if(ViewBag.AccessDenied != null && (ViewBag.AccessDenied as Nullable<bool>) == true)
+    { 
+        <div class="noteBox clearfix">
+            <div class="fl noteImg"><img src="~/Content/images/portal/warning.png" alt="warning"></div>
+            <div class="fl noteTxt"><span>Access Denied!</span><br /> Please try again.</div>
+        </div>
+    }
+    @using (@Html.BeginForm("login", "home", FormMethod.Post, new { @class = "formSignin border" }))
+    {
+
+        <h2 class="margin15">Please sign in</h2>
+        <input type="text" autofocus="" required="" placeholder="Email address" name="Username" class="form-control">
+        <input type="password" required="" placeholder="Password" name="Password" class="form-control">
+
+        <button type="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
+        <p>&nbsp;</p>
+
+
+
+
+    }
+
+</div>

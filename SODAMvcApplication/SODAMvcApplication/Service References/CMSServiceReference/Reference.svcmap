@@ -21,11 +21,12 @@
     <MetadataSource Address="http://localhost:50615/CMS_Service.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="CMS_Service.disco" MetadataType="Disco" ID="7a4e91a5-ba37-4c0b-bfa2-7496e80fefd1" SourceId="1" SourceUrl="http://localhost:50615/CMS_Service.svc?disco" />
-    <MetadataFile FileName="CMS_Service.wsdl" MetadataType="Wsdl" ID="1f36ed6f-e99b-4d8a-8824-292918eabe83" SourceId="1" SourceUrl="http://localhost:50615/CMS_Service.svc?wsdl" />
-    <MetadataFile FileName="CMS_Service3.xsd" MetadataType="Schema" ID="1cc65ba4-f5ac-4479-9bd7-dbac5ce988cd" SourceId="1" SourceUrl="http://localhost:50615/CMS_Service.svc?xsd=xsd1" />
-    <MetadataFile FileName="CMS_Service2.xsd" MetadataType="Schema" ID="dbd3621f-2a24-43fd-999f-4d8d25f1f5f1" SourceId="1" SourceUrl="http://localhost:50615/CMS_Service.svc?xsd=xsd0" />
     <MetadataFile FileName="CMS_Service.xsd" MetadataType="Schema" ID="59dddaeb-d31d-4005-a8b9-e3c1154e83ad" SourceId="1" SourceUrl="http://localhost:50615/CMS_Service.svc?xsd=xsd2" />
+    <MetadataFile FileName="CMS_Service.wsdl" MetadataType="Wsdl" ID="1f36ed6f-e99b-4d8a-8824-292918eabe83" SourceId="1" SourceUrl="http://localhost:50615/CMS_Service.svc?wsdl" />
+    <MetadataFile FileName="CMS_Service.disco" MetadataType="Disco" ID="7a4e91a5-ba37-4c0b-bfa2-7496e80fefd1" SourceId="1" SourceUrl="http://localhost:50615/CMS_Service.svc?disco" />
+    <MetadataFile FileName="CMS_Service2.xsd" MetadataType="Schema" ID="dbd3621f-2a24-43fd-999f-4d8d25f1f5f1" SourceId="1" SourceUrl="http://localhost:50615/CMS_Service.svc?xsd=xsd0" />
+    <MetadataFile FileName="CMS_Service1.xsd" MetadataType="Schema" ID="8cb049dd-a1a6-48b4-8489-715d8097e329" SourceId="1" SourceUrl="http://localhost:50615/CMS_Service.svc?xsd=xsd3" />
+    <MetadataFile FileName="CMS_Service3.xsd" MetadataType="Schema" ID="1cc65ba4-f5ac-4479-9bd7-dbac5ce988cd" SourceId="1" SourceUrl="http://localhost:50615/CMS_Service.svc?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

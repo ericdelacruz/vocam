@@ -1,5 +1,7 @@
 ﻿@{
     ViewBag.Title = "Index";
+    var webpageUrl = System.Configuration.ConfigurationManager.AppSettings["webpageURL"].ToString() == "" ? "http://localhost:51219" :
+                                          System.Configuration.ConfigurationManager.AppSettings["webpageURL"].ToString();
 }
 
 <h1 class="margin15">Pages</h1>
@@ -16,18 +18,18 @@
     <tbody>
         <tr>
             <td width="415"> &nbsp; Home</td>
-            <td width="100"><a href="@Url.Action("edithome")"> <img src="Content/images/cms/edit.png"></a></td>
-            <td width="100"><a href="http://localhost:51219/" target="_blank"><img src="Content/images/cms/view.png"></a></td> @*todo: edit link to point to homepage link to Home*@
+            <td width="100"><a href="@Url.Action("edithome")"> <img src="/Content/images/cms/edit.png"></a></td>
+            <td width="100"><a href="@webpageUrl" target="_blank"><img src="/Content/images/cms/view.png"></a></td> @*todo: edit link to point to homepage link to Home*@
         </tr>
         <tr>
             <td width="415"> &nbsp; Contact</td>
-            <td width="100"><img src="Content/images/cms/edit.png"></td>
-            <td width="100"><img src="Content/images/cms/view.png"></td>
+            <td width="100"><img src="/Content/images/cms/edit.png"></td>
+            <td width="100"><img src="/Content/images/cms/view.png"></td>
         </tr>
         <tr>
             <td width="415"> &nbsp; Learn More</td>
-            <td width="100"><a href=@Url.Action("editlearnmore")><img src="Content/images/cms/edit.png"></a></td>
-            <td width="100"><a href="http://localhost:51219/home/learnmore"><img src="Content/images/cms/view.png"></a></td>
+            <td width="100"><a href=@Url.Action("editlearnmore")><img src="/Content/images/cms/edit.png"></a></td>
+            <td width="100"><a href="@webpageUrl/home/learnmore" target="_blank"><img src="/Content/images/cms/view.png"></a></td>
         </tr>
 
 
