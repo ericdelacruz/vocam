@@ -307,6 +307,7 @@
     <Content Include="Content\fonts\openSans\opensans-semibold-webfont.eot" />
     <Content Include="Content\fonts\openSans\opensans-semibold-webfont.ttf" />
     <Content Include="Content\fonts\openSans\opensans-semibold-webfont.woff" />
+    <None Include="Properties\PublishProfiles\Daddy Main.pubxml" />
     <None Include="Service References\CategoriesServiceReference\CatListingService.wsdl" />
     <None Include="Service References\CategoriesServiceReference\CatListingService.xsd" />
     <None Include="Service References\CategoriesServiceReference\CatListingService2.xsd" />

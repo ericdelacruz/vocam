@@ -39,10 +39,43 @@ namespace SODAPortalMvcApplication.Controllers
             }
             else
             {// If we got this far, something failed, redisplay form
-               // ModelState.AddModelError("", "The user name or password provided is incorrect.");
-                return RedirectToAction("login");
+                ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                return RedirectToAction("index");
             }
                 return View(collection);
+        }
+        public ActionResult registration()
+        {
+            return View();
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult registration(ViewModel.UserModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    accountClient.addAccount(new AccountServiceRef.Account(){
+                         USERNAME = model.Email,
+                         PASSWORD = model.Password,
+                         Role = 3,
+                         Status = 1,
+                         Company = model.Company,
+                         ContactNo = model.Contact,
+                         Email = model.Email,
+                         FirstName = model.FirtName,
+                         LastName = model.LastName
+                           
+                    });
+                    return RedirectToAction("Index", "User");
+                }
+                catch
+                {
+                    ModelState.AddModelError("", "Error");
+                }
+            }
+            return View(model);
         }
         public ActionResult logout(string username)
         {

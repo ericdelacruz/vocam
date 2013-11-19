@@ -331,7 +331,7 @@
             <xs:sequence>
               <xs:element name="Id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
               <xs:element name="UserId" msprop:Generator_ColumnVarNameInTable="columnUserId" msprop:Generator_ColumnPropNameInRow="UserId" msprop:Generator_ColumnPropNameInTable="UserIdColumn" msprop:Generator_UserColumnName="UserId" type="xs:long" />
-              <xs:element name="Sales_Code" msprop:nullValue="_throw" msprop:Generator_ColumnPropNameInRow="Sales_Code" msprop:Generator_ColumnVarNameInTable="columnSales_Code" msprop:Generator_ColumnPropNameInTable="Sales_CodeColumn" msprop:Generator_UserColumnName="Sales_Code" minOccurs="0">
+              <xs:element name="Sales_Code" msprop:nullValue="_null" msprop:Generator_ColumnPropNameInRow="Sales_Code" msprop:Generator_ColumnVarNameInTable="columnSales_Code" msprop:Generator_ColumnPropNameInTable="Sales_CodeColumn" msprop:Generator_UserColumnName="Sales_Code" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="20" />
@@ -356,7 +356,7 @@
               </xs:element>
               <xs:element name="Discount" msprop:Generator_ColumnVarNameInTable="columnDiscount" msprop:Generator_ColumnPropNameInRow="Discount" msprop:Generator_ColumnPropNameInTable="DiscountColumn" msprop:Generator_UserColumnName="Discount" type="xs:decimal" />
               <xs:element name="DateCreated" msprop:Generator_ColumnVarNameInTable="columnDateCreated" msprop:Generator_ColumnPropNameInRow="DateCreated" msprop:Generator_ColumnPropNameInTable="DateCreatedColumn" msprop:Generator_UserColumnName="DateCreated" type="xs:dateTime" />
-              <xs:element name="DateEnd" msprop:Generator_ColumnVarNameInTable="columnDateEnd" msprop:Generator_ColumnPropNameInRow="DateEnd" msprop:Generator_ColumnPropNameInTable="DateEndColumn" msprop:Generator_UserColumnName="DateEnd" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DateEnd" msprop:nullValue="1901-01-01" msprop:Generator_ColumnPropNameInRow="DateEnd" msprop:Generator_ColumnVarNameInTable="columnDateEnd" msprop:Generator_ColumnPropNameInTable="DateEndColumn" msprop:Generator_UserColumnName="DateEnd" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

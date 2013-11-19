@@ -80,9 +80,11 @@ namespace SODAPortalMvcApplication.Controllers
         public ActionResult addsale()
         {
             ViewBag.RegionList = from region in portalClient.getRegion()
-                                 select region.RegionName;
+                                 select region;
+            
+            
             ViewBag.SalesCodeList = from salesCode in portalClient.getSaleCode()
-                                    select salesCode.Sales_Code;
+                                    select salesCode;
 
 
             return View();
@@ -125,10 +127,11 @@ namespace SODAPortalMvcApplication.Controllers
                 {
                     
                     Id = salesCode.First().Id,
-                    Discount = decimal.Parse(collection["Discount"]),
+                    Discount = decimal.Parse(collection["Discount"])/100,
                     DateCreated = DateTime.Now,
-                    SalesPersonID = salesPerson.First().Id 
-
+                    SalesPersonID = salesPerson.First().Id, 
+                    Sales_Code = salesCode.First().Sales_Code,
+                    DateEnd = salesCode.First().DateEnd
                 });
 
                 return RedirectToAction("addSale");
@@ -145,6 +148,7 @@ namespace SODAPortalMvcApplication.Controllers
             ViewBag.RegionList = from region in portalClient.getRegion()
                                  select region.RegionName;
 
+            
             ViewBag.SalesCodeList = from salesCode in portalClient.getSaleCode()
                                     select salesCode.Sales_Code;
 
@@ -181,12 +185,41 @@ namespace SODAPortalMvcApplication.Controllers
             portalClient.updateSalsCode(new PortalServiceReference.SalesCode()
             {
                 Id = portalClient.getSaleCode().Select(salecode => salecode).Where(sc => sc.Sales_Code == collection["SalesCode"]).First().Id,
-                // Id = salesCode.First().Id,
+                
                 Discount = decimal.Parse(collection["Discount"]),
                 DateCreated = DateTime.Now,
                 SalesPersonID = salesPerson_orig.First().Id
             });
             return RedirectToAction("sales");
+        }
+
+        public ActionResult deletesale(int id)
+        {
+
+            setSalepersonToNull(id);
+            portalClient.deleteSalePerson(id);
+            return RedirectToAction("sales");
+        }
+
+        private void setSalepersonToNull(int id)
+        {
+            var orig_SalesCode = from sc in portalClient.getSaleCode()
+                             
+                                 where sc.SalesPersonID == id
+                                 select sc;
+
+            if(orig_SalesCode.Count() > 0)
+            portalClient.updateSalsCode(new PortalServiceReference.SalesCode()
+            {
+
+                Id = orig_SalesCode.First().Id,
+                SalesPersonID = null,
+                DateCreated = orig_SalesCode.First().DateCreated,
+                Sales_Code = orig_SalesCode.First().Sales_Code,
+                Discount = orig_SalesCode.First().Discount,
+                DateEnd = orig_SalesCode.First().DateEnd
+
+            });
         }
         #endregion
 

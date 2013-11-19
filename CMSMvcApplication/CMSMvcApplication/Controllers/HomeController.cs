@@ -38,13 +38,22 @@ namespace CMSMvcApplication.Controllers
         {
             if(accountClient.isUserNameExists(collection["Username"]) && accountClient.AuthenticateUser(collection["Username"],collection["Password"]))
             {
-                Session.Add("Username", collection["Username"]);
-                return RedirectToAction("index");
+                if (accountClient.getAccount(collection["Username"]).First().Role == 1)
+                {
+                    Session.Add("Username", collection["Username"]);
+                    return RedirectToAction("index");
+                }
+                else
+                {
+                    //error no access
+                    return View(collection);
+                }
             }
             else
             {
                 //error
-                return RedirectToAction("login");
+                ViewBag.AccessDenied = true;
+                return View(collection);
             }
         }
         public ActionResult logout()
