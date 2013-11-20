@@ -235,6 +235,21 @@ header {
 
 /* Media Queries - Phone (550px)*/
 @media screen and (max-width: 550px) {
+    .jumbotron {
+	background:url('../images/homeBgMob.jpg') center no-repeat !important;
+ 	}
+
+
+    .banner h1 {
+        font: 32px open_sanssemibold !important;
+        padding-top:3% !important;
+    }
+
+    .leftJt img {display:none !important;}
+    .rightJt {margin-top:0px !important; margin-left:0px !important;}
+        .rightJt h2 {font-size:30px !important; }
+        .rightJt p {margin:1% 0 !important;}
+
 
     .headerRight {
         text-align: left;
