@@ -38,7 +38,13 @@ namespace SODAwcfService {
         
         private global::System.Data.DataRelation relationFK_SalesPerson_ToRegion;
         
-        private global::System.Data.DataRelation relationFK_SalesPersonTable_ToSalesCode;
+        private global::System.Data.DataRelation relationFK_SalesCode_ToSalesPerson;
+        
+        private global::System.Data.DataRelation relationFK_SalesPersonTable_ToSalesCode1;
+        
+        private global::System.Data.DataRelation relationFK_PriceTable_ToRegion;
+        
+        private global::System.Data.DataRelation relationFK_Customer_ToSaleCode;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -319,7 +325,10 @@ namespace SODAwcfService {
                 }
             }
             this.relationFK_SalesPerson_ToRegion = this.Relations["FK_SalesPerson_ToRegion"];
-            this.relationFK_SalesPersonTable_ToSalesCode = this.Relations["FK_SalesPersonTable_ToSalesCode"];
+            this.relationFK_SalesCode_ToSalesPerson = this.Relations["FK_SalesCode_ToSalesPerson"];
+            this.relationFK_SalesPersonTable_ToSalesCode1 = this.Relations["FK_SalesPersonTable_ToSalesCode1"];
+            this.relationFK_PriceTable_ToRegion = this.Relations["FK_PriceTable_ToRegion"];
+            this.relationFK_Customer_ToSaleCode = this.Relations["FK_Customer_ToSaleCode"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -346,10 +355,22 @@ namespace SODAwcfService {
                         this.tableRegion.IdColumn}, new global::System.Data.DataColumn[] {
                         this.tableSalesPerson.RegionIdColumn}, false);
             this.Relations.Add(this.relationFK_SalesPerson_ToRegion);
-            this.relationFK_SalesPersonTable_ToSalesCode = new global::System.Data.DataRelation("FK_SalesPersonTable_ToSalesCode", new global::System.Data.DataColumn[] {
-                        this.tableSalesCode.Sales_CodeColumn}, new global::System.Data.DataColumn[] {
-                        this.tableSalesPerson.Sales_CodeColumn}, false);
-            this.Relations.Add(this.relationFK_SalesPersonTable_ToSalesCode);
+            this.relationFK_SalesCode_ToSalesPerson = new global::System.Data.DataRelation("FK_SalesCode_ToSalesPerson", new global::System.Data.DataColumn[] {
+                        this.tableSalesPerson.IdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableSalesCode.SalesPersonIDColumn}, false);
+            this.Relations.Add(this.relationFK_SalesCode_ToSalesPerson);
+            this.relationFK_SalesPersonTable_ToSalesCode1 = new global::System.Data.DataRelation("FK_SalesPersonTable_ToSalesCode1", new global::System.Data.DataColumn[] {
+                        this.tableSalesCode.IdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableSalesPerson.SalesCodeIdColumn}, false);
+            this.Relations.Add(this.relationFK_SalesPersonTable_ToSalesCode1);
+            this.relationFK_PriceTable_ToRegion = new global::System.Data.DataRelation("FK_PriceTable_ToRegion", new global::System.Data.DataColumn[] {
+                        this.tableRegion.IdColumn}, new global::System.Data.DataColumn[] {
+                        this.tablePriceTable.RegionIdColumn}, false);
+            this.Relations.Add(this.relationFK_PriceTable_ToRegion);
+            this.relationFK_Customer_ToSaleCode = new global::System.Data.DataRelation("FK_Customer_ToSaleCode", new global::System.Data.DataColumn[] {
+                        this.tableSalesCode.IdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableCustomer.SalesCodeIdColumn}, false);
+            this.Relations.Add(this.relationFK_Customer_ToSaleCode);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -472,11 +493,11 @@ namespace SODAwcfService {
             
             private global::System.Data.DataColumn columnUserId;
             
-            private global::System.Data.DataColumn columnSales_Code;
-            
             private global::System.Data.DataColumn columnDatePurchase;
             
             private global::System.Data.DataColumn columnDateSubscriptionEnd;
+            
+            private global::System.Data.DataColumn columnSalesCodeId;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -529,14 +550,6 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn Sales_CodeColumn {
-                get {
-                    return this.columnSales_Code;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn DatePurchaseColumn {
                 get {
                     return this.columnDatePurchase;
@@ -548,6 +561,14 @@ namespace SODAwcfService {
             public global::System.Data.DataColumn DateSubscriptionEndColumn {
                 get {
                     return this.columnDateSubscriptionEnd;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn SalesCodeIdColumn {
+                get {
+                    return this.columnSalesCodeId;
                 }
             }
             
@@ -588,14 +609,17 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public CustomerRow AddCustomerRow(long UserId, string Sales_Code, System.DateTime DatePurchase, System.DateTime DateSubscriptionEnd) {
+            public CustomerRow AddCustomerRow(long UserId, System.DateTime DatePurchase, System.DateTime DateSubscriptionEnd, SalesCodeRow parentSalesCodeRowByFK_Customer_ToSaleCode) {
                 CustomerRow rowCustomerRow = ((CustomerRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         UserId,
-                        Sales_Code,
                         DatePurchase,
-                        DateSubscriptionEnd};
+                        DateSubscriptionEnd,
+                        null};
+                if ((parentSalesCodeRowByFK_Customer_ToSaleCode != null)) {
+                    columnValuesArray[4] = parentSalesCodeRowByFK_Customer_ToSaleCode[0];
+                }
                 rowCustomerRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowCustomerRow);
                 return rowCustomerRow;
@@ -627,9 +651,9 @@ namespace SODAwcfService {
             internal void InitVars() {
                 this.columnId = base.Columns["Id"];
                 this.columnUserId = base.Columns["UserId"];
-                this.columnSales_Code = base.Columns["Sales_Code"];
                 this.columnDatePurchase = base.Columns["DatePurchase"];
                 this.columnDateSubscriptionEnd = base.Columns["DateSubscriptionEnd"];
+                this.columnSalesCodeId = base.Columns["SalesCodeId"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -639,12 +663,12 @@ namespace SODAwcfService {
                 base.Columns.Add(this.columnId);
                 this.columnUserId = new global::System.Data.DataColumn("UserId", typeof(long), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnUserId);
-                this.columnSales_Code = new global::System.Data.DataColumn("Sales_Code", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSales_Code);
                 this.columnDatePurchase = new global::System.Data.DataColumn("DatePurchase", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDatePurchase);
                 this.columnDateSubscriptionEnd = new global::System.Data.DataColumn("DateSubscriptionEnd", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDateSubscriptionEnd);
+                this.columnSalesCodeId = new global::System.Data.DataColumn("SalesCodeId", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSalesCodeId);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -654,10 +678,7 @@ namespace SODAwcfService {
                 this.columnId.ReadOnly = true;
                 this.columnId.Unique = true;
                 this.columnUserId.AllowDBNull = false;
-                this.columnSales_Code.AllowDBNull = false;
-                this.columnSales_Code.MaxLength = 20;
-                this.columnDatePurchase.AllowDBNull = false;
-                this.columnDateSubscriptionEnd.AllowDBNull = false;
+                this.columnSalesCodeId.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -795,9 +816,9 @@ namespace SODAwcfService {
             
             private global::System.Data.DataColumn columnUserId;
             
-            private global::System.Data.DataColumn columnSales_Code;
-            
             private global::System.Data.DataColumn columnRegionId;
+            
+            private global::System.Data.DataColumn columnSalesCodeId;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -850,17 +871,17 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn Sales_CodeColumn {
+            public global::System.Data.DataColumn RegionIdColumn {
                 get {
-                    return this.columnSales_Code;
+                    return this.columnRegionId;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn RegionIdColumn {
+            public global::System.Data.DataColumn SalesCodeIdColumn {
                 get {
-                    return this.columnRegionId;
+                    return this.columnSalesCodeId;
                 }
             }
             
@@ -901,18 +922,18 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public SalesPersonRow AddSalesPersonRow(long UserId, SalesCodeRow parentSalesCodeRowByFK_SalesPersonTable_ToSalesCode, RegionRow parentRegionRowByFK_SalesPerson_ToRegion) {
+            public SalesPersonRow AddSalesPersonRow(long UserId, RegionRow parentRegionRowByFK_SalesPerson_ToRegion, SalesCodeRow parentSalesCodeRowByFK_SalesPersonTable_ToSalesCode1) {
                 SalesPersonRow rowSalesPersonRow = ((SalesPersonRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         UserId,
                         null,
                         null};
-                if ((parentSalesCodeRowByFK_SalesPersonTable_ToSalesCode != null)) {
-                    columnValuesArray[2] = parentSalesCodeRowByFK_SalesPersonTable_ToSalesCode[2];
-                }
                 if ((parentRegionRowByFK_SalesPerson_ToRegion != null)) {
-                    columnValuesArray[3] = parentRegionRowByFK_SalesPerson_ToRegion[0];
+                    columnValuesArray[2] = parentRegionRowByFK_SalesPerson_ToRegion[0];
+                }
+                if ((parentSalesCodeRowByFK_SalesPersonTable_ToSalesCode1 != null)) {
+                    columnValuesArray[3] = parentSalesCodeRowByFK_SalesPersonTable_ToSalesCode1[0];
                 }
                 rowSalesPersonRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSalesPersonRow);
@@ -945,8 +966,8 @@ namespace SODAwcfService {
             internal void InitVars() {
                 this.columnId = base.Columns["Id"];
                 this.columnUserId = base.Columns["UserId"];
-                this.columnSales_Code = base.Columns["Sales_Code"];
                 this.columnRegionId = base.Columns["RegionId"];
+                this.columnSalesCodeId = base.Columns["SalesCodeId"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -956,10 +977,10 @@ namespace SODAwcfService {
                 base.Columns.Add(this.columnId);
                 this.columnUserId = new global::System.Data.DataColumn("UserId", typeof(long), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnUserId);
-                this.columnSales_Code = new global::System.Data.DataColumn("Sales_Code", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSales_Code);
                 this.columnRegionId = new global::System.Data.DataColumn("RegionId", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRegionId);
+                this.columnSalesCodeId = new global::System.Data.DataColumn("SalesCodeId", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSalesCodeId);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -969,8 +990,8 @@ namespace SODAwcfService {
                 this.columnId.ReadOnly = true;
                 this.columnId.Unique = true;
                 this.columnUserId.AllowDBNull = false;
-                this.columnSales_Code.MaxLength = 20;
                 this.columnRegionId.AllowDBNull = false;
+                this.columnSalesCodeId.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1234,15 +1255,18 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public SalesCodeRow AddSalesCodeRow(int SalesPersonID, string Sales_Code, decimal Discount, System.DateTime DateCreated, System.DateTime DateEnd) {
+            public SalesCodeRow AddSalesCodeRow(SalesPersonRow parentSalesPersonRowByFK_SalesCode_ToSalesPerson, string Sales_Code, decimal Discount, System.DateTime DateCreated, System.DateTime DateEnd) {
                 SalesCodeRow rowSalesCodeRow = ((SalesCodeRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        SalesPersonID,
+                        null,
                         Sales_Code,
                         Discount,
                         DateCreated,
                         DateEnd};
+                if ((parentSalesPersonRowByFK_SalesCode_ToSalesPerson != null)) {
+                    columnValuesArray[1] = parentSalesPersonRowByFK_SalesCode_ToSalesPerson[0];
+                }
                 rowSalesCodeRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSalesCodeRow);
                 return rowSalesCodeRow;
@@ -1755,9 +1779,9 @@ namespace SODAwcfService {
             
             private global::System.Data.DataColumn columnFirstMonthFree;
             
-            private global::System.Data.DataColumn columnRegionName;
-            
             private global::System.Data.DataColumn columnActive;
+            
+            private global::System.Data.DataColumn columnRegionId;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -1818,17 +1842,17 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn RegionNameColumn {
+            public global::System.Data.DataColumn ActiveColumn {
                 get {
-                    return this.columnRegionName;
+                    return this.columnActive;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn ActiveColumn {
+            public global::System.Data.DataColumn RegionIdColumn {
                 get {
-                    return this.columnActive;
+                    return this.columnRegionId;
                 }
             }
             
@@ -1869,14 +1893,17 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public PriceTableRow AddPriceTableRow(decimal Price, bool FirstMonthFree, string RegionName, bool Active) {
+            public PriceTableRow AddPriceTableRow(decimal Price, bool FirstMonthFree, bool Active, RegionRow parentRegionRowByFK_PriceTable_ToRegion) {
                 PriceTableRow rowPriceTableRow = ((PriceTableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         Price,
                         FirstMonthFree,
-                        RegionName,
-                        Active};
+                        Active,
+                        null};
+                if ((parentRegionRowByFK_PriceTable_ToRegion != null)) {
+                    columnValuesArray[4] = parentRegionRowByFK_PriceTable_ToRegion[0];
+                }
                 rowPriceTableRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowPriceTableRow);
                 return rowPriceTableRow;
@@ -1909,8 +1936,8 @@ namespace SODAwcfService {
                 this.columnId = base.Columns["Id"];
                 this.columnPrice = base.Columns["Price"];
                 this.columnFirstMonthFree = base.Columns["FirstMonthFree"];
-                this.columnRegionName = base.Columns["RegionName"];
                 this.columnActive = base.Columns["Active"];
+                this.columnRegionId = base.Columns["RegionId"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1922,10 +1949,10 @@ namespace SODAwcfService {
                 base.Columns.Add(this.columnPrice);
                 this.columnFirstMonthFree = new global::System.Data.DataColumn("FirstMonthFree", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnFirstMonthFree);
-                this.columnRegionName = new global::System.Data.DataColumn("RegionName", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnRegionName);
                 this.columnActive = new global::System.Data.DataColumn("Active", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnActive);
+                this.columnRegionId = new global::System.Data.DataColumn("RegionId", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRegionId);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -1936,9 +1963,8 @@ namespace SODAwcfService {
                 this.columnId.Unique = true;
                 this.columnPrice.AllowDBNull = false;
                 this.columnFirstMonthFree.AllowDBNull = false;
-                this.columnRegionName.AllowDBNull = false;
-                this.columnRegionName.MaxLength = 50;
                 this.columnActive.AllowDBNull = false;
+                this.columnRegionId.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2346,6 +2372,10 @@ namespace SODAwcfService {
             
             private CustomerDataTable tableCustomer;
             
+            private static System.DateTime DatePurchase_nullValue = global::System.DateTime.Parse("1901-01-01T00:00:00");
+            
+            private static System.DateTime DateSubscriptionEnd_nullValue = global::System.DateTime.Parse("1901-01-01T00:00:00");
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal CustomerRow(global::System.Data.DataRowBuilder rb) : 
@@ -2377,20 +2407,14 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Sales_Code {
-                get {
-                    return ((string)(this[this.tableCustomer.Sales_CodeColumn]));
-                }
-                set {
-                    this[this.tableCustomer.Sales_CodeColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public System.DateTime DatePurchase {
                 get {
-                    return ((global::System.DateTime)(this[this.tableCustomer.DatePurchaseColumn]));
+                    if (this.IsDatePurchaseNull()) {
+                        return CustomerRow.DatePurchase_nullValue;
+                    }
+                    else {
+                        return ((global::System.DateTime)(this[this.tableCustomer.DatePurchaseColumn]));
+                    }
                 }
                 set {
                     this[this.tableCustomer.DatePurchaseColumn] = value;
@@ -2401,11 +2425,62 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public System.DateTime DateSubscriptionEnd {
                 get {
-                    return ((global::System.DateTime)(this[this.tableCustomer.DateSubscriptionEndColumn]));
+                    if (this.IsDateSubscriptionEndNull()) {
+                        return CustomerRow.DateSubscriptionEnd_nullValue;
+                    }
+                    else {
+                        return ((global::System.DateTime)(this[this.tableCustomer.DateSubscriptionEndColumn]));
+                    }
                 }
                 set {
                     this[this.tableCustomer.DateSubscriptionEndColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long SalesCodeId {
+                get {
+                    return ((long)(this[this.tableCustomer.SalesCodeIdColumn]));
+                }
+                set {
+                    this[this.tableCustomer.SalesCodeIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public SalesCodeRow SalesCodeRow {
+                get {
+                    return ((SalesCodeRow)(this.GetParentRow(this.Table.ParentRelations["FK_Customer_ToSaleCode"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_Customer_ToSaleCode"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsDatePurchaseNull() {
+                return this.IsNull(this.tableCustomer.DatePurchaseColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetDatePurchaseNull() {
+                this[this.tableCustomer.DatePurchaseColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsDateSubscriptionEndNull() {
+                return this.IsNull(this.tableCustomer.DateSubscriptionEndColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetDateSubscriptionEndNull() {
+                this[this.tableCustomer.DateSubscriptionEndColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -2447,28 +2522,23 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Sales_Code {
-                get {
-                    if (this.IsSales_CodeNull()) {
-                        return null;
-                    }
-                    else {
-                        return ((string)(this[this.tableSalesPerson.Sales_CodeColumn]));
-                    }
-                }
-                set {
-                    this[this.tableSalesPerson.Sales_CodeColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public int RegionId {
                 get {
                     return ((int)(this[this.tableSalesPerson.RegionIdColumn]));
                 }
                 set {
                     this[this.tableSalesPerson.RegionIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long SalesCodeId {
+                get {
+                    return ((long)(this[this.tableSalesPerson.SalesCodeIdColumn]));
+                }
+                set {
+                    this[this.tableSalesPerson.SalesCodeIdColumn] = value;
                 }
             }
             
@@ -2487,23 +2557,22 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public SalesCodeRow SalesCodeRow {
                 get {
-                    return ((SalesCodeRow)(this.GetParentRow(this.Table.ParentRelations["FK_SalesPersonTable_ToSalesCode"])));
+                    return ((SalesCodeRow)(this.GetParentRow(this.Table.ParentRelations["FK_SalesPersonTable_ToSalesCode1"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_SalesPersonTable_ToSalesCode"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_SalesPersonTable_ToSalesCode1"]);
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsSales_CodeNull() {
-                return this.IsNull(this.tableSalesPerson.Sales_CodeColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetSales_CodeNull() {
-                this[this.tableSalesPerson.Sales_CodeColumn] = global::System.Convert.DBNull;
+            public SalesCodeRow[] GetSalesCodeRows() {
+                if ((this.Table.ChildRelations["FK_SalesCode_ToSalesPerson"] == null)) {
+                    return new SalesCodeRow[0];
+                }
+                else {
+                    return ((SalesCodeRow[])(base.GetChildRows(this.Table.ChildRelations["FK_SalesCode_ToSalesPerson"])));
+                }
             }
         }
         
@@ -2601,6 +2670,17 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public SalesPersonRow SalesPersonRow {
+                get {
+                    return ((SalesPersonRow)(this.GetParentRow(this.Table.ParentRelations["FK_SalesCode_ToSalesPerson"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_SalesCode_ToSalesPerson"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsSalesPersonIDNull() {
                 return this.IsNull(this.tableSalesCode.SalesPersonIDColumn);
             }
@@ -2626,11 +2706,22 @@ namespace SODAwcfService {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public SalesPersonRow[] GetSalesPersonRows() {
-                if ((this.Table.ChildRelations["FK_SalesPersonTable_ToSalesCode"] == null)) {
+                if ((this.Table.ChildRelations["FK_SalesPersonTable_ToSalesCode1"] == null)) {
                     return new SalesPersonRow[0];
                 }
                 else {
-                    return ((SalesPersonRow[])(base.GetChildRows(this.Table.ChildRelations["FK_SalesPersonTable_ToSalesCode"])));
+                    return ((SalesPersonRow[])(base.GetChildRows(this.Table.ChildRelations["FK_SalesPersonTable_ToSalesCode1"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public CustomerRow[] GetCustomerRows() {
+                if ((this.Table.ChildRelations["FK_Customer_ToSaleCode"] == null)) {
+                    return new CustomerRow[0];
+                }
+                else {
+                    return ((CustomerRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Customer_ToSaleCode"])));
                 }
             }
         }
@@ -2743,23 +2834,34 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string RegionName {
-                get {
-                    return ((string)(this[this.tablePriceTable.RegionNameColumn]));
-                }
-                set {
-                    this[this.tablePriceTable.RegionNameColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Active {
                 get {
                     return ((bool)(this[this.tablePriceTable.ActiveColumn]));
                 }
                 set {
                     this[this.tablePriceTable.ActiveColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int RegionId {
+                get {
+                    return ((int)(this[this.tablePriceTable.RegionIdColumn]));
+                }
+                set {
+                    this[this.tablePriceTable.RegionIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public RegionRow RegionRow {
+                get {
+                    return ((RegionRow)(this.GetParentRow(this.Table.ParentRelations["FK_PriceTable_ToRegion"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_PriceTable_ToRegion"]);
                 }
             }
         }
@@ -2808,6 +2910,17 @@ namespace SODAwcfService {
                 }
                 else {
                     return ((SalesPersonRow[])(base.GetChildRows(this.Table.ChildRelations["FK_SalesPerson_ToRegion"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public PriceTableRow[] GetPriceTableRows() {
+                if ((this.Table.ChildRelations["FK_PriceTable_ToRegion"] == null)) {
+                    return new PriceTableRow[0];
+                }
+                else {
+                    return ((PriceTableRow[])(base.GetChildRows(this.Table.ChildRelations["FK_PriceTable_ToRegion"])));
                 }
             }
         }
@@ -3143,9 +3256,9 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             tableMapping.DataSetTable = "Customer";
             tableMapping.ColumnMappings.Add("Id", "Id");
             tableMapping.ColumnMappings.Add("UserId", "UserId");
-            tableMapping.ColumnMappings.Add("Sales_Code", "Sales_Code");
             tableMapping.ColumnMappings.Add("DatePurchase", "DatePurchase");
             tableMapping.ColumnMappings.Add("DateSubscriptionEnd", "DateSubscriptionEnd");
+            tableMapping.ColumnMappings.Add("SalesCodeId", "SalesCodeId");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -3154,21 +3267,21 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [Customer] ([UserId], [Sales_Code], [DatePurchase], [DateSubscription" +
-                "End]) VALUES (@UserId, @Sales_Code, @DatePurchase, @DateSubscriptionEnd)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [Customer] ([UserId], [SalesCodeId], [DatePurchase], [DateSubscriptio" +
+                "nEnd]) VALUES (@UserId, @SalesCodeId, @DatePurchase, @DateSubscriptionEnd)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UserId", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UserId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Sales_Code", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Sales_Code", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SalesCodeId", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SalesCodeId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DatePurchase", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DatePurchase", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DateSubscriptionEnd", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DateSubscriptionEnd", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE [Customer] SET [UserId] = @UserId, [Sales_Code] = @Sales_Code, [DatePurcha" +
-                "se] = @DatePurchase, [DateSubscriptionEnd] = @DateSubscriptionEnd WHERE (([Id] =" +
-                " @Original_Id))";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [Customer] SET [UserId] = @UserId, [SalesCodeId] = @SalesCodeId, [DatePurc" +
+                "hase] = @DatePurchase, [DateSubscriptionEnd] = @DateSubscriptionEnd WHERE (([Id]" +
+                " = @Original_Id))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UserId", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UserId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Sales_Code", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Sales_Code", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SalesCodeId", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SalesCodeId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DatePurchase", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DatePurchase", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DateSubscriptionEnd", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DateSubscriptionEnd", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -3187,7 +3300,7 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT * FROM Customer";
+            this._commandCollection[0].CommandText = "SELECT Id, UserId, SalesCodeId, DatePurchase, DateSubscriptionEnd FROM Customer";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -3270,16 +3383,21 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(long UserId, string Sales_Code, System.DateTime DatePurchase, System.DateTime DateSubscriptionEnd) {
+        public virtual int Insert(long UserId, long SalesCodeId, global::System.Nullable<global::System.DateTime> DatePurchase, global::System.Nullable<global::System.DateTime> DateSubscriptionEnd) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((long)(UserId));
-            if ((Sales_Code == null)) {
-                throw new global::System.ArgumentNullException("Sales_Code");
+            this.Adapter.InsertCommand.Parameters[1].Value = ((long)(SalesCodeId));
+            if ((DatePurchase.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((System.DateTime)(DatePurchase.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(Sales_Code));
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            this.Adapter.InsertCommand.Parameters[2].Value = ((System.DateTime)(DatePurchase));
-            this.Adapter.InsertCommand.Parameters[3].Value = ((System.DateTime)(DateSubscriptionEnd));
+            if ((DateSubscriptionEnd.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((System.DateTime)(DateSubscriptionEnd.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -3300,16 +3418,21 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(long UserId, string Sales_Code, System.DateTime DatePurchase, System.DateTime DateSubscriptionEnd, long Original_Id) {
+        public virtual int Update(long UserId, long SalesCodeId, global::System.Nullable<global::System.DateTime> DatePurchase, global::System.Nullable<global::System.DateTime> DateSubscriptionEnd, long Original_Id) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((long)(UserId));
-            if ((Sales_Code == null)) {
-                throw new global::System.ArgumentNullException("Sales_Code");
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((long)(SalesCodeId));
+            if ((DatePurchase.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((System.DateTime)(DatePurchase.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(Sales_Code));
+                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((System.DateTime)(DatePurchase));
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((System.DateTime)(DateSubscriptionEnd));
+            if ((DateSubscriptionEnd.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((System.DateTime)(DateSubscriptionEnd.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
             this.Adapter.UpdateCommand.Parameters[4].Value = ((long)(Original_Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -3451,8 +3574,8 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             tableMapping.DataSetTable = "SalesPerson";
             tableMapping.ColumnMappings.Add("Id", "Id");
             tableMapping.ColumnMappings.Add("UserId", "UserId");
-            tableMapping.ColumnMappings.Add("Sales_Code", "Sales_Code");
             tableMapping.ColumnMappings.Add("RegionId", "RegionId");
+            tableMapping.ColumnMappings.Add("SalesCodeId", "SalesCodeId");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -3461,19 +3584,19 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [SalesPerson] ([UserId], [Sales_Code], [RegionId]) VALUES (@UserId, @" +
-                "Sales_Code, @RegionId)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [SalesPerson] ([UserId], [SalesCodeId], [RegionId]) VALUES (@UserId, " +
+                "@SalesCodeId, @RegionId)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UserId", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UserId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Sales_Code", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Sales_Code", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SalesCodeId", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SalesCodeId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE [SalesPerson] SET [UserId] = @UserId, [Sales_Code] = @Sales_Code, [RegionI" +
-                "d] = @RegionId WHERE (([Id] = @Original_Id))";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [SalesPerson] SET [UserId] = @UserId, [SalesCodeId] = @SalesCodeId, [Regio" +
+                "nId] = @RegionId WHERE (([Id] = @Original_Id))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UserId", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UserId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Sales_Code", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Sales_Code", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SalesCodeId", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SalesCodeId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
@@ -3491,7 +3614,7 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT * FROM SalesPerson";
+            this._commandCollection[0].CommandText = "SELECT Id, UserId, SalesCodeId, RegionId FROM SalesPerson";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -3574,14 +3697,9 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(long UserId, string Sales_Code, int RegionId) {
+        public virtual int Insert(long UserId, long SalesCodeId, int RegionId) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((long)(UserId));
-            if ((Sales_Code == null)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(Sales_Code));
-            }
+            this.Adapter.InsertCommand.Parameters[1].Value = ((long)(SalesCodeId));
             this.Adapter.InsertCommand.Parameters[2].Value = ((int)(RegionId));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -3603,14 +3721,9 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(long UserId, string Sales_Code, int RegionId, int Original_Id) {
+        public virtual int Update(long UserId, long SalesCodeId, int RegionId, int Original_Id) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((long)(UserId));
-            if ((Sales_Code == null)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(Sales_Code));
-            }
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((long)(SalesCodeId));
             this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(RegionId));
             this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
@@ -4400,8 +4513,8 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("Id", "Id");
             tableMapping.ColumnMappings.Add("Price", "Price");
             tableMapping.ColumnMappings.Add("FirstMonthFree", "FirstMonthFree");
-            tableMapping.ColumnMappings.Add("RegionName", "RegionName");
             tableMapping.ColumnMappings.Add("Active", "Active");
+            tableMapping.ColumnMappings.Add("RegionId", "RegionId");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -4410,21 +4523,21 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [PriceTable] ([Price], [FirstMonthFree], [RegionName], [Active]) VALU" +
-                "ES (@Price, @FirstMonthFree, @RegionName, @Active)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [PriceTable] ([Price], [FirstMonthFree], [RegionId], [Active]) VALUES" +
+                " (@Price, @FirstMonthFree, @RegionId, @Active)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Price", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Price", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@FirstMonthFree", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "FirstMonthFree", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionName", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Active", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Active", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = "UPDATE [PriceTable] SET [Price] = @Price, [FirstMonthFree] = @FirstMonthFree, [Re" +
-                "gionName] = @RegionName, [Active] = @Active WHERE (([Id] = @Original_Id))";
+                "gionId] = @RegionId, [Active] = @Active WHERE (([Id] = @Original_Id))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Price", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Price", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@FirstMonthFree", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "FirstMonthFree", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionName", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Active", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Active", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
@@ -4442,7 +4555,7 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT * from PriceTable";
+            this._commandCollection[0].CommandText = "SELECT Id, Price, FirstMonthFree, RegionId, Active FROM PriceTable";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -4525,15 +4638,10 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(decimal Price, bool FirstMonthFree, string RegionName, bool Active) {
+        public virtual int Insert(decimal Price, bool FirstMonthFree, int RegionId, bool Active) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((decimal)(Price));
             this.Adapter.InsertCommand.Parameters[1].Value = ((bool)(FirstMonthFree));
-            if ((RegionName == null)) {
-                throw new global::System.ArgumentNullException("RegionName");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(RegionName));
-            }
+            this.Adapter.InsertCommand.Parameters[2].Value = ((int)(RegionId));
             this.Adapter.InsertCommand.Parameters[3].Value = ((bool)(Active));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -4555,15 +4663,10 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(decimal Price, bool FirstMonthFree, string RegionName, bool Active, int Original_Id) {
+        public virtual int Update(decimal Price, bool FirstMonthFree, int RegionId, bool Active, int Original_Id) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((decimal)(Price));
             this.Adapter.UpdateCommand.Parameters[1].Value = ((bool)(FirstMonthFree));
-            if ((RegionName == null)) {
-                throw new global::System.ArgumentNullException("RegionName");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(RegionName));
-            }
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(RegionId));
             this.Adapter.UpdateCommand.Parameters[3].Value = ((bool)(Active));
             this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
@@ -5081,15 +5184,6 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private int UpdateUpdatedRows(PortalDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
-            if ((this._salesCodeTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.SalesCode.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._salesCodeTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             if ((this._regionTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.Region.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -5099,21 +5193,30 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._customerTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Customer.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._customerTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             if ((this._salesPersonTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.SalesPerson.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._salesPersonTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._salesCodeTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.SalesCode.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._salesCodeTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._customerTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Customer.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._customerTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -5145,14 +5248,6 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private int UpdateInsertedRows(PortalDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
-            if ((this._salesCodeTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.SalesCode.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._salesCodeTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             if ((this._regionTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.Region.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -5161,19 +5256,27 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._customerTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Customer.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._customerTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             if ((this._salesPersonTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.SalesPerson.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._salesPersonTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._salesCodeTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.SalesCode.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._salesCodeTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._customerTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Customer.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._customerTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -5219,14 +5322,6 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._salesPersonTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.SalesPerson.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._salesPersonTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._customerTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.Customer.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -5235,19 +5330,27 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._regionTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Region.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._regionTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._salesCodeTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.SalesCode.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._salesCodeTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._salesPersonTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.SalesPerson.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._salesPersonTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._regionTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Region.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._regionTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }

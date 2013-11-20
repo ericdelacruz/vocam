@@ -47,6 +47,9 @@ namespace SODAPortalMvcApplication.AccountServiceRef {
         private string EmailField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EmailVerifiedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FirstNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -180,6 +183,19 @@ namespace SODAPortalMvcApplication.AccountServiceRef {
                 if ((object.ReferenceEquals(this.EmailField, value) != true)) {
                     this.EmailField = value;
                     this.RaisePropertyChanged("Email");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EmailVerified {
+            get {
+                return this.EmailVerifiedField;
+            }
+            set {
+                if ((this.EmailVerifiedField.Equals(value) != true)) {
+                    this.EmailVerifiedField = value;
+                    this.RaisePropertyChanged("EmailVerified");
                 }
             }
         }
@@ -355,6 +371,12 @@ namespace SODAPortalMvcApplication.AccountServiceRef {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/LogOff", ReplyAction="http://tempuri.org/IAccountService/LogOffResponse")]
         System.Threading.Tasks.Task LogOffAsync(string UserName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/sendEmailForVerification", ReplyAction="http://tempuri.org/IAccountService/sendEmailForVerificationResponse")]
+        bool sendEmailForVerification(string UserName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/sendEmailForVerification", ReplyAction="http://tempuri.org/IAccountService/sendEmailForVerificationResponse")]
+        System.Threading.Tasks.Task<bool> sendEmailForVerificationAsync(string UserName);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -454,6 +476,14 @@ namespace SODAPortalMvcApplication.AccountServiceRef {
         
         public System.Threading.Tasks.Task LogOffAsync(string UserName) {
             return base.Channel.LogOffAsync(UserName);
+        }
+        
+        public bool sendEmailForVerification(string UserName) {
+            return base.Channel.sendEmailForVerification(UserName);
+        }
+        
+        public System.Threading.Tasks.Task<bool> sendEmailForVerificationAsync(string UserName) {
+            return base.Channel.sendEmailForVerificationAsync(UserName);
         }
     }
 }

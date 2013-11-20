@@ -17,7 +17,9 @@ namespace SODAwcfService
         public int Id { get; set; }
         public decimal Price { get; set; }
         public bool FirstMonthFree { get; set; }
-        public string RegionName { get; set; }
         public bool Active { get; set; }
+        public int RegionId { get; set; }
+    
+        public virtual Region Region { get; set; }
     }
 }

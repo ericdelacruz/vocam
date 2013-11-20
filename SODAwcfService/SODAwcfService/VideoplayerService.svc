@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="SODAwcfService.VideoplayerService" CodeBehind="VideoplayerService.svc.cs" Factory="System.ServiceModel.Activation.WebServiceHostFactory" %>
