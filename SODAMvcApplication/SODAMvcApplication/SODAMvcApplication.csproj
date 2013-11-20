@@ -147,6 +147,7 @@
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\main.css" />
     <Content Include="Content\css\mainOLD.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\fonts\helvetica\4864-webfont.svg" />
     <Content Include="Content\fonts\lato\lato-bol-webfont.svg" />
     <Content Include="Content\fonts\lato\lato-reg-demo.html" />
@@ -307,6 +308,9 @@
     <Content Include="Content\fonts\openSans\opensans-semibold-webfont.eot" />
     <Content Include="Content\fonts\openSans\opensans-semibold-webfont.ttf" />
     <Content Include="Content\fonts\openSans\opensans-semibold-webfont.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Properties\PublishProfiles\Daddy Main.pubxml" />
     <None Include="Service References\CategoriesServiceReference\CatListingService.wsdl" />
     <None Include="Service References\CategoriesServiceReference\CatListingService.xsd" />
