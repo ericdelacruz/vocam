@@ -61,18 +61,19 @@ namespace SODAwcfService
         public IEnumerable<Models.Customer> getBySaleCode(string SalesCode)
         {
             return from cust in getCustomer()
-                   where cust.Sales_Code == SalesCode
+                   join sc in getSaleCode() on cust.SalesCodeId equals sc.Id
+                   where sc.Sales_Code == SalesCode.Trim()
                    select cust;
         }
 
         public int addCustomer(Models.Customer customer)
         {
-            return customerTableAdapter.Insert(customer.Id, customer.Sales_Code, customer.DatePurchase, customer.DateSubscriptionEnd);
+            return customerTableAdapter.Insert(customer.Id, customer.SalesCodeId, customer.DatePurchase, customer.DateSubscriptionEnd);
         }
 
         public int updateCustomer(Models.Customer customer)
         {
-            return customerTableAdapter.Update(customer.UserId, customer.Sales_Code, customer.DatePurchase, customer.DateSubscriptionEnd, customer.Id);
+            return customerTableAdapter.Update(customer.UserId, customer.SalesCodeId, customer.DatePurchase, customer.DateSubscriptionEnd, customer.Id);
         }
 
         public int deleteCustomer(long id)
@@ -88,7 +89,7 @@ namespace SODAwcfService
                 salesPerSonList.Add(new Models.SalesPerson()
                 {
                     Id = person.Id,
-                    Sales_Code = person.Sales_Code,
+                    SalesCodeId = person.SalesCodeId,
                     UserId = person.UserId,
                     RegionId = person.RegionId
 
@@ -99,12 +100,12 @@ namespace SODAwcfService
 
         public int addSalesPerson(Models.SalesPerson salesPerson)
         {
-            return salesPersonTableAdapter.Insert(salesPerson.UserId, salesPerson.Sales_Code, salesPerson.RegionId);
+            return salesPersonTableAdapter.Insert(salesPerson.UserId, salesPerson.SalesCodeId, salesPerson.RegionId);
         }
 
         public int updateSalesPerson(Models.SalesPerson salesPerson)
         {
-            return salesPersonTableAdapter.Update(salesPerson.UserId, salesPerson.Sales_Code, salesPerson.RegionId, salesPerson.Id);
+            return salesPersonTableAdapter.Update(salesPerson.UserId, salesPerson.SalesCodeId, salesPerson.RegionId, salesPerson.Id);
         }
 
         public int deleteSalePerson(int ID)
@@ -157,7 +158,7 @@ namespace SODAwcfService
                     FirstMonthFree = price.FirstMonthFree,
                     Active = price.Active,
                     PriceAmt = price.Price,
-                    RegionName = price.RegionName
+                    RegionId = price.Id
                 });
             }
             return priceList;
@@ -165,12 +166,12 @@ namespace SODAwcfService
 
         public int addPrice(Models.Price price)
         {
-            return priceTableAdapter.Insert(price.PriceAmt, price.FirstMonthFree, price.RegionName, price.Active);
+            return priceTableAdapter.Insert(price.PriceAmt, price.FirstMonthFree, price.RegionId, price.Active);
         }
 
         public int updatePrice(Models.Price price)
         {
-            return priceTableAdapter.Update(price.PriceAmt, price.FirstMonthFree, price.RegionName, price.Active, price.Id);
+            return priceTableAdapter.Update(price.PriceAmt, price.FirstMonthFree, price.RegionId, price.Active, price.Id);
         }
 
         public int deletePrice(int Id)
