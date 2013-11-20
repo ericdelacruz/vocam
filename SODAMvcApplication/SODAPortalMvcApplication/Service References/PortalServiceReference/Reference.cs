@@ -23,16 +23,16 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime DatePurchaseField;
+        private System.Nullable<System.DateTime> DatePurchaseField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime DateSubscriptionEndField;
+        private System.Nullable<System.DateTime> DateSubscriptionEndField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private long IdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string Sales_CodeField;
+        private long SalesCodeIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private long UserIdField;
@@ -48,7 +48,7 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime DatePurchase {
+        public System.Nullable<System.DateTime> DatePurchase {
             get {
                 return this.DatePurchaseField;
             }
@@ -61,7 +61,7 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime DateSubscriptionEnd {
+        public System.Nullable<System.DateTime> DateSubscriptionEnd {
             get {
                 return this.DateSubscriptionEndField;
             }
@@ -87,14 +87,14 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Sales_Code {
+        public long SalesCodeId {
             get {
-                return this.Sales_CodeField;
+                return this.SalesCodeIdField;
             }
             set {
-                if ((object.ReferenceEquals(this.Sales_CodeField, value) != true)) {
-                    this.Sales_CodeField = value;
-                    this.RaisePropertyChanged("Sales_Code");
+                if ((this.SalesCodeIdField.Equals(value) != true)) {
+                    this.SalesCodeIdField = value;
+                    this.RaisePropertyChanged("SalesCodeId");
                 }
             }
         }
@@ -132,19 +132,13 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string FirstNameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string LastNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int RegionIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string Sales_CodeField;
+        private long SalesCodeIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private long UserIdField;
@@ -160,19 +154,6 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string FirstName {
-            get {
-                return this.FirstNameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.FirstNameField, value) != true)) {
-                    this.FirstNameField = value;
-                    this.RaisePropertyChanged("FirstName");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public int Id {
             get {
                 return this.IdField;
@@ -181,19 +162,6 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
                 if ((this.IdField.Equals(value) != true)) {
                     this.IdField = value;
                     this.RaisePropertyChanged("Id");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string LastName {
-            get {
-                return this.LastNameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.LastNameField, value) != true)) {
-                    this.LastNameField = value;
-                    this.RaisePropertyChanged("LastName");
                 }
             }
         }
@@ -212,14 +180,14 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Sales_Code {
+        public long SalesCodeId {
             get {
-                return this.Sales_CodeField;
+                return this.SalesCodeIdField;
             }
             set {
-                if ((object.ReferenceEquals(this.Sales_CodeField, value) != true)) {
-                    this.Sales_CodeField = value;
-                    this.RaisePropertyChanged("Sales_Code");
+                if ((this.SalesCodeIdField.Equals(value) != true)) {
+                    this.SalesCodeIdField = value;
+                    this.RaisePropertyChanged("SalesCodeId");
                 }
             }
         }
@@ -394,7 +362,7 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         private decimal PriceAmtField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string RegionNameField;
+        private int RegionIdField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -459,14 +427,14 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string RegionName {
+        public int RegionId {
             get {
-                return this.RegionNameField;
+                return this.RegionIdField;
             }
             set {
-                if ((object.ReferenceEquals(this.RegionNameField, value) != true)) {
-                    this.RegionNameField = value;
-                    this.RaisePropertyChanged("RegionName");
+                if ((this.RegionIdField.Equals(value) != true)) {
+                    this.RegionIdField = value;
+                    this.RaisePropertyChanged("RegionId");
                 }
             }
         }
