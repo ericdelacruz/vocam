@@ -14,6 +14,12 @@ namespace SODAwcfService
     
     public partial class SalesCode
     {
+        public SalesCode()
+        {
+            this.SalesPersons = new HashSet<SalesPerson>();
+            this.Customers = new HashSet<Customer>();
+        }
+    
         public long Id { get; set; }
         public Nullable<int> SalesPersonID { get; set; }
         public string Sales_Code { get; set; }
@@ -22,5 +28,7 @@ namespace SODAwcfService
         public Nullable<System.DateTime> DateEnd { get; set; }
     
         public virtual SalesPerson SalesPerson { get; set; }
+        public virtual ICollection<SalesPerson> SalesPersons { get; set; }
+        public virtual ICollection<Customer> Customers { get; set; }
     }
 }

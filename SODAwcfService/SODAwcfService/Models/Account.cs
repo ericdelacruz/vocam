@@ -41,5 +41,8 @@ namespace SODAwcfService.Models
 
         [DataMember]
         public Nullable<System.DateTime> Birthdate { get; set; }
+
+        [DataMember]
+        public bool EmailVerified { get; set; }
     }
 }
