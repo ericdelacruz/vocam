@@ -38,5 +38,8 @@ namespace SODAwcfService
         [OperationContract]
         void LogOff(string UserName);
 
+        [OperationContract]
+        bool sendEmailForVerification(string UserName);
+
     }
 }

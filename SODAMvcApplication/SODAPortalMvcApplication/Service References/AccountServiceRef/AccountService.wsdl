@@ -61,6 +61,12 @@
   <wsdl:message name="IAccountService_LogOff_OutputMessage">
     <wsdl:part name="parameters" element="tns:LogOffResponse" />
   </wsdl:message>
+  <wsdl:message name="IAccountService_sendEmailForVerification_InputMessage">
+    <wsdl:part name="parameters" element="tns:sendEmailForVerification" />
+  </wsdl:message>
+  <wsdl:message name="IAccountService_sendEmailForVerification_OutputMessage">
+    <wsdl:part name="parameters" element="tns:sendEmailForVerificationResponse" />
+  </wsdl:message>
   <wsdl:portType name="IAccountService">
     <wsdl:operation name="addAccount">
       <wsdl:input wsaw:Action="http://tempuri.org/IAccountService/addAccount" message="tns:IAccountService_addAccount_InputMessage" />
@@ -97,6 +103,10 @@
     <wsdl:operation name="LogOff">
       <wsdl:input wsaw:Action="http://tempuri.org/IAccountService/LogOff" message="tns:IAccountService_LogOff_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAccountService/LogOffResponse" message="tns:IAccountService_LogOff_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="sendEmailForVerification">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountService/sendEmailForVerification" message="tns:IAccountService_sendEmailForVerification_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountService/sendEmailForVerificationResponse" message="tns:IAccountService_sendEmailForVerification_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IAccountService" type="tns:IAccountService">
@@ -175,6 +185,15 @@
     </wsdl:operation>
     <wsdl:operation name="LogOff">
       <soap:operation soapAction="http://tempuri.org/IAccountService/LogOff" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendEmailForVerification">
+      <soap:operation soapAction="http://tempuri.org/IAccountService/sendEmailForVerification" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

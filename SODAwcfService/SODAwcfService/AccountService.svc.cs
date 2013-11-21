@@ -62,7 +62,7 @@ namespace SODAwcfService
         public int updateAccount(Models.Account account)
         {
             return AccountsTableAdapter.UpdateAccount(account.FirstName, account.LastName, account.Role, account.Status, account.Email, account.Address,
-                account.City, account.Country, account.Gender.ToString(), account.ContactNo, account.Company, account.DateLogin,account.Birthdate, account.USERNAME);
+                account.City, account.Country, account.Gender.ToString(), account.ContactNo, account.Company, account.DateLogin,account.Birthdate, account.EmailVerified, account.USERNAME);
         }
         /// <summary>
         /// Get Account record
@@ -103,7 +103,8 @@ namespace SODAwcfService
                     Company = row["Company"].ToString(),
                     DateLogin = row["DateLogin"].ToString() == "" ? default(DateTime) : (DateTime)row["DateLogin"],
                     Id = (long) row["Id"],
-                    Birthdate = row["Birthdate"].ToString()=="" ? default(DateTime): (DateTime)row["Birthdate"]
+                    Birthdate = row["Birthdate"].ToString()=="" ? default(DateTime): (DateTime)row["Birthdate"],
+                    EmailVerified =(bool) row["EmailVerify"]
                 });
             }
             return listAccounts;
@@ -155,7 +156,13 @@ namespace SODAwcfService
         {
             AccountsTableAdapter.UpdateAccountStatus(status, Username);
         }
-        
-        
+
+
+
+
+        public bool sendEmailForVerification(string UserName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

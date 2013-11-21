@@ -26,14 +26,22 @@ namespace SODAPortalMvcApplication.Controllers
             if (accountClient.AuthenticateUser(collection["Username"], collection["Password"]))
             {
                 Session.Add("Username", collection["Username"]);
-                switch (accountClient.getAccount(collection["Username"]).First().Role)
+                AccountServiceRef.Account account = accountClient.getAccount(collection["Username"]).First();
+                switch (account.Role)
                 {
                     case 0: return RedirectToAction("Index", "Admin");
 
                     case 1: return Redirect(string.Format(CMSURL, collection["Username"]));
                     case 2: return RedirectToAction("Index", "Sales");
-                    case 3: return RedirectToAction("Index", "User");
-                        
+                    case 3:
+                        if(account.EmailVerified)
+                        return RedirectToAction("Index", "User");
+                        else
+                        {
+                            Session["Username"] = null;
+                            ViewBag.loginError = "Email not yet verified";
+                            return View(collection);
+                        }
 
                 }
             }
@@ -68,6 +76,9 @@ namespace SODAPortalMvcApplication.Controllers
                          LastName = model.LastName
                            
                     });
+
+                    sendEmailVerification(model);
+                    TempData["EmailSent"] = true;
                     return RedirectToAction("Index", "User");
                 }
                 catch
@@ -76,6 +87,24 @@ namespace SODAPortalMvcApplication.Controllers
                 }
             }
             return View(model);
+        }
+
+        private void sendEmailVerification(ViewModel.UserModel model)
+        {
+            
+        }
+        [HttpPost]
+        public ActionResult EmailVerify(string cid)
+        {
+            var account = from accnt in accountClient.getAccount("")
+                          where accnt.Id == long.Parse(cid)
+                          select accnt;
+
+            account.First().EmailVerified = true;
+
+            accountClient.updateAccount(account.First());
+
+            return View();
         }
         public ActionResult logout(string username)
         {

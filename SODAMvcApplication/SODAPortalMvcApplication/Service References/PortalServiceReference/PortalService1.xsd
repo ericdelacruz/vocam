@@ -8,10 +8,10 @@
   <xs:element name="ArrayOfCustomer" nillable="true" type="tns:ArrayOfCustomer" />
   <xs:complexType name="Customer">
     <xs:sequence>
-      <xs:element minOccurs="0" name="DatePurchase" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="DateSubscriptionEnd" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DatePurchase" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DateSubscriptionEnd" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Id" type="xs:long" />
-      <xs:element minOccurs="0" name="Sales_Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SalesCodeId" type="xs:long" />
       <xs:element minOccurs="0" name="UserId" type="xs:long" />
     </xs:sequence>
   </xs:complexType>
@@ -24,11 +24,9 @@
   <xs:element name="ArrayOfSalesPerson" nillable="true" type="tns:ArrayOfSalesPerson" />
   <xs:complexType name="SalesPerson">
     <xs:sequence>
-      <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
-      <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="RegionId" type="xs:int" />
-      <xs:element minOccurs="0" name="Sales_Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SalesCodeId" type="xs:long" />
       <xs:element minOccurs="0" name="UserId" type="xs:long" />
     </xs:sequence>
   </xs:complexType>
@@ -62,7 +60,7 @@
       <xs:element minOccurs="0" name="FirstMonthFree" type="xs:boolean" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="PriceAmt" type="xs:decimal" />
-      <xs:element minOccurs="0" name="RegionName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegionId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Price" nillable="true" type="tns:Price" />

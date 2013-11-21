@@ -14,7 +14,16 @@ namespace SODAwcfService
     
     public partial class Region
     {
+        public Region()
+        {
+            this.SalesPersons = new HashSet<SalesPerson>();
+            this.PriceTables = new HashSet<PriceTable>();
+        }
+    
         public int Id { get; set; }
         public string RegionName { get; set; }
+    
+        public virtual ICollection<SalesPerson> SalesPersons { get; set; }
+        public virtual ICollection<PriceTable> PriceTables { get; set; }
     }
 }

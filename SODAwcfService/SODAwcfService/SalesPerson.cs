@@ -20,10 +20,12 @@ namespace SODAwcfService
         }
     
         public int Id { get; set; }
-        public string Sales_Code { get; set; }
         public long UserId { get; set; }
         public int RegionId { get; set; }
+        public long SalesCodeId { get; set; }
     
+        public virtual Region Region { get; set; }
         public virtual ICollection<SalesCode> SalesCodes { get; set; }
+        public virtual SalesCode SalesCode { get; set; }
     }
 }

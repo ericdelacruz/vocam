@@ -76,6 +76,7 @@
     <Content Include="CatListingService.svc" />
     <Content Include="CMS_Service.svc" />
     <Content Include="PortalService.svc" />
+    <Content Include="VideoplayerService.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -90,6 +91,7 @@
     <Compile Include="CatListingService.svc.cs">
       <DependentUpon>CatListingService.svc</DependentUpon>
     </Compile>
+    <Compile Include="Channel.cs" />
     <Compile Include="CMS_Service.svc.cs">
       <DependentUpon>CMS_Service.svc</DependentUpon>
     </Compile>
@@ -107,6 +109,7 @@
     <Compile Include="ICatListingService.cs" />
     <Compile Include="ICMS_Service.cs" />
     <Compile Include="IPortalService.cs" />
+    <Compile Include="IVideoplayerService.cs" />
     <Compile Include="LogsTable.cs">
       <DependentUpon>PortalModel.tt</DependentUpon>
     </Compile>
@@ -182,6 +185,11 @@
     </Compile>
     <Compile Include="Specific.cs">
       <DependentUpon>SODAMvcModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Title.cs" />
+    <Compile Include="Users.cs" />
+    <Compile Include="VideoplayerService.svc.cs">
+      <DependentUpon>VideoplayerService.svc</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

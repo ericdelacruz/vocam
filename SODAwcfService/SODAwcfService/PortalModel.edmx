@@ -11,9 +11,9 @@
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="bigint" Nullable="false" />
-          <Property Name="Sales_Code" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="DatePurchase" Type="date" Nullable="false" />
-          <Property Name="DateSubscriptionEnd" Type="date" Nullable="false" />
+          <Property Name="SalesCodeId" Type="bigint" Nullable="false" />
+          <Property Name="DatePurchase" Type="date" />
+          <Property Name="DateSubscriptionEnd" Type="date" />
         </EntityType>
         <EntityType Name="LogsTable">
           <Key>
@@ -31,21 +31,21 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Price" Type="money" Nullable="false" />
           <Property Name="FirstMonthFree" Type="bit" Nullable="false" />
-          <Property Name="RegionName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="RegionId" Type="int" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Region">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RegionName" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="SalesCode">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SalesPersonID" Type="int" />
           <Property Name="Sales_Code" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Discount" Type="numeric" Precision="3" Scale="2" Nullable="false" />
@@ -58,9 +58,33 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="bigint" Nullable="false" />
-          <Property Name="Sales_Code" Type="varchar" MaxLength="20" />
+          <Property Name="SalesCodeId" Type="bigint" Nullable="false" />
           <Property Name="RegionId" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Customer_ToSaleCode">
+          <End Role="SalesCode" Type="Self.SalesCode" Multiplicity="1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SalesCode">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="SalesCodeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PriceTable_ToRegion">
+          <End Role="Region" Type="Self.Region" Multiplicity="1" />
+          <End Role="PriceTable" Type="Self.PriceTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PriceTable">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SalesCode_ToSalesPerson">
           <End Role="SalesPerson" Type="Self.SalesPerson" Multiplicity="0..1" />
           <End Role="SalesCode" Type="Self.SalesCode" Multiplicity="*" />
@@ -73,9 +97,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Errors Found During Generation:
-warning 6035: The relationship 'FK_SalesPersonTable_ToSalesCode' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-        <Association Name="FK_SalesPersonTable_ToSalesCode" />-->
+        <Association Name="FK_SalesPerson_ToRegion">
+          <End Role="Region" Type="Self.Region" Multiplicity="1" />
+          <End Role="SalesPerson" Type="Self.SalesPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SalesPerson">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesPersonTable_ToSalesCode">
+          <End Role="SalesCode" Type="Self.SalesCode" Multiplicity="1" />
+          <End Role="SalesPerson" Type="Self.SalesPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SalesCode">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SalesPerson">
+              <PropertyRef Name="SalesCodeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SodaDBModelStoreContainer">
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
           <EntitySet Name="LogsTable" EntityType="Self.LogsTable" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
@@ -83,9 +128,25 @@ warning 6035: The relationship 'FK_SalesPersonTable_ToSalesCode' has columns tha
           <EntitySet Name="Region" EntityType="Self.Region" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
           <EntitySet Name="SalesCode" EntityType="Self.SalesCode" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
           <EntitySet Name="SalesPerson" EntityType="Self.SalesPerson" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <AssociationSet Name="FK_Customer_ToSaleCode" Association="Self.FK_Customer_ToSaleCode">
+            <End Role="SalesCode" EntitySet="SalesCode" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PriceTable_ToRegion" Association="Self.FK_PriceTable_ToRegion">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="PriceTable" EntitySet="PriceTable" />
+          </AssociationSet>
           <AssociationSet Name="FK_SalesCode_ToSalesPerson" Association="Self.FK_SalesCode_ToSalesPerson">
             <End Role="SalesPerson" EntitySet="SalesPerson" />
             <End Role="SalesCode" EntitySet="SalesCode" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesPerson_ToRegion" Association="Self.FK_SalesPerson_ToRegion">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="SalesPerson" EntitySet="SalesPerson" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesPersonTable_ToSalesCode" Association="Self.FK_SalesPersonTable_ToSalesCode">
+            <End Role="SalesCode" EntitySet="SalesCode" />
+            <End Role="SalesPerson" EntitySet="SalesPerson" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -97,10 +158,11 @@ warning 6035: The relationship 'FK_SalesPersonTable_ToSalesCode' has columns tha
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Sales_Code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DatePurchase" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="DateSubscriptionEnd" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DatePurchase" Type="DateTime" Precision="0" />
+          <Property Name="DateSubscriptionEnd" Type="DateTime" Precision="0" />
           <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="SalesCodeId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="SalesCode" Relationship="SodaDBModel.FK_Customer_ToSaleCode" FromRole="Customer" ToRole="SalesCode" />
         </EntityType>
         <EntityType Name="LogsTable">
           <Key>
@@ -118,8 +180,9 @@ warning 6035: The relationship 'FK_SalesPersonTable_ToSalesCode' has columns tha
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="FirstMonthFree" Type="Boolean" Nullable="false" />
-          <Property Name="RegionName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="RegionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Region" Relationship="SodaDBModel.FK_PriceTable_ToRegion" FromRole="PriceTable" ToRole="Region" />
         </EntityType>
         <EntityType Name="Region">
           <Key>
@@ -127,6 +190,8 @@ warning 6035: The relationship 'FK_SalesPersonTable_ToSalesCode' has columns tha
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="RegionName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="SalesPersons" Relationship="SodaDBModel.FK_SalesPerson_ToRegion" FromRole="Region" ToRole="SalesPerson" />
+          <NavigationProperty Name="PriceTables" Relationship="SodaDBModel.FK_PriceTable_ToRegion" FromRole="Region" ToRole="PriceTable" />
         </EntityType>
         <EntityType Name="SalesCode">
           <Key>
@@ -138,21 +203,65 @@ warning 6035: The relationship 'FK_SalesPersonTable_ToSalesCode' has columns tha
           <Property Name="Discount" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="DateEnd" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="SalesPerson" Relationship="Self.FK_SalesCode_ToSalesPerson" FromRole="SalesCode" ToRole="SalesPerson" />
+          <NavigationProperty Name="SalesPerson" Relationship="SodaDBModel.FK_SalesCode_ToSalesPerson" FromRole="SalesCode" ToRole="SalesPerson" />
+          <NavigationProperty Name="SalesPersons" Relationship="SodaDBModel.FK_SalesPersonTable_ToSalesCode" FromRole="SalesCode" ToRole="SalesPerson" />
+          <NavigationProperty Name="Customers" Relationship="SodaDBModel.FK_Customer_ToSaleCode" FromRole="SalesCode" ToRole="Customer" />
         </EntityType>
         <EntityType Name="SalesPerson">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Sales_Code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="SalesCodes" Relationship="Self.FK_SalesCode_ToSalesPerson" FromRole="SalesPerson" ToRole="SalesCode" />
           <Property Name="UserId" Type="Int64" Nullable="false" />
           <Property Name="RegionId" Type="Int32" Nullable="false" />
+          <Property Name="SalesCodeId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Region" Relationship="SodaDBModel.FK_SalesPerson_ToRegion" FromRole="SalesPerson" ToRole="Region" />
+          <NavigationProperty Name="SalesCodes" Relationship="SodaDBModel.FK_SalesCode_ToSalesPerson" FromRole="SalesPerson" ToRole="SalesCode" />
+          <NavigationProperty Name="SalesCode" Relationship="SodaDBModel.FK_SalesPersonTable_ToSalesCode" FromRole="SalesPerson" ToRole="SalesCode" />
         </EntityType>
+        <EntityContainer Name="PortalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="LogsTables" EntityType="Self.LogsTable" />
+          <EntitySet Name="PriceTables" EntityType="Self.PriceTable" />
+          <EntitySet Name="Regions" EntityType="Self.Region" />
+          <EntitySet Name="SalesCodes" EntityType="Self.SalesCode" />
+          <EntitySet Name="SalesPersons" EntityType="Self.SalesPerson" />
+          <AssociationSet Name="FK_SalesPerson_ToRegion" Association="SodaDBModel.FK_SalesPerson_ToRegion">
+            <End Role="Region" EntitySet="Regions" />
+            <End Role="SalesPerson" EntitySet="SalesPersons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesCode_ToSalesPerson" Association="SodaDBModel.FK_SalesCode_ToSalesPerson">
+            <End Role="SalesPerson" EntitySet="SalesPersons" />
+            <End Role="SalesCode" EntitySet="SalesCodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesPersonTable_ToSalesCode" Association="SodaDBModel.FK_SalesPersonTable_ToSalesCode">
+            <End Role="SalesCode" EntitySet="SalesCodes" />
+            <End Role="SalesPerson" EntitySet="SalesPersons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PriceTable_ToRegion" Association="SodaDBModel.FK_PriceTable_ToRegion">
+            <End Role="Region" EntitySet="Regions" />
+            <End Role="PriceTable" EntitySet="PriceTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_ToSaleCode" Association="SodaDBModel.FK_Customer_ToSaleCode">
+            <End Role="SalesCode" EntitySet="SalesCodes" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_SalesPerson_ToRegion">
+          <End Type="SodaDBModel.Region" Role="Region" Multiplicity="1" />
+          <End Type="SodaDBModel.SalesPerson" Role="SalesPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SalesPerson">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SalesCode_ToSalesPerson">
-          <End Role="SalesPerson" Type="Self.SalesPerson" Multiplicity="0..1" />
-          <End Role="SalesCode" Type="Self.SalesCode" Multiplicity="*" />
+          <End Type="SodaDBModel.SalesPerson" Role="SalesPerson" Multiplicity="0..1" />
+          <End Type="SodaDBModel.SalesCode" Role="SalesCode" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SalesPerson">
               <PropertyRef Name="Id" />
@@ -162,18 +271,42 @@ warning 6035: The relationship 'FK_SalesPersonTable_ToSalesCode' has columns tha
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PortalEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Customers" EntityType="Self.Customer" />
-          <EntitySet Name="LogsTables" EntityType="Self.LogsTable" />
-          <EntitySet Name="PriceTables" EntityType="Self.PriceTable" />
-          <EntitySet Name="Regions" EntityType="Self.Region" />
-          <EntitySet Name="SalesCodes" EntityType="Self.SalesCode" />
-          <EntitySet Name="SalesPersons" EntityType="Self.SalesPerson" />
-          <AssociationSet Name="FK_SalesCode_ToSalesPerson" Association="Self.FK_SalesCode_ToSalesPerson">
-            <End Role="SalesPerson" EntitySet="SalesPersons" />
-            <End Role="SalesCode" EntitySet="SalesCodes" />
-          </AssociationSet>
-        </EntityContainer>
+        <Association Name="FK_SalesPersonTable_ToSalesCode">
+          <End Type="SodaDBModel.SalesCode" Role="SalesCode" Multiplicity="1" />
+          <End Type="SodaDBModel.SalesPerson" Role="SalesPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SalesCode">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SalesPerson">
+              <PropertyRef Name="SalesCodeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PriceTable_ToRegion">
+          <End Type="SodaDBModel.Region" Role="Region" Multiplicity="1" />
+          <End Type="SodaDBModel.PriceTable" Role="PriceTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PriceTable">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_ToSaleCode">
+          <End Type="SodaDBModel.SalesCode" Role="SalesCode" Multiplicity="1" />
+          <End Type="SodaDBModel.Customer" Role="Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SalesCode">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="SalesCodeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -183,9 +316,9 @@ warning 6035: The relationship 'FK_SalesPersonTable_ToSalesCode' has columns tha
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="SodaDBModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="SalesCodeId" ColumnName="SalesCodeId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Sales_Code" ColumnName="Sales_Code" />
                 <ScalarProperty Name="DatePurchase" ColumnName="DatePurchase" />
                 <ScalarProperty Name="DateSubscriptionEnd" ColumnName="DateSubscriptionEnd" />
               </MappingFragment>
@@ -204,10 +337,10 @@ warning 6035: The relationship 'FK_SalesPersonTable_ToSalesCode' has columns tha
           <EntitySetMapping Name="PriceTables">
             <EntityTypeMapping TypeName="SodaDBModel.PriceTable">
               <MappingFragment StoreEntitySet="PriceTable">
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="FirstMonthFree" ColumnName="FirstMonthFree" />
-                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -235,10 +368,10 @@ warning 6035: The relationship 'FK_SalesPersonTable_ToSalesCode' has columns tha
           <EntitySetMapping Name="SalesPersons">
             <EntityTypeMapping TypeName="SodaDBModel.SalesPerson">
               <MappingFragment StoreEntitySet="SalesPerson">
+                <ScalarProperty Name="SalesCodeId" ColumnName="SalesCodeId" />
                 <ScalarProperty Name="RegionId" ColumnName="RegionId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Sales_Code" ColumnName="Sales_Code" />
                 </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

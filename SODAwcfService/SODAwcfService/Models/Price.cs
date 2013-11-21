@@ -10,7 +10,7 @@ namespace SODAwcfService.Models
         public int Id { get; set; }
         public decimal PriceAmt { get; set; }
         public bool FirstMonthFree { get; set; }
-        public string RegionName { get; set; }
         public bool Active { get; set; }
+        public int RegionId { get; set; }
     }
 }
