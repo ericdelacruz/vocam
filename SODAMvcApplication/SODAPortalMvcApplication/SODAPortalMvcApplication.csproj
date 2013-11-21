@@ -437,6 +437,9 @@
     </Content>
     <Content Include="Views\Admin\adminmenu.cshtml" />
     <Content Include="Views\Admin\region.cshtml" />
+    <Content Include="Views\Admin\addMarketer.cshtml" />
+    <Content Include="Views\Admin\editMarketer.cshtml" />
+    <Content Include="Views\Admin\marketer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
