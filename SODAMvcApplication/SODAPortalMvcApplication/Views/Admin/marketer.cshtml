@@ -1,0 +1,40 @@
+﻿@{
+    //Model is List types
+    ViewBag.Title = "Marketer";
+}
+
+<div class="portalWrap border">
+
+    @RenderPage("adminmenu.cshtml")
+
+    <div class="portalCont margin15">
+        <h2>Marketers <span><a href="@Url.Action("addMarketer")"><img src="~/Content/images/portal/edit.png"></a></span></h2>
+        <p>&nbsp;</p>
+
+        <table class="portTable">
+           
+                <thead>
+                    <tr style="background-color:#ffffff;">
+
+                        <th>Full Name</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+    
+                <tbody>                  
+                        <tr>
+                            <td width="200">Ben James</td>
+                            <td width="100"><a href=""><img alt="Edit" src="~/Content/images/portal/edit.png"></a></td>
+                            <td width="100"><a href=""><img alt="delete" src="~/Content/images/portal/delete.png"></a></td>
+                  
+                </tbody>
+           
+             @*else*@ 
+         
+                <p class="noDisplay">No Record Yet!</p>
+            
+        </table>
+
+    </div>
+</div>
