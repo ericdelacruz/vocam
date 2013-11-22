@@ -50,11 +50,11 @@ namespace SODAPortalMvcApplication.Controllers
             }
         }
         [HttpPost]
-        public ActionResult index(string salecode)
+        public ActionResult index(long salecodeid)
         {
             var reportlist = from customer in portalClient.getCustomer()
                              join accnt in account.getAccount("") on customer.Id equals accnt.Id
-                             where customer.Sales_Code == salecode
+                             where customer.SalesCodeId == salecodeid
                              select new ViewModel.ReportViewModel() { account = accnt, customer = customer };
             return View(reportlist);
         }
@@ -111,7 +111,8 @@ namespace SODAPortalMvcApplication.Controllers
                 
                 portalClient.addSalesPerson(new PortalServiceReference.SalesPerson(){
                      UserId = account_New.Id,
-                     Sales_Code = collection["SalesCode"],
+                     //Sales_Code = collection["SalesCode"],
+                      SalesCodeId = long.Parse(collection["SalesCode"]),
                      RegionId = int.Parse(collection["Region"])
                 });
                  
@@ -120,7 +121,7 @@ namespace SODAPortalMvcApplication.Controllers
                                 select salecode;
 
                 var salesPerson = from salesperson in portalClient.getSalePerson()
-                                  where salesperson.UserId == account_New.Id && salesperson.Sales_Code == collection["SalesCode"]
+                                  where salesperson.UserId == account_New.Id && salesperson.SalesCodeId == long.Parse(collection["SalesCode"])
                                   select salesperson;
 
                 portalClient.updateSalsCode(new PortalServiceReference.SalesCode()
@@ -242,7 +243,8 @@ namespace SODAPortalMvcApplication.Controllers
         {
             portalClient.addPrice(new PortalServiceReference.Price()
             {
-                RegionName = collection["Region"],
+                //RegionName = collection["Region"],
+                RegionId = int.Parse(collection["Region"]),
                 PriceAmt = decimal.Parse(collection["Price"]),
                 FirstMonthFree = collection["monthFree"] == "Yes"
             });
@@ -264,7 +266,8 @@ namespace SODAPortalMvcApplication.Controllers
             portalClient.updatePrice(new PortalServiceReference.Price()
             {
                 Id = id,
-                RegionName = collection["Region"],
+                //RegionName = collection["Region"],
+                RegionId = int.Parse(collection["Region"]),
                 PriceAmt = decimal.Parse(collection["Price"]),
                 FirstMonthFree = collection["monthFree"] == "Yes",
                 Active = true

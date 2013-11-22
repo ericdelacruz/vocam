@@ -48,7 +48,7 @@ namespace SODAPortalMvcApplication.Controllers
             else
             {// If we got this far, something failed, redisplay form
                 ModelState.AddModelError("", "The user name or password provided is incorrect.");
-                return RedirectToAction("index");
+                return View("index");
             }
                 return View(collection);
         }
@@ -73,13 +73,13 @@ namespace SODAPortalMvcApplication.Controllers
                          ContactNo = model.Contact,
                          Email = model.Email,
                          FirstName = model.FirtName,
-                         LastName = model.LastName
-                           
+                         LastName = model.LastName,
+                                                     
                     });
 
                     sendEmailVerification(model);
                     TempData["EmailSent"] = true;
-                    return RedirectToAction("Index", "User");
+                    return RedirectToAction("Index", "Home");
                 }
                 catch
                 {
@@ -91,7 +91,41 @@ namespace SODAPortalMvcApplication.Controllers
 
         private void sendEmailVerification(ViewModel.UserModel model)
         {
-            
+
+            EmailHelper.SendEmail("test@sac-iis.com", model.Email, "Verification", "Click the link to continue." + Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("verify", "home", new { code = EncDec.EncryptData(model.Email) }));
+        }
+        public ActionResult verify(string code)
+        {
+            string username = EncDec.DecryptString(code);
+            if(!string.IsNullOrEmpty(username))
+            {
+                var user = from accnt in accountClient.getAccount(username)
+                           select accnt;
+
+                if(user.Count() >0)
+                {
+                    AccountServiceRef.Account accnt = user.First();
+
+                    //accnt.EmailVerified = true;
+
+                    accountClient.updateAccount(new AccountServiceRef.Account(){
+                        USERNAME = accnt.Email,
+                        PASSWORD = accnt.PASSWORD,
+                         Role = 3,
+                         Status = 1,
+                        Company = accnt.Company,
+                        ContactNo = accnt.ContactNo,
+                        Email = accnt.Email,
+                        FirstName = accnt.FirstName,
+                        LastName = accnt.LastName,
+                          EmailVerified = true
+                          });
+
+                    Session.Add("Username", accnt.USERNAME);
+                    return RedirectToAction("index", "user");
+                }
+            }
+            return RedirectToAction("index");
         }
         [HttpPost]
         public ActionResult EmailVerify(string cid)

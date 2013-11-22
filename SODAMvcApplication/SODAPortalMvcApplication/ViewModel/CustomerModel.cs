@@ -10,6 +10,8 @@ namespace SODAPortalMvcApplication.ViewModel
         public PortalServiceReference.Customer customer { get; set; }
         public AccountServiceRef.Account account { get; set; }
         public PortalServiceReference.SalesCode salesCode { get; set; }
+        public PortalServiceReference.SalesPerson salesPerson { get; set; }
+        public PortalServiceReference.Price price { get; set; }
     }
 
     public class VerifyModel
