@@ -1,47 +1,55 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "paymentstatus";
+    var paymentStatus = ViewBag.paymentSuccess as Nullable<bool>;
 }
 
 <div class="container row portalContainer">
 
     <div class="portalWrap border">
         <div class="fr">
-            <div class="logoutSec fr clearfix">Hi user! <a href="">(logout)</a></div>
+            <div class="logoutSec fr clearfix">@Html.ActionLink("(Logout)","logout","home")</div>
         </div>
+        @if(paymentStatus.Value)
+        { 
+            <div class="portalCont margin15">
+                <div class="noteBox clearfix">
+                    <div class="fl noteImg"><img src="~/Content/images/portal/check.png" alt="success"></div>
+                    <div class="fl noteTxt"><span>Payment Successful!</span><br />Please click button below to proceed to homepage.</div>
+                </div>
 
-        <div class="portalCont margin15">
-            <div class="noteBox clearfix">
-                <div class="fl noteImg"><img src="~/Content/images/portal/check.png" alt="success"></div>
-                <div class="fl noteTxt"><span>Payment Successful!</span><br />Please click button below to proceed to homepage.</div>
+
+                <div align="center">
+                    <br> <br />
+                    @*<form action="user/index.html">*@
+                    @using(@Html.BeginForm("index","user"))
+                    {
+                        <button  class="btn btn-lg btn-primary btn-block" style="max-width:40%;"> Return to Home Page</button>
+                    }                
+                 @*</form>*@
+                </div>
+
             </div>
 
+        }
+        else
+        { 
+            @*   html below will display if payment is unsuccessful*@
 
-            <div align="center">
-                <br> <br />
-                <form action="user/index.html">
-                    <button type="submit" class="btn btn-lg btn-primary btn-block" style="max-width:40%;">Return to Home Page</button>
-                </form>
+            <div class="portalCont margin15">
+                <div class="noteBox clearfix">
+                    <div class="fl noteImg"><img src="~/Content/images/portal/warning.png" alt="Error"></div>
+                    <div class="fl noteTxt"><span>Payment Failed!</span><br />Please click button below to proceed to Payment's homepage.</div>
+                </div>
+
+                <div align="center">
+                    <br> <br />
+                    
+                    <button class="btn btn-lg btn-primary btn-block" style="max-width:40%;">@Html.ActionLink("Return to Home Page", "index", "home")</button>
+                    
+                </div>
             </div>
-
-        </div>
-
-
-        @*   html below will display if payment is unsuccessful*@
-
-        <div class="portalCont margin15">
-            <div class="noteBox clearfix">
-                <div class="fl noteImg"><img src="~/Content/images/portal/warning.png" alt="Error"></div>
-                <div class="fl noteTxt"><span>Payment Failed!</span><br />Please click button below to proceed to Payment's homepage.</div>
-            </div>
-
-            <div align="center">
-                <br> <br />
-                <form action="indexPurchase.html">
-                    <button type="submit" class="btn btn-lg btn-primary btn-block" style="max-width:40%;">Return to homepage</button>
-                </form>
-            </div>
-        </div>
-
+        }
     </div>
 
 </div>
