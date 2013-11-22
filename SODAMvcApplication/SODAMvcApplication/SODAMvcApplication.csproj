@@ -164,6 +164,7 @@
     <Content Include="Content\images\home\featThumb1.jpg" />
     <Content Include="Content\images\home\featThumb2.jpg" />
     <Content Include="Content\images\home\featThumb3.jpg" />
+    <Content Include="Content\images\home\freePowerPointBtn.png" />
     <Content Include="Content\images\home\mac.png" />
     <Content Include="Content\images\home\moreBtn.png" />
     <Content Include="Content\images\home\previewNowBtn.png" />
@@ -187,8 +188,10 @@
     <Content Include="Content\images\categories\purchaseBtn.png" />
     <Content Include="Content\images\landing\browseCategories.jpg" />
     <Content Include="Content\images\landing\drugAndAlcoholAwareness_thumb.jpg" />
+    <Content Include="Content\images\landing\freePowerPoint2.png" />
     <Content Include="Content\images\landing\landingBg.jpg" />
     <Content Include="Content\images\landing\purchaseBtn2.jpg" />
+    <Content Include="Content\images\landing\purchaseNow.jpg" />
     <Content Include="Content\images\landing\runaSuccessfulMeeting_thumb.jpg" />
     <Content Include="Content\images\landing\video.jpg" />
     <Content Include="Content\images\landing\workplaceBullyingandHarrassment_thumb.jpg" />
