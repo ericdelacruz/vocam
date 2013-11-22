@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SODAPortalMvcApplication.PortalServiceReference.Price>
+﻿@model IEnumerable<SODAPortalMvcApplication.ViewModel.PriceViewModel>
 @{
     ViewBag.Title = "Price";
 }
@@ -26,14 +26,14 @@
 
                 <tbody>
 
-                    @foreach (var price in Model)
+                    @foreach (var priceModel in Model)
                     {
 
                         <tr>
-                            <td width="200">@price.RegionName</td>
-                            <td width="170">@price.PriceAmt</td>
-                            <td width="100"><a href=@Url.Action("editprice",new{id=price.Id})><img alt="edit" src="~/Content/images/portal/edit.png"></a></td>
-                            <td width="100"><a href=@Url.Action("deleteprice",new{id=price.Id})><img alt="delete" src="~/Content/images/portal/delete.png"></a></td>
+                            <td width="200">@priceModel.region.RegionName</td>
+                            <td width="170">@priceModel.price.PriceAmt</td>
+                            <td width="100"><a href=@Url.Action("editprice",new{id=priceModel.price.Id})><img alt="edit" src="~/Content/images/portal/edit.png"></a></td>
+                            <td width="100"><a href=@Url.Action("deleteprice", new { id = priceModel.price.Id })><img alt="delete" src="~/Content/images/portal/delete.png"></a></td>
                         </tr>
                     }
 

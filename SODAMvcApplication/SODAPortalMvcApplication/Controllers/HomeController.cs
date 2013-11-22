@@ -32,7 +32,16 @@ namespace SODAPortalMvcApplication.Controllers
                     case 0: return RedirectToAction("Index", "Admin");
 
                     case 1: return Redirect(string.Format(CMSURL, collection["Username"]));
-                    case 2: return RedirectToAction("Index", "Sales");
+
+                    case 2:
+                        if (account.EmailVerified)
+                        return RedirectToAction("Index", "Sales");
+                        else
+                        {
+                            Session["Username"] = null;
+                            ViewBag.loginError = "Email not yet verified";
+                            return View(collection);
+                        }
                     case 3:
                         if(account.EmailVerified)
                         return RedirectToAction("Index", "User");

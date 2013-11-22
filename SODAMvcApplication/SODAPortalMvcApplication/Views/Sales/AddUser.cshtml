@@ -1,4 +1,5 @@
-﻿@{
+﻿@model SODAPortalMvcApplication.ViewModel.UserModel
+@{
     ViewBag.Title = "AddSale";
 }
 
@@ -11,31 +12,41 @@
         <div class="logoutSec fr clearfix">Hi user! <a href="">(logout)</a></div>
     </div>
 
-    <div class="portalCont margin15">
-        <h2>Add User</h2>
-        <form class="portalForm">
-            <label><b>First Name*</label>
-            <input type="text" autofocus required class="form-control" value="">
-            <label>Last Name*</label>
-            <input type="text" autofocus required class="form-control" value="">
-            <label>Email Address*</label>
-            <input type="text" autofocus required class="form-control" value="">
-            <label>Contact Number (optional)</label>
-            <input type="text" class="form-control" value="">
-            <label>Company  (optional)</label>
-            <input type="text" class="form-control" value="">
-            <label>Password</label>
-            <input type="password" class="form-control" value="">
-            <label>Confirm Password</label>
-            <input type="password" class="form-control" value="">
+   @using (@Html.BeginForm("adduser", "sales", FormMethod.Post, new { @class = "formRegistration border shadow" }))
+{
+    @Html.ValidationSummary()
+    <h2 class="margin15">Sign up</h2>
+    <label>First Name *</label>
+    @Html.TextBoxFor(m => m.FirtName, new { placeholder = "First Name", @class = "form-control" })
+    <label>Last Name *</label>
+    @Html.TextBoxFor(m => m.LastName, new { placeholder = "Last Name", @class = "form-control" })
+    <label>Email Address *</label>
+    @Html.TextBoxFor(m => m.Email, new { placeholder = "Email Address", @class = "form-control" })
 
-            <br>
-            <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">PUBLISH</button>
-            <br><br>
-            <p style="clear:both;">
-                <br>A verification email will be sent to the user for verification.
-                User will be created under selected region
-            </p>
-        </form>
+    <label>Contact Number (optional)</label>
+    @Html.TextBoxFor(m => m.Contact, new { placeholder = "Contact Number", @class = "form-control" })
+
+    <label>Company Name (optional)</label>
+    @Html.TextBoxFor(m => m.Company, new { placeholder = "Company Name", @class = "form-control" })
+
+    <label>Password</label>
+    @Html.PasswordFor(m => m.Password, new { placeholder = "Password", @class = "form-control" })
+
+    <label>Confirm Password</label>
+    @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Re-type Password", @class = "form-control" })
+
+    <p>&nbsp;</p>
+    <div>
+        <button style="width:200px;" type="submit" class="fl btn btn-lg btn-primary">Sign up</button>
+        <a href="@Url.Action("index")"> <button style="width:200px;" type="button" class="fr btn btn-lg btn-primary" name="Cancel" value="cancel">Cancel</button></a>
     </div>
+    <div style="clear:none;"></div>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>A verification email will be sent to the user for verification. Once verified, the user been redirected the login page.</p>
+
+
+}
+
 </div>

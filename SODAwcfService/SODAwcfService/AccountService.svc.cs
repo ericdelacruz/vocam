@@ -64,11 +64,12 @@ namespace SODAwcfService
         /// <returns></returns>
         public int updateAccount(Models.Account account)
         {
-            return AccountsTableAdapter.Update(account.USERNAME, account.PASSWORD, account.FirstName, account.LastName, account.Role, account.Status, account.Email, account.Address,
-                                                      account.City, account.Country, account.Gender.ToString(), account.ContactNo, account.Company, account.DateLogin, account.Birthdate, account.EmailVerified, account.Id);
-                
-            //return AccountsTableAdapter.UpdateAccount(account.FirstName, account.LastName, account.Role, account.Status, account.Email, account.Address,
-            //    account.City, account.Country, account.Gender.ToString(), account.ContactNo, account.Company, account.DateLogin,account.Birthdate, account.EmailVerified, account.USERNAME);
+            //return AccountsTableAdapter.Update(account.USERNAME, account.PASSWORD, account.FirstName, account.LastName, account.Role, account.Status, account.Email, account.Address,
+            //                                          account.City, account.Country, account.Gender.ToString(), account.ContactNo, account.Company, account.DateLogin, account.Birthdate, account.EmailVerified, account.Id
+            //                                          );
+
+            return AccountsTableAdapter.UpdateAccount(account.FirstName, account.LastName, account.Role, account.Status, account.Email, account.Address,
+                account.City, account.Country, account.Gender.ToString(), account.ContactNo, account.Company, account.DateLogin, account.Birthdate, account.EmailVerified, account.USERNAME);
         }
         /// <summary>
         /// Get Account record

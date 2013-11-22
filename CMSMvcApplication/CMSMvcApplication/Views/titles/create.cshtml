@@ -3,9 +3,80 @@
     var catlist = ViewBag.catList as IEnumerable<CMSMvcApplication.CatListingServiceReference.Category>;
 }
 
+<style>
+    .ifield {
+        background: #fefefe;
+        height: 30px;
+        width: 60%;
+        border: 1px solid #cccccc;
+        padding: 5px;
+        border: 1px solid #999;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -web-kit-border-radius: 4px;
+        -khtml-border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    }
+</style>
+
+
+<script language="javascript">
+
+    jQuery(document).ready(function () {
+
+        jQuery('.topicBtn').click(function () {
+            $fields = jQuery('#text div').length;
+            if ($fields <= 10) {
+                jQuery('#text').append("<div><input name='topicName[]' type='text' value='' class='ifield' autofocus placeholder='Input topic name' /> <a href='javascript:void(0)' class='unselect'><img src='images/cms/remove.jpg' width='26' height='26' border='0'></a></div>")
+            } else {
+                jQuery('.notifyError').html('<div class="alert alert-warning"><strong>Only 10 upload fields allowed.</strong></div>')
+            }
+
+        });
+
+        jQuery(document).on('click', '.unselect', function () {
+
+            jQuery(this).parent().remove()
+
+        });
+
+
+
+        jQuery('.chapterBtn').click(function () {
+
+            $fields = jQuery('#text2 div').length;
+
+            if ($fields <= 10) {
+
+                jQuery('#text2').append("<div><hr style='width:100%; color:#f4f4f4; height:1px;'>Name: <input name='chapterName[]' type='text' value='' class='ifield' autofocus placeholder='Input chapter name' /><br>Time: &nbsp; <input name='chapterTime[]' type='text' value='' class='ifield' autofocus placeholder='Input chapter time' /> <a href='javascript:void(0)' class='unselect2'><img src='images/cms/remove.jpg' width='26' height='26' border='0'></a></div>")
+
+
+            } else {
+                jQuery('.notifyError2').html('<div class="alert alert-warning"><strong>Only 10 upload fields allowed.</strong></div>');
+            }
+
+
+
+        });
+
+        jQuery(document).on('click', '.unselect2', function () {
+
+            jQuery(this).parent().remove()
+
+        });
+
+
+    });
+</script>
+
+
+
 <h1 class="margin15">Add New Title/Landing</h1>
 
-<div class="cmsForm">
+<div class="cmsForm selectBdate">
     @using(Html.BeginForm("Create","Titles", FormMethod.Post, new{enctype = "multipart/form-data"}))
     { 
         <label>Title*</label>
@@ -20,6 +91,7 @@
         }
            
         </select>
+        <br />
 
         <label>Overview</label>
         <textarea class="field span12 form-control" id="textarea" rows="3" cols="49" placeholder="" name="Overview"></textarea>
@@ -31,22 +103,92 @@
         <input type="file" name="BG">
         <label>Video URL</label>
         <input type="text" class="form-control" placeholder="Enter Video URL" autofocus="" name="VidURL">
-        <br />
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">SEO</h3>
-            </div>
-            <div class="panel-body"> 
-                <label>Page Title</label>
-                <input type="text" class="form-control" placeholder="Enter Page Title" autofocus="" name="TitlePageTitle" required>   
-                <label>Metatag Keywords</label>
-                <input type="text" class="form-control" placeholder="Enter Meta Keywords" autofocus="" name="TitleMetaKeywords" required>
-                <label>Metatag Description</label>
-                <input type="text" class="form-control" placeholder="Enter Meta Description" autofocus="" name="TitleMetaDescription" required>
-            </div>
-        </div> <!-- end of panel:SEO-->
         
-        <br>
+        <label>Filename</label>
+        <input type="text" class="form-control" placeholder="Enter Filename" autofocus="" name="filename">
+        <label>Duration</label>
+        <input type="text" class="form-control" placeholder="Enter Duration" autofocus="" name="duration">
+        
+        <div class="panel panel-default">
+                  <div class="panel-heading"><strong>Topic</strong></div>
+                  <div class="panel-body">
+
+                            <input type="text" value="" class="ifield" placeholder="Input topic name" name="topicName" /><input type="button" class="btn btn-default topicBtn" name="add" value="Add more Topic"  style="height: 32px; margin-left: 4px;"  />
+
+
+                    <div id="text">
+                        <div class="notifyError"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="panel panel-default">
+                  <div class="panel-heading"><strong>Chapter</strong></div>
+                  <div class="panel-body">
+                            Name: <input name='chapterName[]' type='text' value='' class='ifield' autofocus placeholder='Input chapter name' /><br>
+                            Time: &nbsp; <input name='chapterTime[]' type='text' value='' class='ifield' autofocus placeholder='Input chapter time' />
+                            <input type="button" class="btn btn-default chapterBtn" name="add" value="Add more chapter"  style="height: 32px; margin-left: 4px;"  />
+
+
+                    <div id="text2">
+                        <div class="notifyError2"></div>
+                    </div>
+                  </div>
+                </div>
+
+                
+
+                <label>Time (milliseconds)</label>
+                <input type="text" class="form-control" placeholder="Enter time" autofocus="" name="time">
+                <label>Total Chapters</label>
+                <input type="text" class="form-control" placeholder="Enter total chapter" autofocus="" name="totalChap">
+
+                <div class="panel panel-default">
+                  <div class="panel-heading"><strong>Approve?</strong></div>
+                  <div class="panel-body">
+                    <input type="checkbox"> Yes, this title is approved and can be viewed. 
+                  </div>
+                </div>
+
+                <div class="panel panel-default">
+                  <div class="panel-heading"><strong>Is Downloadable?</strong></div>
+                  <div class="panel-body">
+                    <input type="checkbox"> Yes, this title is downloadable. 
+                  </div>
+                </div>
+
+                <label>In Disc</label>
+                <input type="text" class="form-control" placeholder="Enter Duration" autofocus="" name="duration">
+
+                 <div class="panel panel-default">
+                  <div class="panel-heading"><strong>Is Download News?</strong></div>
+                  <div class="panel-body">
+                    <input type="checkbox"> Yes, this title is download news. 
+                  </div>
+                </div>
+
+                 <label>QuestionAnswer change date (dd-mm-yy)</label>
+                        <SELECT class="form-control" id ="date" name = "dd"></SELECT>
+                        <SELECT class="form-control" id ="month" name = "mm"></SELECT>
+                        <SELECT class="form-control" id ="year" name = "yyyy"></SELECT>
+                        <script type="text/javascript">date_populate("date", "month", "year");</script>
+                 <p>&nbsp;</p>
+          
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">SEO</h3>
+                    </div>
+                    <div class="panel-body"> 
+                        <label>Page Title</label>
+                        <input type="text" class="form-control" placeholder="Enter Page Title" autofocus="" name="TitlePageTitle" required>   
+                        <label>Metatag Keywords</label>
+                        <input type="text" class="form-control" placeholder="Enter Meta Keywords" autofocus="" name="TitleMetaKeywords" required>
+                        <label>Metatag Description</label>
+                        <input type="text" class="form-control" placeholder="Enter Meta Description" autofocus="" name="TitleMetaDescription" required>
+                    </div>
+                </div> <!-- end of panel:SEO-->
+        
+        <br><br>
         <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">PUBLISH</button>
 
     }
