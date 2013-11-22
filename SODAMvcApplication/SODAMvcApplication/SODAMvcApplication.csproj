@@ -188,6 +188,7 @@
     <Content Include="Content\images\categories\purchaseBtn.png" />
     <Content Include="Content\images\landing\browseCategories.jpg" />
     <Content Include="Content\images\landing\drugAndAlcoholAwareness_thumb.jpg" />
+    <Content Include="Content\images\landing\freePowerPoint2.png" />
     <Content Include="Content\images\landing\landingBg.jpg" />
     <Content Include="Content\images\landing\purchaseBtn2.jpg" />
     <Content Include="Content\images\landing\purchaseNow.jpg" />
