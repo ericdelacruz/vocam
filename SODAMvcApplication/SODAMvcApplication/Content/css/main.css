@@ -329,15 +329,15 @@ header {
 	border-radius:5px;
 	}
 
-.previewNowBtn {
+.freePowerPointBtn {
 	margin-top: 30px;
 	display: block;
-	width: 206px;
-	height: 56px;
-	background: url('../images/home/previewNowBtn.png') bottom;
+	width: 235px;
+	height: 59px;
+	background: url('../images/home/freePowerPointBtn.png') bottom;
 	text-indent: -99999px;
 }
-.previewNowBtn:hover {
+.freePowerPointBtn:hover {
 	background-position: 0 0;
 	color:transparent;
 }
@@ -567,6 +567,32 @@ footer {
 	color:transparent;
 }
 
+
+.purchaseNowBtn{
+	display: block;
+	width: 151px;
+	height: 30px;
+	background: url('../images/landing/purchaseNow.jpg') bottom;
+	text-indent: -99999px;
+	color:transparent;
+}
+.purchaseNowBtn:hover {
+	background-position: 0 0;
+	color:transparent;
+}
+
+.freePowerPointBtn2{
+	display: block;
+	width: 511px;
+	height: 104px;
+	background: url('../images/landing/freePowerPoint2.png') bottom;
+	text-indent: -99999px;
+	color:transparent;
+}
+.freePowerPointBtn2:hover {
+	background-position: 0 0;
+	color:transparent;
+}
 
 .browseCatBtn{
 	display: block;
