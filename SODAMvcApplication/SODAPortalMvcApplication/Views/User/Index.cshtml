@@ -1,25 +1,30 @@
-﻿@{
+﻿@model SODAPortalMvcApplication.ViewModel.CustomerModel
+@{
     ViewBag.Title = "Index";
+    
 }
 
 <div class="portalWrap border">
-    <div class="fr">
-        <ul class="portalUserMenu">
-            <li style="padding-left:0px;"><a href="@Url.Action("Index")">BUY/CANCEL</a></li>
-            <li><a href="@Url.Action("Profile")">MY PROFILE</a></li>
-            <li><a href="@Url.Action("Downloads")">DOWNLOADS</a></li>
-            <li><a href="@Url.Action("TermsConditions")">TERMS AND CONDITIONS</a></li>
-        </ul> <!-- end of portal user menu-->
-        <div class="logoutSec fr clearfix">Hi user! <a href="">(logout)</a></div>
-    </div>
+    @RenderPage("usermenu.cshtml")
 
     <div class="portalCont margin15">
         <h2>Buy/Cancel</h2>
         <p>Product description here, with clear statement of it is monthly subscription with minimum 6 months contract.....</p>
 
-        <h2>Sales code/Promo code </h2>
-        <p>$59.95 p/m  (this monthly subscription change based on the rate of the sales code)</p>
+        <h2>@Model.salesCode.Sales_Code</h2>
+        <p>@Model.price.PriceAmt</p>
 
+        @if(DateTime.Compare(Model.customer.DateSubscriptionEnd.Value,DateTime.Now) < 0)
+        {
+            //not yet expired
+            //insert unsubscribe shit here
+            <a>Unsubscribe</a>
+        }
+        else
+        {
+            //expired
+            @Html.ActionLink("termsconditions", "user");
+        }
         BUY NOW (if the contract end date is NULL)
         CANCEL Service (Only show this when contract end date is less than datetime.now)
 

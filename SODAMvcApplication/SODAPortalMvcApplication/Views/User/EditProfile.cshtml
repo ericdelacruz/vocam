@@ -1,40 +1,39 @@
-﻿@{
+﻿@model SODAPortalMvcApplication.ViewModel.UserModel
+@{
     ViewBag.Title = "EditProfile";
+    var ContractEndDate = ViewBag.ContractEndDate as Nullable<DateTime>;
 }
 
 <div class="portalWrap border">
-    <div class="fr">
-        <ul class="portalUserMenu">
-            <li style="padding-left:0px;"><a href="@Url.Action("Index")">BUY/CANCEL</a></li>
-            <li><a href="@Url.Action("Profile")">MY PROFILE</a></li>
-            <li><a href="@Url.Action("Downloads")">DOWNLOADS</a></li>
-            <li><a href="@Url.Action("TermsConditions")">TERMS AND CONDITIONS</a></li>
-        </ul> <!-- end of portal user menu-->
-        <div class="logoutSec fr clearfix">Hi user! <a href="">(logout)</a></div>
-    </div>
+    @RenderPage("usermenu.cshtml")
 
     <div class="portalCont margin15">
         <h2 class="margin15">Edit Profile</h2>
-        <form class="portalForm">
-            <label><b>First Name</label>
-            <input type="text" class="form-control" value="Ben">
+        @using (@Html.BeginForm("editprofile", "user", FormMethod.Post, new { @class = "portalForm" }))
+        { 
+        @Html.ValidationSummary()
+            <label>First Name</label>
+            @Html.TextBoxFor(m => m.FirtName, new { @class = "form-control" })
+            
             <label>Last Name</label>
-            <input type="text" class="form-control" value="James">
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
             <label>Email Address</label>
-            <input type="text" class="form-control" value="benjames@gmail.com" readonly>
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @readonly="" })
             <label>Company</label>
-            <input type="text" class="form-control" value="Straight Arrow">
+            @Html.TextBoxFor(m => m.Company, new { @class = "form-control" })
             <label>Contact No</label>
-            <input type="text" class="form-control" value="09271234567">
-            <label>Password</label>
-            <input type="password" class="form-control" value="*****" readonly>
-            <label>Contract end date:</label>
-            <input type="text" class="form-control" value="November 2014" readonly>
-
+            @Html.TextBoxFor(m=>m.Contact, new{@class="form-control"})
+            @Html.HiddenFor(m=>m.Password)
+            @Html.HiddenFor(m => m.ConfirmPassword)
+            if(ContractEndDate != null)
+            { 
+                <label>Contract end date:</label>
+                @Html.TextBox("ContractEndDate", string.Format("{0:MMMM dd, yyyy}", ContractEndDate.Value), new { @class = "form-control", @readonly = "" });
+            }
             <br>
             <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">UPDATE</button>
             <br>
-        </form>
-
+       
+        }
     </div>
 </div>

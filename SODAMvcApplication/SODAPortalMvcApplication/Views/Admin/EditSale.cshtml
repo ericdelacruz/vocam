@@ -2,7 +2,7 @@
 @{
     //model is not list 
     ViewBag.Title = "EditSale";
-    var RegionList = ViewBag.RegionList as IEnumerable<SODAPortalMvcApplication.PortalServiceReference.Region>;
+    var rl = ViewBag.RegionList as IEnumerable<SODAPortalMvcApplication.PortalServiceReference.Region>;
     var SalesCodeList = ViewBag.SalesCodeList as IEnumerable<SODAPortalMvcApplication.PortalServiceReference.SalesCode>;
 
     var SalesCodeModel = ViewBag.SalesCode as SODAPortalMvcApplication.PortalServiceReference.SalesCode;
@@ -15,7 +15,7 @@
 
     <div class="portalCont margin15">
         <h2>Edit Sales</h2>
-        @using (Html.BeginForm("editsale", "admin", FormMethod.Post, new { @class = "portalForm" }))
+        @using (@Html.BeginForm("editsale", "admin", FormMethod.Post, new { @class = "portalForm" }))
         {  
            
             
@@ -23,7 +23,7 @@
              <!-- Script by hscripts.com -->
             <label>Region:</label>
             <select class="form-control" name="Region">
-                @foreach (var region in RegionList)
+                @foreach (var region in rl)
                 {
                 if (region.Id == Model.salesPerson.RegionId)
                     {
@@ -40,11 +40,11 @@
             
             <!-- Script by hscripts.com -->
             <label>Sales Code:</label>
-            <select class="form-control" name="Region">
+            <select class="form-control" name="SalesCode">
                 <option selected="selected" value="-1">Select sales code</option>
                 @foreach(var salescode in SalesCodeList)
                 {
-                if (salescode.Id == Model.salesPerson.Id)
+                if (salescode.Id == Model.salesCode.Id)
                     {
                     <option selected value="@salescode.Id">@salescode.Sales_Code</option>
                     }
@@ -58,9 +58,9 @@
             
 
             <label><b>First Name*</label>
-            <input type="text" class="form-control" name="FirstName" value=@Model.salesPerson.FirstName>
+            <input type="text" class="form-control" name="FirstName" value=@Model.account.FirstName>
             <label>Last Name*</label>
-            <input type="text" class="form-control" name="LastName" value=@Model.salesPerson.LastName>
+            <input type="text" class="form-control" name="LastName" value=@Model.account.LastName>
             <label>Email Address*</label>
             <input type="text" class="form-control" name="Email" value=@Model.account.Email>
             <label>Contact Number (optional)</label>
@@ -73,7 +73,7 @@
             <input type="password" name="Password" class="form-control" value=@Model.account.PASSWORD>
             
             <label>Discount Rate</label>
-            <input type="number" class="form-control" value="12%">
+            <input type="number" class="form-control" name="Discount"  value=@(Model.salesCode.Discount * 100)>
 
             <br>
             <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">UPDATE</button>

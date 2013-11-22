@@ -35,9 +35,10 @@ namespace SODAwcfService
             {
                 listCustomer.Add(new Models.Customer(){
                      Id= row.Id,
-                     UserId = row.Id,
+                     UserId = row.UserId,
                      DatePurchase = row.DatePurchase,
-                     DateSubscriptionEnd = row.DateSubscriptionEnd
+                     DateSubscriptionEnd = row.DateSubscriptionEnd,
+                     SalesCodeId = row.SalesCodeId
                 });
             }
             return listCustomer;
@@ -68,7 +69,7 @@ namespace SODAwcfService
 
         public int addCustomer(Models.Customer customer)
         {
-            return customerTableAdapter.Insert(customer.Id, customer.SalesCodeId, customer.DatePurchase, customer.DateSubscriptionEnd);
+            return customerTableAdapter.Insert(customer.UserId, customer.SalesCodeId, customer.DatePurchase, customer.DateSubscriptionEnd);
         }
 
         public int updateCustomer(Models.Customer customer)

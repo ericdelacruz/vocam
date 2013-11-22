@@ -1,12 +1,13 @@
 ﻿@{
     ViewBag.Title = "indexpurchase";
+    var SalesCode = Session["SalesCode"] != null ? Session["SalesCode"].ToString() : "";
 }
 
 <div class="container row portalContainer">
 
     <div class="portalWrap border">
         <div class="fr">
-            <div class="logoutSec fr clearfix">Hi user! <a href="">(logout)</a></div>
+            <div class="logoutSec fr clearfix">Hi user! @Html.ActionLink("(Logout)","logout","home")</div>
         </div>
 
         <div class="portalCont margin15">
@@ -17,18 +18,27 @@
 
             <h3>Sales code/Promo code </h3>
             <div class="form-group">
-                <label class="col-sm-2 control-label" style="text-align:right; line-height:34px; margin-left:0px;">Sales Code:</label>
-                <div class="col-sm-10">
-                    <input type="text" autofocus="" required="" placeholder="Enter Sales Code" class="form-control fl" style="max-width:50%; margin-right:5px;"><button type="submit" class="btn btn-default fl">Verify</button>
-                </div>
+                @using(@Html.BeginForm("verify","user"))
+                { 
+                    <label class="col-sm-2 control-label" style="text-align:right; line-height:34px; margin-left:0px;">Sales Code:</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="SalesCode" autofocus="" required="" placeholder="Enter Sales Code" class="form-control fl" style="max-width:50%; margin-right:5px;">
+                        <button type="submit" class="btn btn-default fl">Verify</button>
+                    </div>
+                }
             </div>
 
-            <p>&nbsp;</p>
+            
+            @if(!string.IsNullOrEmpty(SalesCode))
+            { 
+                <p>&nbsp;</p>
             <p>$59.95 p/m  (this monthly subscription change based on the rate of the sales code)</p>
             <p>&nbsp;</p>
-            <form action="termsconditions2.html">
-                <button type="submit" class="btn btn-lg btn-primary btn-block" style="max-width:50%;">Proceed  > > </button>
-            </form>
+                using(@Html.BeginForm("termsinit","user"))
+                {
+                       <button type="submit" class="btn btn-lg btn-primary btn-block" style="max-width:50%;">Proceed  > > </button>
+                }
+            }
         </div>
     </div>
 

@@ -29,14 +29,14 @@
             <!-- Script by hscripts.com -->
             
             <!-- Script by hscripts.com -->
-            <label>Region:</label>
+            <label>SalesCode:</label>
             <select class="form-control" name="SalesCode" id="regionlist" >
                 <option selected="selected" value="">Select sales code </option>
                 @foreach (var salescode in SalesCodeList)
                 {
 
                 
-                <option value="@salescode.Sales_Code">@salescode.Sales_Code</option>
+                <option value="@salescode.Id">@salescode.Sales_Code</option>
                 }
             </select>
             <!-- Script by hscripts.com -->

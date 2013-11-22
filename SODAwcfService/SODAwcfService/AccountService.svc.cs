@@ -51,8 +51,11 @@ namespace SODAwcfService
             if (isUserNameExists(account.USERNAME))
                 throw new FaultException("UserName already existing", new FaultCode("UserExists"));
             else
-            return AccountsTableAdapter.InsertAccount(account.USERNAME, EncDec.EncryptData(account.PASSWORD), account.FirstName, account.LastName, account.Role, account.Status, account.Email, account.Address,
-                account.City, account.Country, account.Gender.ToString(), account.ContactNo, account.Company, account.DateLogin,account.Birthdate);
+                return AccountsTableAdapter.Insert(account.USERNAME, EncDec.EncryptData(account.PASSWORD), account.FirstName, account.LastName, account.Role, account.Status, account.Email, account.Address,
+                                                      account.City, account.Country,account.Gender.ToString(), account.ContactNo, account.Company, account.DateLogin, account.Birthdate, account.EmailVerified); 
+            
+            //return AccountsTableAdapter.InsertAccount(account.USERNAME, EncDec.EncryptData(account.PASSWORD), account.FirstName, account.LastName, account.Role, account.Status, account.Email, account.Address,
+            //    account.City, account.Country, account.Gender.ToString(), account.ContactNo, account.Company, account.DateLogin,account.Birthdate);
         }
         /// <summary>
         /// Update Acccount by Username
@@ -61,8 +64,12 @@ namespace SODAwcfService
         /// <returns></returns>
         public int updateAccount(Models.Account account)
         {
+            //return AccountsTableAdapter.Update(account.USERNAME, account.PASSWORD, account.FirstName, account.LastName, account.Role, account.Status, account.Email, account.Address,
+            //                                          account.City, account.Country, account.Gender.ToString(), account.ContactNo, account.Company, account.DateLogin, account.Birthdate, account.EmailVerified, account.Id
+            //                                          );
+
             return AccountsTableAdapter.UpdateAccount(account.FirstName, account.LastName, account.Role, account.Status, account.Email, account.Address,
-                account.City, account.Country, account.Gender.ToString(), account.ContactNo, account.Company, account.DateLogin,account.Birthdate, account.EmailVerified, account.USERNAME);
+                account.City, account.Country, account.Gender.ToString(), account.ContactNo, account.Company, account.DateLogin, account.Birthdate, account.EmailVerified, account.USERNAME);
         }
         /// <summary>
         /// Get Account record
@@ -101,9 +108,10 @@ namespace SODAwcfService
                     Gender =  row["Gender"].ToString() == ""?'0': row["Gender"].ToString().ToCharArray()[0],
                     ContactNo = row["ContactNo"].ToString(),
                     Company = row["Company"].ToString(),
-                    DateLogin = row["DateLogin"].ToString() == "" ? default(DateTime) : (DateTime)row["DateLogin"],
+                    //DateLogin = row["DateLogin"].ToString() == "" ? default(DateTime) : (DateTime)row["DateLogin"],
+                    DateLogin = row["DateLogin"].ToString() == "" ? DateTime.Parse("1/1/1753 12:00:00 AM") : (DateTime)row["DateLogin"],
                     Id = (long) row["Id"],
-                    Birthdate = row["Birthdate"].ToString()=="" ? default(DateTime): (DateTime)row["Birthdate"],
+                    Birthdate = row["Birthdate"].ToString()=="" ? DateTime.Parse("1/1/1753 12:00:00 AM"): (DateTime)row["Birthdate"],
                     EmailVerified =(bool) row["EmailVerify"]
                 });
             }
