@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<SODAPortalMvcApplication.AccountServiceRef.Account>
+@{
     //Model is List types
     ViewBag.Title = "Marketer";
 }
@@ -12,7 +13,8 @@
         <p>&nbsp;</p>
 
         <table class="portTable">
-           
+           @if(Model.Count() > 0)
+           { 
                 <thead>
                     <tr style="background-color:#ffffff;">
 
@@ -22,18 +24,24 @@
                     </tr>
                 </thead>
     
-                <tbody>                  
-                        <tr>
-                            <td width="200">Ben James</td>
-                            <td width="100"><a href=""><img alt="Edit" src="~/Content/images/portal/edit.png"></a></td>
-                            <td width="100"><a href=""><img alt="delete" src="~/Content/images/portal/delete.png"></a></td>
-                        </tr>
+                <tbody>   
+                    @foreach (var marketer in Model)
+                    {
+                       <tr>
+                            <td width="200">@marketer.FirstName @marketer.LastName</td>
+                            <td width="100"><a href=@Url.Action("editmarketer", new {id=@marketer.Id })><img alt="Edit" src="~/Content/images/portal/edit.png"></a></td>
+                            <td width="100"><a href=@Url.Action("deletemarketer",new {id=@marketer.Id})><img alt="delete" src="~/Content/images/portal/delete.png"></a></td>
+                        </tr> 
+                    }               
+                        
                 </tbody>
-           
+           }
+           else
+           { 
              @*else*@ 
          
                 <p class="noDisplay">No Record Yet!</p>
-            
+           }
         </table>
 
     </div>

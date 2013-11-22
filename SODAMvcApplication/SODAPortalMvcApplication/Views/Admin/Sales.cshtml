@@ -33,7 +33,7 @@
                     <tr>
                         <td width="200">@salesperson.account.FirstName @salesperson.account.LastName</td>
                         <td width="170">@salesperson.account.Company</td>
-                        <td width="100">@salesperson.salesPerson.Sales_Code</td>
+                        <td width="100">@salesperson.salesCode.Sales_Code</td>
                         <td width="100"><a href=@Url.Action("editsale", new { id = salesperson.salesPerson.Id})><img alt="Edit" src="~/Content/images/portal/edit.png"></a></td>
                         <td width="100"><a href=@Url.Action("deletesale", new { id = salesperson.salesPerson.Id})><img alt="delete" src="~/Content/images/portal/delete.png"></a></td>
                     </tr>
