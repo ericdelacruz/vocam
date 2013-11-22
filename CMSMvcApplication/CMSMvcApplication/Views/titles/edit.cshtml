@@ -5,10 +5,28 @@
 }
 
 
+<style>
+    .ifield {
+        background: #fefefe;
+        height: 30px;
+        width: 60%;
+        border: 1px solid #cccccc;
+        padding: 5px;
+        border: 1px solid #999;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -web-kit-border-radius: 4px;
+        -khtml-border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    }
+</style>
 
 <h1 class="margin15">Edit Title/Landing</h1>
 
-<div class="cmsForm">
+<div class="cmsForm selectBdate">
     @using (Html.BeginForm("Edit", "Titles", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <label>Title*</label>
@@ -31,7 +49,7 @@
 
             }
         </select>
-
+        <br />
         <label>Overview</label>
         <textarea class="field span12 form-control" id="textarea" rows="3" cols="49" placeholder="" name="Overview">@Model.Overview.Replace("<br/>", "\n")</textarea>
         <label>Description</label>
@@ -42,9 +60,87 @@
         <label>Background Image <span class="uploadTxtCont">(recommended dimension:1500 x 947)</span></label>
         <input type="file" name="BG_IMG"> <br />
         <img width="300" height="189" src="@Model.BG_Img">
+        <br />
         <label>Video URL</label>
         <input type="text" class="form-control" name="VidURL" value="@Model.VideoURL" autofocus="">
-        <br />
+        
+        <label>Filename</label>
+        <input type="text" class="form-control" placeholder="Enter Filename" autofocus="" name="filename">
+        <label>Duration</label>
+        <input type="text" class="form-control" placeholder="Enter Duration" autofocus="" name="duration">
+        
+        <div class="panel panel-default">
+                  <div class="panel-heading"><strong>Topic</strong></div>
+                  <div class="panel-body">
+
+                 
+                        <input type="text" value="Topic 1" class="ifield" name="topicName" /> <a><img src='/Content/images/cms/remove.jpg' width='26' height='26' border='0'></a> 
+                        <input type="text" value="Topic 2" class="ifield" name="topicName" /> <a><img src='/Content/images/cms/remove.jpg' width='26' height='26' border='0'></a>
+                        <hr />
+                        <input type="text" value="" class="ifield" placeholder="Input topic name" name="topicName" /><input type="button" class="btn btn-default topicBtn" name="add" value="Add more Topic"  style="height: 32px; margin-left: 4px;"  />
+
+
+                    <div id="text">
+                        <div class="notifyError"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="panel panel-default">
+                  <div class="panel-heading"><strong>Chapter</strong></div>
+                  <div class="panel-body">
+                            Name: <input name='chapterName' type='text' value='Chapter 1' class='ifield' autofocus /><br>
+                            Time: &nbsp; <input name='chapterTime' type='text' value='11234' class='ifield' autofocus /> <a><img src='/Content/images/cms/remove.jpg' width='26' height='26' border='0'></a>
+                            <hr />
+                            Name: <input name='chapterName[]' type='text' value='' class='ifield' autofocus placeholder='Input chapter name' /><br>
+                            Time: &nbsp; <input name='chapterTime[]' type='text' value='' class='ifield' autofocus placeholder='Input chapter time' />
+                            <input type="button" class="btn btn-default chapterBtn" name="add" value="Add more chapter"  style="height: 32px; margin-left: 4px;"  />
+
+
+                    <div id="text2">
+                        <div class="notifyError2"></div>
+                    </div>
+                  </div>
+                </div>
+                
+                <label>Time (milliseconds)</label>
+                <input type="text" class="form-control" placeholder="Enter time" autofocus="" name="time">
+                <label>Total Chapters</label>
+                <input type="text" class="form-control" placeholder="Enter total chapter" autofocus="" name="totalChap">
+
+                <div class="panel panel-default">
+                  <div class="panel-heading"><strong>Approve?</strong></div>
+                  <div class="panel-body">
+                    <input type="checkbox"> Yes, this title is approved and can be viewed. 
+                  </div>
+                </div>
+
+                <div class="panel panel-default">
+                  <div class="panel-heading"><strong>Is Downloadable?</strong></div>
+                  <div class="panel-body">
+                    <input type="checkbox"> Yes, this title is downloadable. 
+                  </div>
+                </div>
+
+                <label>In Disc</label>
+                <input type="text" class="form-control" placeholder="Enter Duration" autofocus="" name="duration">
+
+                 <div class="panel panel-default">
+                  <div class="panel-heading"><strong>Is Download News?</strong></div>
+                  <div class="panel-body">
+                    <input type="checkbox"> Yes, this title is download news. 
+                  </div>
+                </div>
+
+                 <label>QuestionAnswer change date (dd-mm-yy)</label>
+                        <SELECT class="form-control" id ="date" name = "dd"></SELECT>
+                        <SELECT class="form-control" id ="month" name = "mm"></SELECT>
+                        <SELECT class="form-control" id ="year" name = "yyyy"></SELECT>
+                        <script type="text/javascript">date_populate("date", "month", "year");</script>
+                 <p>&nbsp;</p>
+        
+        
+        
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">SEO</h3>
