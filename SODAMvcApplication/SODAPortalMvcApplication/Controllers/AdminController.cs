@@ -139,7 +139,7 @@ namespace SODAPortalMvcApplication.Controllers
                     DateEnd = salesCode.First().DateEnd
                 });
                 emailSales(account_New.Email);
-                return RedirectToAction("addSale");
+                return RedirectToAction("Sales");
             }
             else
             {
@@ -384,7 +384,14 @@ namespace SODAPortalMvcApplication.Controllers
 
         private bool isUserSessionActive()
         {
-            return !string.IsNullOrEmpty(Session["Username"].ToString()) && AccountHelper.isActive(Session["Username"].ToString(), account);
+            try
+            {
+                return !string.IsNullOrEmpty(Session["Username"].ToString()) && AccountHelper.isActive(Session["Username"].ToString(), account);
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         #endregion

@@ -73,7 +73,7 @@ namespace SODAPortalMvcApplication.Controllers
         }
         
         [HttpPost]
-        public ActionResult addsale(ViewModel.UserModel model)
+        public ActionResult adduser(ViewModel.UserModel model)
         {
             if (ModelState.IsValid)
             {
