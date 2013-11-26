@@ -159,7 +159,7 @@ namespace SODAwcfService
                     FirstMonthFree = price.FirstMonthFree,
                     Active = price.Active,
                     PriceAmt = price.Price,
-                    RegionId = price.Id
+                    RegionId = price.RegionId
                 });
             }
             return priceList;
