@@ -40,6 +40,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Moolah">
+      <HintPath>..\packages\Moolah.0.7.0.54\lib\net40\Moolah.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.2.0.1.2\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -189,6 +195,7 @@
     <Compile Include="Controllers\EmailHelper.cs" />
     <Compile Include="Controllers\EncDec.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PaypalHelper.cs" />
     <Compile Include="Controllers\salesController.cs" />
     <Compile Include="Controllers\userController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -203,6 +210,11 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Service References\PortalServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\SODAPayPalServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -349,6 +361,13 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\SODAPayPalServiceReference\SODAPaypalService.disco" />
+    <None Include="Service References\SODAPayPalServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\SODAPayPalServiceReference\configuration.svcinfo" />
+    <None Include="Service References\SODAPayPalServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -443,6 +462,14 @@
     <Content Include="Views\Admin\addMarketer.cshtml" />
     <Content Include="Views\Admin\editMarketer.cshtml" />
     <Content Include="Views\Admin\marketer.cshtml" />
+    <None Include="Service References\SODAPayPalServiceReference\SODAPaypalService.wsdl" />
+    <None Include="Service References\SODAPayPalServiceReference\SODAPaypalService.xsd" />
+    <None Include="Service References\SODAPayPalServiceReference\SODAPaypalService1.xsd" />
+    <None Include="Service References\SODAPayPalServiceReference\SODAPaypalService2.xsd" />
+    <None Include="Service References\SODAPayPalServiceReference\SODAPaypalService3.xsd" />
+    <Content Include="Service References\SODAPayPalServiceReference\SODAPortalMvcApplication.SODAPayPalServiceReference.GetRecurringPaymentsProfileDetailsResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -457,6 +484,27 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\AccountServiceRef\" />
     <WCFMetadataStorage Include="Service References\PortalServiceReference\" />
+    <WCFMetadataStorage Include="Service References\SODAPayPalServiceReference\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="ADODB">
+      <Guid>{B691E011-1797-432E-907A-4D8C69339129}</Guid>
+      <VersionMajor>6</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CDO">
+      <Guid>{CD000000-8B95-11D1-82DB-00C04FB1625D}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
