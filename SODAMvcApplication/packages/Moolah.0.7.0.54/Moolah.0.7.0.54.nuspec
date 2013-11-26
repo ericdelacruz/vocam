@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Moolah</id>
+    <version>0.7.0.54</version>
+    <title>Moolah</title>
+    <authors>David Duffett</authors>
+    <owners>David Duffett</owners>
+    <licenseUrl>https://github.com/davidduffett/Moolah/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/davidduffett/Moolah</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Easy payment processing for .NET (DataCash, PayPal)</description>
+    <releaseNotes />
+    <copyright>Copyright 2012</copyright>
+    <language />
+    <tags>card payment datacash paypal</tags>
+    <dependencies>
+      <dependency id="NLog" version="2.0.0.2000" />
+    </dependencies>
+  </metadata>
+</package>
