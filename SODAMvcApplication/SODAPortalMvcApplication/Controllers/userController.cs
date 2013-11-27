@@ -267,8 +267,7 @@ namespace SODAPortalMvcApplication.Controllers
                      portalClient.updateCustomer(customer.customer);
 
                  return RedirectToAction("index");
-                 //else
-                 //error
+                 
              }
              else
                  return RedirectToAction("index");
