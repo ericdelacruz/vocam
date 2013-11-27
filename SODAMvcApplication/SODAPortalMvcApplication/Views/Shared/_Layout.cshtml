@@ -9,30 +9,7 @@
     <link href="/Content/css/main.css" rel="stylesheet" media="screen">
     <link href="/Content/css/portal.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" type="text/css" href="/Content/css/jquery.datepick.css">
-    <script type="text/javascript" src="/Content/js/jquery.min.js"></script>
-    <script type="text/javascript" src="/Content/js/jquery.datepick.js"></script>
-    <script type="text/javascript" src="/Content/js/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="/Content/js/birthdate.js"></script>
-
-    <script type="text/javascript">
-        $(function () {
-            $('#popupDatepicker').datepick();
-        });
-
-        function showDate(date) {
-            alert('The date chosen is ' + date);
-        }
-    </script>
-
-    <script type="text/javascript">
-        $(function () {
-            $('#popupDatepicker2').datepick();
-        });
-
-        function showDate(date) {
-            alert('The date chosen is ' + date);
-        }
-    </script>
+   
 </head>
 <body>
     <!--[if lt IE 9]>
@@ -85,5 +62,26 @@
     <script src="//code.jquery.com/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/Content/js/jquery.datepick.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#popupDatepicker').datepick();
+        });
+
+        function showDate(date) {
+            alert('The date chosen is ' + date);
+        }
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#popupDatepicker2').datepick();
+        });
+
+        function showDate(date) {
+            alert('The date chosen is ' + date);
+        }
+    </script>
 </body>
 </html>
