@@ -9,7 +9,7 @@
     @RenderPage("adminmenu.cshtml")
 
     <div class="portalCont margin15">
-        <h2>Marketers <span><a href="@Url.Action("addMarketer")"><img src="~/Content/images/portal/edit.png"></a></span></h2>
+        <h2>Marketers <span><a href="@Url.Action("addMarketer")"><img src="~/Content/images/portal/addNew.gif"></a></span></h2>
         <p>&nbsp;</p>
 
         <table class="portTable">
@@ -30,7 +30,7 @@
                        <tr>
                             <td width="200">@marketer.FirstName @marketer.LastName</td>
                             <td width="100"><a href=@Url.Action("editmarketer", new {id=@marketer.Id })><img alt="Edit" src="~/Content/images/portal/edit.png"></a></td>
-                            <td width="100"><a href=@Url.Action("deletemarketer",new {id=@marketer.Id})><img alt="delete" src="~/Content/images/portal/delete.png"></a></td>
+                            <td width="100"><a onclick="return confirm('Are you sure you want to delete the item?');" href=@Url.Action("deletemarketer",new {id=@marketer.Id})><img alt="delete" src="~/Content/images/portal/delete.png"></a></td>
                         </tr> 
                     }               
                         

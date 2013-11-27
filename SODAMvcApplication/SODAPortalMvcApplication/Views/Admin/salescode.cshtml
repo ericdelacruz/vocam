@@ -31,7 +31,7 @@
                 <tr>
                     <td width="200">@salescode.Sales_Code</td>
                     <td width="100"><a href=@Url.Action("editsalescode",new{id = salescode.Id})><img alt="edit" src="~/Content/images/portal/edit.png"></a></td>
-                    <td width="100"><a href=@Url.Action("deletesalescode",new{id= salescode.Id})><img alt="delete" src="~/Content/images/portal/delete.png"></a></td>
+                    <td width="100"><a onclick="return confirm('Are you sure you want to delete the item?');" href=@Url.Action("deletesalescode",new{id= salescode.Id})><img alt="delete" src="~/Content/images/portal/delete.png"></a></td>
                 </tr>
                     } 
             </tbody>
