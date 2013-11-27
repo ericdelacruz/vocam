@@ -9,7 +9,7 @@
             <li style="padding-left:0px;"><a href="@Url.Action("Index")">REPORTS</a></li>
             <li><a href="@Url.Action("AddUser")">ADD USER</a></li>
         </ul> <!-- end of portal user menu-->
-        <div class="logoutSec fr clearfix">Hi user! <a href="">(logout)</a></div>
+        <div class="logoutSec fr clearfix">Hi @Session["Username"] <a href=@Url.Action("logout","home")>(logout)</a></div>
     </div>
 
    @using (@Html.BeginForm("adduser", "sales", FormMethod.Post, new { @class = "formRegistration border shadow" }))

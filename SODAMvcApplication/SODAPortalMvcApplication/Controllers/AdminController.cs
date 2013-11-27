@@ -23,42 +23,85 @@ namespace SODAPortalMvcApplication.Controllers
             {
                 
                 var reportlist = from customer in portalClient.getCustomer()
-                                 join accnt in account.getAccount("") on customer.Id equals accnt.Id
+                                 join accnt in account.getAccount("") on customer.UserId equals accnt.Id
                                  join sc in portalClient.getSaleCode() on customer.SalesCodeId equals sc.Id
                                  select new ViewModel.ReportViewModel() { account = accnt, customer = customer,salesCode = sc };
                 return View(reportlist);
             }
             
         }
+        //[HttpPost]
+        //public ActionResult index(FormCollection collection)
+        //{
+        //    DateTime start = DateTime.Parse(collection["datefrom"]);
+        //    DateTime? end = new Nullable<DateTime>();
+        //    if (collection["dateto"] != "")
+        //        end = DateTime.Parse(collection["dateto"]);
+
+        //    if (end.HasValue)
+        //    {
+        //        var reportlist = from customer in portalClient.getCustomer()
+        //                         join accnt in account.getAccount("") on customer.UserId equals accnt.Id
+        //                         where customer.DatePurchase >= start && customer.DatePurchase < end
+        //                         select new ViewModel.ReportViewModel() { account = accnt, customer = customer };
+        //        return View(reportlist);
+        //    }
+        //    else
+        //    {
+        //        var reportlist = from customer in portalClient.getCustomer()
+        //                         join accnt in account.getAccount("") on customer.UserId equals accnt.Id
+        //                         where customer.DatePurchase == start
+        //                         select new ViewModel.ReportViewModel() { account = accnt, customer = customer };
+        //        return View(reportlist);
+        //    }
+
+        //    return View();
+        //}
         [HttpPost]
-        public ActionResult index(DateTime start, DateTime? end)
+        public ActionResult index(FormCollection collection)
         {
-            if (end != null)
+            DateTime start;
+            DateTime? end = new Nullable<DateTime>();
+        
+               
+
+            if ( collection["dateto"] != "" && collection["datefrom"] != "")
             {
-                var reportlist = from customer in portalClient.getCustomer()
-                                 join accnt in account.getAccount("")  on customer.Id equals accnt.Id
+                start = DateTime.Parse(collection["datefrom"]); 
+                end = DateTime.Parse(collection["dateto"]);
+                 var reportlist = from customer in portalClient.getCustomer()
+                                  join accnt in account.getAccount("") on customer.UserId equals accnt.Id
+                                  join sc in portalClient.getSaleCode() on customer.SalesCodeId equals sc.Id
                                  where customer.DatePurchase >= start && customer.DatePurchase < end
-                                 select new ViewModel.ReportViewModel() { account = accnt, customer = customer };
+                                 select new ViewModel.ReportViewModel() { account = accnt, customer = customer,salesCode = sc };
                 return View(reportlist);
             }
-            else
+            else if (collection["datefrom"] != "")
+            {
+                start = DateTime.Parse(collection["datefrom"]); 
+                var reportlist = from customer in portalClient.getCustomer()
+                                 join accnt in account.getAccount("") on customer.UserId equals accnt.Id
+                                 join sc in portalClient.getSaleCode() on customer.SalesCodeId equals sc.Id
+                                 where customer.DatePurchase == start 
+                                 select new ViewModel.ReportViewModel() { account = accnt, customer = customer, salesCode = sc };
+                return View(reportlist);
+            }
+            else if(collection["salescode"] != "")
             {
                 var reportlist = from customer in portalClient.getCustomer()
-                                 join accnt in account.getAccount("") on customer.Id equals accnt.Id
-                                 where customer.DatePurchase == start 
-                                 select new ViewModel.ReportViewModel() { account = accnt, customer = customer };
+                                 join accnt in account.getAccount("") on customer.UserId equals accnt.Id
+                                 join sc in portalClient.getSaleCode() on customer.SalesCodeId equals sc.Id
+                                 where sc.Sales_Code == collection["salescode"]
+                                 select new ViewModel.ReportViewModel() { account = accnt, customer = customer, salesCode =sc };
                 return View(reportlist);
             }
+            else//all are empty
+            {
+                return Redirect("index");//view all
+            }
+            
         }
-        [HttpPost]
-        public ActionResult index(long salecodeid)
-        {
-            var reportlist = from customer in portalClient.getCustomer()
-                             join accnt in account.getAccount("") on customer.Id equals accnt.Id
-                             where customer.SalesCodeId == salecodeid
-                             select new ViewModel.ReportViewModel() { account = accnt, customer = customer };
-            return View(reportlist);
-        }
+        
         
         #region sales
         public ActionResult sales()
@@ -139,7 +182,7 @@ namespace SODAPortalMvcApplication.Controllers
                     DateEnd = salesCode.First().DateEnd
                 });
                 emailSales(account_New.Email);
-                return RedirectToAction("addSale");
+                return RedirectToAction("Sales");
             }
             else
             {
@@ -290,14 +333,14 @@ namespace SODAPortalMvcApplication.Controllers
                 Active = true
 
             });
-            return RedirectToAction("editprice");
+            return RedirectToAction("price");
         }
         public ActionResult deleteprice(int id)
         {
             portalClient.deletePrice(id);
             return RedirectToAction("price");
         }
-#endregion
+    #endregion
 
         #region Sales Code
         public ActionResult salescode()
@@ -384,7 +427,14 @@ namespace SODAPortalMvcApplication.Controllers
 
         private bool isUserSessionActive()
         {
-            return !string.IsNullOrEmpty(Session["Username"].ToString()) && AccountHelper.isActive(Session["Username"].ToString(), account);
+            try
+            {
+                return !string.IsNullOrEmpty(Session["Username"].ToString()) && AccountHelper.isActive(Session["Username"].ToString(), account);
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         #endregion

@@ -10,6 +10,7 @@ namespace SODAPortalMvcApplication.Controllers
     {
         PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
         AccountServiceRef.AccountServiceClient AccountClient = new AccountServiceRef.AccountServiceClient();
+        SODAPayPalServiceReference.SODAPaypalServiceClient paypalClient = new SODAPayPalServiceReference.SODAPaypalServiceClient();
         //
         // GET: /user/
 
@@ -36,17 +37,33 @@ namespace SODAPortalMvcApplication.Controllers
 
 
                         Session.Add("CustomerData", customer.First());
-
+                        if(customer.First().customer.DateSubscriptionEnd.Value.Month >=  DateTime.Now.Month)
+                        {
+                            if(isPayPalRecurActive(customer.First().account.Id))
+                            {
+                                customer.First().customer.DateSubscriptionEnd = customer.First().customer.DateSubscriptionEnd.Value.AddMonths(1);
+                                portalClient.updateCustomer(customer.First().customer);
+                            }
+                        }
                         return View(customer.First());
                     }
                 }
                 else
                 {
-                    
-                    return View(Session["CustomerData"]);
+                    var customer = getCustomerData(username);
+                    Session["CustomerData"] = customer.First();
+                    return View(customer.First());
                 }
             }
            
+        }
+
+        private bool isPayPalRecurActive(long userid)
+        {
+
+            var response = paypalClient.getRecurProfileDetails(userid);
+           
+            return response.GetRecurringPaymentsProfileDetailsResponseDetails.ProfileStatus.Value == SODAPayPalServiceReference.RecurringPaymentsProfileStatusType.ACTIVEPROFILE;
         }
 
         private IEnumerable<ViewModel.CustomerModel> getCustomerData(string username)
@@ -64,15 +81,24 @@ namespace SODAPortalMvcApplication.Controllers
             
             return View();
         }
+
+        public ActionResult reverify(string salescode)
+        {
+            var verifymodel = getVerifyViewModel(salescode);
+            TempData["VerifiedSC"] = false;
+            if (verifymodel.Count() > 0)
+            {
+                TempData["VerifiedSC"] = true;
+                Session.Add("SalesCode", verifymodel.First());
+            }
+           
+            return RedirectToAction("index");
+        }
         [HttpPost]
         public ActionResult verify(FormCollection collection)
         {
             string salescode = collection["SalesCode"];
-            var salescodeList = from sp in portalClient.getSalePerson()
-                                join sc in portalClient.getSaleCode() on sp.SalesCodeId equals sc.Id
-                                join p in portalClient.getPrice() on sp.RegionId equals p.RegionId
-                                where sc.Sales_Code == salescode.Trim()
-                                select new ViewModel.VerifyModel() { price = p, saleperson = sp, salescode = sc };
+            var salescodeList = getVerifyViewModel(salescode);
 
             if (salescodeList.Count() > 0)
                 Session.Add("SalesCode",salescodeList.First());
@@ -80,6 +106,16 @@ namespace SODAPortalMvcApplication.Controllers
                 Session["SalesCode"] = null;
 
             return RedirectToAction("indexpurchase");
+        }
+
+        private IEnumerable<ViewModel.VerifyModel> getVerifyViewModel(string salescode)
+        {
+            var salescodeList = from sp in portalClient.getSalePerson()
+                                join sc in portalClient.getSaleCode() on sp.SalesCodeId equals sc.Id
+                                join p in portalClient.getPrice() on sp.RegionId equals p.RegionId
+                                where sc.Sales_Code == salescode.Trim()
+                                select new ViewModel.VerifyModel() { price = p, saleperson = sp, salescode = sc };
+            return salescodeList;
         }
 
         public ActionResult termsinit()
@@ -90,20 +126,8 @@ namespace SODAPortalMvcApplication.Controllers
 
         public ActionResult paymentstatus(string stat)
         {
-            if((ViewBag.paymentSuccess =Session["Username"] != null && stat == "success"))
-            {
-                var user = from acnt in AccountClient.getAccount(Session["Username"].ToString())
-                           select acnt;
-                long SalesCode = (Session["SalesCode"] as ViewModel.VerifyModel).salescode.Id;
-
-                portalClient.addCustomer(new PortalServiceReference.Customer()
-                {
-                    UserId = user.First().Id,
-                     DatePurchase = new Nullable<DateTime>(DateTime.Now),
-                      DateSubscriptionEnd = new Nullable<DateTime>(DateTime.Now.AddMonths(6)),
-                       SalesCodeId = SalesCode
-                });
-            }
+            ViewBag.paymentSuccess = Session["Username"] != null && stat == "success";
+           
             return View();
         }
       
@@ -153,6 +177,100 @@ namespace SODAPortalMvcApplication.Controllers
             }
                 return View(user);
 
+        }
+
+        public ActionResult checkout()
+        {
+            ViewModel.CustomerModel customer = new ViewModel.CustomerModel();
+            if (Session["Username"] != null && Session["SalesCode"] != null)
+            {
+                var accnt = from account in AccountClient.getAccount(Session["Username"].ToString())
+                            select account;
+                var salesPersonCodePrice = Session["SalesCode"] as ViewModel.VerifyModel;
+
+                customer.account = accnt.First();
+                customer.salesPerson = salesPersonCodePrice.saleperson;
+                customer.salesCode = salesPersonCodePrice.salescode;
+                customer.price = salesPersonCodePrice.price;
+
+                Session.Add("CustomerData", customer);
+
+                string itemname = "SODA Subscription";
+                string itemDesc = string.Concat("Soda Subscription payment for ", customer.account.FirstName + " " + customer.account.LastName);
+                string itemURL = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("checkout");
+                string cancelURl = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("cancel");
+                string confirmURL = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("confirm");
+                decimal price = customer.price.FirstMonthFree ? customer.price.PriceAmt * 5 : customer.price.PriceAmt * 6;
+
+                if ((customer.salesCode.Discount * 100) > 0)
+                {
+                    price = price - (customer.salesCode.Discount * 100);
+                }
+
+                string redirectURL = paypalClient.checkout(price, SODAPayPalServiceReference.CurrencyCodeType.AUD, itemname, itemDesc, itemURL, cancelURl, confirmURL);
+
+                return Redirect(redirectURL);
+
+            }
+            else
+                return RedirectToAction("index");
+             
+        }
+
+        public ActionResult cancel()
+        {
+            return RedirectToAction("paymentstatus", new { stat = "cancel" }) ;
+        }
+        public ActionResult confirm(string token, string payerid)
+        {
+            ViewModel.CustomerModel customer = new ViewModel.CustomerModel();
+            if (Session["CustomerData"] != null)
+            {
+                customer = Session["CustomerData"] as ViewModel.CustomerModel;
+
+                
+
+                string itemname = "SODA Subscription";
+                string itemDesc = string.Concat("Soda Subscription payment for ", customer.account.FirstName + " " + customer.account.LastName);
+                string itemURL = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("checkout");
+                decimal price = customer.price.FirstMonthFree ? customer.price.PriceAmt * 5 : customer.price.PriceAmt * 6;
+
+                if ((customer.salesCode.Discount * 100) > 0)
+                {
+                    price = price - (customer.salesCode.Discount * 100);
+                }
+
+                paypalClient.confirmation(customer.account.Id, payerid, token, price, customer.price.PriceAmt, SODAPayPalServiceReference.CurrencyCodeType.AUD, itemname, itemDesc, DateTime.Now.AddMonths(6));
+                
+                portalClient.addCustomer(new PortalServiceReference.Customer()
+                {
+                    UserId = customer.account.Id,
+                    DatePurchase = new Nullable<DateTime>(DateTime.Now),
+                    DateSubscriptionEnd = new Nullable<DateTime>(DateTime.Now.AddMonths(6)),
+                    SalesCodeId = customer.salesCode.Id
+                });
+                return RedirectToAction("paymentstatus",new{stat="success"});
+            }
+            else
+                return RedirectToAction("index");
+        }
+        public ActionResult unsubscribe()
+        {
+             ViewModel.CustomerModel customer = new ViewModel.CustomerModel();
+             if (Session["CustomerData"] != null)
+             {
+                 customer = Session["CustomerData"] as ViewModel.CustomerModel;
+                 
+                 customer.customer.DateSubscriptionEnd = DateTime.Now;
+
+                 if (paypalClient.cancelSubscription(customer.account.Id))
+                     portalClient.updateCustomer(customer.customer);
+
+                 return RedirectToAction("index");
+                 
+             }
+             else
+                 return RedirectToAction("index");
         }
     }
 }

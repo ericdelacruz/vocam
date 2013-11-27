@@ -1,42 +1,38 @@
 ﻿@model SODAPortalMvcApplication.ViewModel.CustomerModel
 @{
     ViewBag.Title = "Index";
-    
+    var isSCVerified = TempData["VerifiedSC"] as Nullable<bool>;
 }
 
 <div class="portalWrap border">
     @RenderPage("usermenu.cshtml")
 
     <div class="portalCont margin15">
+       
         <h2>Buy/Cancel</h2>
         <p>Product description here, with clear statement of it is monthly subscription with minimum 6 months contract.....</p>
+        
+        <h2>@Model.salesCode.Sales_Code</h2> <a href="@Url.Action("reverify", new { salescode = @Model.salesCode.Sales_Code })">Verify</a>
+         @if(isSCVerified.HasValue && isSCVerified.Value)
+         { 
+            <p>@Model.price.PriceAmt</p>
+              if (Model.customer.DateSubscriptionEnd.Value.Month < DateTime.Now.Month - 1)
+              {
 
-        <h2>@Model.salesCode.Sales_Code</h2>
-        <p>@Model.price.PriceAmt</p>
-
-        @if(DateTime.Compare(Model.customer.DateSubscriptionEnd.Value,DateTime.Now) < 0)
-        {
-            //not yet expired
-            //insert unsubscribe shit here
-            <a>Unsubscribe</a>
-        }
-        else
-        {
-            //expired
-            @Html.ActionLink("termsconditions", "user");
-        }
-        BUY NOW (if the contract end date is NULL)
-        CANCEL Service (Only show this when contract end date is less than datetime.now)
-
-        If the user clicked buy now,  the user will be redirected to T&C page.
-
-        The user will be redirected to PAYPAL for the payment.
-
-        If the user stop at the PAYPAL section, nothing will happen. The user need to click on buy now again and accept T&C again.
-
-        If the user paid from PAYPAL, paypal will:
-        - send a message to the dedicated web service address about the payment status.
-        - if the payment is valid, the end of contract will be 6 months from now (first time)
-        - The expiry date will be 30 days from now
+                        <a href=@Url.Action("unsubscribe")>Cancel subscripion</a>
+              }
+              else
+              {
+                        
+                  <a href=@Url.Action("termsinit")>Buy</a>
+              }
+         }
+         else if (isSCVerified.HasValue &&  !isSCVerified.Value)
+         {
+             <p>Sales code not verified. Please call Customer service</p>
+             <a href=@Url.Action("indexpurchase")>Buy now</a>
+         }
+       
+       
     </div>
 </div>

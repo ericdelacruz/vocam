@@ -15,6 +15,8 @@ namespace SODAwcfService
         private SodaDBDataSetTableAdapters.CategoryTableAdapter catTableAdaptor;
         private SodaDBDataSetTableAdapters.SpecificTableAdapter specTableAdaptor;
         private SodaDBDataSetTableAdapters.RelatedTableAdapter relTableAdaptor;
+        private SodaDBDataSetTableAdapters.TopicsTableAdapter topicAdapter;
+        private SodaDBDataSetTableAdapters.chapterTableAdapter chapterAdapter;
         private string asdasd = EncDec.EncryptData("myS0D@P@ssw0rd");
        
         private bool Allowed = true;
@@ -288,6 +290,13 @@ namespace SODAwcfService
             }
 
             return listSpec;
+        }
+        #endregion
+
+        #region chapter
+        public int addChapter( long specID,string name, TimeSpan time)
+        {
+            return chapterAdapter.Insert(specID, name, time);
         }
         #endregion
     }
