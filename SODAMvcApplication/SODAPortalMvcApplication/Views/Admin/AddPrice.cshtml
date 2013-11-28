@@ -17,7 +17,7 @@
             @Html.ValidationSummary();
             <!-- Script by hscripts.com -->
             <label>Region:</label>
-            <select class="form-control" name="Region">
+            <select class="form-control" name="Region" required>
                 <option selected="selected" value="-1">Select a region</option>
                 @foreach (var region in RegionList)
                 {
@@ -28,7 +28,7 @@
             <!-- Script by hscripts.com -->
             
             <label><br />Price*</label>
-            <input type="number" class="form-control" name="Price" value="">
+            <input type="number" class="form-control" name="Price" value="" required>
             <label>Is first month free?</label><br />
             <div class="fl" style="margin-right:10px;"><input type="radio" name="monthFree" value="yes" checked="checked"/> Yes</div>
             <div class="fl"><input type="radio" name="monthFree" value="no"/> No</div>
