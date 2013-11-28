@@ -214,7 +214,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Service References\SODAPayPalServiceReference\Reference.cs">
+    <Compile Include="Service References\SODAPayPalSerRef\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -361,10 +361,10 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\SODAPayPalServiceReference\SODAPaypalService.disco" />
-    <None Include="Service References\SODAPayPalServiceReference\configuration91.svcinfo" />
-    <None Include="Service References\SODAPayPalServiceReference\configuration.svcinfo" />
-    <None Include="Service References\SODAPayPalServiceReference\Reference.svcmap">
+    <None Include="Service References\SODAPayPalSerRef\SODAPaypalService.disco" />
+    <None Include="Service References\SODAPayPalSerRef\configuration91.svcinfo" />
+    <None Include="Service References\SODAPayPalSerRef\configuration.svcinfo" />
+    <None Include="Service References\SODAPayPalSerRef\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -462,12 +462,13 @@
     <Content Include="Views\Admin\addMarketer.cshtml" />
     <Content Include="Views\Admin\editMarketer.cshtml" />
     <Content Include="Views\Admin\marketer.cshtml" />
-    <None Include="Service References\SODAPayPalServiceReference\SODAPaypalService.wsdl" />
-    <None Include="Service References\SODAPayPalServiceReference\SODAPaypalService.xsd" />
-    <None Include="Service References\SODAPayPalServiceReference\SODAPaypalService1.xsd" />
-    <None Include="Service References\SODAPayPalServiceReference\SODAPaypalService2.xsd" />
-    <None Include="Service References\SODAPayPalServiceReference\SODAPaypalService3.xsd" />
-    <Content Include="Service References\SODAPayPalServiceReference\SODAPortalMvcApplication.SODAPayPalServiceReference.GetRecurringPaymentsProfileDetailsResponseType.datasource">
+    <None Include="Service References\SODAPayPalSerRef\SODAPaypalService.wsdl" />
+    <None Include="Service References\SODAPayPalSerRef\SODAPaypalService.xsd" />
+    <None Include="Service References\SODAPayPalSerRef\SODAPaypalService1.xsd" />
+    <None Include="Service References\SODAPayPalSerRef\SODAPaypalService2.xsd" />
+    <None Include="Service References\SODAPayPalSerRef\SODAPaypalService3.xsd" />
+    <None Include="Service References\SODAPayPalSerRef\SODAPaypalService4.xsd" />
+    <Content Include="Service References\SODAPayPalSerRef\SODAPortalMvcApplication.SODAPayPalSerRef.RecuringProfileDetails.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
   </ItemGroup>
@@ -484,7 +485,7 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\AccountServiceRef\" />
     <WCFMetadataStorage Include="Service References\PortalServiceReference\" />
-    <WCFMetadataStorage Include="Service References\SODAPayPalServiceReference\" />
+    <WCFMetadataStorage Include="Service References\SODAPayPalSerRef\" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="ADODB">
