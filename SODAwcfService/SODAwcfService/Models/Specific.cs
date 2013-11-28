@@ -32,5 +32,23 @@ namespace SODAwcfService.Models
         public string PageTitle { get; set; }
         [DataMember]
         public string MetaDesc { get; set; }
+        [DataMember]
+        public string FileName { get; set; }
+        [DataMember]
+        public bool isDOwnloadNews { get; set;}
+        [DataMember]
+        public DateTime DateQuestionAnswerChange { get; set; }
+        [DataMember]
+        public TimeSpan time { get; set; }
+        [DataMember]
+        public int totalChapters { get; set; }
+        [DataMember]
+        public bool Approved { get; set; }
+        [DataMember]
+        public bool Downloadlable { get; set; }
+        [DataMember]
+        public int InDisc { get; set; }
+        [DataMember]
+        public int Duration { get; set; }
     }
 }
