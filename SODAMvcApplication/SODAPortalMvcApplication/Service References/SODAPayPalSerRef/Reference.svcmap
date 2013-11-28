@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="0b2b254e-d167-4c53-8751-7f273df2a237" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:50615/SODAPaypalService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="SODAPaypalService.wsdl" MetadataType="Wsdl" ID="4ffba541-f61c-4d46-9c8d-39cf750dcddb" SourceId="1" SourceUrl="http://localhost:50615/SODAPaypalService.svc?wsdl" />
+    <MetadataFile FileName="SODAPaypalService.xsd" MetadataType="Schema" ID="fbda6fd2-8f81-4f0f-9465-9867854a644d" SourceId="1" SourceUrl="http://localhost:50615/SODAPaypalService.svc?xsd=xsd1" />
+    <MetadataFile FileName="SODAPaypalService1.xsd" MetadataType="Schema" ID="d43b4b89-4ce7-47c5-a095-cdc84a1e4d24" SourceId="1" SourceUrl="http://localhost:50615/SODAPaypalService.svc?xsd=xsd4" />
+    <MetadataFile FileName="SODAPaypalService2.xsd" MetadataType="Schema" ID="af557805-db6e-4f72-95d3-06c2ec89d480" SourceId="1" SourceUrl="http://localhost:50615/SODAPaypalService.svc?xsd=xsd3" />
+    <MetadataFile FileName="SODAPaypalService3.xsd" MetadataType="Schema" ID="14d42656-e40b-4305-9995-403230fd7ac3" SourceId="1" SourceUrl="http://localhost:50615/SODAPaypalService.svc?xsd=xsd2" />
+    <MetadataFile FileName="SODAPaypalService.disco" MetadataType="Disco" ID="d8f5f162-7963-403c-8e8a-dfec956418df" SourceId="1" SourceUrl="http://localhost:50615/SODAPaypalService.svc?disco" />
+    <MetadataFile FileName="SODAPaypalService4.xsd" MetadataType="Schema" ID="55335c67-334e-4774-a82d-ac8dc4504a8f" SourceId="1" SourceUrl="http://localhost:50615/SODAPaypalService.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

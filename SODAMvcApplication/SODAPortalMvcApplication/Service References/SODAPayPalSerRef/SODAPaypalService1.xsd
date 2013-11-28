@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/PayPal.PayPalAPIInterfaceService.Model" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PayPal.PayPalAPIInterfaceService.Model" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="RecurringPaymentsProfileStatusType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ACTIVEPROFILE" />
+      <xs:enumeration value="PENDINGPROFILE" />
+      <xs:enumeration value="CANCELLEDPROFILE" />
+      <xs:enumeration value="EXPIREDPROFILE" />
+      <xs:enumeration value="SUSPENDEDPROFILE" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="RecurringPaymentsProfileStatusType" nillable="true" type="tns:RecurringPaymentsProfileStatusType" />
+</xs:schema>
