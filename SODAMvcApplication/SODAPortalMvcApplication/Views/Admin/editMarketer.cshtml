@@ -18,13 +18,9 @@
             <input type="text" class="form-control" value="@Model.FirstName">
             <label>Last Name</label>
             <input type="text" class="form-control" value="@Model.LastName">
-            <label>Birthdate</label>
-            <label>@string.Format("{0:dd/MM/yyyy}",Model.Birthdate)</label>
-            <select class="form-control" id="date" name="dd"></select>
-            <select class="form-control" id="month" name="mm"></select>
-            <select class="form-control" id="year" name="yyyy"></select>
-            <script type="text/javascript">date_populate("date", "month", "year");</script>
-            <br>
+            <label>Birthdate: </label>
+            <label style="font-weight: bold; color: #F8981D;">@string.Format("{0:dd/MM/yyyy}",Model.Birthdate)</label>
+            <input type="text" id="popupDatepicker" class="form-control" placeholder="Click to choose date" name="datefrom">
 
             <label>Contact No</label>
             <input type="text" class="form-control" value="@Model.ContactNo">
