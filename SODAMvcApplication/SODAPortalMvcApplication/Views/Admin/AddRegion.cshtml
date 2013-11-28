@@ -10,6 +10,7 @@
         <h2>Add Region</h2>
         @using (@Html.BeginForm("addregion", "admin", FormMethod.Post))
         {
+            @Html.ValidationSummary()
             <!-- Script by hscripts.com -->
             <label>Region:</label>
             <input type="text" class="form-control" name="RegionName" required>

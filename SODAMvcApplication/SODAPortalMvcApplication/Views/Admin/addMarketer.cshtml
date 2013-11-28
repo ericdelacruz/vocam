@@ -11,7 +11,7 @@
         <h2>Add Marketer</h2>
         @using (Html.BeginForm("addmarketer", "admin", FormMethod.Post, new { @class = "portalForm" }))
         {
-
+            @Html.ValidationSummary()
             <label><b>First Name</label>
             <input type="text" class="form-control" name="FirstName" required />
             <label>Last Name</label>
