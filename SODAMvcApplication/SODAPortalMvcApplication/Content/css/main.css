@@ -56,7 +56,8 @@ body {
 	
 	}
 a:hover {text-decoration: none;}
-a {cursor: pointer;}
+a {cursor: pointer; outline:none;}
+a:focus {border:none; outline:none;}
 article,aside,details,figcaption,figure,
 footer,header,hgroup,menu,nav,section{ 
     display:block;
