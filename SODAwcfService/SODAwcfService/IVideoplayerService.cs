@@ -6,6 +6,7 @@ using System.ServiceModel;
 using System.Text;
 using System.ServiceModel.Web;
 using System.Xml.Serialization;
+using SODAwcfService.XMLModels;
 namespace SODAwcfService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IVideoplayerService" in both code and config file together.

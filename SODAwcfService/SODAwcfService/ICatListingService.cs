@@ -54,5 +54,27 @@ namespace SODAwcfService
 
         [OperationContract]
         IEnumerable<Models.Specific> get();
+        #region chapter
+        [OperationContract]
+        int addChapter(long specID, string name, TimeSpan time);
+
+        [OperationContract]
+        IEnumerable<Models.Chapter> getChapter();
+        [OperationContract]
+        int updateChapter(Models.Chapter chapter);
+        [OperationContract]
+        int deleteChapter(long id);
+        #endregion
+
+        #region topic
+        [OperationContract]
+        int addTopic(long specID, string name);
+        [OperationContract]
+        IEnumerable<Models.Topic> getTopics();
+        [OperationContract]
+        int updateTopic(Models.Topic topic);
+        [OperationContract]
+        int deleteTopic(long id);
+        #endregion
     }
 }
