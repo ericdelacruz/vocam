@@ -212,19 +212,37 @@ namespace CMSMvcApplication.CatListingServiceReference {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ApprovedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string BG_ImgField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private long CategoryIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime DateQuestionAnswerChangeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescriptionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool DownloadlableField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DurationField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FileNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private long IdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImageURLField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int InDiscField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MetaDescField;
@@ -247,6 +265,15 @@ namespace CMSMvcApplication.CatListingServiceReference {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string VideoURLField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool isDOwnloadNewsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.TimeSpan timeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int totalChaptersField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -254,6 +281,19 @@ namespace CMSMvcApplication.CatListingServiceReference {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Approved {
+            get {
+                return this.ApprovedField;
+            }
+            set {
+                if ((this.ApprovedField.Equals(value) != true)) {
+                    this.ApprovedField = value;
+                    this.RaisePropertyChanged("Approved");
+                }
             }
         }
         
@@ -284,6 +324,19 @@ namespace CMSMvcApplication.CatListingServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime DateQuestionAnswerChange {
+            get {
+                return this.DateQuestionAnswerChangeField;
+            }
+            set {
+                if ((this.DateQuestionAnswerChangeField.Equals(value) != true)) {
+                    this.DateQuestionAnswerChangeField = value;
+                    this.RaisePropertyChanged("DateQuestionAnswerChange");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Description {
             get {
                 return this.DescriptionField;
@@ -292,6 +345,45 @@ namespace CMSMvcApplication.CatListingServiceReference {
                 if ((object.ReferenceEquals(this.DescriptionField, value) != true)) {
                     this.DescriptionField = value;
                     this.RaisePropertyChanged("Description");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Downloadlable {
+            get {
+                return this.DownloadlableField;
+            }
+            set {
+                if ((this.DownloadlableField.Equals(value) != true)) {
+                    this.DownloadlableField = value;
+                    this.RaisePropertyChanged("Downloadlable");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Duration {
+            get {
+                return this.DurationField;
+            }
+            set {
+                if ((this.DurationField.Equals(value) != true)) {
+                    this.DurationField = value;
+                    this.RaisePropertyChanged("Duration");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FileName {
+            get {
+                return this.FileNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FileNameField, value) != true)) {
+                    this.FileNameField = value;
+                    this.RaisePropertyChanged("FileName");
                 }
             }
         }
@@ -318,6 +410,19 @@ namespace CMSMvcApplication.CatListingServiceReference {
                 if ((object.ReferenceEquals(this.ImageURLField, value) != true)) {
                     this.ImageURLField = value;
                     this.RaisePropertyChanged("ImageURL");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int InDisc {
+            get {
+                return this.InDiscField;
+            }
+            set {
+                if ((this.InDiscField.Equals(value) != true)) {
+                    this.InDiscField = value;
+                    this.RaisePropertyChanged("InDisc");
                 }
             }
         }
@@ -413,6 +518,215 @@ namespace CMSMvcApplication.CatListingServiceReference {
             }
         }
         
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool isDOwnloadNews {
+            get {
+                return this.isDOwnloadNewsField;
+            }
+            set {
+                if ((this.isDOwnloadNewsField.Equals(value) != true)) {
+                    this.isDOwnloadNewsField = value;
+                    this.RaisePropertyChanged("isDOwnloadNews");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.TimeSpan time {
+            get {
+                return this.timeField;
+            }
+            set {
+                if ((this.timeField.Equals(value) != true)) {
+                    this.timeField = value;
+                    this.RaisePropertyChanged("time");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int totalChapters {
+            get {
+                return this.totalChaptersField;
+            }
+            set {
+                if ((this.totalChaptersField.Equals(value) != true)) {
+                    this.totalChaptersField = value;
+                    this.RaisePropertyChanged("totalChapters");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Chapter", Namespace="http://schemas.datacontract.org/2004/07/SODAwcfService.Models")]
+    [System.SerializableAttribute()]
+    public partial class Chapter : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ChapterNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<long> SpecIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.TimeSpan> timeField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ChapterName {
+            get {
+                return this.ChapterNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ChapterNameField, value) != true)) {
+                    this.ChapterNameField = value;
+                    this.RaisePropertyChanged("ChapterName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<long> SpecID {
+            get {
+                return this.SpecIDField;
+            }
+            set {
+                if ((this.SpecIDField.Equals(value) != true)) {
+                    this.SpecIDField = value;
+                    this.RaisePropertyChanged("SpecID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.TimeSpan> time {
+            get {
+                return this.timeField;
+            }
+            set {
+                if ((this.timeField.Equals(value) != true)) {
+                    this.timeField = value;
+                    this.RaisePropertyChanged("time");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Topic", Namespace="http://schemas.datacontract.org/2004/07/SODAwcfService.Models")]
+    [System.SerializableAttribute()]
+    public partial class Topic : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<long> SpecIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<long> SpecId {
+            get {
+                return this.SpecIdField;
+            }
+            set {
+                if ((this.SpecIdField.Equals(value) != true)) {
+                    this.SpecIdField = value;
+                    this.RaisePropertyChanged("SpecId");
+                }
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -465,6 +779,30 @@ namespace CMSMvcApplication.CatListingServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICatListingService/get", ReplyAction="http://tempuri.org/ICatListingService/getResponse")]
         CMSMvcApplication.CatListingServiceReference.Specific[] get();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICatListingService/addChapter", ReplyAction="http://tempuri.org/ICatListingService/addChapterResponse")]
+        int addChapter(long specID, string name, System.TimeSpan time);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICatListingService/getChapter", ReplyAction="http://tempuri.org/ICatListingService/getChapterResponse")]
+        CMSMvcApplication.CatListingServiceReference.Chapter[] getChapter();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICatListingService/updateChapter", ReplyAction="http://tempuri.org/ICatListingService/updateChapterResponse")]
+        int updateChapter(CMSMvcApplication.CatListingServiceReference.Chapter chapter);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICatListingService/deleteChapter", ReplyAction="http://tempuri.org/ICatListingService/deleteChapterResponse")]
+        int deleteChapter(long id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICatListingService/addTopic", ReplyAction="http://tempuri.org/ICatListingService/addTopicResponse")]
+        int addTopic(long specID, string name);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICatListingService/getTopics", ReplyAction="http://tempuri.org/ICatListingService/getTopicsResponse")]
+        CMSMvcApplication.CatListingServiceReference.Topic[] getTopics();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICatListingService/updateTopic", ReplyAction="http://tempuri.org/ICatListingService/updateTopicResponse")]
+        int updateTopic(CMSMvcApplication.CatListingServiceReference.Topic topic);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICatListingService/deleteTopic", ReplyAction="http://tempuri.org/ICatListingService/deleteTopicResponse")]
+        int deleteTopic(long id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -544,6 +882,38 @@ namespace CMSMvcApplication.CatListingServiceReference {
         
         public CMSMvcApplication.CatListingServiceReference.Specific[] get() {
             return base.Channel.get();
+        }
+        
+        public int addChapter(long specID, string name, System.TimeSpan time) {
+            return base.Channel.addChapter(specID, name, time);
+        }
+        
+        public CMSMvcApplication.CatListingServiceReference.Chapter[] getChapter() {
+            return base.Channel.getChapter();
+        }
+        
+        public int updateChapter(CMSMvcApplication.CatListingServiceReference.Chapter chapter) {
+            return base.Channel.updateChapter(chapter);
+        }
+        
+        public int deleteChapter(long id) {
+            return base.Channel.deleteChapter(id);
+        }
+        
+        public int addTopic(long specID, string name) {
+            return base.Channel.addTopic(specID, name);
+        }
+        
+        public CMSMvcApplication.CatListingServiceReference.Topic[] getTopics() {
+            return base.Channel.getTopics();
+        }
+        
+        public int updateTopic(CMSMvcApplication.CatListingServiceReference.Topic topic) {
+            return base.Channel.updateTopic(topic);
+        }
+        
+        public int deleteTopic(long id) {
+            return base.Channel.deleteTopic(id);
         }
     }
 }
