@@ -167,7 +167,7 @@ header {
 .headerRight {
 	text-align: right; 
 	padding-top: 25px;}
-.call {font-family: latoregular; font-size: 15px;}
+.call {font-family: latoregular; font-size: 15px; margin-top:5%;}
 .calltxt {color:#f48518; padding-right:14px;}
 
 
