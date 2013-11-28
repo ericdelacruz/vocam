@@ -368,7 +368,9 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -464,7 +466,6 @@
     <Content Include="Views\Admin\marketer.cshtml" />
     <None Include="Service References\SODAPayPalSerRef\SODAPaypalService.wsdl" />
     <None Include="Service References\SODAPayPalSerRef\SODAPaypalService.xsd" />
-    <None Include="Service References\SODAPayPalSerRef\SODAPaypalService1.xsd" />
     <None Include="Service References\SODAPayPalSerRef\SODAPaypalService2.xsd" />
     <None Include="Service References\SODAPayPalSerRef\SODAPaypalService3.xsd" />
     <None Include="Service References\SODAPayPalSerRef\SODAPaypalService4.xsd" />
