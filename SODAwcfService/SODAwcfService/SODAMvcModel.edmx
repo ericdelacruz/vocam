@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SodaDBModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SodaDBModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CategoryId" />
@@ -19,6 +19,15 @@
           <Property Name="Overview" Type="varchar" MaxLength="200" />
           <Property Name="Meta_Desc" Type="varchar" MaxLength="500" />
           <Property Name="PageTitle" Type="varchar" MaxLength="70" />
+        </EntityType>
+        <EntityType Name="chapter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SpecID" Type="bigint" />
+          <Property Name="ChapterName" Type="varchar" MaxLength="50" />
+          <Property Name="time" Type="time" Precision="7" />
         </EntityType>
         <EntityType Name="Contact">
           <Key>
@@ -78,7 +87,30 @@ warning 6002: The table/view 'C:\USERS\JCUA\DOCUMENTS\VOCAM_NEW\SODAWCFSERVICE\S
           <Property Name="Overview" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="PageTitle" Type="varchar" MaxLength="500" />
           <Property Name="Meta_Desc" Type="varchar" MaxLength="500" />
+          <Property Name="filename" Type="varchar" MaxLength="200" />
+          <Property Name="isDownloadNews" Type="bit" />
+          <Property Name="DateQuestionAnswerChange" Type="date" />
         </EntityType>
+        <EntityType Name="Topics">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SpecId" Type="bigint" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_chapter_ToSpec">
+          <End Role="Specific" Type="Self.Specific" Multiplicity="0..1" />
+          <End Role="chapter" Type="Self.chapter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specific">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="chapter">
+              <PropertyRef Name="SpecID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ContentDef_ToTable">
           <End Role="Pages" Type="Self.Pages" Multiplicity="1" />
           <End Role="ContentDef" Type="Self.ContentDef" Multiplicity="*" />
@@ -127,11 +159,25 @@ warning 6002: The table/view 'C:\USERS\JCUA\DOCUMENTS\VOCAM_NEW\SODAWCFSERVICE\S
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Topics_ToSpec">
+          <End Role="Specific" Type="Self.Specific" Multiplicity="0..1" />
+          <End Role="Topics" Type="Self.Topics" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specific">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Topics">
+              <PropertyRef Name="SpecId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SodaDBModel1StoreContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="chapter" EntityType="Self.chapter" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
           <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
           <EntitySet Name="Pages" EntityType="Self.Pages" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
           <EntitySet Name="Specific" EntityType="Self.Specific" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Topics" EntityType="Self.Topics" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
           <EntitySet Name="ContentDef" EntityType="Self.ContentDef" p3:Type="Tables" p3:Schema="dbo" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
             <DefiningQuery>SELECT 
     [ContentDef].[PageCode] AS [PageCode], 
@@ -146,6 +192,10 @@ warning 6002: The table/view 'C:\USERS\JCUA\DOCUMENTS\VOCAM_NEW\SODAWCFSERVICE\S
     [Related].[RefID] AS [RefID]
     FROM [dbo].[Related] AS [Related]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_chapter_ToSpec" Association="Self.FK_chapter_ToSpec">
+            <End Role="Specific" EntitySet="Specific" />
+            <End Role="chapter" EntitySet="chapter" />
+          </AssociationSet>
           <AssociationSet Name="FK_ContentDef_ToTable" Association="Self.FK_ContentDef_ToTable">
             <End Role="Pages" EntitySet="Pages" />
             <End Role="ContentDef" EntitySet="ContentDef" />
@@ -162,9 +212,12 @@ warning 6002: The table/view 'C:\USERS\JCUA\DOCUMENTS\VOCAM_NEW\SODAWCFSERVICE\S
             <End Role="Category" EntitySet="Category" />
             <End Role="Specific" EntitySet="Specific" />
           </AssociationSet>
+          <AssociationSet Name="FK_Topics_ToSpec" Association="Self.FK_Topics_ToSpec">
+            <End Role="Specific" EntitySet="Specific" />
+            <End Role="Topics" EntitySet="Topics" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SodaDBModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -223,6 +276,11 @@ warning 6002: The table/view 'C:\USERS\JCUA\DOCUMENTS\VOCAM_NEW\SODAWCFSERVICE\S
           <NavigationProperty Name="Category" Relationship="Self.FK_Table_ToTable" FromRole="Specific" ToRole="Category" />
           <NavigationProperty Name="Specific1" Relationship="Self.Related" FromRole="Specific" ToRole="Specific1" />
           <NavigationProperty Name="Specifics" Relationship="Self.Related" FromRole="Specific1" ToRole="Specific" />
+          <NavigationProperty Name="chapters" Relationship="SodaDBModel1.FK_chapter_ToSpec" FromRole="Specific" ToRole="chapter" />
+          <NavigationProperty Name="Topics" Relationship="SodaDBModel1.FK_Topics_ToSpec" FromRole="Specific" ToRole="Topic" />
+          <Property Name="filename" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="isDownloadNews" Type="Boolean" />
+          <Property Name="DateQuestionAnswerChange" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="ContentDef">
           <Key>
@@ -282,7 +340,60 @@ warning 6002: The table/view 'C:\USERS\JCUA\DOCUMENTS\VOCAM_NEW\SODAWCFSERVICE\S
             <End Role="Specific" EntitySet="Specifics" />
             <End Role="Specific1" EntitySet="Specifics" />
           </AssociationSet>
+          <EntitySet Name="chapters" EntityType="SodaDBModel1.chapter" />
+          <EntitySet Name="Topics" EntityType="SodaDBModel1.Topic" />
+          <AssociationSet Name="FK_chapter_ToSpec" Association="SodaDBModel1.FK_chapter_ToSpec">
+            <End Role="Specific" EntitySet="Specifics" />
+            <End Role="chapter" EntitySet="chapters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Topics_ToSpec" Association="SodaDBModel1.FK_Topics_ToSpec">
+            <End Role="Specific" EntitySet="Specifics" />
+            <End Role="Topic" EntitySet="Topics" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="chapter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SpecID" Type="Int64" />
+          <Property Name="ChapterName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="time" Type="Time" Precision="7" />
+          <NavigationProperty Name="Specific" Relationship="SodaDBModel1.FK_chapter_ToSpec" FromRole="chapter" ToRole="Specific" />
+        </EntityType>
+        <EntityType Name="Topic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SpecId" Type="Int64" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Specific" Relationship="SodaDBModel1.FK_Topics_ToSpec" FromRole="Topic" ToRole="Specific" />
+        </EntityType>
+        <Association Name="FK_chapter_ToSpec">
+          <End Type="SodaDBModel1.Specific" Role="Specific" Multiplicity="0..1" />
+          <End Type="SodaDBModel1.chapter" Role="chapter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specific">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="chapter">
+              <PropertyRef Name="SpecID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Topics_ToSpec">
+          <End Type="SodaDBModel1.Specific" Role="Specific" Multiplicity="0..1" />
+          <End Type="SodaDBModel1.Topic" Role="Topic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specific">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Topic">
+              <PropertyRef Name="SpecId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -329,6 +440,9 @@ warning 6002: The table/view 'C:\USERS\JCUA\DOCUMENTS\VOCAM_NEW\SODAWCFSERVICE\S
           <EntitySetMapping Name="Specifics">
             <EntityTypeMapping TypeName="SodaDBModel1.Specific">
               <MappingFragment StoreEntitySet="Specific">
+                <ScalarProperty Name="DateQuestionAnswerChange" ColumnName="DateQuestionAnswerChange" />
+                <ScalarProperty Name="isDownloadNews" ColumnName="isDownloadNews" />
+                <ScalarProperty Name="filename" ColumnName="filename" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -362,6 +476,25 @@ warning 6002: The table/view 'C:\USERS\JCUA\DOCUMENTS\VOCAM_NEW\SODAWCFSERVICE\S
               <ScalarProperty Name="Id" ColumnName="BaseID" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="chapters">
+            <EntityTypeMapping TypeName="SodaDBModel1.chapter">
+              <MappingFragment StoreEntitySet="chapter">
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="ChapterName" ColumnName="ChapterName" />
+                <ScalarProperty Name="SpecID" ColumnName="SpecID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Topics">
+            <EntityTypeMapping TypeName="SodaDBModel1.Topic">
+              <MappingFragment StoreEntitySet="Topics">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SpecId" ColumnName="SpecId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

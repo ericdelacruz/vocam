@@ -30,5 +30,7 @@ namespace SODAwcfService
         public virtual DbSet<Page> Pages { get; set; }
         public virtual DbSet<Specific> Specifics { get; set; }
         public virtual DbSet<ContentDef> ContentDefs { get; set; }
+        public virtual DbSet<chapter> chapters { get; set; }
+        public virtual DbSet<Topic> Topics { get; set; }
     }
 }
