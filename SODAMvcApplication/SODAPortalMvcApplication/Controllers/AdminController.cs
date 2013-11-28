@@ -316,6 +316,7 @@ namespace SODAPortalMvcApplication.Controllers
             else
             {
                 ModelState.AddModelError("", "There is already a price assign to the selected Region");
+                return View("addprice");
             }
             return RedirectToAction("price");
         }
@@ -380,7 +381,7 @@ namespace SODAPortalMvcApplication.Controllers
             else
             {
                 //Error sales code already exists
-                ModelState.AddModelError("", "Sales Code alreadt Exists");
+                ModelState.AddModelError("", "Sales Code already Exists");
                 return View();
                 //return RedirectToAction("addsalescode");
             }
@@ -465,9 +466,14 @@ namespace SODAPortalMvcApplication.Controllers
         [HttpPost]
         public ActionResult addregion(FormCollection collection)
         {
+            if(portalClient.getRegion().Select(r => r).Where(r => r.RegionName == collection["RegionName"]).Count() ==0)
             portalClient.addRegion(new PortalServiceReference.Region(){
                  RegionName = collection["RegionName"]
             });
+            else
+            {
+                ModelState.AddModelError("","Region Name already exists");
+            }
             return RedirectToAction("region");
         }
 
@@ -511,7 +517,8 @@ namespace SODAPortalMvcApplication.Controllers
         [HttpPost]
         public ActionResult addmarketer(FormCollection collection)
         {
-           DateTime birthdate = DateTime.Parse(collection["yyyy"] + "-" + collection["mm"] + "-" + collection["dd"]);
+            DateTime birthdate = new DateTime();
+            DateTime.TryParse(collection["datefrom"], out birthdate);
            var user = from accnt in account.getAccount(collection["Email"].Trim())
                       select accnt;
             if(user.Count() == 0)
@@ -532,6 +539,7 @@ namespace SODAPortalMvcApplication.Controllers
             else
             {
                 ModelState.AddModelError("", "Email already existing");
+                return View(collection);
             }
             return RedirectToAction("marketer");
         }

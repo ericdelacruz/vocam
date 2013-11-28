@@ -207,8 +207,8 @@ namespace SODAPortalMvcApplication.Controllers
                     price = price - (customer.salesCode.Discount * 100);
                 }
 
-                //string redirectURL = paypalClient.checkout(price, SODAPayPalSerRef.CurrencyCodeType.AUD, itemname, itemDesc, itemURL, cancelURl, confirmURL);
-                string redirectURL = PaypalHelper.checkout(price, Moolah.PayPal.CurrencyCodeType.AUD, itemname, itemDesc, itemURL, cancelURl, confirmURL);
+                string redirectURL = paypalClient.checkout(price, SODAPayPalSerRef.CurrencyCodeType.AUD, itemname, itemDesc, itemURL, cancelURl, confirmURL);
+                //string redirectURL = PaypalHelper.checkout(price, Moolah.PayPal.CurrencyCodeType.AUD, itemname, itemDesc, itemURL, cancelURl, confirmURL);
                 return Redirect(redirectURL);
 
             }
