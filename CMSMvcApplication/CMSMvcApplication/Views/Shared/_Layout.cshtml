@@ -8,7 +8,7 @@
     <link href="~/Content/css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="~/Content/css/main.css" rel="stylesheet" media="screen">
     <link href="~/Content/css/cmsStyle.css" rel="stylesheet" media="screen">
-    <script type="text/javascript" src="~/Content/js/birthdate.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/css/jquery.datepick.css">
 </head>
 <body>
     <!--[if lt IE 9]>
@@ -131,5 +131,28 @@
 
         });
     </script>
+
+    <script type="text/javascript" src="/Content/js/jquery.datepick.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#popupDatepicker').datepick();
+        });
+
+        function showDate(date) {
+            alert('The date chosen is ' + date);
+        }
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#popupDatepicker2').datepick();
+        });
+
+        function showDate(date) {
+            alert('The date chosen is ' + date);
+        }
+    </script>
+
 </body>
 </html>
