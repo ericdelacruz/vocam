@@ -268,7 +268,7 @@ namespace CMSMvcApplication.Controllers
 
                 if (!string.IsNullOrEmpty(collection["chapterName[]"]))
                 {
-                    catClient.addChapter(title.Id, collection["chapterName[]"], TimeSpan.FromMilliseconds(double.Parse(collection["chapterTime"])));
+                    
 
                     if (!string.IsNullOrEmpty(collection["chapterName[]"]))
                     {
