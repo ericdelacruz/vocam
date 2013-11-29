@@ -63,6 +63,18 @@ namespace SODAwcfService
             {
                 throw new FaultException("Error on creating profile");
             }
+
+            using (PortalDataSetTableAdapters.PaypalTransTableAdapter paypalAdapter = new PortalDataSetTableAdapters.PaypalTransTableAdapter())
+            {
+                try
+                {
+                    paypalAdapter.Insert(userid, doECResponse.DoExpressCheckoutPaymentResponseDetails.PaymentInfo[0].TransactionID, response.CreateRecurringPaymentsProfileResponseDetails.ProfileID, true, DateTime.Now);
+                }
+                catch (Exception ex)
+                {
+                    //log to textfile instead
+                }
+            }
             return doECResponse.DoExpressCheckoutPaymentResponseDetails.PaymentInfo[0].TransactionID + ";" + response.CreateRecurringPaymentsProfileResponseDetails.ProfileID;
         }
         public bool cancelSubscription(long userid)
