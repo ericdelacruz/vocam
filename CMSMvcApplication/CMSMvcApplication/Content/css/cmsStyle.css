@@ -1,6 +1,9 @@
 ﻿@charset "UTF-8";
 /* CSS Document */
 body {background-color:#f8f8f8 !important;}
+a {outline:none !important;}
+a:hover {text-decoration: none;}
+a:focus {border: none !important;}
 .cmsWrap {
 	margin-top:20px; 
 	margin-bottom:25px; }
@@ -60,11 +63,11 @@ padding: 35px;
 	background: url('../images/cms/home.jpg') bottom;
 	text-indent: -99999px;
 	font-size: 5px;
-	color:transparent;
+	color:transparent !important;
 }
 .homeMenu:hover {
 	background-position: 0 0;
-	color:transparent;
+	color:transparent !important;
 }
 
 .pageMenu {
@@ -74,11 +77,11 @@ padding: 35px;
 	background: url('../images/cms/pages.jpg') bottom;
 	text-indent: -99999px;
 	font-size: 5px;
-	color:transparent;
+	color:transparent !important;
 }
 .pageMenu:hover {
 	background-position: 0 0;
-	color:transparent;
+	color:transparent !important;
 }
 
 .categoryMenu {
@@ -88,11 +91,11 @@ padding: 35px;
 	background: url('../images/cms/categories.jpg') bottom;
 	text-indent: -99999px;
 	font-size: 5px;
-	color:transparent;
+	color:transparent !important;
 }
 .categoryMenu:hover {
 	background-position: 0 0;
-	color:transparent;
+	color:transparent !important;
 }
 
 .titleMenu {
@@ -102,11 +105,11 @@ padding: 35px;
 	background: url('../images/cms/posts.jpg') bottom;
 	text-indent: -99999px;
 	font-size: 5px;
-	color:transparent;
+	color:transparent !important;
 }
 .titleMenu:hover {
 	background-position: 0 0;
-	color:transparent;
+	color:transparent !important;
 }
 
 
@@ -117,11 +120,11 @@ padding: 35px;
 	background: url('../images/cms/profile.jpg') bottom;
 	text-indent: -99999px;
 	font-size: 5px;
-	color:transparent;
+	color:transparent !important;
 }
 .profileMenu:hover {
 	background-position: 0 0;
-	color:transparent;
+	color:transparent !important;
 }
 
 
@@ -132,11 +135,11 @@ padding: 35px;
 	background: url('../images/cms/logout.jpg') bottom;
 	text-indent: -99999px;
 	font-size: 5px;
-	color:transparent;
+	color:transparent !important;
 }
 .logoutMenu:hover {
 	background-position: 0 0;
-	color:transparent;
+	color:transparent !important;
 }
 
 .cmsTable tr {height: 40px;}
