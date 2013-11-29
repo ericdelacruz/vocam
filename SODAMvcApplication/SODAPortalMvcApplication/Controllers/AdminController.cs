@@ -74,6 +74,7 @@ namespace SODAPortalMvcApplication.Controllers
                                   join sc in portalClient.getSaleCode() on customer.SalesCodeId equals sc.Id
                                  where customer.DatePurchase >= start && customer.DatePurchase < end
                                  select new ViewModel.ReportViewModel() { account = accnt, customer = customer,salesCode = sc };
+
                 return View(reportlist);
             }
             else if (collection["datefrom"].Trim() != "")
@@ -316,6 +317,8 @@ namespace SODAPortalMvcApplication.Controllers
             else
             {
                 ModelState.AddModelError("", "There is already a price assign to the selected Region");
+                ViewBag.RegionList = from region in portalClient.getRegion()
+                                     select region;
                 return View("addprice");
             }
             return RedirectToAction("price");
