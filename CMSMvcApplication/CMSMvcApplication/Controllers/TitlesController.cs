@@ -9,7 +9,22 @@ namespace CMSMvcApplication.Controllers
     public class TitlesController : Controller
     {
         private CatListingServiceReference.CatListingServiceClient catClient = new CatListingServiceReference.CatListingServiceClient();
-       
+
+        protected override IAsyncResult BeginExecute(System.Web.Routing.RequestContext requestContext, AsyncCallback callback, object state)
+        {
+            
+            return base.BeginExecute(requestContext, callback, state);
+        }
+
+        protected override IAsyncResult BeginExecuteCore(AsyncCallback callback, object state)
+        {
+            return base.BeginExecuteCore(callback, state);
+        }
+        protected override void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            base.OnActionExecuted(filterContext);
+        }
+        
         //
         // GET: /Titles/
 
@@ -97,11 +112,13 @@ namespace CMSMvcApplication.Controllers
         // POST: /Titles/Create
 
         [HttpPost]
+        
         public ActionResult Create(FormCollection collection)
         {
             DateTime dateQuestion = new DateTime();
 
             DateTime.TryParse(string.Format("{2}-{0}-{1}", collection["mm"], collection["dd"], collection["yyyy"]), out dateQuestion);
+            
             try
             {
                 // TODO: Add insert logic here
@@ -118,9 +135,9 @@ namespace CMSMvcApplication.Controllers
                     ImageURL = !string.IsNullOrEmpty(Request.Files["Thumb"].FileName)?string.Concat(Request.Url.GetLeftPart(UriPartial.Authority) ,FileTransferHelper.UploadImage(Request.Files["Thumb"],Server)):"#",
                     BG_Img = !string.IsNullOrEmpty(Request.Files["BG"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority) + "/", FileTransferHelper.UploadImage(Request.Files["BG"], Server)) : "#",
                     VideoURL = collection["VidURL"],
-                    FileName = collection["fielname"],
+                    FileName = collection["filename"],
                     Duration = int.Parse(collection["duration"]),
-                    time = TimeSpan.Parse(collection["time"]),
+                    time = TimeSpan.FromMilliseconds(double.Parse(collection["time"])),
                      totalChapters = int.Parse(collection["totalChap"]),
                      Approved = collection["approved"] == "yes",
                      Downloadlable = collection["downloadable"] == "yes",
@@ -131,31 +148,40 @@ namespace CMSMvcApplication.Controllers
                     Id = 0 
                 });
                 var title = catClient.get().Select(c => c).Where(c => c.TitleCode == collection["Code"]).First();
-                if (collection["topicName[]"].Split(',').Count() > 0)
+                if ( !string.IsNullOrEmpty(collection["topicName"]))
                 {
-                    
-                    foreach(string topic in collection["topicName"].Split(','))
+
+                    catClient.addTopic(title.Id, collection["topicName"]);
+                    if (!string.IsNullOrEmpty(collection["topicName[]"]))
+                    foreach(string topic in collection["topicName[]"].Split(','))
                     {
                         catClient.addTopic(title.Id, topic);
                     }
                 }
-                if(collection["chapterName[]"].Split(',').Count() >0)
+
+                if(!string.IsNullOrEmpty(collection["chapterName[]"]))
                 {
-                    string[] chapterNameCollection = collection["chapterName[]"].Split(',');
-                    string[] chapterTimeCollection = collection["chapterTime[]"].Split(',');
-                    for (int i = 0; i < chapterNameCollection.Count(); i++)
+                     catClient.addChapter(title.Id,collection["chapterName"],TimeSpan.FromMilliseconds(double.Parse(collection["chapterTime"])));
+                    
+                    if (!string.IsNullOrEmpty(collection["chapterName[]"]))
                     {
-                        catClient.addChapter(title.Id, chapterNameCollection[i], TimeSpan.Parse(chapterTimeCollection[i]));
+                        string[] chapterNameCollection = collection["chapterName[]"].Split(',');
+                        string[] chapterTimeCollection = collection["chapterTime[]"].Split(',');
+                        for (int i = 0; i < chapterNameCollection.Count(); i++)
+                        {
+                            catClient.addChapter(title.Id, chapterNameCollection[i], TimeSpan.FromMilliseconds(double.Parse(chapterTimeCollection[i])));
+                        }
                     }
                 }
                 return RedirectToAction("Index");
             }
             catch(Exception ex)
             {
-                
 
-                return RedirectToAction("error");
+                ModelState.AddModelError("", "Error.");
+                return View();
             }
+            
         }
 
         //
@@ -166,7 +192,10 @@ namespace CMSMvcApplication.Controllers
             if (Session["Username"] == null)
                 return RedirectToAction("login", "Home");
             var title = catClient.getSpecificByID(id).First();
+
+
             ViewBag.CatList = catClient.get_Categories();
+
             return View(title);
         }
 
@@ -196,9 +225,9 @@ namespace CMSMvcApplication.Controllers
                     ImageURL = !string.IsNullOrEmpty(Request.Files["Thumb"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority), FileTransferHelper.UploadImage(Request.Files["Thumb"], Server)) : catClient.getSpecificByID(id).First().ImageURL,
                     BG_Img = !string.IsNullOrEmpty(Request.Files["BG_IMG"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority), FileTransferHelper.UploadImage(Request.Files["BG_IMG"], Server)) : catClient.getSpecificByID(id).First().BG_Img,
                     VideoURL = collection["VidURL"],
-                     FileName = collection["fielname"],
+                     FileName = collection["filename"],
                     Duration = int.Parse(collection["duration"]),
-                    time = TimeSpan.Parse(collection["time"]),
+                    time = TimeSpan.FromMilliseconds(double.Parse(collection["time"])),
                      totalChapters = int.Parse(collection["totalChap"]),
                      Approved = collection["approved"] == "yes",
                      Downloadlable = collection["downloadable"] == "yes",
@@ -209,55 +238,42 @@ namespace CMSMvcApplication.Controllers
                 
                 
                 var title = catClient.get().Select(c => c).Where(c => c.TitleCode == collection["Code"]).First();
+                var topics = catClient.getTopics().Select(t => t).Where(t => t.SpecId == title.Id);
+
+                foreach (var topic in topics)
+                catClient.deleteTopic(topic.Id);
                 
-                if (collection["topicName[]"].Split(',').Count() > 0)
-                {
-                    var topics = catClient.getTopics().Select(t=>t).Where(t=>t.SpecId == title.Id);
-                    
-                    foreach(var topic in topics)
-                    {
-                        catClient.deleteTopic(topic.Id);
-                    }
 
-                    foreach(string topic in collection["topicName"].Split(','))
-                    {
-                        catClient.addTopic(title.Id, topic);
-                    }
-                }
-                else
-                {
-                    var topics = catClient.getTopics().Select(t=>t).Where(t=>t.SpecId == title.Id);
-                    
-                    foreach(var topic in topics)
-                    {
-                        catClient.deleteTopic(topic.Id);
-                    }
-                }
-                if(collection["chapterName[]"].Split(',').Count() >0)
-                {
-                    //delete
-                    var chapters = catClient.getChapter().Select(c=>c).Where(c=>c.SpecID == title.Id);
-                    foreach(var chap in chapters)
-                    {
-                        catClient.deleteChapter(chap.Id);
-                    }
+                var chapters = catClient.getChapter().Select(c => c).Where(c => c.SpecID == title.Id);
+                foreach (var chap in chapters)
+                catClient.deleteChapter(chap.Id);
 
-                    string[] chapterNameCollection = collection["chapterName[]"].Split(',');
-                    string[] chapterTimeCollection = collection["chapterTime[]"].Split(',');
-                    for (int i = 0; i < chapterNameCollection.Count(); i++)
-                    {
-                        catClient.addChapter(title.Id, chapterNameCollection[i], TimeSpan.Parse(chapterTimeCollection[i]));
-                    }
-                }
-                else
+                if (!string.IsNullOrEmpty(collection["topicName"]))
                 {
-                    //delete
-                    var chapters = catClient.getChapter().Select(c=>c).Where(c=>c.SpecID == title.Id);
-                    foreach(var chap in chapters)
+
+                    catClient.addTopic(title.Id, collection["topicName"]);
+                    if (!string.IsNullOrEmpty(collection["topicName[]"]))
+                        foreach (string topic in collection["topicName[]"].Split(','))
+                        {
+                            catClient.addTopic(title.Id, topic);
+                        }
+                }
+
+                if (!string.IsNullOrEmpty(collection["chapterName[]"]))
+                {
+                    catClient.addChapter(title.Id, collection["chapterName"], TimeSpan.FromMilliseconds(double.Parse(collection["chapterTime"])));
+
+                    if (!string.IsNullOrEmpty(collection["chapterName[]"]))
                     {
-                        catClient.deleteChapter(chap.Id);
+                        string[] chapterNameCollection = collection["chapterName[]"].Split(',');
+                        string[] chapterTimeCollection = collection["chapterTime[]"].Split(',');
+                        for (int i = 0; i < chapterNameCollection.Count(); i++)
+                        {
+                            catClient.addChapter(title.Id, chapterNameCollection[i], TimeSpan.FromMilliseconds(double.Parse(chapterTimeCollection[i])));
+                        }
                     }
                 }
+               
 
 
                 return RedirectToAction("Index");
@@ -275,7 +291,18 @@ namespace CMSMvcApplication.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
+                var chapters = catClient.getChapter().Select(c => c).Where(c => c.SpecID == id);
+                foreach (var chap in chapters)
+                {
+                    catClient.deleteChapter(chap.Id);
+                }
+
+                var topics = catClient.getTopics().Select(t => t).Where(t => t.SpecId == id);
+
+                foreach (var topic in topics)
+                {
+                    catClient.deleteTopic(topic.Id);
+                }
                 catClient.delete_Specific(id);
                 return RedirectToAction("Index");
             }

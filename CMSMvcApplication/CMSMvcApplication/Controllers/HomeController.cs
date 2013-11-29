@@ -71,7 +71,40 @@ namespace CMSMvcApplication.Controllers
         // GET: /Home/Profile
         public ActionResult Profile()
         {
-            return View();
+            if (Session["Username"] != null)
+            {
+                var accnt = accountClient.getAccount(Session["Username"].ToString()).Select(a => a).First();
+                return View(accnt);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+        public ActionResult editprofile()
+        {
+            if (Session["Username"] != null)
+            {
+                var accnt = accountClient.getAccount(Session["Username"].ToString()).Select(a => a).First();
+                return View(accnt);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+        [HttpPost]
+        public ActionResult editprofile(AccountServiceReference.Account accnt)
+        {
+            if(Session["Username"] !=null)
+            {
+                accountClient.updateAccount(accnt);
+                return RedirectToAction("profile");
+            }
+            else
+            {
+                return RedirectToAction("index");
+            }
         }
     }
 }
