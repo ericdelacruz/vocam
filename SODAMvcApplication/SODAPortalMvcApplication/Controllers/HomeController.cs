@@ -23,7 +23,7 @@ namespace SODAPortalMvcApplication.Controllers
         public ActionResult Index(FormCollection collection)
         {
 
-            if (accountClient.AuthenticateUser(collection["Username"], collection["Password"]))
+            if (accountClient.AuthenticateUser(collection["Username"], collection["Password"].Split(',')[0]))
             {
                 Session.Add("Username", collection["Username"]);
                 AccountServiceRef.Account account = accountClient.getAccount(collection["Username"]).First();

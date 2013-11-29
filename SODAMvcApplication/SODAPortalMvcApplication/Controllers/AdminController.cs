@@ -65,7 +65,7 @@ namespace SODAPortalMvcApplication.Controllers
         
                
 
-            if ( collection["dateto"] != "" && collection["datefrom"] != "")
+            if ( collection["dateto"].Trim() != "" && collection["datefrom"].Trim() != "")
             {
                 start = DateTime.Parse(collection["datefrom"]); 
                 end = DateTime.Parse(collection["dateto"]);
@@ -76,7 +76,7 @@ namespace SODAPortalMvcApplication.Controllers
                                  select new ViewModel.ReportViewModel() { account = accnt, customer = customer,salesCode = sc };
                 return View(reportlist);
             }
-            else if (collection["datefrom"] != "")
+            else if (collection["datefrom"].Trim() != "")
             {
                 start = DateTime.Parse(collection["datefrom"]); 
                 var reportlist = from customer in portalClient.getCustomer()
@@ -86,7 +86,7 @@ namespace SODAPortalMvcApplication.Controllers
                                  select new ViewModel.ReportViewModel() { account = accnt, customer = customer, salesCode = sc };
                 return View(reportlist);
             }
-            else if(collection["salescode"] != "")
+            else if(collection["salescode"].Trim() != "")
             {
                 var reportlist = from customer in portalClient.getCustomer()
                                  join accnt in account.getAccount("") on customer.UserId equals accnt.Id

@@ -16,7 +16,7 @@ namespace SODAPortalMvcApplication.Controllers
         {
             if (!isUserSessionActive())
             {
-                return RedirectToAction("login", "Home");
+                return RedirectToAction("index", "Home");
             }
             else
             {
