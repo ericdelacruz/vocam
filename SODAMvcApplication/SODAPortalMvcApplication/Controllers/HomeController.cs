@@ -101,7 +101,7 @@ namespace SODAPortalMvcApplication.Controllers
         private void sendEmailVerification(ViewModel.UserModel model)
         {
 
-            EmailHelper.SendEmail("test@sac-iis.com", model.Email, "Verification", "Click the link to continue." + Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("verify", "home", new { code = EncDec.EncryptData(model.Email) }));
+            EmailHelper.SendEmail("test@sac-iis.com", model.Email, "Verification", "Click the link to continue." + Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("verify", "home", new { code = EncDec.EncryptData(model.Email) }).Replace("/portal",""));
         }
         public ActionResult verify(string code)
         {
