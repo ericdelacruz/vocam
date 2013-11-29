@@ -1,11 +1,14 @@
-﻿@{
+﻿@model CMSMvcApplication.AccountServiceReference.Account
+@{
     ViewBag.Title = "Profile";
+    var age = (DateTime.Now.Year - Model.Birthdate.Value.Year);
+    age = Model.Birthdate.Value > DateTime.Now.AddYears(-age)?age--:age;
 }
 
 <h1 class="margin15">My Profile  <a class="editProfile" href="editProfile.html">(edit profile)</a></h1>
-<p><b>Name:</b> Ben James</p>
-<p><b>Birthdate:</b> March 17, 1990</p>
-<p><b>Age:</b> 23</p>
-<p><b>Contact No:</b> 09271234567</p>
-<p><b>Address:</b> 216D Kalaayan St. Taguig City</p>
-<p><b>Email Address:</b> benjames@gmail.com</p>
+<p><b>Name:</b> @Html.DisplayFor(m=>m.FirstName + " " + m.LastName) </p>
+<p><b>Birthdate:</b> @Html.DisplayFor(m=>m.Birthdate)</p>
+<p><b>Age:</b> @Html.Display(age.ToString())</p>
+<p><b>Contact No:</b> @Html.DisplayFor(m=>m.ContactNo)</p>
+<p><b>Address:</b> @Html.DisplayFor(m=>m.Address)</p>
+<p><b>Email Address:</b> @Html.DisplayFor(m=>m.Email)</p>
