@@ -117,7 +117,7 @@ namespace CMSMvcApplication.Controllers
         {
             DateTime dateQuestion = new DateTime();
 
-            DateTime.TryParse(string.Format("{2}-{0}-{1}", collection["mm"], collection["dd"], collection["yyyy"]), out dateQuestion);
+            DateTime.TryParse(collection["datefrom"], out dateQuestion);
             
             try
             {
@@ -136,13 +136,13 @@ namespace CMSMvcApplication.Controllers
                     BG_Img = !string.IsNullOrEmpty(Request.Files["BG"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority) + "/", FileTransferHelper.UploadImage(Request.Files["BG"], Server)) : "#",
                     VideoURL = collection["VidURL"],
                     FileName = collection["filename"],
-                    Duration = int.Parse(collection["duration"]),
+                    Duration = collection["duration"].Trim() != ""? int.Parse(collection["duration"]):0,
                     time = TimeSpan.FromMilliseconds(double.Parse(collection["time"])),
                      totalChapters = int.Parse(collection["totalChap"]),
                      Approved = collection["approved"] == "yes",
                      Downloadlable = collection["downloadable"] == "yes",
                       DateQuestionAnswerChange = dateQuestion,
-                       InDisc = int.Parse(collection["indisc"]),
+                       InDisc =collection["indisc"].Trim() !=""? int.Parse(collection["indisc"]):0,
                       isDOwnloadNews = collection["isdownloadnews"] == "yes",
                     
                     Id = 0 
@@ -161,7 +161,7 @@ namespace CMSMvcApplication.Controllers
 
                 if(!string.IsNullOrEmpty(collection["chapterName[]"]))
                 {
-                     catClient.addChapter(title.Id,collection["chapterName"],TimeSpan.FromMilliseconds(double.Parse(collection["chapterTime"])));
+                     //catClient.addChapter(title.Id,collection["chapterName"],TimeSpan.FromMilliseconds(double.Parse(collection["chapterTime"])));
                     
                     if (!string.IsNullOrEmpty(collection["chapterName[]"]))
                     {
@@ -191,12 +191,17 @@ namespace CMSMvcApplication.Controllers
         {
             if (Session["Username"] == null)
                 return RedirectToAction("login", "Home");
-            var title = catClient.getSpecificByID(id).First();
+            //var title = catClient.getSpecificByID(id).First();
+            var title = catClient.get().Select(t => t).Where(t => t.Id == id);
+            if (title.Count() == 0)
+                return Redirect("Titles");
+            {
+                ViewBag.CatList = catClient.get_Categories();
+                ViewBag.TopicList = catClient.getTopics().Select(t => t).Where(t => t.SpecId == id);
+                ViewBag.ChapterList = catClient.getChapter().Select(c => c).Where(c => c.SpecID == id);
 
-
-            ViewBag.CatList = catClient.get_Categories();
-
-            return View(title);
+                return View(title.First());
+            }
         }
 
         //
@@ -207,7 +212,7 @@ namespace CMSMvcApplication.Controllers
         {
             DateTime dateQuestion = new DateTime();
 
-            DateTime.TryParse(string.Format("{2}-{0}-{1}", collection["mm"], collection["dd"], collection["yyyy"]), out dateQuestion);
+            DateTime.TryParse(collection["datefrom"], out dateQuestion);
             try
             {
                 // TODO: Add update logic here
@@ -226,14 +231,14 @@ namespace CMSMvcApplication.Controllers
                     BG_Img = !string.IsNullOrEmpty(Request.Files["BG_IMG"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority), FileTransferHelper.UploadImage(Request.Files["BG_IMG"], Server)) : catClient.getSpecificByID(id).First().BG_Img,
                     VideoURL = collection["VidURL"],
                      FileName = collection["filename"],
-                    Duration = int.Parse(collection["duration"]),
+                    Duration = collection["duration"].Trim() != "" ? int.Parse(collection["duration"]) : 0,
                     time = TimeSpan.FromMilliseconds(double.Parse(collection["time"])),
-                     totalChapters = int.Parse(collection["totalChap"]),
-                     Approved = collection["approved"] == "yes",
-                     Downloadlable = collection["downloadable"] == "yes",
-                     DateQuestionAnswerChange = dateQuestion,
-                       InDisc = int.Parse(collection["indisc"]),
-                      isDOwnloadNews = collection["isdownloadnews"] == "yes",
+                    totalChapters = int.Parse(collection["totalChap"]),
+                    Approved = collection["approved"] == "yes",
+                    Downloadlable = collection["downloadable"] == "yes",
+                    DateQuestionAnswerChange = dateQuestion,
+                    InDisc = collection["indisc"].Trim() != "" ? int.Parse(collection["indisc"]) : 0,
+                    isDOwnloadNews = collection["isdownloadnews"] == "yes",
                 });
                 
                 
@@ -253,15 +258,17 @@ namespace CMSMvcApplication.Controllers
 
                     catClient.addTopic(title.Id, collection["topicName"]);
                     if (!string.IsNullOrEmpty(collection["topicName[]"]))
+
                         foreach (string topic in collection["topicName[]"].Split(','))
                         {
+                            if(!string.IsNullOrEmpty(topic))
                             catClient.addTopic(title.Id, topic);
                         }
                 }
 
                 if (!string.IsNullOrEmpty(collection["chapterName[]"]))
                 {
-                    catClient.addChapter(title.Id, collection["chapterName"], TimeSpan.FromMilliseconds(double.Parse(collection["chapterTime"])));
+                    catClient.addChapter(title.Id, collection["chapterName[]"], TimeSpan.FromMilliseconds(double.Parse(collection["chapterTime"])));
 
                     if (!string.IsNullOrEmpty(collection["chapterName[]"]))
                     {
@@ -269,6 +276,7 @@ namespace CMSMvcApplication.Controllers
                         string[] chapterTimeCollection = collection["chapterTime[]"].Split(',');
                         for (int i = 0; i < chapterNameCollection.Count(); i++)
                         {
+                            if(!string.IsNullOrEmpty(chapterNameCollection[i]))
                             catClient.addChapter(title.Id, chapterNameCollection[i], TimeSpan.FromMilliseconds(double.Parse(chapterTimeCollection[i])));
                         }
                     }
