@@ -18,6 +18,8 @@ namespace SODAwcfService
         {
             this.Specific1 = new HashSet<Specific>();
             this.Specifics = new HashSet<Specific>();
+            this.chapters = new HashSet<chapter>();
+            this.Topics = new HashSet<Topic>();
         }
     
         public long Id { get; set; }
@@ -32,9 +34,14 @@ namespace SODAwcfService
         public string Overview { get; set; }
         public string PageTitle { get; set; }
         public string Meta_Desc { get; set; }
+        public string filename { get; set; }
+        public Nullable<bool> isDownloadNews { get; set; }
+        public Nullable<System.DateTime> DateQuestionAnswerChange { get; set; }
     
         public virtual Category Category { get; set; }
         public virtual ICollection<Specific> Specific1 { get; set; }
         public virtual ICollection<Specific> Specifics { get; set; }
+        public virtual ICollection<chapter> chapters { get; set; }
+        public virtual ICollection<Topic> Topics { get; set; }
     }
 }

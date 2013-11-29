@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:50615/SODAPaypalService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Moolah.PayPal" />
-  <xs:import schemaLocation="http://localhost:50615/SODAPaypalService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/PayPal.PayPalAPIInterfaceService.Model" />
+  <xs:import schemaLocation="http://localhost:50615/SODAPaypalService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/PayPal.PayPalAPIInterfaceService.Model" />
+  <xs:import schemaLocation="http://localhost:50615/SODAPaypalService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/SODAwcfService.Models" />
   <xs:element name="checkout">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="amt" type="xs:decimal" />
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Moolah.PayPal" minOccurs="0" name="cType" type="q1:CurrencyCodeType" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/PayPal.PayPalAPIInterfaceService.Model" minOccurs="0" name="cType" type="q1:CurrencyCodeType" />
         <xs:element minOccurs="0" name="itemName" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="itemDesc" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="itemURL" nillable="true" type="xs:string" />
@@ -30,7 +30,7 @@
         <xs:element minOccurs="0" name="token" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="amt" type="xs:decimal" />
         <xs:element minOccurs="0" name="recur_amt" type="xs:decimal" />
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Moolah.PayPal" minOccurs="0" name="cType" type="q2:CurrencyCodeType" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/PayPal.PayPalAPIInterfaceService.Model" minOccurs="0" name="cType" type="q2:CurrencyCodeType" />
         <xs:element minOccurs="0" name="itemName" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="itemDesc" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="dateStart" type="xs:dateTime" />
@@ -68,7 +68,7 @@
   <xs:element name="getRecurProfileDetailsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/PayPal.PayPalAPIInterfaceService.Model" minOccurs="0" name="getRecurProfileDetailsResult" nillable="true" type="q3:GetRecurringPaymentsProfileDetailsResponseType" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/SODAwcfService.Models" minOccurs="0" name="getRecurProfileDetailsResult" nillable="true" type="q3:RecuringProfileDetails" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

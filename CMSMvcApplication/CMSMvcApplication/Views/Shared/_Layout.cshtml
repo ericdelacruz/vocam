@@ -82,5 +82,54 @@
     <script src="//code.jquery.com/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <script language="javascript">
+
+        jQuery(document).ready(function () {
+
+            jQuery('.topicBtn').click(function () {
+                $fields = jQuery('#text div').length;
+                if ($fields <= 10) {
+                    jQuery('#text').append("<div><input name='topicName[]' type='text' value='' class='ifield' autofocus placeholder='Input topic name' /> <a href='javascript:void(0)' class='unselect'><img src='Content/images/cms/remove.jpg' width='26' height='26' border='0'></a></div>")
+                } else {
+                    jQuery('.notifyError').html('<div class="alert alert-warning"><strong>Only 10 upload fields allowed.</strong></div>')
+                }
+
+            });
+
+            jQuery(document).on('click', '.unselect', function () {
+
+                jQuery(this).parent().remove()
+
+            });
+
+
+
+            jQuery('.chapterBtn').click(function () {
+
+                $fields = jQuery('#text2 div').length;
+
+                if ($fields <= 10) {
+
+                    jQuery('#text2').append("<div><hr style='width:100%; color:#f4f4f4; height:1px;'>Name: <input name='chapterName[]' type='text' value='' class='ifield' autofocus placeholder='Input chapter name' /><br>Time: &nbsp; <input name='chapterTime[]' type='text' value='' class='ifield' autofocus placeholder='Input chapter time' /> <a href='javascript:void(0)' class='unselect2'><img src='images/cms/remove.jpg' width='26' height='26' border='0'></a></div>")
+
+
+                } else {
+                    jQuery('.notifyError2').html('<div class="alert alert-warning"><strong>Only 10 upload fields allowed.</strong></div>');
+                }
+
+
+
+            });
+
+            jQuery(document).on('click', '.unselect2', function () {
+
+                jQuery(this).parent().remove()
+
+            });
+
+
+        });
+    </script>
 </body>
 </html>

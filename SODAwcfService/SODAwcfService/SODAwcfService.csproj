@@ -113,7 +113,13 @@
     <Compile Include="CatListingService.svc.cs">
       <DependentUpon>CatListingService.svc</DependentUpon>
     </Compile>
-    <Compile Include="Channel.cs" />
+    <Compile Include="chapter.cs">
+      <DependentUpon>SODAMvcModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Topic.cs">
+      <DependentUpon>SODAMvcModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="XMLModel\Channel.cs" />
     <Compile Include="CMS_Service.svc.cs">
       <DependentUpon>CMS_Service.svc</DependentUpon>
     </Compile>
@@ -138,15 +144,18 @@
     </Compile>
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Chapter.cs" />
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\CotentDef.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Page.cs" />
     <Compile Include="Models\Price.cs" />
+    <Compile Include="Models\RecuringProfileDetails.cs" />
     <Compile Include="Models\Region.cs" />
     <Compile Include="Models\SalesCode.cs" />
     <Compile Include="Models\SalesPerson.cs" />
     <Compile Include="Models\Specific.cs" />
+    <Compile Include="Models\Topic.cs" />
     <Compile Include="Page.cs">
       <DependentUpon>SODAMvcModel.tt</DependentUpon>
     </Compile>
@@ -217,8 +226,8 @@
     <Compile Include="Specific.cs">
       <DependentUpon>SODAMvcModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Title.cs" />
-    <Compile Include="Users.cs" />
+    <Compile Include="XMLModel\Title.cs" />
+    <Compile Include="XMLModel\Users.cs" />
     <Compile Include="VideoplayerService.svc.cs">
       <DependentUpon>VideoplayerService.svc</DependentUpon>
     </Compile>

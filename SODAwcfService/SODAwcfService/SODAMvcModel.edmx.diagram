@@ -13,6 +13,10 @@
         <AssociationConnector Association="SodaDBModel1.FK_Table_ToTable" ManuallyRouted="false" />
         <AssociationConnector Association="SodaDBModel1.FK_ContentDef_ToTable" ManuallyRouted="false" />
         <AssociationConnector Association="SodaDBModel1.Related" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SodaDBModel1.chapter" Width="1.5" PointX="5.25" PointY="7.875" />
+        <EntityTypeShape EntityType="SodaDBModel1.Topic" Width="1.5" PointX="5.25" PointY="10.625" />
+        <AssociationConnector Association="SodaDBModel1.FK_chapter_ToSpec" />
+        <AssociationConnector Association="SodaDBModel1.FK_Topics_ToSpec" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

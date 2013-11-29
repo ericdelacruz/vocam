@@ -10,7 +10,7 @@ namespace SODAPortalMvcApplication.Controllers
     {
         PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
         AccountServiceRef.AccountServiceClient AccountClient = new AccountServiceRef.AccountServiceClient();
-        SODAPayPalServiceReference.SODAPaypalServiceClient paypalClient = new SODAPayPalServiceReference.SODAPaypalServiceClient();
+        SODAPayPalSerRef.SODAPaypalServiceClient paypalClient = new SODAPayPalSerRef.SODAPaypalServiceClient();
         //
         // GET: /user/
 
@@ -63,7 +63,7 @@ namespace SODAPortalMvcApplication.Controllers
 
             var response = paypalClient.getRecurProfileDetails(userid);
            
-            return response.GetRecurringPaymentsProfileDetailsResponseDetails.ProfileStatus.Value == SODAPayPalServiceReference.RecurringPaymentsProfileStatusType.ACTIVEPROFILE;
+            return response.profileStatus.Value == SODAPayPalSerRef.RecurringPaymentsProfileStatusType.ACTIVEPROFILE;
         }
 
         private IEnumerable<ViewModel.CustomerModel> getCustomerData(string username)
@@ -207,8 +207,8 @@ namespace SODAPortalMvcApplication.Controllers
                     price = price - (customer.salesCode.Discount * 100);
                 }
 
-                string redirectURL = paypalClient.checkout(price, SODAPayPalServiceReference.CurrencyCodeType.AUD, itemname, itemDesc, itemURL, cancelURl, confirmURL);
-
+                string redirectURL = paypalClient.checkout(price, SODAPayPalSerRef.CurrencyCodeType.AUD, itemname, itemDesc, itemURL, cancelURl, confirmURL);
+                //string redirectURL = PaypalHelper.checkout(price, Moolah.PayPal.CurrencyCodeType.AUD, itemname, itemDesc, itemURL, cancelURl, confirmURL);
                 return Redirect(redirectURL);
 
             }
@@ -240,7 +240,7 @@ namespace SODAPortalMvcApplication.Controllers
                     price = price - (customer.salesCode.Discount * 100);
                 }
 
-                paypalClient.confirmation(customer.account.Id, payerid, token, price, customer.price.PriceAmt, SODAPayPalServiceReference.CurrencyCodeType.AUD, itemname, itemDesc, DateTime.Now.AddMonths(6));
+                paypalClient.confirmation(customer.account.Id, payerid, token, price, customer.price.PriceAmt, SODAPayPalSerRef.CurrencyCodeType.AUD, itemname, itemDesc, DateTime.Now.AddMonths(6));
                 
                 portalClient.addCustomer(new PortalServiceReference.Customer()
                 {

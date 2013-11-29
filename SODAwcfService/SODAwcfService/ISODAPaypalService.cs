@@ -4,8 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
-using Moolah;
-using Moolah.PayPal;
+using PayPal.PayPalAPIInterfaceService.Model;
 
 namespace SODAwcfService
 {
@@ -23,6 +22,6 @@ namespace SODAwcfService
         bool cancelSubscription(long userid);
 
         [OperationContract]
-        PayPal.PayPalAPIInterfaceService.Model.GetRecurringPaymentsProfileDetailsResponseType getRecurProfileDetails(long userid);
+        Models.RecuringProfileDetails getRecurProfileDetails(long userid);
     }
 }

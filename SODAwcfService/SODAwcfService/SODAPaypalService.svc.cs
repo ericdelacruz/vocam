@@ -4,8 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
-using Moolah;
-using Moolah.PayPal;
+
 using PayPal.PayPalAPIInterfaceService.Model;
 using PayPal.PayPalAPIInterfaceService;
 namespace SODAwcfService
@@ -18,85 +17,54 @@ namespace SODAwcfService
         private static string username = "jon_api1.straightarrow.com";
         private static string password = "1384995928";
         private static string signature = "AFcWxV21C7fd0v3bYYYRCpSSRl31ATsYWC6SETdiq-vn09q6FuTpA0Kp";
-        private static PayPalConfiguration config = new PayPalConfiguration(PaymentEnvironment.Test, username, password, signature);
+        //private static PayPalConfiguration config = new PayPalConfiguration(PaymentEnvironment.Test, username, password, signature);
         //private static PayPalConfiguration config = new PayPalConfiguration(PaymentEnvironment.Test, "jon_api1.straightarrow.com", "1384995928", "AFcWxV21C7fd0v3bYYYRCpSSRl31ATsYWC6SETdiq-vn09q6FuTpA0Kp");
-
-        public string checkout(decimal amt, Moolah.PayPal.CurrencyCodeType cType, string itemName, string itemDesc, string itemURL, string cancelurl, string confirmUrl)
+        
+        public string checkout(decimal amt, CurrencyCodeType CType , string itemName, string itemDesc, string itemURL, string cancelurl, string confirmUrl)
         {
-            var gateway = new PayPalExpressCheckout(config);
-            var response = gateway.SetExpressCheckout(new OrderDetails
-            {
-                Items = new[]{
-                     new OrderDetailsItem 
-                        { 
-                            Description = itemDesc, 
-                            Quantity = 1, 
-                            UnitPrice = amt, 
-                            ItemUrl = itemURL,
-                            IsRecurringPayment = true,
-                             Name = itemName
-                        }
-                 },
-                CurrencyCodeType = cType,
-                OrderTotal = amt,
-                OrderDescription = itemDesc
+            // Create request object
+            SetExpressCheckoutRequestType request = new SetExpressCheckoutRequestType();
+            populateRequestObject(request,amt,CType,itemName,itemDesc,itemURL,cancelurl,confirmUrl);
 
-            }, cancelurl, confirmUrl);
+            SetExpressCheckoutReq wrapper = new SetExpressCheckoutReq();
+            wrapper.SetExpressCheckoutRequest = request;
 
-            if (response.Status == PaymentStatus.Failed)
+            Dictionary<string, string> configurationMap = GetAcctAndConfig();
+
+            // Create the PayPalAPIInterfaceServiceService service object to make the API call
+            PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
+
+            // # API call 
+            // Invoke the SetExpressCheckout method in service wrapper object  
+            SetExpressCheckoutResponseType setECResponse = service.SetExpressCheckout(wrapper);
+            if (setECResponse.Ack.Equals(AckCodeType.FAILURE) ||
+                (setECResponse.Errors != null && setECResponse.Errors.Count > 0))
             {
-                throw new Exception(response.FailureMessage);
+                throw new FaultException("Express Checkout Failed:");
             }
-            return response.RedirectUrl;
+
+            return "https://www.sandbox.paypal.com/webscr&cmd=" + "_express-checkout&token=" + setECResponse.Token;
         }
 
-        public string confirmation(long userid, string payorid, string token, decimal amt, decimal recur_amt, Moolah.PayPal.CurrencyCodeType cType, string itemName, string itemDesc, DateTime dateStart)
+        
+
+       
+
+        public string confirmation(long userid, string payorid, string token, decimal amt, decimal recur_amt, CurrencyCodeType cType, string itemName, string itemDesc, DateTime dateStart)
         {
-            var gateway = new PayPalExpressCheckout(config);
-            var checkoutDetails = gateway.GetExpressCheckoutDetails(token);
-            var response = gateway.DoExpressCheckoutPayment(amt, cType, token, payorid);
-            if (response.Status == PaymentStatus.Failed)
-            {
-                //if (response.IsSystemFailure)
-                //    // System failures can indicate issues like a configuration problem
-                //    throw new Exception(response.FailureMessage);
-                //else
-                //    return response.FailureMessage;
-                // Non-system failure messages can be shown directly to the customer
-                //DisplayError(response.FailureMessage);
-                throw new Exception(response.FailureMessage);
-            }
-            else
-            {
-                var recurringPaymentsResponse = gateway.CreateRecurringPaymentsProfile(new RecurringProfile
-                {
-                    Description = itemDesc,
-                    BillingPeriod = RecurringPeriod.Month,
-                    BillingFrequency = 1,
-                    Amount = 10m,
-                    StartDate = dateStart,
-                    ItemName = itemName,
-                    CurrencyCodeType = cType,
+             var details = getExpressCheckoutDetails(token);
+             DoExpressCheckoutPaymentResponseType doECResponse = DoExpressCheckOut(payorid, token, details);
 
-                }, token);
 
-                if (recurringPaymentsResponse.IsSystemFailure || recurringPaymentsResponse.Status == PaymentStatus.Failed)
-                    throw new Exception(recurringPaymentsResponse.FailureMessage);
-                using (PortalDataSetTableAdapters.PaypalTransTableAdapter paypalAdapter = new PortalDataSetTableAdapters.PaypalTransTableAdapter())
-                {
-                    try
-                    {
-                        paypalAdapter.Insert(userid, response.TransactionReference, recurringPaymentsResponse.ProfileId, true, DateTime.Now);
-                    }
-                    catch (Exception ex)
-                    {
-                        //log to textfile instead
-                    }
-                }
-                return response.TransactionReference + ";" + recurringPaymentsResponse.ProfileId;
+            var response =  CreateRecurringProfile(token, amt, cType, itemDesc, dateStart);
+           
+            if (response.Ack.Equals(AckCodeType.FAILURE) ||
+             (response.Errors != null && response.Errors.Count > 0))
+            {
+                throw new FaultException("Error on creating profile");
             }
+            return doECResponse.DoExpressCheckoutPaymentResponseDetails.PaymentInfo[0].TransactionID + ";" + response.CreateRecurringPaymentsProfileResponseDetails.ProfileID;
         }
-
         public bool cancelSubscription(long userid)
         {
             string profileID = "";
@@ -123,6 +91,108 @@ namespace SODAwcfService
             }
             return flag;
         }
+        public Models.RecuringProfileDetails getRecurProfileDetails(long userid)
+        {
+            return new Models.RecuringProfileDetails() { profileStatus = getRecurProfileDetailsfromPayPal(userid).GetRecurringPaymentsProfileDetailsResponseDetails.ProfileStatus };
+        }
+        private CreateRecurringPaymentsProfileResponseType CreateRecurringProfile(string token, decimal amt, CurrencyCodeType cType, string itemDesc, DateTime dateStart)
+        {
+            CreateRecurringPaymentsProfileRequestType request = new CreateRecurringPaymentsProfileRequestType();
+
+            CreateRecurringPaymentsProfileRequestDetailsType profileDetails = new CreateRecurringPaymentsProfileRequestDetailsType();
+            request.CreateRecurringPaymentsProfileRequestDetails = profileDetails;
+
+            profileDetails.Token = token;
+
+            RecurringPaymentsProfileDetailsType rpProfileDetails =
+               new RecurringPaymentsProfileDetailsType(dateStart.ToString("yyyy-MM-ddTHH:mm:ss"));
+
+            profileDetails.RecurringPaymentsProfileDetails = rpProfileDetails;
+
+            // (Required) Describes the recurring payments schedule, including the regular payment period, whether there is a trial period, and the number of payments that can fail before a profile is suspended.
+            ScheduleDetailsType scheduleDetails = new ScheduleDetailsType();
+            scheduleDetails.Description = itemDesc;
+
+            BasicAmountType paymentAmount = new BasicAmountType(cType, Convert.ToDouble(amt).ToString());
+
+            BillingPeriodType period = BillingPeriodType.MONTH;
+
+            BillingPeriodDetailsType paymentPeriod = new BillingPeriodDetailsType(period, 1, paymentAmount);
+
+
+            scheduleDetails.PaymentPeriod = paymentPeriod;
+
+            profileDetails.ScheduleDetails = scheduleDetails;
+
+            CreateRecurringPaymentsProfileReq wrapper = new CreateRecurringPaymentsProfileReq();
+            wrapper.CreateRecurringPaymentsProfileRequest = request;
+
+            // Configuration map containing signature credentials and other required configuration.
+            // For a full list of configuration parameters refer in wiki page 
+            // [https://github.com/paypal/sdk-core-dotnet/wiki/SDK-Configuration-Parameters]
+            Dictionary<string, string> configurationMap = GetAcctAndConfig();
+
+            // Create the PayPalAPIInterfaceServiceService service object to make the API call
+            PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
+
+            // # API call 
+            // Invoke the CreateRecurringPaymentsProfile method in service wrapper object  
+            return service.CreateRecurringPaymentsProfile(wrapper);
+        }
+
+        private DoExpressCheckoutPaymentResponseType DoExpressCheckOut(string payorid, string token, GetExpressCheckoutDetailsResponseType details)
+        {
+            DoExpressCheckoutPaymentRequestType request = new DoExpressCheckoutPaymentRequestType();
+            DoExpressCheckoutPaymentRequestDetailsType requestDetails = new DoExpressCheckoutPaymentRequestDetailsType();
+            request.DoExpressCheckoutPaymentRequestDetails = requestDetails;
+
+            requestDetails.PaymentDetails = details.GetExpressCheckoutDetailsResponseDetails.PaymentDetails;
+            requestDetails.Token = token;
+            requestDetails.PayerID = payorid;
+            requestDetails.PaymentAction = PaymentActionCodeType.SALE;
+
+            Dictionary<string, string> configurationMap = GetAcctAndConfig();
+            PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
+            // Invoke the API
+            DoExpressCheckoutPaymentReq wrapper = new DoExpressCheckoutPaymentReq();
+            wrapper.DoExpressCheckoutPaymentRequest = request;
+            // # API call 
+            // Invoke the DoExpressCheckoutPayment method in service wrapper object
+            DoExpressCheckoutPaymentResponseType doECResponse = service.DoExpressCheckoutPayment(wrapper);
+
+            if (doECResponse.Ack.Equals(AckCodeType.FAILURE) ||
+              (doECResponse.Errors != null && doECResponse.Errors.Count > 0))
+            {
+                throw new FaultException("Confirmation Failed");
+            }
+            return doECResponse;
+        }
+
+        private GetExpressCheckoutDetailsResponseType getExpressCheckoutDetails(string token)
+        {
+            // Create request object
+            GetExpressCheckoutDetailsRequestType request = new GetExpressCheckoutDetailsRequestType();
+            // (Required) A timestamped token, the value of which was returned by SetExpressCheckout response.
+            // Character length and limitations: 20 single-byte characters
+            request.Token = token;
+            // Invoke the API
+            GetExpressCheckoutDetailsReq wrapper = new GetExpressCheckoutDetailsReq();
+            wrapper.GetExpressCheckoutDetailsRequest = request;
+
+            // Configuration map containing signature credentials and other required configuration.
+            // For a full list of configuration parameters refer in wiki page 
+            // [https://github.com/paypal/sdk-core-dotnet/wiki/SDK-Configuration-Parameters]
+            Dictionary<string, string> configurationMap = GetAcctAndConfig();
+
+            // Create the PayPalAPIInterfaceServiceService service object to make the API call
+            PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
+
+            // # API call 
+            // Invoke the GetExpressCheckoutDetails method in service wrapper object
+            return service.GetExpressCheckoutDetails(wrapper);
+        }
+
+        
         private bool cancel(string profileid)
         {
             ManageRecurringPaymentsProfileStatusRequestType request =
@@ -212,7 +282,7 @@ namespace SODAwcfService
 
 
 
-        public GetRecurringPaymentsProfileDetailsResponseType getRecurProfileDetails(long userid)
+        public GetRecurringPaymentsProfileDetailsResponseType getRecurProfileDetailsfromPayPal(long userid)
         {
             GetRecurringPaymentsProfileDetailsResponseType recurringPaymentsProfileDetailsResponse = new GetRecurringPaymentsProfileDetailsResponseType();
             using (PortalDataSetTableAdapters.PaypalTransTableAdapter paypalAdapter = new PortalDataSetTableAdapters.PaypalTransTableAdapter())
@@ -248,10 +318,91 @@ namespace SODAwcfService
             }
             return recurringPaymentsProfileDetailsResponse;
         }
+        private void populateRequestObject(SetExpressCheckoutRequestType request, decimal amt, CurrencyCodeType CType, string itemName, string itemDesc, string itemURL, string cancelurl, string confirmUrl)
+        {
+            SetExpressCheckoutRequestDetailsType ecDetails = new SetExpressCheckoutRequestDetailsType();
+            if (itemURL != string.Empty)
+            {
+                ecDetails.ReturnURL = confirmUrl;
+            }
+            if (cancelurl != string.Empty)
+            {
+                ecDetails.CancelURL = cancelurl;
+            }
+
+            /* Populate payment requestDetails. 
+            * SetExpressCheckout allows parallel payments of upto 10 payments. 
+            * This samples shows just one payment.
+            */
+            PaymentDetailsType paymentDetails = new PaymentDetailsType();
+            ecDetails.PaymentDetails.Add(paymentDetails);
+
+            double orderTotal = Convert.ToDouble(amt);
+            double itemTotal = Convert.ToDouble(amt);
+
+            //if (itemDesc != string.Empty)
+            //{
+            //    paymentDetails.OrderDescription = itemDesc;
+            //}
+
+            // Each payment can include requestDetails about multiple items
+            // This example shows just one payment item
+
+            PaymentDetailsItemType itemDetails = new PaymentDetailsItemType();
+            itemDetails.Name = itemName;
+            itemDetails.Amount = new BasicAmountType(CType, Convert.ToDouble(amt).ToString());
+            itemDetails.Quantity = 1;
+            // Indicates whether an item is digital or physical. For digital goods, this field is required and must be set to Digital. It is one of the following values:
+            //   1.Digital
+            //   2.Physical
+            //  This field is available since version 65.1. 
+            itemDetails.ItemCategory = ItemCategoryType.DIGITAL;
+
+            //itemTotal = 1;
+
+            //(Optional) Item description.
+            // Character length and limitations: 127 single-byte characters
+            // This field is introduced in version 53.0. 
+
+            itemDetails.Description = itemDesc;
+
+            paymentDetails.PaymentDetailsItem.Add(itemDetails);
+
+            //orderTotal += itemTotal;
+            paymentDetails.ItemTotal = new BasicAmountType(CType, itemTotal.ToString());
+            paymentDetails.OrderTotal = new BasicAmountType(CType, orderTotal.ToString());
+
+            //(Required) Type of billing agreement. For recurring payments,
+            //this field must be set to RecurringPayments. 
+            //In this case, you can specify up to ten billing agreements. 
+            //Other defined values are not valid.
+            //Type of billing agreement for reference transactions. 
+            //You must have permission from PayPal to use this field. 
+            //This field must be set to one of the following values:
+            //   1. MerchantInitiatedBilling - PayPal creates a billing agreement 
+            //      for each transaction associated with buyer.You must specify 
+            //      version 54.0 or higher to use this option.
+            //   2. MerchantInitiatedBillingSingleAgreement - PayPal creates a 
+            //      single billing agreement for all transactions associated with buyer.
+            //      Use this value unless you need per-transaction billing agreements. 
+            //      You must specify version 58.0 or higher to use this option.
+            BillingCodeType billingCodeType = BillingCodeType.RECURRINGPAYMENTS;
+            BillingAgreementDetailsType baType = new BillingAgreementDetailsType(billingCodeType);
+            baType.BillingAgreementDescription = itemDesc;
+
+            ecDetails.BillingAgreementDetails.Add(baType);
+
+            request.SetExpressCheckoutRequestDetails = ecDetails;
+        }
+
+
+
 
 
 
         
-        
+
+
+      
     }
 }

@@ -21,11 +21,11 @@
     <MetadataSource Address="http://localhost:50615/CatListingService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="CatListingService.disco" MetadataType="Disco" ID="2dee4572-3bec-4760-b5d1-45919a1d1e4d" SourceId="1" SourceUrl="http://localhost:50615/CatListingService.svc?disco" />
-    <MetadataFile FileName="CatListingService.xsd" MetadataType="Schema" ID="36e20185-c16d-44df-9c18-61b1c73277e0" SourceId="1" SourceUrl="http://localhost:50615/CatListingService.svc?xsd=xsd1" />
-    <MetadataFile FileName="CatListingService.wsdl" MetadataType="Wsdl" ID="d9dd2ce7-74c4-433d-9aef-0fbf4b68e8ca" SourceId="1" SourceUrl="http://localhost:50615/CatListingService.svc?wsdl" />
-    <MetadataFile FileName="CatListingService1.xsd" MetadataType="Schema" ID="94f7abd2-7d96-4bf1-bb60-53ad886a7555" SourceId="1" SourceUrl="http://localhost:50615/CatListingService.svc?xsd=xsd2" />
     <MetadataFile FileName="CatListingService2.xsd" MetadataType="Schema" ID="885d692f-1612-4813-ab01-2c1b1fef0184" SourceId="1" SourceUrl="http://localhost:50615/CatListingService.svc?xsd=xsd0" />
+    <MetadataFile FileName="CatListingService.wsdl" MetadataType="Wsdl" ID="d9dd2ce7-74c4-433d-9aef-0fbf4b68e8ca" SourceId="1" SourceUrl="http://localhost:50615/CatListingService.svc?wsdl" />
+    <MetadataFile FileName="CatListingService.disco" MetadataType="Disco" ID="2dee4572-3bec-4760-b5d1-45919a1d1e4d" SourceId="1" SourceUrl="http://localhost:50615/CatListingService.svc?disco" />
+    <MetadataFile FileName="CatListingService1.xsd" MetadataType="Schema" ID="94f7abd2-7d96-4bf1-bb60-53ad886a7555" SourceId="1" SourceUrl="http://localhost:50615/CatListingService.svc?xsd=xsd2" />
+    <MetadataFile FileName="CatListingService.xsd" MetadataType="Schema" ID="36e20185-c16d-44df-9c18-61b1c73277e0" SourceId="1" SourceUrl="http://localhost:50615/CatListingService.svc?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/SODAwcfService.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/SODAwcfService.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/SODAwcfService.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/SODAwcfService.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:50615/CatListingService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:complexType name="Category">
     <xs:sequence>
       <xs:element minOccurs="0" name="BG_IMG" nillable="true" type="xs:string" />
@@ -23,11 +24,17 @@
   <xs:element name="ArrayOfCategory" nillable="true" type="tns:ArrayOfCategory" />
   <xs:complexType name="Specific">
     <xs:sequence>
+      <xs:element minOccurs="0" name="Approved" type="xs:boolean" />
       <xs:element minOccurs="0" name="BG_Img" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CategoryID" type="xs:long" />
+      <xs:element minOccurs="0" name="DateQuestionAnswerChange" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Downloadlable" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Duration" type="xs:int" />
+      <xs:element minOccurs="0" name="FileName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Id" type="xs:long" />
       <xs:element minOccurs="0" name="ImageURL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InDisc" type="xs:int" />
       <xs:element minOccurs="0" name="MetaDesc" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Metatags" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Overview" nillable="true" type="xs:string" />
@@ -35,6 +42,9 @@
       <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TitleCode" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="VideoURL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="isDOwnloadNews" type="xs:boolean" />
+      <xs:element minOccurs="0" name="time" type="ser:duration" />
+      <xs:element minOccurs="0" name="totalChapters" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Specific" nillable="true" type="tns:Specific" />
@@ -44,4 +54,33 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfSpecific" nillable="true" type="tns:ArrayOfSpecific" />
+  <xs:complexType name="ArrayOfChapter">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Chapter" nillable="true" type="tns:Chapter" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfChapter" nillable="true" type="tns:ArrayOfChapter" />
+  <xs:complexType name="Chapter">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChapterName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="SpecID" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="time" nillable="true" type="ser:duration" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Chapter" nillable="true" type="tns:Chapter" />
+  <xs:complexType name="ArrayOfTopic">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Topic" nillable="true" type="tns:Topic" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTopic" nillable="true" type="tns:ArrayOfTopic" />
+  <xs:complexType name="Topic">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SpecId" nillable="true" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Topic" nillable="true" type="tns:Topic" />
 </xs:schema>

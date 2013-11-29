@@ -197,7 +197,7 @@ namespace SODAPortalMvcApplication.Controllers
             EmailHelper.SendEmail("test@sac-iis.com", to, "Verification Email", "Please click the link to process. " + Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("verify", "sales", new { code = EncDec.EncryptData(to) }));
         }
 
-        public ActionResult editsale(int id)
+        public ActionResult editsale(long id)
         {
             ViewBag.RegionList = from region in portalClient.getRegion()
                                  select region;
@@ -210,6 +210,7 @@ namespace SODAPortalMvcApplication.Controllers
             var salesPerson_orig = from salesperson in portalClient.getSalePerson()
                                    join accnt in account.getAccount("") on salesperson.UserId equals accnt.Id
                                    join sc in portalClient.getSaleCode() on salesperson.SalesCodeId equals sc.Id
+                                   where salesperson.Id == id
                                    select new ViewModel.SalesViewModel() { account = accnt, salesPerson = salesperson, salesCode = sc };
 
           
@@ -301,6 +302,10 @@ namespace SODAPortalMvcApplication.Controllers
         [HttpPost]
         public ActionResult addprice(FormCollection collection)
         {
+            var priceList = from price in portalClient.getPrice()
+                        where price.RegionId == int.Parse(collection["Region"])
+                        select price;
+            if(priceList.Count() == 0)
             portalClient.addPrice(new PortalServiceReference.Price()
             {
                 //RegionName = collection["Region"],
@@ -308,6 +313,11 @@ namespace SODAPortalMvcApplication.Controllers
                 PriceAmt = decimal.Parse(collection["Price"]),
                 FirstMonthFree = collection["monthFree"] == "Yes"
             });
+            else
+            {
+                ModelState.AddModelError("", "There is already a price assign to the selected Region");
+                return View("addprice");
+            }
             return RedirectToAction("price");
         }
         public ActionResult editprice(int id)
@@ -371,7 +381,9 @@ namespace SODAPortalMvcApplication.Controllers
             else
             {
                 //Error sales code already exists
-                return RedirectToAction("addsalescode");
+                ModelState.AddModelError("", "Sales Code already Exists");
+                return View();
+                //return RedirectToAction("addsalescode");
             }
             
         }
@@ -454,9 +466,14 @@ namespace SODAPortalMvcApplication.Controllers
         [HttpPost]
         public ActionResult addregion(FormCollection collection)
         {
+            if(portalClient.getRegion().Select(r => r).Where(r => r.RegionName == collection["RegionName"]).Count() ==0)
             portalClient.addRegion(new PortalServiceReference.Region(){
                  RegionName = collection["RegionName"]
             });
+            else
+            {
+                ModelState.AddModelError("","Region Name already exists");
+            }
             return RedirectToAction("region");
         }
 
@@ -500,7 +517,8 @@ namespace SODAPortalMvcApplication.Controllers
         [HttpPost]
         public ActionResult addmarketer(FormCollection collection)
         {
-           DateTime birthdate = DateTime.Parse(collection["yyyy"] + "-" + collection["mm"] + "-" + collection["dd"]);
+            DateTime birthdate = new DateTime();
+            DateTime.TryParse(collection["datefrom"], out birthdate);
            var user = from accnt in account.getAccount(collection["Email"].Trim())
                       select accnt;
             if(user.Count() == 0)
@@ -521,6 +539,7 @@ namespace SODAPortalMvcApplication.Controllers
             else
             {
                 ModelState.AddModelError("", "Email already existing");
+                return View(collection);
             }
             return RedirectToAction("marketer");
         }

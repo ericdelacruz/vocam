@@ -11,7 +11,7 @@
         <h2>Add Sales Code</h2>
         @using (@Html.BeginForm("addsalescode", "admin", FormMethod.Post , new { @class = "portalForm"}))
         {
-          
+          @Html.ValidationSummary()
             <label>Sales Code:</label>
             <input type="text" class="form-control" name="SalesCode" value="" required>
            

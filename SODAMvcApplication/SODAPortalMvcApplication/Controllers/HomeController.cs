@@ -75,7 +75,7 @@ namespace SODAPortalMvcApplication.Controllers
                 {
                     accountClient.addAccount(new AccountServiceRef.Account(){
                          USERNAME = model.Email,
-                         PASSWORD = model.Password,
+                         PASSWORD = model.Password.Split(',')[0],
                          Role = 3,
                          Status = 1,
                          Company = model.Company,
