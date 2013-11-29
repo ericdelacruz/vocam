@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "indexpurchase";
-    var SalesCode = Session["SalesCode"] != null ? Session["SalesCode"].ToString() : "";
+    var SalesCode = Session["SalesCode"] as SODAPortalMvcApplication.ViewModel.VerifyModel;
 }
 
 <div class="container row portalContainer">
@@ -29,10 +29,10 @@
             </div>
 
             
-            @if(!string.IsNullOrEmpty(SalesCode))
+            @if(SalesCode != null)
             { 
                 <p>&nbsp;</p>
-            <p>$59.95 p/m  (this monthly subscription change based on the rate of the sales code)</p>
+            <p>@SalesCode.price.PriceAmt.ToString("C",new System.Globalization.CultureInfo("en-AU")) this monthly subscription change based on the rate of the sales code)</p>
             <p>&nbsp;</p>
                 using(@Html.BeginForm("termsinit","user"))
                 {
