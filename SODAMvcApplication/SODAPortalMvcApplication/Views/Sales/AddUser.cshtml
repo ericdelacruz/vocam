@@ -11,7 +11,12 @@
         </ul> <!-- end of portal user menu-->
         <div class="logoutSec fr clearfix">Hi @Session["Username"] <a href=@Url.Action("logout","home")>(logout)</a></div>
     </div>
-
+    @if(TempData["EmailSent"] != null && (TempData["EmailSent"] as Nullable<bool>).Value == true)
+    {
+        <script type="text/javascript">
+         alert("User added successfully and verification Email has been sent to the user");
+      </script>
+    }
    @using (@Html.BeginForm("adduser", "sales", FormMethod.Post, new { @class = "formRegistration border shadow" }))
 {
     @Html.ValidationSummary()
