@@ -55,7 +55,10 @@ body {
 	font-family: helveticaregular; 
 	
 	}
+
+a {outline:none !important;}
 a:hover {text-decoration: none;}
+a:focus {border: none !important;}
 a {cursor: pointer;}
 article,aside,details,figcaption,figure,
 footer,header,hgroup,menu,nav,section{ 
@@ -87,11 +90,13 @@ header {
 .logo { margin: 30px 0 20px 0; }
 
 .socialBtns {float: right; width:px; margin-top:15px;}
+.socialBtns a {color:transparent !important;}
 .socialBtns li {
 	float:left; 
 	list-style:none; 
 	margin:0px 0 0 5px;
 	font-size:14px;
+	color: transparent;
 }
 .socialTwitter {
 	display: block;
@@ -153,11 +158,11 @@ header {
 .menuNav li {position:relative;}
 
 .arrowActive{
-	background: url(../images/arrowActive.png) no-repeat;
+	background: url(../images/arrowActive.png) no-repeat center top;
 	width: 20%;
-	height: 19px;
+	height: 100% !important;
 	position: absolute;
-	bottom:-41px;
+	bottom:-40px !important;
     background-position: center;
     left:40%;
 }
@@ -195,24 +200,31 @@ header {
 	padding-top:17px;
 	text-align: left; }
 
-
-
+/* Media Queries - Tablet Portrait (768px - 980px) */
+@media only screen and (min-width:768px) and (max-width:980px){
+	.arrowActive {top:28px !important;}
+	.thumbPost {margin:3%;}
+	.moreLBtn {float: left;}
+	.leftJt img {padding-left:10% !important;}
+}
 
 /* Media Queries - Tablet Portrait (768px) */
-@media only screen and (min-width: 321px) and (max-width: 1024px) and (orientation: portrait) {
+@media only screen and (min-width: 320px) and (max-width: 1024px) and (orientation: portrait) {
    .arrowActive{
-	    background: url(../images/arrowActive.png) no-repeat;
+	    background: url(../images/arrowActive.png) no-repeat center top;
 	    width: 20%;
-	    height: 19px;
+	    height: 100% !important;
 	    position: absolute;
 	    bottom:-27px;
         background-position: center;
         left:40%;
 }
+	.headerRight {float:none !important;}
+	.navbar2 {float: none !important;}
     .rightJt {
         float: left !important;
         color: #232323;
-        margin-left:10% !Important;
+        margin-left:10% !important;
         padding:0px !important;
         clear:both;
         clear:none;
@@ -221,13 +233,15 @@ header {
         clear:none;
     }
 
+    .banner h1 {font-size: 25px !important;}
+
     .rightJt, .rightJt p {
         color:#fefefe !important; 
         margin:10% 0px;
         clear:both;
     }
     footer {
-    clear:none !Important;}
+    clear:none !important;}
 
 
 }
@@ -241,9 +255,12 @@ header {
 
 
     .banner h1 {
-        font: 32px open_sanssemibold !important;
+        font: 28px open_sanssemibold !important;
         padding-top:3% !important;
     }
+
+    .thumbPic {width:85% !important;}
+    .moreLBtn {float: left; }
 
     .leftJt img {display:none !important;}
     .rightJt {margin-top:0px !important; margin-left:0px !important;}
@@ -261,7 +278,8 @@ header {
         .socialBtns ul { padding-left: 0px;}
     .menuNav {padding-left:0px; margin:20px 0px;}
         .menuNav li {width:100% !important; position:inherit;}
-    .navbar2 li {
+    .navbar2 li {margin:1px 0 0 0 !important; width: 100%; padding:0 !important;}
+    .navbar2 a {
 	    display:block; 
 	    list-style:none; 
 	    margin-top:5px;
@@ -270,7 +288,9 @@ header {
         width:100%;
         padding:8px 0px;
         background-color:#efefef;
+        margin:0 !important;
     }
+
     .arrowActive {display:none;}
     .thumbPost {margin-bottom:12%;}
     .rightJt, .rightJt p {color:#fefefe !important;}
@@ -378,9 +398,9 @@ header {
 }
 
 .jumbotron2 {
-	background:url('../images/bannerBg2.jpg') repeat-x;
+	background:url('../images/bannerBg2.jpg') repeat;
 	width: 100%; 
-	height: 539px; 
+	min-height: 539px; 
 	padding:0 auto;
  	}
 
@@ -388,7 +408,7 @@ header {
 .rightJt {
 	float: right; 
 	color:#232323; 
-	padding:70px 0 0 54px;}
+	padding:8% 0 0 6%;}
 .rightJt h2 {font: 40px open_sanssemibold; margin-bottom: 15px; }
 .rightJt p {font-size:18px;}
  
