@@ -17,13 +17,21 @@ namespace SODAwcfService.XMLModels
         [XmlAttribute]
         public string filename { get; set; }
         [XmlAttribute]
-        public string summary { get; set; }
+        public string summary { get; set;}
+        [XmlAttribute]
+        public bool IsDownloadable { get; set; }
+        [XmlAttribute]
+        public int Chapters { get; set; }
+        [XmlAttribute]
+        public string InDisc { get; set; }
         [XmlAttribute]
         public string downloadNews { get; set; }
         [XmlAttribute]
         public string questionAnswerChangeDate { get; set; }
+
         [XmlAttribute]
         public string time { get; set; }
+
         [XmlArray("channels")]
         [XmlArrayItem("channel")]
         public List<channel> channelList { get; set; }
@@ -34,8 +42,8 @@ namespace SODAwcfService.XMLModels
 
         [XmlArray("chapters")]
         [XmlArrayItem("chapter")]
-        public List<chapter> chapterList { get; set;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            }
-    }
+        public List<chapter> chapterList { get; set;}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            }
+    
     
     public class topic
     {
@@ -50,4 +58,4 @@ namespace SODAwcfService.XMLModels
         [XmlAttribute]
         public string time { get; set; }
     }
-}
+ }
