@@ -476,6 +476,7 @@ namespace SODAPortalMvcApplication.Controllers
             else
             {
                 ModelState.AddModelError("","Region Name already exists");
+                return View();
             }
             return RedirectToAction("region");
         }
