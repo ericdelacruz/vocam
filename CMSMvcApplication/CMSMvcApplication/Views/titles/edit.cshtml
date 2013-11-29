@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Edit";
     var catList = ViewBag.CatList as IEnumerable<CMSMvcApplication.CatListingServiceReference.Category>;
+    var TopicList = ViewBag.TopicList as IEnumerable<CMSMvcApplication.CatListingServiceReference.Topic>;
+    var ChapterList = ViewBag.ChapterList as IEnumerable<CMSMvcApplication.CatListingServiceReference.Chapter>;
 }
 
 
@@ -65,17 +67,20 @@
         <input type="text" class="form-control" name="VidURL" value="@Model.VideoURL" autofocus="">
         
         <label>Filename</label>
-        <input type="text" class="form-control" placeholder="Enter Filename" autofocus="" name="filename">
+        <input type="text" class="form-control" placeholder="Enter Filename" autofocus="" name="filename" value="@Model.FileName">
         <label>Duration</label>
-        <input type="text" class="form-control" placeholder="Enter Duration" autofocus="" name="duration">
+        <input type="text" class="form-control" placeholder="Enter Duration" autofocus="" name="duration" value="@Model.Duration">
         
         <div class="panel panel-default">
                   <div class="panel-heading"><strong>Topic</strong></div>
                   <div class="panel-body">
 
-                 
-                        <input type="text" value="Topic 1" class="ifield" name="topicName" /> <a><img src='/Content/images/cms/remove.jpg' width='26' height='26' border='0'></a> 
-                        <input type="text" value="Topic 2" class="ifield" name="topicName" /> <a><img src='/Content/images/cms/remove.jpg' width='26' height='26' border='0'></a>
+                        @foreach(var topic in TopicList)
+                        {
+                            <input type="text" value="@topic.Name" class="ifield" name="topicName[]" /> <a><img src='/Content/images/cms/remove.jpg' width='26' height='26' border='0'></a> 
+                        }
+                       
+
                         <hr />
                         <input type="text" value="" class="ifield" placeholder="Input topic name" name="topicName" /><input type="button" class="btn btn-default topicBtn" name="add" value="Add more Topic"  style="height: 32px; margin-left: 4px;"  />
 
@@ -89,8 +94,12 @@
                 <div class="panel panel-default">
                   <div class="panel-heading"><strong>Chapter</strong></div>
                   <div class="panel-body">
-                            Name: <input name='chapterName' type='text' value='Chapter 1' class='ifield' autofocus /><br>
-                            Time: &nbsp; <input name='chapterTime' type='text' value='11234' class='ifield' autofocus /> <a><img src='/Content/images/cms/remove.jpg' width='26' height='26' border='0'></a>
+                      @foreach(var chapter in ChapterList)
+                      {
+                            <label>Name:</label> <input name='chapterName[]' type='text' value='@chapter.ChapterName' class='ifield' autofocus /><br>
+                            <label>Time:</label>  <input name='chapterTime[]' type='text' value='@chapter.time.Value.TotalMilliseconds.ToString()' class='ifield' autofocus /> <a><img src='/Content/images/cms/remove.jpg' width='26' height='26' border='0'></a>
+                      }
+                            
                             <hr />
                             Name: <input name='chapterName[]' type='text' value='' class='ifield' autofocus placeholder='Input chapter name' /><br>
                             Time: &nbsp; <input name='chapterTime[]' type='text' value='' class='ifield' autofocus placeholder='Input chapter time' />
@@ -104,36 +113,61 @@
                 </div>
                 
                 <label>Time (milliseconds)</label>
-                <input type="text" class="form-control" placeholder="Enter time" autofocus="" name="time">
+                <input type="text" class="form-control" placeholder="Enter time" autofocus="" name="time" value="@Model.time.TotalMilliseconds.ToString()">
                 <label>Total Chapters</label>
-                <input type="text" class="form-control" placeholder="Enter total chapter" autofocus="" name="totalChap">
+                <input type="text" class="form-control" placeholder="Enter total chapter" autofocus="" name="totalChap" value="@Model.totalChapters">
 
                 <div class="panel panel-default">
                   <div class="panel-heading"><strong>Approve?</strong></div>
                   <div class="panel-body">
-                    <input type="checkbox"> Yes, this title is approved and can be viewed. 
+                    
+                    @if (Model.Approved)
+                    {
+                        <input type="checkbox" checked="" name="approved" value="yes">
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="approved" value="yes">
+                    }
+                      Yes, this title is approved and can be viewed. 
                   </div>
                 </div>
 
                 <div class="panel panel-default">
                   <div class="panel-heading"><strong>Is Downloadable?</strong></div>
                   <div class="panel-body">
-                    <input type="checkbox"> Yes, this title is downloadable. 
+                      @if (Model.Downloadlable)
+                      {
+                        <input type="checkbox" name="downloadable" checked="" value="yes">
+                      }
+                      else
+                      {
+                        <input type="checkbox" name="downloadable" value="yes">
+                      }
+                      Yes, this title is downloadable. 
                   </div>
                 </div>
 
                 <label>In Disc</label>
-                <input type="text" class="form-control" placeholder="Enter Duration" autofocus="" name="duration">
+                <input type="text" class="form-control" placeholder="Enter Duration" autofocus="" name="indisc" value="@Model.InDisc">
 
                  <div class="panel panel-default">
                   <div class="panel-heading"><strong>Is Download News?</strong></div>
                   <div class="panel-body">
-                    <input type="checkbox"> Yes, this title is download news. 
+                    @if (Model.isDOwnloadNews)
+                    {
+                        <input type="checkbox" checked="" name="isdownloadnews" value="yes">
+                    }
+                    else
+                    {
+                        <input type="checkbox" checked="" name="isdownloadnews" value="yes">
+                    }
+                      Yes, this title is download news.
                   </div>
                 </div>
 
                  <label>QuestionAnswer change date (dd-mm-yy)</label><p style="color:#F8981D !important;">@Model.DateQuestionAnswerChange</p>
-                 <input type="text" id="popupDatepicker" class="form-control" placeholder="Click to choose date" name="datefrom">
+    <input type="text" id="popupDatepicker" class="form-control" placeholder="Click to choose date" name="datefrom" value="@Model.DateQuestionAnswerChange.ToShortDateString()">
                  <p>&nbsp;</p>
         
         
