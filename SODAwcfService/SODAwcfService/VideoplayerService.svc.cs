@@ -66,9 +66,12 @@ namespace SODAwcfService
                     filename = title.filename,
                     
                     summary = title.Overview,
+                     IsDownloadable = title.Downloadable,
+                      Chapters = title.TotalChapters,
+                       InDisc = title.InDisc >0? title.InDisc.ToString():string.Empty,
                     downloadNews = title.isDownloadNews.ToString(),
                     questionAnswerChangeDate =  string.Format("{0:M/d/yyyy}",title.DateQuestionAnswerChange),
-                    time = "0",
+                    time = title.Time.TotalMilliseconds.ToString(),
                     topicList = getTopics(title.Id),
                     chapterList = getChapters(title.Id)
                 });

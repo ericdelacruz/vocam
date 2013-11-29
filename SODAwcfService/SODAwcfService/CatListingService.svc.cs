@@ -137,7 +137,7 @@ namespace SODAwcfService
             //return specTableAdaptor.InsertSpecific(specific_new.CategoryID, specific_new.Title, specific_new.Description, 
             //                specific_new.VideoURL, specific_new.ImageURL, specific_new.Metatags,specific_new.BG_Img, specific_new.Overview, specific_new.TitleCode, specific_new.PageTitle, specific_new.MetaDesc);
             return specTableAdaptor.Insert(specific_new.CategoryID, specific_new.Title, specific_new.Description,
-                            specific_new.VideoURL, specific_new.ImageURL, specific_new.Metatags, specific_new.BG_Img, specific_new.Overview, specific_new.TitleCode, 
+                            specific_new.VideoURL, specific_new.ImageURL, specific_new.Metatags, specific_new.BG_Img, specific_new.TitleCode,specific_new.Overview, 
                             specific_new.PageTitle, specific_new.MetaDesc,specific_new.FileName, specific_new.isDOwnloadNews,specific_new.DateQuestionAnswerChange,specific_new.time, 
                             specific_new.totalChapters, specific_new.Approved, specific_new.Downloadlable, specific_new.InDisc,specific_new.Duration);
         }
@@ -149,7 +149,7 @@ namespace SODAwcfService
             //return specTableAdaptor.UpdateSpecific(specific_new.CategoryID, specific_new.Title, specific_new.Description, specific_new.VideoURL, 
             //            specific_new.ImageURL, specific_new.Metatags,specific_new.BG_Img, specific_new.Overview, specific_new.TitleCode, specific_new.Id, specific_new.PageTitle, specific_new.MetaDesc);
             return specTableAdaptor.Update(specific_new.CategoryID, specific_new.Title, specific_new.Description,
-                            specific_new.VideoURL, specific_new.ImageURL, specific_new.Metatags, specific_new.BG_Img, specific_new.Overview, specific_new.TitleCode,
+                            specific_new.VideoURL, specific_new.ImageURL, specific_new.Metatags, specific_new.BG_Img, specific_new.TitleCode,specific_new.Overview,
                             specific_new.PageTitle, specific_new.MetaDesc, specific_new.FileName, specific_new.isDOwnloadNews, specific_new.DateQuestionAnswerChange, specific_new.time,
                             specific_new.totalChapters, specific_new.Approved, specific_new.Downloadlable, specific_new.InDisc, specific_new.Duration,specific_new.Id);
         }
@@ -354,7 +354,13 @@ namespace SODAwcfService
                 PageTitle = spec.PageTitle,
                 Title = spec.Title,
                 TitleCode = spec.TitleCode,
-                VideoURL = spec.VideoURL
+                VideoURL = spec.VideoURL,
+                 Approved = spec.Approved,
+                  Downloadlable = spec.Downloadable,
+                   Duration = spec.Duration,
+                    InDisc = spec.InDisc,
+                     time = spec.Time,
+                      totalChapters = spec.TotalChapters
             });
         }
         #endregion
