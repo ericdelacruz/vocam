@@ -38,16 +38,13 @@
                 var SubscriptionPrice = @SalesCode.price.FirstMonthFree? pricePerMonth * 5: pricePerMonth * 6;
                 var Discount = @SalesCode.salescode.Discount;
                 var DiscountedSubcriptionPrice = (SubscriptionPrice - (SubscriptionPrice * Discount)).ToString("C",new System.Globalization.CultureInfo("en-AU"));
-                var DiscountedPermonthPrice  = pricePerMonth - (pricePerMonth * Discount);
+                var DiscountedPermonthPrice  = (pricePerMonth - (pricePerMonth * Discount)).ToString("C",new System.Globalization.CultureInfo("en-AU"));;
                  
             
               <p>&nbsp;</p>
-            <p>@SalesCode.price.PriceAmt.ToString("C",new System.Globalization.CultureInfo("en-AU")) this monthly subscription change based on the rate of the sales code)</p>
-                if(@SalesCode.salescode.Discount >0)
-                {
-                    <p>Less  @SalesCode.salescode.Discount.ToString("P",new System.Globalization.CultureInfo("en-US"))</p>
-                    
-                }
+                        
+               <p>@DiscountedSubcriptionPrice for the first 6 months then @DiscountedPermonthPrice monthly recurring </p>
+                 
             <p>&nbsp;</p>
                 using(@Html.BeginForm("termsinit","user"))
                 {
