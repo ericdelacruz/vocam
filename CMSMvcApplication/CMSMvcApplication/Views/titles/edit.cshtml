@@ -31,7 +31,8 @@
 <div class="cmsForm selectBdate">
     @using (Html.BeginForm("Edit", "Titles", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-        <label>Title*</label>
+       @Html.ValidationSummary()
+         <label>Title*</label>
         <input type="text" class="form-control" value="@Model.Title" autofocus="" name="Title">
 
         <label>Code*</label>
@@ -77,7 +78,9 @@
 
                         @foreach(var topic in TopicList)
                         {
-                            <input type="text" value="@topic.Name" class="ifield" name="topicName[]" /> <a><img src='/Content/images/cms/remove.jpg' width='26' height='26' border='0'></a> 
+                            
+                            <div><input type="text" value="@topic.Name" class="ifield" name="topicName[]" /> <a href='javascript:void(0)' class='unselect'><img src='/Content/images/cms/remove.jpg' width='26' height='26' border='0'> </a></div>
+                       
                         }
                        
 
@@ -94,11 +97,13 @@
                 <div class="panel panel-default">
                   <div class="panel-heading"><strong>Chapter</strong></div>
                   <div class="panel-body">
-                      @foreach(var chapter in ChapterList)
-                      {
+                      @foreach (var chapter in ChapterList)
+                    {
+                        <div>
                             <label>Name:</label> <input name='chapterName[]' type='text' value='@chapter.ChapterName' class='ifield' autofocus /><br>
                             <label>Time:</label>  <input name='chapterTime[]' type='text' value='@chapter.time.Value.TotalMilliseconds.ToString()' class='ifield' autofocus /> <a><img src='/Content/images/cms/remove.jpg' width='26' height='26' border='0'></a>
-                      }
+                        </div>
+                    }
                             
                             <hr />
                             Name: <input name='chapterName[]' type='text' value='' class='ifield' autofocus placeholder='Input chapter name' /><br>
