@@ -589,7 +589,12 @@ namespace SODAPortalMvcApplication.Controllers
         [HttpPost]
         public ActionResult editmarketer(long id, FormCollection collection)
         {
-            DateTime birthdate = DateTime.Parse(collection["yyyy"] + "-" + collection["mm"] + "-" + collection["dd"]);
+            //DateTime birthdate = DateTime.Parse(collection["yyyy"] + "-" + collection["mm"] + "-" + collection["dd"]);
+            DateTime birthdate = new DateTime();
+            if(collection["datefrom"].Trim() != "")
+            {
+                birthdate = DateTime.Parse(collection["datefrom"]);
+            }
             var marAccnt = from accnt in account.getAccount("")
                            where accnt.Role == 1 && accnt.Id == id
                            select accnt;

@@ -120,8 +120,14 @@ namespace SODAPortalMvcApplication.Controllers
 
         public ActionResult termsinit()
         {
+            if (Session["Username"] == null)
+                return RedirectToAction("index", "home");
+            else
+            {
+                var account = AccountClient.getAccount(Session["Username"].ToString()).Select(a => a).First();
+                return View(account);
+            }
             
-            return View();
         }
 
         public ActionResult paymentstatus(string stat)
