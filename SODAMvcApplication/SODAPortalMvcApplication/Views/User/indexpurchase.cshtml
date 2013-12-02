@@ -1,6 +1,8 @@
 ﻿@{
     ViewBag.Title = "indexpurchase";
     var SalesCode = Session["SalesCode"] as SODAPortalMvcApplication.ViewModel.VerifyModel;
+    
+    
 }
 
 <div class="container row portalContainer">
@@ -31,8 +33,21 @@
             
             @if(SalesCode != null)
             { 
-                <p>&nbsp;</p>
+            
+                var pricePerMonth = @SalesCode.price.PriceAmt;
+                var SubscriptionPrice = @SalesCode.price.FirstMonthFree? pricePerMonth * 5: pricePerMonth * 6;
+                var Discount = @SalesCode.salescode.Discount;
+                var DiscountedSubcriptionPrice = (SubscriptionPrice - (SubscriptionPrice * Discount)).ToString("C",new System.Globalization.CultureInfo("en-AU"));
+                var DiscountedPermonthPrice  = pricePerMonth - (pricePerMonth * Discount);
+                 
+            
+              <p>&nbsp;</p>
             <p>@SalesCode.price.PriceAmt.ToString("C",new System.Globalization.CultureInfo("en-AU")) this monthly subscription change based on the rate of the sales code)</p>
+                if(@SalesCode.salescode.Discount >0)
+                {
+                    <p>Less  @SalesCode.salescode.Discount.ToString("P",new System.Globalization.CultureInfo("en-US"))</p>
+                    
+                }
             <p>&nbsp;</p>
                 using(@Html.BeginForm("termsinit","user"))
                 {
