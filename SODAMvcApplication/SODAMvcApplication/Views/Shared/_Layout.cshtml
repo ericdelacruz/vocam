@@ -15,7 +15,6 @@
     <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="~/Content/css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="~/Content/css/main.css" rel="stylesheet" media="screen" />
-    <link href="~/Content/css/main.css" rel="stylesheet" media="screen" />
     <link href="~/Content/css/prettyPhoto.css" rel="stylesheet" media="screen">
     @if (ViewBag.Description != null)
     {
@@ -120,15 +119,15 @@
         </div>
     </footer>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="/Scripts/jquery.min.js"></script>
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="/Scripts/bootstrap.min.js"></script>
 
-    <script src="~/Scripts/jquery.prettyPhoto.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery.prettyPhoto.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('a[rel^="prettyPhoto"]').prettyPhoto();
+            $("a[rel^='prettyPhoto']").prettyPhoto();
         });
     </script>
 
