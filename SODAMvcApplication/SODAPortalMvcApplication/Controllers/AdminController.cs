@@ -62,8 +62,11 @@ namespace SODAPortalMvcApplication.Controllers
         {
             DateTime start;
             DateTime? end = new Nullable<DateTime>();
-        
-               
+
+            if (!isUserSessionActive())
+            {
+                return RedirectToAction("login", "Home");
+            }
 
             if ( collection["dateto"].Trim() != "" && collection["datefrom"].Trim() != "")
             {
@@ -98,7 +101,7 @@ namespace SODAPortalMvcApplication.Controllers
             }
             else//all are empty
             {
-                return Redirect("index");//view all
+                return RedirectToAction("index");//view all
             }
             
         }
@@ -288,6 +291,10 @@ namespace SODAPortalMvcApplication.Controllers
         #region price
         public ActionResult price()
         {
+            if (!isUserSessionActive())
+            {
+                return RedirectToAction("login", "Home");
+            }
             var priceList = from p in portalClient.getPrice()
                             join r in portalClient.getRegion() on p.RegionId equals r.Id
                             select new ViewModel.PriceViewModel() { price = p, region = r };
@@ -358,6 +365,10 @@ namespace SODAPortalMvcApplication.Controllers
         #region Sales Code
         public ActionResult salescode()
         {
+            if (!isUserSessionActive())
+            {
+                return RedirectToAction("login", "Home");
+            }
             var SalesCodeList = from salesCode in portalClient.getSaleCode()
                                 select salesCode;
             return View(SalesCodeList);
@@ -442,14 +453,15 @@ namespace SODAPortalMvcApplication.Controllers
 
         private bool isUserSessionActive()
         {
-            try
-            {
-                return !string.IsNullOrEmpty(Session["Username"].ToString()) && AccountHelper.isActive(Session["Username"].ToString(), account);
-            }
-            catch
-            {
-                return false;
-            }
+            return Session["Username"] != null;
+            //try
+            //{
+            //    return !string.IsNullOrEmpty(Session["Username"].ToString()) && AccountHelper.isActive(Session["Username"].ToString(), account);
+            //}
+            //catch
+            //{
+            //    return false;
+            //}
         }
 
         #endregion
@@ -457,6 +469,11 @@ namespace SODAPortalMvcApplication.Controllers
         #region region
         public ActionResult region()
         {
+            if (!isUserSessionActive())
+            {
+                return RedirectToAction("login", "Home");
+            }
+
             var regionList = from region in portalClient.getRegion()
                              select region;
             return View(regionList);
@@ -491,11 +508,21 @@ namespace SODAPortalMvcApplication.Controllers
         [HttpPost]
         public ActionResult editregion(int id, FormCollection collection)
         {
+            var existing_Region = from region in portalClient.getRegion()
+                                  where region.Id != id && region.RegionName == collection["RegionName"]
+                                  select region;
+            if(existing_Region.Count() == 0)
             portalClient.updateRegion(new PortalServiceReference.Region()
             {
                 Id = id,
                 RegionName = collection["RegionName"]
             });
+            else
+            {
+                ModelState.AddModelError("", "Region Name already exists");
+                var region = portalClient.getRegion().Select(r => r).Where(r => r.Id == id).First();
+                return View(region);
+            }
             return RedirectToAction("region");
         }
 
