@@ -125,7 +125,7 @@ namespace CMSMvcApplication.Controllers
                 ViewBag.catList = catClient.get_Categories();
                 return View();
             }
-
+            
             try
             {
                 // TODO: Add insert logic here
@@ -144,8 +144,8 @@ namespace CMSMvcApplication.Controllers
                     VideoURL = collection["VidURL"],
                     FileName = collection["filename"],
                     Duration = collection["duration"].Trim() != ""? int.Parse(collection["duration"]):0,
-                    time = TimeSpan.FromMilliseconds(double.Parse(collection["time"])),
-                     totalChapters = int.Parse(collection["totalChap"]),
+                    time =collection["time"].Trim() !=""? TimeSpan.FromMilliseconds(double.Parse(collection["time"])):default(TimeSpan),
+                     totalChapters =collection["totalChap"].Trim() !=""? int.Parse(collection["totalChap"]):0,
                      Approved = collection["approved"] == "yes",
                      Downloadlable = collection["downloadable"] == "yes",
                       DateQuestionAnswerChange = dateQuestion,
@@ -281,7 +281,7 @@ namespace CMSMvcApplication.Controllers
                      FileName = collection["filename"],
                     Duration = collection["duration"].Trim() != "" ? int.Parse(collection["duration"]) : 0,
                     time = TimeSpan.FromMilliseconds(double.Parse(collection["time"])),
-                    totalChapters = int.Parse(collection["totalChap"]),
+                    totalChapters = collection["totalChap"].Trim() != "" ? int.Parse(collection["totalChap"]) : 0,
                     Approved = collection["approved"] == "yes",
                     Downloadlable = collection["downloadable"] == "yes",
                     DateQuestionAnswerChange = dateQuestion,
