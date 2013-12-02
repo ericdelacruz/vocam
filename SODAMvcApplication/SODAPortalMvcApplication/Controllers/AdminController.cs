@@ -511,6 +511,7 @@ namespace SODAPortalMvcApplication.Controllers
             var existing_Region = from region in portalClient.getRegion()
                                   where region.Id != id && region.RegionName == collection["RegionName"]
                                   select region;
+            //test
             if(existing_Region.Count() == 0)
             portalClient.updateRegion(new PortalServiceReference.Region()
             {
