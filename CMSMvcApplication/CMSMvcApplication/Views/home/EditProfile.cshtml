@@ -4,30 +4,28 @@
 }
 
 <h1 class="margin15">Edit Profile</h1>
-@using(@Html.BeginForm("editprofile","home"))
+@using (@Html.BeginForm("editprofile", "home"))
 { 
     <div class="cmsForm selectBdate">
         <label><b>First Name</label>
-        @Html.EditorFor(m => m.FirstName, new { @class = "form-control" })
+        <input type="text" class="form-control" value="" autofocus="" name="First Name">
         
         <label>Last Name</label>
-        @Html.EditorFor(m => m.LastName, new { @class = "form-control" })
+        <input type="text" class="form-control" value="" autofocus="" name="Last Name">
         
-        <label>Birthdate</label>
-        
-        <select class="form-control" id="date" name="dd"></select>
-        <select class="form-control" id="month" name="mm"></select>
-        <select class="form-control" id="year" name="yyyy"></select>
-        <script type="text/javascript">date_populate("date", "month", "year");</script>
-        <br>
-
+        <label>Birthdate(dd-mm-yy): <span style="color:#F8981D !important;">10/21/1987</span></label> 
+        <input type="text" id="popupDatepicker" class="form-control" placeholder="Click to choose date" name="datefrom" value="" />
+      
         <label>Contact No</label>
-        @Html.EditorFor(m => m.ContactNo, new { @class = "form-control" })
+        <input type="text" class="form-control" value="" autofocus="" name="Contact No">
+    
         <label>Address</label>
-        @Html.EditorFor(m => m.Address, new { @class = "form-control" })
+        <input type="text" class="form-control" value="" autofocus="" name="Address">
+      
         <label>Email Address</label>
-        @Html.EditorFor(m => m.Address, new { @class = "form-control" })
-        <br>
+        <input type="text" class="form-control" value="" autofocus="" name="Email Address">
+     
         <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">UPDATE</button>
+        <br />
     </div>
 }
