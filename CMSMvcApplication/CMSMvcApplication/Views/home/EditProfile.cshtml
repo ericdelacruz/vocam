@@ -8,22 +8,22 @@
 {
     <div class="cmsForm selectBdate">
         <label><b>First Name</label>
-        <input type="text" class="form-control" value="" autofocus="" name="First Name">
+        <input type="text" class="form-control" value="@Model.FirstName" autofocus="" name="First Name">
 
         <label>Last Name</label>
-        <input type="text" class="form-control" value="" autofocus="" name="Last Name">
+        <input type="text" class="form-control" value="@Model.LastName" autofocus="" name="Last Name">
 
         <label>Birthdate(dd-mm-yy): <span style="color:#F8981D !important;">10/21/1987</span></label>
-        <input type="text" id="popupDatepicker" class="form-control" placeholder="Click to choose date" name="datefrom" value="" />
+        <input type="text" id="popupDatepicker" class="form-control" placeholder="Click to choose date" name="datefrom" value="@string.Format("{0:MM/dd/yyyy}",Model.Birthdate)" />
 
         <label>Contact No</label>
-        <input type="text" class="form-control" value="" autofocus="" name="Contact No">
+        <input type="text" class="form-control" value="@Model.ContactNo" autofocus="" name="Contact No">
 
         <label>Address</label>
-        <input type="text" class="form-control" value="" autofocus="" name="Address">
+        <input type="text" class="form-control" value="@Model.Address" autofocus="" name="Address">
 
         <label>Email Address</label>
-        <input type="text" class="form-control" value="" autofocus="" name="Email Address">
+        <input type="text" class="form-control" value="@Model.Email" autofocus="" name="Email Address">
 
         <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">UPDATE</button>
         <br />
