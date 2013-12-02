@@ -15,7 +15,8 @@
     <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="~/Content/css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="~/Content/css/main.css" rel="stylesheet" media="screen" />
-
+    <link href="~/Content/css/main.css" rel="stylesheet" media="screen" />
+    <link href="~/Content/css/prettyPhoto.css" rel="stylesheet" media="screen">
     @if (ViewBag.Description != null)
     {
         <meta name="description" content="@ViewBag.Description" />
@@ -122,5 +123,13 @@
     <script src="//code.jquery.com/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            $("a[rel^='prettyPhoto']").prettyPhoto();
+        });
+    </script>
+
 </body>
 </html>
