@@ -31,7 +31,8 @@
 <div class="cmsForm selectBdate">
     @using (Html.BeginForm("Edit", "Titles", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-        <label>Title*</label>
+       @Html.ValidationSummary()
+         <label>Title*</label>
         <input type="text" class="form-control" value="@Model.Title" autofocus="" name="Title">
 
         <label>Code*</label>

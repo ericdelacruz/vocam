@@ -5,8 +5,8 @@
     age = Model.Birthdate.Value > DateTime.Now.AddYears(-age)?age--:age;
 }
 
-<h1 class="margin15">My Profile  <a class="editProfile" href="editProfile.html">(edit profile)</a></h1>
-<p><b>Name:</b> @Html.DisplayFor(m=>m.FirstName + " " + m.LastName) </p>
+<h1 class="margin15">My Profile  <a class="editProfile" href="@Url.Action("editprofile")">(edit profile)</a></h1>
+<p><b>Name:</b> @Html.DisplayFor(m=>m.FirstName) </p>
 <p><b>Birthdate:</b> @Html.DisplayFor(m=>m.Birthdate)</p>
 <p><b>Age:</b> @Html.Display(age.ToString())</p>
 <p><b>Contact No:</b> @Html.DisplayFor(m=>m.ContactNo)</p>
