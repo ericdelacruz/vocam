@@ -14,6 +14,7 @@ namespace SODAwcfService
     {
 
         private SodaDBDataSetTableAdapters.ContentDefTableAdapter CMSTableAdapter;
+        private SodaDBDataSetTableAdapters.ContactTableAdapter contactTableAdapter;
         //todo place encrypted string here
         private string asdasd = EncDec.EncryptData("myS0D@P@ssw0rd");
         private static bool Allowed = true;//set this to false if prod
@@ -30,7 +31,7 @@ namespace SODAwcfService
             
             
             CMSTableAdapter = new SodaDBDataSetTableAdapters.ContentDefTableAdapter();
-            
+            contactTableAdapter = new SodaDBDataSetTableAdapters.ContactTableAdapter();
         }
 
         public bool Authenticate(string Password)
@@ -107,10 +108,7 @@ namespace SODAwcfService
         {
             if (!Allowed)
                 throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
-            SodaDBEntities1 entity = new SodaDBEntities1();
-            entity.Contacts.Add(contact);
-            entity.SaveChanges();
-            return 1;
+            return contactTableAdapter.Insert(contact.Name, contact.Company, contact.Phone, contact.Email, contact.Postcode, contact.Message);
         }
     }
 }

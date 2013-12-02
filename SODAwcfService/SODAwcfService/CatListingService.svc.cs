@@ -47,7 +47,7 @@ namespace SODAwcfService
         {
             if (!Allowed)
                 throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
-            return catTableAdaptor.UpdateCategory(category_new.CategoryName, category_new.Description, category_new.IMG_URL, category_new.Metatags, category_new.CategoryId, category_new.BG_IMG, category_new.Banner_IMG, category_new.Overview, category_new.MetaDesc, category_new.PageTitile);
+            return catTableAdaptor.UpdateCategory(category_new.CategoryName, category_new.Description, category_new.IMG_URL, category_new.Metatags, category_new.CategoryId, category_new.BG_IMG, category_new.Banner_IMG, category_new.Overview, category_new.PageTitile, category_new.MetaDesc);
         }
        
         public int delete_Category(long CategoryID)
