@@ -147,6 +147,7 @@
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\main.css" />
     <Content Include="Content\css\mainOLD.css" />
+    <Content Include="Content\css\prettyPhoto.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\fonts\helvetica\4864-webfont.svg" />
     <Content Include="Content\fonts\lato\lato-bol-webfont.svg" />
@@ -159,6 +160,13 @@
     <Content Include="Content\images\browseCategoriesBtn.png" />
     <Content Include="Content\images\categoriesBg.jpg" />
     <Content Include="Content\images\commonBg.jpg" />
+    <Content Include="Content\images\default\default_thumb.png" />
+    <Content Include="Content\images\default\loader.gif" />
+    <Content Include="Content\images\default\sprite.png" />
+    <Content Include="Content\images\default\sprite_next.png" />
+    <Content Include="Content\images\default\sprite_prev.png" />
+    <Content Include="Content\images\default\sprite_x.png" />
+    <Content Include="Content\images\default\sprite_y.png" />
     <Content Include="Content\images\footerBg.jpg" />
     <Content Include="Content\images\home\browseChannelBtn.png" />
     <Content Include="Content\images\home\featThumb1.jpg" />
@@ -203,6 +211,7 @@
     <Content Include="Content\images\socialLinkdin.jpg" />
     <Content Include="Content\images\socialTwitter.jpg" />
     <Content Include="Content\images\socialYoutube.jpg" />
+    <Content Include="Content\images\sprite.png" />
     <Content Include="Content\Uploaded\agedCareBg110613.jpg" />
     <Content Include="Content\Uploaded\agedCareHead110613.jpg" />
     <Content Include="Content\Uploaded\agedCareThumb110613.jpg" />
@@ -319,6 +328,7 @@
     <None Include="Service References\CategoriesServiceReference\CatListingService.xsd" />
     <None Include="Service References\CategoriesServiceReference\CatListingService2.xsd" />
     <None Include="Service References\CategoriesServiceReference\CatListingService3.xsd" />
+    <Content Include="Scripts\jquery.prettyPhoto.js" />
     <Content Include="Service References\CategoriesServiceReference\SODAMvcApplication.CategoriesServiceReference.Category.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
