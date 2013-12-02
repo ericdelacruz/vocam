@@ -118,7 +118,14 @@ namespace CMSMvcApplication.Controllers
             DateTime dateQuestion = new DateTime();
 
             DateTime.TryParse(collection["datefrom"], out dateQuestion);
-            
+            string errorMsg = "";
+            if(hasErrorInTitles(collection,out errorMsg))
+            {
+                ModelState.AddModelError("", errorMsg);
+                ViewBag.catList = catClient.get_Categories();
+                return View();
+            }
+
             try
             {
                 // TODO: Add insert logic here
@@ -184,6 +191,35 @@ namespace CMSMvcApplication.Controllers
             
         }
 
+        private bool hasErrorInTitles(FormCollection collection, out string errorMsg)
+        {
+            int nNum =0;
+            double dNum=0;
+            if(!int.TryParse(collection["duration"], out nNum))
+            {
+                errorMsg = "Invalid input for Duration";
+                return true;
+            }
+            if(!int.TryParse(collection["totalChap"],out nNum))
+            {
+                errorMsg = "Invalid input for total chapters";
+                return true;
+            }
+            if(!int.TryParse(collection["indisc"],out nNum))
+            {
+                errorMsg = "Invalid input for In Disc";
+                return true;
+            }
+             
+            if(!double.TryParse(collection["time"],out dNum))
+            {
+                errorMsg = "Invalid input for Time";
+                return true;
+            }
+            errorMsg = "";
+            return false;
+        }
+
         //
         // GET: /Titles/Edit/5
 
@@ -195,13 +231,13 @@ namespace CMSMvcApplication.Controllers
             var title = catClient.get().Select(t => t).Where(t => t.Id == id);
             if (title.Count() == 0)
                 return Redirect("Titles");
-            {
+            
                 ViewBag.CatList = catClient.get_Categories();
                 ViewBag.TopicList = catClient.getTopics().Select(t => t).Where(t => t.SpecId == id);
                 ViewBag.ChapterList = catClient.getChapter().Select(c => c).Where(c => c.SpecID == id);
 
                 return View(title.First());
-            }
+            
         }
 
         //
@@ -213,6 +249,18 @@ namespace CMSMvcApplication.Controllers
             DateTime dateQuestion = new DateTime();
 
             DateTime.TryParse(collection["datefrom"], out dateQuestion);
+            string errorMsg = "";
+            if (hasErrorInTitles(collection, out errorMsg))
+            {
+                ModelState.AddModelError("", errorMsg);
+                var title = catClient.get().Select(t => t).Where(t => t.Id == id);
+                ViewBag.CatList = catClient.get_Categories();
+                ViewBag.TopicList = catClient.getTopics().Select(t => t).Where(t => t.SpecId == id);
+                ViewBag.ChapterList = catClient.getChapter().Select(c => c).Where(c => c.SpecID == id);
+
+                return View(title.First());
+            }
+
             try
             {
                 // TODO: Add update logic here
