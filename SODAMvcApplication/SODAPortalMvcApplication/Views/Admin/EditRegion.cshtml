@@ -11,7 +11,8 @@
         <h2>Edit Region</h2>
         @using (Html.BeginForm("editregion", "admin", FormMethod.Post, new { @class = "portalForm" }))
         { 
-            <!-- Script by hscripts.com -->
+           @Html.ValidationSummary()
+             <!-- Script by hscripts.com -->
             <label>Region:</label>
             <input type="text" class="form-control" name="RegionName" value="@Model.RegionName">
             <!-- Script by hscripts.com -->

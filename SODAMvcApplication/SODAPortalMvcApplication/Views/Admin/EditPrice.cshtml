@@ -15,18 +15,20 @@
         @using (@Html.BeginForm("editprice", "admin", FormMethod.Post, new { enctype = "multipart/form-data", @class = "portalForm" }))
         {
             <label>Region:</label>
-            <select class="form-control" name="Region">
+            <select class="form-control" name="Region"  >
+                
                 @foreach (var region in Regionlist)
                 {
                     if (region.Id == Model.Id)
                     {
                        
-                        <option selected="selected" value="@region.RegionName">@region.RegionName</option>
+                        <option selected="selected" value="@region.Id">@region.RegionName</option>
+                        break;
                     }
-                    else
+                    @*else
                     {
                         <option value="@region.Id">@region.RegionName</option>
-                    }
+                    }*@
                 }
             </select>
             <!-- Script by hscripts.com -->
