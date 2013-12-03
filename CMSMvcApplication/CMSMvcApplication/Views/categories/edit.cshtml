@@ -13,7 +13,7 @@
     <label>Overview</label>
     <textarea class="field span12 form-control" id="textarea" rows="3" cols="49" placeholder="" name="Overview"required>@Model.Overview.Replace("<br/>","\n")</textarea>
     <label>Description</label>
-    <textarea class="field span12 form-control" id="textarea" rows="5" cols="49" placeholder="" name="Description" required wrap="hard">@Model.Description.Replace("<br/>", "\n")</textarea>
+    <textarea class="field span12 form-control" id="textarea" rows="5" cols="49" placeholder="" name="Description" required>@Model.Description.Replace("<br/>", "\n")</textarea>
     <label>Thumbnail Image<span class="uploadTxtCont"> (recommended dimension:200 x 108)</span></label>
     <input type="file" name="Thumb">    
     <img src="@Model.IMG_URL"> <br /><br />
