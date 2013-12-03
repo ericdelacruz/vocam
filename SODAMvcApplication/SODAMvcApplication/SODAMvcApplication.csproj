@@ -116,7 +116,6 @@
   <ItemGroup>
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
-    <Compile Include="Controllers\drmController.cs" />
     <Compile Include="Controllers\ExceptionUtil.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SalesController.cs" />
@@ -125,22 +124,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service References\AccountServiceReference\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Service References\CategoriesServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Service References\CMSServiceReference\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Service References\PortalServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -170,6 +159,7 @@
     <Content Include="Content\images\browseCategories.png" />
     <Content Include="Content\images\browseCategoriesBtn.png" />
     <Content Include="Content\images\categoriesBg.jpg" />
+    <Content Include="Content\images\categories\freepowerpoint-2.jpg" />
     <Content Include="Content\images\commonBg.jpg" />
     <Content Include="Content\images\default\default_thumb.png" />
     <Content Include="Content\images\default\loader.gif" />
@@ -187,6 +177,7 @@
     <Content Include="Content\images\home\mac.png" />
     <Content Include="Content\images\home\moreBtn.png" />
     <Content Include="Content\images\home\previewNowBtn.png" />
+    <Content Include="Content\images\home\readMoreHomeBtn.png" />
     <Content Include="Content\images\home\topBanner.jpg" />
     <Content Include="Content\images\categories\agedCare_thumb.jpg" />
     <Content Include="Content\images\categories\bullyingAndHarassement_thumb.jpg" />
@@ -211,6 +202,8 @@
     <Content Include="Content\images\landing\landingBg.jpg" />
     <Content Include="Content\images\landing\purchaseBtn2.jpg" />
     <Content Include="Content\images\landing\purchaseNow.jpg" />
+    <Content Include="Content\images\landing\purchaseNowBig.jpg" />
+    <Content Include="Content\images\landing\purchaseNowBig.png" />
     <Content Include="Content\images\landing\runaSuccessfulMeeting_thumb.jpg" />
     <Content Include="Content\images\landing\video.jpg" />
     <Content Include="Content\images\landing\workplaceBullyingandHarrassment_thumb.jpg" />
@@ -335,25 +328,12 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Properties\PublishProfiles\Daddy Main.pubxml" />
-    <None Include="Service References\AccountServiceReference\AccountService.wsdl" />
-    <None Include="Service References\AccountServiceReference\AccountService.xsd" />
-    <None Include="Service References\AccountServiceReference\AccountService1.xsd" />
-    <None Include="Service References\AccountServiceReference\AccountService2.xsd" />
-    <Content Include="Service References\AccountServiceReference\SODAMvcApplication.AccountServiceReference.Account.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
     <None Include="Service References\CategoriesServiceReference\CatListingService.wsdl" />
     <None Include="Service References\CategoriesServiceReference\CatListingService.xsd" />
     <None Include="Service References\CategoriesServiceReference\CatListingService2.xsd" />
     <None Include="Service References\CategoriesServiceReference\CatListingService3.xsd" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.prettyPhoto.js" />
-    <None Include="Service References\AccountServiceReference\AccountService.disco" />
-    <None Include="Service References\AccountServiceReference\configuration91.svcinfo" />
-    <None Include="Service References\AccountServiceReference\configuration.svcinfo" />
-    <None Include="Service References\AccountServiceReference\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <Content Include="Service References\CategoriesServiceReference\SODAMvcApplication.CategoriesServiceReference.Category.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -379,13 +359,6 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery.backstretch.min.js" />
     <Content Include="Scripts\respond.min.js" />
-    <None Include="Service References\PortalServiceReference\PortalService.disco" />
-    <None Include="Service References\PortalServiceReference\configuration91.svcinfo" />
-    <None Include="Service References\PortalServiceReference\configuration.svcinfo" />
-    <None Include="Service References\PortalServiceReference\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -410,26 +383,6 @@
     <Content Include="Views\categories\browse.cshtml" />
     <Content Include="Views\categories\details.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <None Include="Service References\PortalServiceReference\PortalService.wsdl" />
-    <None Include="Service References\PortalServiceReference\PortalService.xsd" />
-    <None Include="Service References\PortalServiceReference\PortalService1.xsd" />
-    <None Include="Service References\PortalServiceReference\PortalService2.xsd" />
-    <Content Include="Service References\PortalServiceReference\SODAMvcApplication.PortalServiceReference.Customer.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <Content Include="Service References\PortalServiceReference\SODAMvcApplication.PortalServiceReference.Price.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <Content Include="Service References\PortalServiceReference\SODAMvcApplication.PortalServiceReference.Region.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <Content Include="Service References\PortalServiceReference\SODAMvcApplication.PortalServiceReference.SalesCode.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <Content Include="Service References\PortalServiceReference\SODAMvcApplication.PortalServiceReference.SalesPerson.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <Content Include="Views\drm\authenticate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -442,10 +395,8 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\AccountServiceReference\" />
     <WCFMetadataStorage Include="Service References\CategoriesServiceReference\" />
     <WCFMetadataStorage Include="Service References\CMSServiceReference\" />
-    <WCFMetadataStorage Include="Service References\PortalServiceReference\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\SODAwcfService\SODAwcfService\SODAwcfService.csproj">
