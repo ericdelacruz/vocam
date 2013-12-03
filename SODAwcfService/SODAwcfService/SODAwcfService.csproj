@@ -116,6 +116,7 @@
     <Compile Include="chapter.cs">
       <DependentUpon>SODAMvcModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CategoryAssignment.cs" />
     <Compile Include="Topic.cs">
       <DependentUpon>SODAMvcModel.tt</DependentUpon>
     </Compile>
