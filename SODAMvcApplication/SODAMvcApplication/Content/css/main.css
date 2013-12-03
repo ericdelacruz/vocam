@@ -425,6 +425,19 @@ header {
 	color:transparent;
 }
 
+.readMoreHomeBtn {
+	display: block;
+	width: 185px;
+	height: 59px;
+	background: url('../images/home/readMoreHomeBtn.png') bottom;
+	text-indent: -99999px;
+	color:transparent;
+}
+.readMoreHomeBtn:hover {
+	background-position: 0 0;
+	color:transparent;
+}
+
 footer {
 	background-color: #151515;
 	background: url("../images/footerBg.jpg") repeat;
