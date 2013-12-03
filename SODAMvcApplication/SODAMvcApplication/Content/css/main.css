@@ -616,15 +616,15 @@ footer {
 	color:transparent;
 }
 
-.freePowerPointBtn2{
+.purchaseNowbigBtn{
 	display: block;
 	width: 511px;
-	height: 104px;
-	background: url('../images/landing/purchaseNow.jpg') bottom;
+	height: 105px;
+	background: url('../images/landing/purchaseNowBig.jpg') bottom;
 	text-indent: -99999px;
 	color:transparent;
 }
-.freePowerPointBtn2:hover {
+.purchaseNowbigBtn:hover {
 	background-position: 0 0;
 	color:transparent;
 }
