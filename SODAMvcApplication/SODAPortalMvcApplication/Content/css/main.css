@@ -55,9 +55,11 @@ body {
 	font-family: helveticaregular; 
 	
 	}
+
+a {outline:none !important;}
 a:hover {text-decoration: none;}
-a {cursor: pointer; outline:none;}
-a:focus {border:none; outline:none;}
+a:focus {border: none !important;}
+a {cursor: pointer;}
 article,aside,details,figcaption,figure,
 footer,header,hgroup,menu,nav,section{ 
     display:block;
@@ -88,11 +90,13 @@ header {
 .logo { margin: 30px 0 20px 0; }
 
 .socialBtns {float: right; width:px; margin-top:15px;}
+.socialBtns a {color:transparent !important;}
 .socialBtns li {
 	float:left; 
 	list-style:none; 
 	margin:0px 0 0 5px;
 	font-size:14px;
+	color: transparent;
 }
 .socialTwitter {
 	display: block;
@@ -151,24 +155,26 @@ header {
 	color:transparent;
 }
 
+.menuNav li {position:relative;}
 
 .arrowActive{
-	background: url(../images/arrowActive.png) bottom center no-repeat;
-	width: 15px;
-	height: 19px;
-	position: relative;
-	bottom:-99px;
+	background: url(../images/arrowActive.png) no-repeat center top;
+	width: 20%;
+	height: 100% !important;
+	position: absolute;
+	bottom:-40px !important;
+    background-position: center;
+    left:40%;
 }
 
-.arrowHome {left:539px;}
-.arrowCat {left:639px;}
-.arrowLearn {left:764px;}
-.arrowContact {left:880px;}
+
 
 .headerRight {
 	text-align: right; 
-	padding-top: 25px;}
-.call {font-family: latoregular; font-size: 15px; margin-top:5%;}
+	padding-top: 25px;
+    float:right;
+}
+.call {font-family: latoregular; font-size: 15px;}
 .calltxt {color:#f48518; padding-right:14px;}
 
 
@@ -177,7 +183,7 @@ header {
 	float:left; 
 	list-style:none; 
 	margin-top:15px;
-	padding:0 0 0 30px;
+	padding:0 15px 0 15px;
 	font-size:14px;
 }
 .navbar2 a {
@@ -194,6 +200,126 @@ header {
 	padding-top:17px;
 	text-align: left; }
 
+/* Media Queries - Tablet Portrait (768px - 980px) */
+@media only screen and (min-width:768px) and (max-width:980px){
+	.arrowActive {top:28px !important;}
+	.thumbPost {margin:3%;}
+	.moreLBtn {float: left;}
+	.leftJt img {padding-left:10% !important;}
+}
+
+/* Media Queries - Tablet Portrait (768px) */
+@media only screen and (min-width: 320px) and (max-width: 1024px) and (orientation: portrait) {
+   .arrowActive{
+	    background: url(../images/arrowActive.png) no-repeat center top;
+	    width: 20%;
+	    height: 100% !important;
+	    position: absolute;
+	    bottom:-27px;
+        background-position: center;
+        left:40%;
+}
+	.headerRight {float:none !important;}
+	.navbar2 {float: none !important;}
+    .rightJt {
+        float: left !important;
+        color: #232323;
+        margin-left:10% !important;
+        padding:0px !important;
+        clear:both;
+        clear:none;
+    }
+    #logo { float:none !important; clear:both;
+        clear:none;
+    }
+
+    .banner h1 {font-size: 25px !important;}
+
+    .rightJt, .rightJt p {
+        color:#232323!important; 
+        margin:10% 0px;
+        clear:both;
+    }
+    footer {
+    clear:none !important;}
+
+
+}
+
+
+/* Media Queries - Phone (550px)*/
+@media screen and (max-width: 550px) {
+    .jumbotron {
+	background:url('../images/homeBgMob.jpg') center no-repeat !important;
+ 	}
+
+
+    .banner h1 {
+        font: 28px open_sanssemibold !important;
+        padding-top:3% !important;
+    }
+
+    .thumbPic {width:85% !important;}
+    .moreLBtn {float: left; }
+
+    .leftJt img {display:none !important;}
+    .rightJt {margin-top:0px !important; margin-left:0px !important;}
+        .rightJt h2 {font-size:30px !important; }
+        .rightJt p {margin:1% 0 !important;}
+
+
+    .headerRight {
+        text-align: left;
+        padding-top: 25px;
+        clear: both !important;
+        margin: 0px !important;
+    }
+    .socialBtns {clear:both; width:100%; margin-top:15px;}
+        .socialBtns ul { padding-left: 0px;}
+    .menuNav {padding-left:0px; margin:20px 0px;}
+        .menuNav li {width:100% !important; position:inherit;}
+    .navbar2 li {margin:1px 0 0 0 !important; width: 100%; padding:0 !important;}
+    .navbar2 a {
+	    display:block; 
+	    list-style:none; 
+	    margin-top:5px;
+	    text-align:center;
+	    font-size:14px;
+        width:100%;
+        padding:8px 0px;
+        background-color:#efefef;
+        margin:0 !important;
+    }
+
+    .arrowActive {display:none;}
+    .thumbPost {margin-bottom:12%;}
+    
+    .ftrLinks {
+        margin:5%0;
+	    text-align: center; 
+	    padding-top: 5px; 
+	    clear:none;
+	    text-transform: uppercase;
+	    color:#575757;  padding-left:0px; margin-left:0px;
+	}
+        .footNav {display:block; padding-left:0px; margin-left:0px;}
+        .footNav li {
+	        list-style-type: square;
+	        margin:5px auto !Important;
+	        padding:7px;
+	        display:block;
+            width:100%;
+	        font-size: 23px;
+	        color:#575757;
+            text-align:center;
+            background-color:#222222;
+        }     
+    #copyrightTxt {text-align:center;}
+
+}
+
+
+
 /*HOME Page CSS*/
 .jumbotron {
 	/*background:url(../images/home/topBanner.jpg) center no-repeat;*/
@@ -204,7 +330,7 @@ header {
  	}
 
 .banner {
-	padding-top: 90px;
+	padding-top: 4%;
 	float:left;
 	color:#f9f9f9;}
 
@@ -222,18 +348,22 @@ header {
 	border-radius:5px;
 	}
 
-.previewNowBtn {
+.freePowerPointBtn {
 	margin-top: 30px;
 	display: block;
-	width: 206px;
-	height: 56px;
-	background: url('../images/home/previewNowBtn.png') bottom;
+	width: 235px;
+	height: 59px;
+	background: url('../images/home/freePowerPointBtn.png') bottom;
 	text-indent: -99999px;
 }
-.previewNowBtn:hover {
+.freePowerPointBtn:hover {
 	background-position: 0 0;
 	color:transparent;
 }
+
+.contactFormPop {padding-top:30px;}
+.contactFormPop input, .contactFormPop select  {display: inline; margin-left: 5px; margin-top:5px;}
+.contactFormPop label {width:150px; text-align: right;}
 
 .thumbPost {padding:10px;}
 
@@ -271,9 +401,9 @@ header {
 }
 
 .jumbotron2 {
-	background:url('../images/bannerBg2.jpg') repeat-x;
+	background:url('../images/bannerBg2.jpg') repeat;
 	width: 100%; 
-	height: 539px; 
+	min-height: 539px; 
 	padding:0 auto;
  	}
 
@@ -281,7 +411,7 @@ header {
 .rightJt {
 	float: right; 
 	color:#232323; 
-	padding:70px 0 0 54px;}
+	padding:8% 0 0 6%;}
 .rightJt h2 {font: 40px open_sanssemibold; margin-bottom: 15px; }
 .rightJt p {font-size:18px;}
  
@@ -331,7 +461,7 @@ footer {
 
 
 /* Category Page CSS */
-.categorySection {background: url(../images/categoriesBg.jpg) top center no-repeat;
+.categorySection {background:#ffffff url(../images/categoriesBg.jpg) top center no-repeat;
 	width:100%;
 	height: 100%;}
  .content {
@@ -414,7 +544,7 @@ footer {
  	margin: 30px 0;
  }
 
- .lCont h2{color: #1a1a1a; font-size:25px; padding: 25px;}
+ .lCont h2{color: #1a1a1a; font:25px open_sanssemibold; padding: 25px; }
  .videoHead {
  	width: 100%;
  	border-bottom: 1px solid #d8d8d8;
@@ -461,6 +591,32 @@ footer {
 }
 
 
+.purchaseNowBtn{
+	display: block;
+	width: 151px;
+	height: 30px;
+	background: url('../images/landing/purchaseNow.jpg') bottom;
+	text-indent: -99999px;
+	color:transparent;
+}
+.purchaseNowBtn:hover {
+	background-position: 0 0;
+	color:transparent;
+}
+
+.freePowerPointBtn2{
+	display: block;
+	width: 511px;
+	height: 104px;
+	background: url('../images/landing/freePowerPoint2.png') bottom;
+	text-indent: -99999px;
+	color:transparent;
+}
+.freePowerPointBtn2:hover {
+	background-position: 0 0;
+	color:transparent;
+}
+
 .browseCatBtn{
 	display: block;
 	width: 185px;
@@ -492,9 +648,10 @@ footer {
 
 /*Common Page CSS*/
 .commonSection {background: url(../images/commonBg.jpg) top center no-repeat;
-	background-color: #f2f3f3;
+	background-color: #ffffff;
 	width:100%;
-	height: 100%;}
+	min-height:920px ;}
+.commonSection2 {background: url(../images/contactBg.jpg) #ffffff top center no-repeat !important;}
 .marginCommon {margin-top:80px !important; }
 .leftCont {
 	background-color: #ffffff;
@@ -532,7 +689,7 @@ input, textarea {margin-bottom: 5px;}
 	height: 100%;}
 
  .listingHeadBg {
-	background:url(../images/listings/agedCare/agedCareHead.jpg) right center no-repeat #f8f8f8;
+	/*background:url(../images/listings/agedCare/agedCareHead.jpg) right center no-repeat #f8f8f8;*/
 	min-height:147px;
 	background-size:contain;
  	padding:30px;
