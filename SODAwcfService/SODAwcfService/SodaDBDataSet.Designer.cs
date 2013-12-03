@@ -44,11 +44,11 @@ namespace SODAwcfService {
         
         private global::System.Data.DataRelation relationFK_Rel_ToSpec_2;
         
-        private global::System.Data.DataRelation relationFK_Table_ToTable;
-        
         private global::System.Data.DataRelation relationFK_Topics_ToSpec;
         
         private global::System.Data.DataRelation relationFK_chapter_ToSpec;
+        
+        private global::System.Data.DataRelation relationFK_Table_ToTable;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -374,9 +374,9 @@ namespace SODAwcfService {
             }
             this.relationFK_Rel_toSpec_1 = this.Relations["FK_Rel_toSpec_1"];
             this.relationFK_Rel_ToSpec_2 = this.Relations["FK_Rel_ToSpec_2"];
-            this.relationFK_Table_ToTable = this.Relations["FK_Table_ToTable"];
             this.relationFK_Topics_ToSpec = this.Relations["FK_Topics_ToSpec"];
             this.relationFK_chapter_ToSpec = this.Relations["FK_chapter_ToSpec"];
+            this.relationFK_Table_ToTable = this.Relations["FK_Table_ToTable"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -411,10 +411,6 @@ namespace SODAwcfService {
                         this.tableSpecific.IdColumn}, new global::System.Data.DataColumn[] {
                         this.tableRelated.BaseIDColumn}, false);
             this.Relations.Add(this.relationFK_Rel_ToSpec_2);
-            this.relationFK_Table_ToTable = new global::System.Data.DataRelation("FK_Table_ToTable", new global::System.Data.DataColumn[] {
-                        this.tableCategory.CategoryIdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableSpecific.CategoryIDColumn}, false);
-            this.Relations.Add(this.relationFK_Table_ToTable);
             this.relationFK_Topics_ToSpec = new global::System.Data.DataRelation("FK_Topics_ToSpec", new global::System.Data.DataColumn[] {
                         this.tableSpecific.IdColumn}, new global::System.Data.DataColumn[] {
                         this.tableTopics.SpecIdColumn}, false);
@@ -423,6 +419,10 @@ namespace SODAwcfService {
                         this.tableSpecific.IdColumn}, new global::System.Data.DataColumn[] {
                         this.tablechapter.SpecIDColumn}, false);
             this.Relations.Add(this.relationFK_chapter_ToSpec);
+            this.relationFK_Table_ToTable = new global::System.Data.DataRelation("FK_Table_ToTable", new global::System.Data.DataColumn[] {
+                        this.tableCategory.CategoryIdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableSpecific.CategoryIDColumn}, false);
+            this.Relations.Add(this.relationFK_Table_ToTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1629,7 +1629,7 @@ namespace SODAwcfService {
                 this.columnCategoryId.Unique = true;
                 this.columnCategoryName.AllowDBNull = false;
                 this.columnCategoryName.MaxLength = 50;
-                this.columnDescription.MaxLength = 100;
+                this.columnDescription.MaxLength = 2000;
                 this.columnIMG_URL.MaxLength = 300;
                 this.columnMetatags.MaxLength = 200;
                 this.columnbg_img.MaxLength = 300;
@@ -2206,7 +2206,7 @@ namespace SODAwcfService {
                 this.columnTitle.AllowDBNull = false;
                 this.columnTitle.MaxLength = 100;
                 this.columnDescription.AllowDBNull = false;
-                this.columnDescription.MaxLength = 500;
+                this.columnDescription.MaxLength = 1000;
                 this.columnVideoURL.AllowDBNull = false;
                 this.columnVideoURL.MaxLength = 200;
                 this.columnImageURL.AllowDBNull = false;
@@ -4029,11 +4029,11 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string Description {
                 get {
-                    try {
-                        return ((string)(this[this.tableCategory.DescriptionColumn]));
+                    if (this.IsDescriptionNull()) {
+                        return string.Empty;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Description\' in table \'Category\' is DBNull.", e);
+                    else {
+                        return ((string)(this[this.tableCategory.DescriptionColumn]));
                     }
                 }
                 set {
@@ -4109,11 +4109,11 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string Overview {
                 get {
-                    try {
-                        return ((string)(this[this.tableCategory.OverviewColumn]));
+                    if (this.IsOverviewNull()) {
+                        return string.Empty;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Overview\' in table \'Category\' is DBNull.", e);
+                    else {
+                        return ((string)(this[this.tableCategory.OverviewColumn]));
                     }
                 }
                 set {
@@ -4125,11 +4125,11 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string Meta_Desc {
                 get {
-                    try {
-                        return ((string)(this[this.tableCategory.Meta_DescColumn]));
+                    if (this.IsMeta_DescNull()) {
+                        return null;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Meta_Desc\' in table \'Category\' is DBNull.", e);
+                    else {
+                        return ((string)(this[this.tableCategory.Meta_DescColumn]));
                     }
                 }
                 set {
@@ -4141,11 +4141,11 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string PageTitle {
                 get {
-                    try {
-                        return ((string)(this[this.tableCategory.PageTitleColumn]));
+                    if (this.IsPageTitleNull()) {
+                        return string.Empty;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PageTitle\' in table \'Category\' is DBNull.", e);
+                    else {
+                        return ((string)(this[this.tableCategory.PageTitleColumn]));
                     }
                 }
                 set {
@@ -6893,35 +6893,21 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PageTitle", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PageTitle", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [CATEGORY] SET [CategoryName] = @CategoryName, [Description] = @Description, [IMG_URL] = @IMG_URL, [Metatags] = @Metatags, [bg_img] = @bg_img, [banner_img] = @banner_img, [Overview] = @Overview, [Meta_Desc] = @Meta_Desc, [PageTitle] = @PageTitle WHERE (([CategoryId] = @Original_CategoryId) AND ([CategoryName] = @Original_CategoryName) AND ((@IsNull_Description = 1 AND [Description] IS NULL) OR ([Description] = @Original_Description)) AND ((@IsNull_IMG_URL = 1 AND [IMG_URL] IS NULL) OR ([IMG_URL] = @Original_IMG_URL)) AND ((@IsNull_Metatags = 1 AND [Metatags] IS NULL) OR ([Metatags] = @Original_Metatags)) AND ((@IsNull_bg_img = 1 AND [bg_img] IS NULL) OR ([bg_img] = @Original_bg_img)) AND ((@IsNull_banner_img = 1 AND [banner_img] IS NULL) OR ([banner_img] = @Original_banner_img)) AND ((@IsNull_Overview = 1 AND [Overview] IS NULL) OR ([Overview] = @Original_Overview)) AND ((@IsNull_Meta_Desc = 1 AND [Meta_Desc] IS NULL) OR ([Meta_Desc] = @Original_Meta_Desc)) AND ((@IsNull_PageTitle = 1 AND [PageTitle] IS NULL) OR ([PageTitle] = @Original_PageTitle)))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE       Category
+SET                CategoryName = @CategoryName, Description = @Description, IMG_URL = @IMG_URL, Metatags = @Metatags, bg_img = @bg_img, banner_img = @banner_img, 
+                         Overview = @Overview, Meta_Desc = @Meta_Desc, PageTitle = @PageTitle
+WHERE        (CategoryId = @CategoryId)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CategoryName", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CategoryName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Description", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Description", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IMG_URL", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IMG_URL", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Metatags", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Metatags", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@bg_img", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "bg_img", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@banner_img", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "banner_img", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Overview", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Overview", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Meta_Desc", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Meta_Desc", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PageTitle", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PageTitle", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CategoryId", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CategoryId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CategoryName", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CategoryName", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Description", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Description", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Description", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Description", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_IMG_URL", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IMG_URL", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IMG_URL", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IMG_URL", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Metatags", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Metatags", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Metatags", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Metatags", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_bg_img", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "bg_img", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_bg_img", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "bg_img", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_banner_img", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "banner_img", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_banner_img", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "banner_img", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Overview", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Overview", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Overview", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Overview", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Meta_Desc", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Meta_Desc", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Meta_Desc", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Meta_Desc", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_PageTitle", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PageTitle", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PageTitle", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PageTitle", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CategoryName", global::System.Data.SqlDbType.VarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "CategoryName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Description", global::System.Data.SqlDbType.VarChar, 2000, global::System.Data.ParameterDirection.Input, 0, 0, "Description", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IMG_URL", global::System.Data.SqlDbType.VarChar, 300, global::System.Data.ParameterDirection.Input, 0, 0, "IMG_URL", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Metatags", global::System.Data.SqlDbType.VarChar, 200, global::System.Data.ParameterDirection.Input, 0, 0, "Metatags", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@bg_img", global::System.Data.SqlDbType.VarChar, 300, global::System.Data.ParameterDirection.Input, 0, 0, "bg_img", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@banner_img", global::System.Data.SqlDbType.VarChar, 300, global::System.Data.ParameterDirection.Input, 0, 0, "banner_img", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Overview", global::System.Data.SqlDbType.VarChar, 200, global::System.Data.ParameterDirection.Input, 0, 0, "Overview", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Meta_Desc", global::System.Data.SqlDbType.VarChar, 500, global::System.Data.ParameterDirection.Input, 0, 0, "Meta_Desc", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PageTitle", global::System.Data.SqlDbType.VarChar, 70, global::System.Data.ParameterDirection.Input, 0, 0, "PageTitle", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CategoryId", global::System.Data.SqlDbType.BigInt, 8, global::System.Data.ParameterDirection.Input, 0, 0, "CategoryId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7242,26 +7228,7 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(
-                    string CategoryName, 
-                    string Description, 
-                    string IMG_URL, 
-                    string Metatags, 
-                    string bg_img, 
-                    string banner_img, 
-                    string Overview, 
-                    string Meta_Desc, 
-                    string PageTitle, 
-                    long Original_CategoryId, 
-                    string Original_CategoryName, 
-                    string Original_Description, 
-                    string Original_IMG_URL, 
-                    string Original_Metatags, 
-                    string Original_bg_img, 
-                    string Original_banner_img, 
-                    string Original_Overview, 
-                    string Original_Meta_Desc, 
-                    string Original_PageTitle) {
+        public virtual int Update(string CategoryName, string Description, string IMG_URL, string Metatags, string bg_img, string banner_img, string Overview, string Meta_Desc, string PageTitle, long CategoryId) {
             if ((CategoryName == null)) {
                 throw new global::System.ArgumentNullException("CategoryName");
             }
@@ -7316,77 +7283,7 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
             else {
                 this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(PageTitle));
             }
-            this.Adapter.UpdateCommand.Parameters[9].Value = ((long)(Original_CategoryId));
-            if ((Original_CategoryName == null)) {
-                throw new global::System.ArgumentNullException("Original_CategoryName");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((string)(Original_CategoryName));
-            }
-            if ((Original_Description == null)) {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(Original_Description));
-            }
-            if ((Original_IMG_URL == null)) {
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((string)(Original_IMG_URL));
-            }
-            if ((Original_Metatags == null)) {
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[16].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((string)(Original_Metatags));
-            }
-            if ((Original_bg_img == null)) {
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[18].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((string)(Original_bg_img));
-            }
-            if ((Original_banner_img == null)) {
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[20].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[20].Value = ((string)(Original_banner_img));
-            }
-            if ((Original_Overview == null)) {
-                this.Adapter.UpdateCommand.Parameters[21].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[22].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[21].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[22].Value = ((string)(Original_Overview));
-            }
-            if ((Original_Meta_Desc == null)) {
-                this.Adapter.UpdateCommand.Parameters[23].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[24].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[23].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[24].Value = ((string)(Original_Meta_Desc));
-            }
-            if ((Original_PageTitle == null)) {
-                this.Adapter.UpdateCommand.Parameters[25].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[26].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[25].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[26].Value = ((string)(Original_PageTitle));
-            }
+            this.Adapter.UpdateCommand.Parameters[9].Value = ((long)(CategoryId));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
