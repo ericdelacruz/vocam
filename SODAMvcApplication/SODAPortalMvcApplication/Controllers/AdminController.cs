@@ -529,7 +529,23 @@ namespace SODAPortalMvcApplication.Controllers
 
         public ActionResult deleteregion(int id)
         {
+            if (!isUserSessionActive())
+            {
+                return RedirectToAction("login", "Home");
+            }
+            var sales = portalClient.getSalePerson().Select(sp=>sp).Where(sp=>sp.RegionId == id );
+            var price = portalClient.getPrice().Select(p => p).Where(p => p.RegionId == id);
+            if(sales.Count() > 0)
+            {
+                TempData["delRegionError"] = "Cannot delete region because it is currently assigned to a Sales Person (id:" + sales.First().Id;
+            }
+            else if(price.Count() >0)
+            {
+                TempData["delRegionError"] = "Cannot delete region because it is currently assigned to a Price (id:" + price.First().Id.ToString();
+            }
+            else
             portalClient.deleteRegion(id);
+
             return RedirectToAction("region");
         }
         #endregion  
@@ -537,6 +553,10 @@ namespace SODAPortalMvcApplication.Controllers
         #region Marketer
         public ActionResult marketer()
         {
+            if (!isUserSessionActive())
+            {
+                return RedirectToAction("login", "Home");
+            }
             var marketerList = from market in account.getAccount("")
                                where market.Role == 1
                                select market;
@@ -544,6 +564,10 @@ namespace SODAPortalMvcApplication.Controllers
         }
         public ActionResult addmarketer()
         {
+            if (!isUserSessionActive())
+            {
+                return RedirectToAction("login", "Home");
+            }
             return View();
         }
         [HttpPost]
@@ -578,6 +602,10 @@ namespace SODAPortalMvcApplication.Controllers
 
         public ActionResult editMarketer(long id)
         {
+            if (!isUserSessionActive())
+            {
+                return RedirectToAction("login", "Home");
+            }
             var marAccnt = from accnt in account.getAccount("")
                            where accnt.Role == 1 && accnt.Id == id
                            select accnt;
@@ -590,6 +618,10 @@ namespace SODAPortalMvcApplication.Controllers
         public ActionResult editmarketer(long id, FormCollection collection)
         {
             //DateTime birthdate = DateTime.Parse(collection["yyyy"] + "-" + collection["mm"] + "-" + collection["dd"]);
+            if (!isUserSessionActive())
+            {
+                return RedirectToAction("login", "Home");
+            }
             DateTime birthdate = new DateTime();
             if(collection["datefrom"].Trim() != "")
             {
@@ -625,6 +657,10 @@ namespace SODAPortalMvcApplication.Controllers
 
         public ActionResult deletemarketer(long id)
         {
+            if (!isUserSessionActive())
+            {
+                return RedirectToAction("login", "Home");
+            }
             var marAccnt = from accnt in account.getAccount("")
                            where accnt.Role == 1 && accnt.Id == id
                            select accnt;

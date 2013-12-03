@@ -43,8 +43,14 @@ namespace SODAMvcApplication.Controllers
             {
                 //error page
             }
-            var listSpecByCat = categoriesServiceClient.getSpecificByCatID(lCatID);
+            //var listSpecByCat = categoriesServiceClient.getSpecificByCatID(lCatID);
+            var listSpecByCat = from ca in categoriesServiceClient.getCatAssign()
+                                join spec in categoriesServiceClient.get() on ca.SpecID equals spec.Id
+                                where spec.CategoryID == lCatID
+                                select spec;
+
             ViewBag.SelCategory = categoriesServiceClient.get_Category(lCatID).First();
+
             return View(listSpecByCat);
         }
         //

@@ -78,7 +78,8 @@ namespace SODAPortalMvcApplication.Controllers
         }
         public ActionResult indexpurchase()
         {
-            
+            if (Session["Username"] == null)
+                return RedirectToAction("index", "home");
             return View();
         }
 
@@ -140,6 +141,8 @@ namespace SODAPortalMvcApplication.Controllers
       
         public ActionResult profile()
         {
+            if (Session["Username"] == null)
+                return RedirectToAction("index", "home");
             ViewModel.CustomerModel cust = Session["CustomerData"] as ViewModel.CustomerModel;
             return View(cust);
         }
@@ -210,9 +213,9 @@ namespace SODAPortalMvcApplication.Controllers
                 string confirmURL = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("confirm");
                 decimal price = customer.price.FirstMonthFree ? customer.price.PriceAmt * 5 : customer.price.PriceAmt * 6;
 
-                if ((customer.salesCode.Discount * 100) > 0)
+                if ((customer.salesCode.Discount) > 0)
                 {
-                    price = price - (customer.salesCode.Discount * 100);
+                    price = price - (customer.salesCode.Discount * price);
                 }
 
                 string redirectURL = paypalClient.checkout(price, SODAPayPalSerRef.CurrencyCodeType.AUD, itemname, itemDesc, itemURL, cancelURl, confirmURL);
@@ -232,6 +235,7 @@ namespace SODAPortalMvcApplication.Controllers
         }
         public ActionResult confirm(string token, string payerid)
         {
+            
             ViewModel.CustomerModel customer = new ViewModel.CustomerModel();
             if (Session["CustomerData"] != null)
             {
@@ -244,9 +248,9 @@ namespace SODAPortalMvcApplication.Controllers
                 string itemURL = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("checkout");
                 decimal price = customer.price.FirstMonthFree ? customer.price.PriceAmt * 5 : customer.price.PriceAmt * 6;
 
-                if ((customer.salesCode.Discount * 100) > 0)
+                if ((customer.salesCode.Discount) > 0)
                 {
-                    price = price - (customer.salesCode.Discount * 100);
+                    price = price - (customer.salesCode.Discount * price);
                 }
 
                 paypalClient.confirmation(customer.account.Id, payerid, token, price, customer.price.PriceAmt, SODAPayPalSerRef.CurrencyCodeType.AUD, itemname, itemDesc, DateTime.Now.AddMonths(6));
@@ -281,7 +285,10 @@ namespace SODAPortalMvcApplication.Controllers
              else
                  return RedirectToAction("index");
         }
-
+        public ActionResult downloads()
+        {
+            return View();
+        }
         public FileStreamResult StreamFileFromDisk()
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + "Content/download/";
