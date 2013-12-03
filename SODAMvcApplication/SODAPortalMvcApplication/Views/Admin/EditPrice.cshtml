@@ -19,7 +19,7 @@
                 
                 @foreach (var region in Regionlist)
                 {
-                    if (region.Id == Model.Id)
+                    if (region.Id == Model.RegionId)
                     {
                        
                         <option selected="selected" value="@region.Id">@region.RegionName</option>
