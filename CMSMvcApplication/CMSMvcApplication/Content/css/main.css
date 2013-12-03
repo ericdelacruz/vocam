@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /* CSS Document */
 
 
@@ -393,6 +393,10 @@ footer {
 	background-position: 0 0;
 	color:transparent;
 }
+
+
+
+
 
 /* Landing Page CSS */
 .landingSection {background: url(../images/landing/landingBg.jpg) top center no-repeat;

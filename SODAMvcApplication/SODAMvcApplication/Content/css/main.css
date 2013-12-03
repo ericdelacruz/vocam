@@ -522,6 +522,21 @@ footer {
 	color:transparent;
 }
 
+.freePptBtn{
+	display: block;
+	width: 177px;
+	height: 30px;
+	background: url('../images/categories/freepowerpoint-2.jpg') bottom;
+	text-indent: -99999px;
+	margin-bottom: 30px;
+	color:transparent;
+}
+.freePptBtn:hover {
+	background-position: 0 0;
+	color:transparent;
+}
+
+
 /* Landing Page CSS */
 .landingSection {
     /*background: url(../images/landing/landingBg.jpg) top center no-repeat;*/
@@ -605,7 +620,7 @@ footer {
 	display: block;
 	width: 511px;
 	height: 104px;
-	background: url('../images/landing/freePowerPoint2.png') bottom;
+	background: url('../images/landing/purchaseNow.jpg') bottom;
 	text-indent: -99999px;
 	color:transparent;
 }
