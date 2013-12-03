@@ -41,13 +41,15 @@ namespace SODAwcfService
         {
             if(!Allowed)
                 throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
-            return catTableAdaptor.InsertCategory(category_new.CategoryName, category_new.Description, category_new.IMG_URL, category_new.Metatags,category_new.BG_IMG, category_new.Banner_IMG, category_new.Overview,category_new.MetaDesc, category_new.PageTitile);
+            return catTableAdaptor.Insert(category_new.CategoryName, category_new.Description, category_new.IMG_URL, category_new.Metatags, category_new.BG_IMG, category_new.Banner_IMG, category_new.Overview, category_new.MetaDesc, category_new.PageTitile);
+            //return catTableAdaptor.InsertCategory(category_new.CategoryName, category_new.Description, category_new.IMG_URL, category_new.Metatags,category_new.BG_IMG, category_new.Banner_IMG, category_new.Overview,category_new.MetaDesc, category_new.PageTitile);
         }
         public int update_Category(Models.Category category_new)
         {
             if (!Allowed)
                 throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
-            return catTableAdaptor.UpdateCategory(category_new.CategoryName, category_new.Description, category_new.IMG_URL, category_new.Metatags, category_new.CategoryId, category_new.BG_IMG, category_new.Banner_IMG, category_new.Overview, category_new.PageTitile, category_new.MetaDesc);
+            return catTableAdaptor.Update(category_new.CategoryName, category_new.Description, category_new.IMG_URL, category_new.Metatags, category_new.BG_IMG, category_new.Banner_IMG, category_new.Overview, category_new.MetaDesc, category_new.PageTitile, category_new.CategoryId);
+            //return catTableAdaptor.UpdateCategory(category_new.CategoryName, category_new.Description, category_new.IMG_URL, category_new.Metatags, category_new.CategoryId, category_new.BG_IMG, category_new.Banner_IMG, category_new.Overview, category_new.PageTitile, category_new.MetaDesc);
         }
        
         public int delete_Category(long CategoryID)
@@ -96,39 +98,55 @@ namespace SODAwcfService
         {
             if (!Allowed)
                 throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
-            SodaDBDataSet.CategoryDataTable tbResults = new SodaDBDataSet.CategoryDataTable();
+            //SodaDBDataSet.CategoryDataTable tbResults = new SodaDBDataSet.CategoryDataTable();
 
-            List<Models.Category> listCat = new List<Models.Category>();
-            try
-            {
-                catTableAdaptor.Fill(tbResults);
-            }
-            catch (Exception ex)
-            {
-                throw (ex);
-                //throw (new FaultException("DB", new FaultCode("DB")));
-            }
+            //List<Models.Category> listCat = new List<Models.Category>();
+            //try
+            //{
+            //    catTableAdaptor.Fill(tbResults);
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw (ex);
+            //    //throw (new FaultException("DB", new FaultCode("DB")));
+            //}
 
-            foreach (DataRow row in tbResults.Rows)
+            //foreach (DataRow row in tbResults.Rows)
+            //{
+            //    listCat.Add(new Models.Category()
+            //    {
+            //        CategoryId = (long)row["CategoryID"],
+            //        CategoryName = row["CategoryName"].ToString(),
+            //        Description = row["Description"].ToString(),
+            //        Metatags = row["Metatags"].ToString(),
+            //        BG_IMG = row["bg_IMG"].ToString(),
+            //        Banner_IMG = row["banner_IMG"].ToString(),
+            //        Overview = row["Overview"].ToString(),
+            //        IMG_URL = row["IMG_URL"].ToString(),
+            //        MetaDesc = row["Meta_Desc"].ToString(),
+            //        PageTitile = row["PageTitle"].ToString()
+            //    });
+            //}
+            //return listCat;
+           
+            return catTableAdaptor.GetData().Select(cat => new Models.Category()
             {
-                listCat.Add(new Models.Category()
-                {
-                    CategoryId = (long)row["CategoryID"],
-                    CategoryName = row["CategoryName"].ToString(),
-                    Description = row["Description"].ToString(),
-                    Metatags = row["Metatags"].ToString(),
-                    BG_IMG = row["bg_IMG"].ToString(),
-                    Banner_IMG = row["banner_IMG"].ToString(),
-                    Overview = row["Overview"].ToString(),
-                    IMG_URL = row["IMG_URL"].ToString(),
-                    MetaDesc = row["Meta_Desc"].ToString(),
-                    PageTitile = row["PageTitle"].ToString()
-                });
-            }
-            return listCat;
+                CategoryId = cat.CategoryId,
+                CategoryName = cat.CategoryName,
+                PageTitile = cat.PageTitle,
+                Description = cat.Description,
+                Banner_IMG = cat.banner_img,
+                BG_IMG = cat.bg_img,
+                IMG_URL = cat.IMG_URL,
+                Overview = cat.Overview,
+                MetaDesc = cat.Meta_Desc,
+                Metatags = cat.Metatags
+            });
+
         }
 
         #endregion
+
         #region Specific
         public int add_Specific(Models.Specific specific_new)
         {
