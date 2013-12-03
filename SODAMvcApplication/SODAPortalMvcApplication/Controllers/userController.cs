@@ -133,7 +133,8 @@ namespace SODAPortalMvcApplication.Controllers
         public ActionResult paymentstatus(string stat)
         {
             ViewBag.paymentSuccess = Session["Username"] != null && stat == "success";
-           
+            if (stat != "success" && Session["CustomerData"] != null)
+                Session.Remove("CustomerData");
             return View();
         }
       
@@ -192,6 +193,7 @@ namespace SODAPortalMvcApplication.Controllers
             {
                 var accnt = from account in AccountClient.getAccount(Session["Username"].ToString())
                             select account;
+
                 var salesPersonCodePrice = Session["SalesCode"] as ViewModel.VerifyModel;
 
                 customer.account = accnt.First();
@@ -215,6 +217,7 @@ namespace SODAPortalMvcApplication.Controllers
 
                 string redirectURL = paypalClient.checkout(price, SODAPayPalSerRef.CurrencyCodeType.AUD, itemname, itemDesc, itemURL, cancelURl, confirmURL);
                 //string redirectURL = PaypalHelper.checkout(price, Moolah.PayPal.CurrencyCodeType.AUD, itemname, itemDesc, itemURL, cancelURl, confirmURL);
+
                 return Redirect(redirectURL);
 
             }
@@ -277,6 +280,13 @@ namespace SODAPortalMvcApplication.Controllers
              }
              else
                  return RedirectToAction("index");
+        }
+
+        public FileStreamResult StreamFileFromDisk()
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory + "Content/download/";
+            string filename = "Sample Pictures.zip";
+            return File(new System.IO.FileStream(path + filename, System.IO.FileMode.Open), "application/zip","TestFileDownload");
         }
     }
 }
