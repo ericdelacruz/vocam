@@ -10,7 +10,11 @@
     <div class="portalCont margin15">
         <h2>Region <span><a href="@Url.Action("addregion")"><img alt="Add" src="~/Content/images/portal/addNew.gif"></a></span></h2>
         <p>&nbsp;</p>
-
+        @*Error message*@
+        @if (TempData["delRegionError"] != null)
+        {
+            <p>@TempData["delRegionError"]</p>
+        }
         <table class="portTable">
         @{ if (Model.Count() > 0)
              {
