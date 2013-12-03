@@ -17,7 +17,7 @@ namespace SODAwcfService
         private SodaDBDataSetTableAdapters.RelatedTableAdapter relTableAdaptor;
         private SodaDBDataSetTableAdapters.TopicsTableAdapter topicAdapter;
         private SodaDBDataSetTableAdapters.chapterTableAdapter chapterAdapter;
-        
+        private SodaDBDataSetTableAdapters.CategoryAssignmentTableAdapter CAAdapter;
         private string asdasd = EncDec.EncryptData("myS0D@P@ssw0rd");
        
         private bool Allowed = true;
@@ -29,6 +29,7 @@ namespace SODAwcfService
             relTableAdaptor = new SodaDBDataSetTableAdapters.RelatedTableAdapter();
             chapterAdapter = new SodaDBDataSetTableAdapters.chapterTableAdapter();
             topicAdapter = new SodaDBDataSetTableAdapters.TopicsTableAdapter();
+            CAAdapter = new SodaDBDataSetTableAdapters.CategoryAssignmentTableAdapter();
         }
         public bool Authenticate(string Password)
         {
@@ -98,36 +99,7 @@ namespace SODAwcfService
         {
             if (!Allowed)
                 throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
-            //SodaDBDataSet.CategoryDataTable tbResults = new SodaDBDataSet.CategoryDataTable();
-
-            //List<Models.Category> listCat = new List<Models.Category>();
-            //try
-            //{
-            //    catTableAdaptor.Fill(tbResults);
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw (ex);
-            //    //throw (new FaultException("DB", new FaultCode("DB")));
-            //}
-
-            //foreach (DataRow row in tbResults.Rows)
-            //{
-            //    listCat.Add(new Models.Category()
-            //    {
-            //        CategoryId = (long)row["CategoryID"],
-            //        CategoryName = row["CategoryName"].ToString(),
-            //        Description = row["Description"].ToString(),
-            //        Metatags = row["Metatags"].ToString(),
-            //        BG_IMG = row["bg_IMG"].ToString(),
-            //        Banner_IMG = row["banner_IMG"].ToString(),
-            //        Overview = row["Overview"].ToString(),
-            //        IMG_URL = row["IMG_URL"].ToString(),
-            //        MetaDesc = row["Meta_Desc"].ToString(),
-            //        PageTitile = row["PageTitle"].ToString()
-            //    });
-            //}
-            //return listCat;
+            
            
             return catTableAdaptor.GetData().Select(cat => new Models.Category()
             {
@@ -183,37 +155,6 @@ namespace SODAwcfService
         {
             if (!Allowed)
                 throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
-            //SodaDBDataSet.SpecificDataTable tbResult = new SodaDBDataSet.SpecificDataTable();
-            //List<Models.Specific> listSpec = new List<Models.Specific>();
-            
-            //try
-            //{
-            //    specTableAdaptor.FillById(tbResult, ID);
-            //}
-            //catch(Exception ex)
-            //{
-            //    throw (new FaultException("DB", new FaultCode("DB")));
-            //}
-
-            //foreach(DataRow row in tbResult.Rows)
-            //{
-            //    listSpec.Add(new Models.Specific() { 
-            //                     CategoryID = (long)row["CategoryID"],
-            //                     Id = (long)row["Id"],
-            //                     Title = row["Title"].ToString(),
-            //                     Description = row["Description"].ToString(),
-            //                     VideoURL = row["VideoURL"].ToString(),
-            //                     ImageURL = row["ImageURL"].ToString(),
-            //                     Metatags = row["Metatags"].ToString(),
-            //                     BG_Img = row["bg_img"].ToString(),
-            //                     Overview = row["Overview"].ToString(),
-            //                      TitleCode = row["TitleCode"].ToString(),
-            //                     MetaDesc = row["Meta_Desc"].ToString(),
-            //                     PageTitle = row["PageTitle"].ToString()
-            //    });
-            //}
-
-            //return listSpec;
 
             return specTableAdaptor.GetData().Select(spec => new Models.Specific
             {
@@ -239,38 +180,7 @@ namespace SODAwcfService
         {
             if (!Allowed)
                 throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
-            //SodaDBDataSet.SpecificDataTable tbResult = new SodaDBDataSet.SpecificDataTable();
-            //List<Models.Specific> listSpec = new List<Models.Specific>();
-
-            //try
-            //{
-            //    specTableAdaptor.FillByCategoryID(tbResult,CatID);
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw (new FaultException("DB", new FaultCode("DB")));
-            //}
-
-            //foreach (DataRow row in tbResult.Rows)
-            //{
-            //    listSpec.Add(new Models.Specific()
-            //    {
-            //        CategoryID = (long)row["CategoryID"],
-            //        Id = (long)row["Id"],
-            //        Title = row["Title"].ToString(),
-            //        Description = row["Description"].ToString(),
-            //        VideoURL = row["VideoURL"].ToString(),
-            //        ImageURL = row["ImageURL"].ToString(),
-            //        Metatags = row["Metatags"].ToString(),
-            //        Overview = row["Overview"].ToString(),
-            //        TitleCode = row["TitleCode"].ToString(),
-            //        BG_Img = row["bg_img"].ToString(),
-            //        MetaDesc = row["Meta_Desc"].ToString(),
-            //        PageTitle = row["PageTitle"].ToString()
-            //    });
-            //}
-
-            //return listSpec;
+           
             return specTableAdaptor.GetData().Select(spec => new Models.Specific
             {
                 Id = spec.Id,
@@ -324,38 +234,7 @@ namespace SODAwcfService
             
             if (!Allowed)
                 throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
-            //SodaDBDataSet.SpecificDataTable tbResult = new SodaDBDataSet.SpecificDataTable();
-            //List<Models.Specific> listSpec = new List<Models.Specific>();
-
-            //try
-            //{
-            //    specTableAdaptor.Fill(tbResult);
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw (new FaultException("DB", new FaultCode("DB")));
-            //}
-
-            //foreach (DataRow row in tbResult.Rows)
-            //{
-            //    listSpec.Add(new Models.Specific()
-            //    {
-            //        CategoryID = (long)row["CategoryID"],
-            //        Id = (long)row["Id"],
-            //        Title = row["Title"].ToString(),
-            //        Description = row["Description"].ToString(),
-            //        VideoURL = row["VideoURL"].ToString(),
-            //        ImageURL = row["ImageURL"].ToString(),
-            //        Metatags = row["Metatags"].ToString(),
-            //        Overview = row["Overview"].ToString(),
-            //        TitleCode = row["TitleCode"].ToString(),
-            //        BG_Img = row["bg_img"].ToString(),
-            //         PageTitle = row["PageTitle"].ToString(),
-            //          MetaDesc = row["Meta_Desc"].ToString()
-            //    });
-            //}
-
-            //return listSpec;
+            
             return specTableAdaptor.GetData().Select(spec => new Models.Specific
             {
                 Id = spec.Id,
@@ -420,5 +299,43 @@ namespace SODAwcfService
             return topicAdapter.Delete(id);
         }
         #endregion
+
+         public IEnumerable<Models.CategoryAssignment> getCatAssign()
+        {
+            if (!Allowed)
+                throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
+
+            return CAAdapter.GetData().Select(ca => new Models.CategoryAssignment()
+            {
+                Id = ca.Id,
+                CategoryId = ca.CategoryId,
+                SpecID = ca.SpecId
+            });
+        }
+
+        public int addCatAssign(long specId, long catId)
+        {
+             if (!Allowed)
+                 throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
+
+             return CAAdapter.Insert(specId, catId);
+        }
+
+        public int updateCatAssign(long specId, long catId, int Id)
+        {
+
+            if (!Allowed)
+                throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
+
+            return CAAdapter.Update(specId, catId, Id);
+        }
+
+        public int deleteCatAssign(int Id)
+        {
+            if (!Allowed)
+                throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
+            return CAAdapter.Delete(Id);
+        }
+
     }
 }

@@ -76,5 +76,16 @@ namespace SODAwcfService
         [OperationContract]
         int deleteTopic(long id);
         #endregion
+
+        #region Cat Assign
+        [OperationContract]
+        IEnumerable<Models.CategoryAssignment> getCatAssign();
+        [OperationContract]
+        int addCatAssign(long specId, long catId);
+        [OperationContract]
+        int updateCatAssign(long specId, long catId, int Id);
+        [OperationContract]
+        int deleteCatAssign(int Id);
+        #endregion
     }
 }
