@@ -85,6 +85,78 @@
   <wsdl:message name="ICatListingService_get_OutputMessage">
     <wsdl:part name="parameters" element="tns:getResponse" />
   </wsdl:message>
+  <wsdl:message name="ICatListingService_addChapter_InputMessage">
+    <wsdl:part name="parameters" element="tns:addChapter" />
+  </wsdl:message>
+  <wsdl:message name="ICatListingService_addChapter_OutputMessage">
+    <wsdl:part name="parameters" element="tns:addChapterResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICatListingService_getChapter_InputMessage">
+    <wsdl:part name="parameters" element="tns:getChapter" />
+  </wsdl:message>
+  <wsdl:message name="ICatListingService_getChapter_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getChapterResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICatListingService_updateChapter_InputMessage">
+    <wsdl:part name="parameters" element="tns:updateChapter" />
+  </wsdl:message>
+  <wsdl:message name="ICatListingService_updateChapter_OutputMessage">
+    <wsdl:part name="parameters" element="tns:updateChapterResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICatListingService_deleteChapter_InputMessage">
+    <wsdl:part name="parameters" element="tns:deleteChapter" />
+  </wsdl:message>
+  <wsdl:message name="ICatListingService_deleteChapter_OutputMessage">
+    <wsdl:part name="parameters" element="tns:deleteChapterResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICatListingService_addTopic_InputMessage">
+    <wsdl:part name="parameters" element="tns:addTopic" />
+  </wsdl:message>
+  <wsdl:message name="ICatListingService_addTopic_OutputMessage">
+    <wsdl:part name="parameters" element="tns:addTopicResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICatListingService_getTopics_InputMessage">
+    <wsdl:part name="parameters" element="tns:getTopics" />
+  </wsdl:message>
+  <wsdl:message name="ICatListingService_getTopics_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getTopicsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICatListingService_updateTopic_InputMessage">
+    <wsdl:part name="parameters" element="tns:updateTopic" />
+  </wsdl:message>
+  <wsdl:message name="ICatListingService_updateTopic_OutputMessage">
+    <wsdl:part name="parameters" element="tns:updateTopicResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICatListingService_deleteTopic_InputMessage">
+    <wsdl:part name="parameters" element="tns:deleteTopic" />
+  </wsdl:message>
+  <wsdl:message name="ICatListingService_deleteTopic_OutputMessage">
+    <wsdl:part name="parameters" element="tns:deleteTopicResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICatListingService_getCatAssign_InputMessage">
+    <wsdl:part name="parameters" element="tns:getCatAssign" />
+  </wsdl:message>
+  <wsdl:message name="ICatListingService_getCatAssign_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getCatAssignResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICatListingService_addCatAssign_InputMessage">
+    <wsdl:part name="parameters" element="tns:addCatAssign" />
+  </wsdl:message>
+  <wsdl:message name="ICatListingService_addCatAssign_OutputMessage">
+    <wsdl:part name="parameters" element="tns:addCatAssignResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICatListingService_updateCatAssign_InputMessage">
+    <wsdl:part name="parameters" element="tns:updateCatAssign" />
+  </wsdl:message>
+  <wsdl:message name="ICatListingService_updateCatAssign_OutputMessage">
+    <wsdl:part name="parameters" element="tns:updateCatAssignResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICatListingService_deleteCatAssign_InputMessage">
+    <wsdl:part name="parameters" element="tns:deleteCatAssign" />
+  </wsdl:message>
+  <wsdl:message name="ICatListingService_deleteCatAssign_OutputMessage">
+    <wsdl:part name="parameters" element="tns:deleteCatAssignResponse" />
+  </wsdl:message>
   <wsdl:portType name="ICatListingService">
     <wsdl:operation name="add_Category">
       <wsdl:input wsaw:Action="http://tempuri.org/ICatListingService/add_Category" message="tns:ICatListingService_add_Category_InputMessage" />
@@ -137,6 +209,54 @@
     <wsdl:operation name="get">
       <wsdl:input wsaw:Action="http://tempuri.org/ICatListingService/get" message="tns:ICatListingService_get_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICatListingService/getResponse" message="tns:ICatListingService_get_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="addChapter">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICatListingService/addChapter" message="tns:ICatListingService_addChapter_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICatListingService/addChapterResponse" message="tns:ICatListingService_addChapter_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getChapter">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICatListingService/getChapter" message="tns:ICatListingService_getChapter_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICatListingService/getChapterResponse" message="tns:ICatListingService_getChapter_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="updateChapter">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICatListingService/updateChapter" message="tns:ICatListingService_updateChapter_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICatListingService/updateChapterResponse" message="tns:ICatListingService_updateChapter_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteChapter">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICatListingService/deleteChapter" message="tns:ICatListingService_deleteChapter_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICatListingService/deleteChapterResponse" message="tns:ICatListingService_deleteChapter_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="addTopic">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICatListingService/addTopic" message="tns:ICatListingService_addTopic_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICatListingService/addTopicResponse" message="tns:ICatListingService_addTopic_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getTopics">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICatListingService/getTopics" message="tns:ICatListingService_getTopics_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICatListingService/getTopicsResponse" message="tns:ICatListingService_getTopics_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="updateTopic">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICatListingService/updateTopic" message="tns:ICatListingService_updateTopic_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICatListingService/updateTopicResponse" message="tns:ICatListingService_updateTopic_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteTopic">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICatListingService/deleteTopic" message="tns:ICatListingService_deleteTopic_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICatListingService/deleteTopicResponse" message="tns:ICatListingService_deleteTopic_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getCatAssign">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICatListingService/getCatAssign" message="tns:ICatListingService_getCatAssign_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICatListingService/getCatAssignResponse" message="tns:ICatListingService_getCatAssign_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="addCatAssign">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICatListingService/addCatAssign" message="tns:ICatListingService_addCatAssign_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICatListingService/addCatAssignResponse" message="tns:ICatListingService_addCatAssign_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="updateCatAssign">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICatListingService/updateCatAssign" message="tns:ICatListingService_updateCatAssign_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICatListingService/updateCatAssignResponse" message="tns:ICatListingService_updateCatAssign_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteCatAssign">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICatListingService/deleteCatAssign" message="tns:ICatListingService_deleteCatAssign_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICatListingService/deleteCatAssignResponse" message="tns:ICatListingService_deleteCatAssign_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ICatListingService" type="tns:ICatListingService">
@@ -251,6 +371,114 @@
     </wsdl:operation>
     <wsdl:operation name="get">
       <soap:operation soapAction="http://tempuri.org/ICatListingService/get" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addChapter">
+      <soap:operation soapAction="http://tempuri.org/ICatListingService/addChapter" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getChapter">
+      <soap:operation soapAction="http://tempuri.org/ICatListingService/getChapter" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateChapter">
+      <soap:operation soapAction="http://tempuri.org/ICatListingService/updateChapter" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteChapter">
+      <soap:operation soapAction="http://tempuri.org/ICatListingService/deleteChapter" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addTopic">
+      <soap:operation soapAction="http://tempuri.org/ICatListingService/addTopic" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTopics">
+      <soap:operation soapAction="http://tempuri.org/ICatListingService/getTopics" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateTopic">
+      <soap:operation soapAction="http://tempuri.org/ICatListingService/updateTopic" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteTopic">
+      <soap:operation soapAction="http://tempuri.org/ICatListingService/deleteTopic" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCatAssign">
+      <soap:operation soapAction="http://tempuri.org/ICatListingService/getCatAssign" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addCatAssign">
+      <soap:operation soapAction="http://tempuri.org/ICatListingService/addCatAssign" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateCatAssign">
+      <soap:operation soapAction="http://tempuri.org/ICatListingService/updateCatAssign" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteCatAssign">
+      <soap:operation soapAction="http://tempuri.org/ICatListingService/deleteCatAssign" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
