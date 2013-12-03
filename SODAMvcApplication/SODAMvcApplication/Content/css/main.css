@@ -614,6 +614,12 @@ footer {
 	color:transparent;
 }
 
+
+.contactFormPop {padding-top:30px;}
+.contactFormPop input, .contactFormPop select  {display: inline; margin-left: 5px; margin-top:5px;}
+.contactFormPop label {width:150px; text-align: right;}
+
+
 .browseCatBtn{
 	display: block;
 	width: 185px;

@@ -25,7 +25,7 @@
             <h1> @MvcHtmlString.Create(@getVal("header_banner_Title", "text"))</h1>@*header_banner_Title*@
             <h2 id="header_banner_txt">@MvcHtmlString.Create(@getVal("header_banner_txt", "text"))</h2> @*header_banner_txt*@
 
-            <a class="freePowerPointBtn fl" href="#freePpt" rel="prettyPhoto">Free Powerpoint</a>@*previewNowBtn_href *@
+            <a class="freePowerPointBtn fl" href="#freePpt" rel="freePowerPoint">Free Powerpoint</a>@*previewNowBtn_href *@
 
             <div id="freePpt" class="hide" style="width:100%; height:70%; padding:2%; padding-top:30px;">
                 <form class="contactFormPop">
@@ -52,9 +52,9 @@
                         <option value="warehouse">Warehouse Induction Powerpoint</option>
 
                     </select>
-
-                    <img style="border-width:0px;" src="http://www.safety-tv.com/VerificationCode.ashx" id="ctl00_ctMaster_Image1">
-
+                    <div align="center">
+                        <img style="border-width:0px; margin:0 auto;" src="http://www.safety-tv.com/VerificationCode.ashx" id="ctl00_ctMaster_Image1">
+                    </div>
                     <label>Verification code*</label>
                     <input type="text" style="width:300px;" class="form-control" id="ctl00_ctMaster_txtVerificationCode" name="ctl00$ctMaster$txtVerificationCode" required>
                     <br><br>
