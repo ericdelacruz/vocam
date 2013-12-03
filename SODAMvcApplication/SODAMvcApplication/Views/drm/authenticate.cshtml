@@ -1,0 +1,8 @@
+﻿@model System.DateTime 
+@*Subsciption end date*@
+@{
+    Layout = null;
+    var dateDiff = Model != null? (DateTime.Now - Model).TotalDays:0;
+}
+Attribute = true <br />
+AccessExpirationDays=@dateDiff

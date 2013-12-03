@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="AccountService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:50615/AccountService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:50615/AccountService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:50615/AccountService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SODAwcfService.Models" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IAccountService_addAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:addAccount" />
+  </wsdl:message>
+  <wsdl:message name="IAccountService_addAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:addAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountService_updateAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:updateAccount" />
+  </wsdl:message>
+  <wsdl:message name="IAccountService_updateAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:updateAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountService_getAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:getAccount" />
+  </wsdl:message>
+  <wsdl:message name="IAccountService_getAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountService_deleteAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:deleteAccount" />
+  </wsdl:message>
+  <wsdl:message name="IAccountService_deleteAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:deleteAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountService_AuthenticateUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:AuthenticateUser" />
+  </wsdl:message>
+  <wsdl:message name="IAccountService_AuthenticateUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AuthenticateUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountService_isUserNameExists_InputMessage">
+    <wsdl:part name="parameters" element="tns:isUserNameExists" />
+  </wsdl:message>
+  <wsdl:message name="IAccountService_isUserNameExists_OutputMessage">
+    <wsdl:part name="parameters" element="tns:isUserNameExistsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountService_sendEmailForPassword_InputMessage">
+    <wsdl:part name="parameters" element="tns:sendEmailForPassword" />
+  </wsdl:message>
+  <wsdl:message name="IAccountService_sendEmailForPassword_OutputMessage">
+    <wsdl:part name="parameters" element="tns:sendEmailForPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountService_Authenticate_InputMessage">
+    <wsdl:part name="parameters" element="tns:Authenticate" />
+  </wsdl:message>
+  <wsdl:message name="IAccountService_Authenticate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AuthenticateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountService_LogOff_InputMessage">
+    <wsdl:part name="parameters" element="tns:LogOff" />
+  </wsdl:message>
+  <wsdl:message name="IAccountService_LogOff_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LogOffResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountService_sendEmailForVerification_InputMessage">
+    <wsdl:part name="parameters" element="tns:sendEmailForVerification" />
+  </wsdl:message>
+  <wsdl:message name="IAccountService_sendEmailForVerification_OutputMessage">
+    <wsdl:part name="parameters" element="tns:sendEmailForVerificationResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IAccountService">
+    <wsdl:operation name="addAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountService/addAccount" message="tns:IAccountService_addAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountService/addAccountResponse" message="tns:IAccountService_addAccount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="updateAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountService/updateAccount" message="tns:IAccountService_updateAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountService/updateAccountResponse" message="tns:IAccountService_updateAccount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountService/getAccount" message="tns:IAccountService_getAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountService/getAccountResponse" message="tns:IAccountService_getAccount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountService/deleteAccount" message="tns:IAccountService_deleteAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountService/deleteAccountResponse" message="tns:IAccountService_deleteAccount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AuthenticateUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountService/AuthenticateUser" message="tns:IAccountService_AuthenticateUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountService/AuthenticateUserResponse" message="tns:IAccountService_AuthenticateUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="isUserNameExists">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountService/isUserNameExists" message="tns:IAccountService_isUserNameExists_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountService/isUserNameExistsResponse" message="tns:IAccountService_isUserNameExists_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="sendEmailForPassword">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountService/sendEmailForPassword" message="tns:IAccountService_sendEmailForPassword_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountService/sendEmailForPasswordResponse" message="tns:IAccountService_sendEmailForPassword_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Authenticate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountService/Authenticate" message="tns:IAccountService_Authenticate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountService/AuthenticateResponse" message="tns:IAccountService_Authenticate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="LogOff">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountService/LogOff" message="tns:IAccountService_LogOff_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountService/LogOffResponse" message="tns:IAccountService_LogOff_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="sendEmailForVerification">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountService/sendEmailForVerification" message="tns:IAccountService_sendEmailForVerification_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountService/sendEmailForVerificationResponse" message="tns:IAccountService_sendEmailForVerification_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IAccountService" type="tns:IAccountService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="addAccount">
+      <soap:operation soapAction="http://tempuri.org/IAccountService/addAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateAccount">
+      <soap:operation soapAction="http://tempuri.org/IAccountService/updateAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAccount">
+      <soap:operation soapAction="http://tempuri.org/IAccountService/getAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteAccount">
+      <soap:operation soapAction="http://tempuri.org/IAccountService/deleteAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AuthenticateUser">
+      <soap:operation soapAction="http://tempuri.org/IAccountService/AuthenticateUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isUserNameExists">
+      <soap:operation soapAction="http://tempuri.org/IAccountService/isUserNameExists" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendEmailForPassword">
+      <soap:operation soapAction="http://tempuri.org/IAccountService/sendEmailForPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Authenticate">
+      <soap:operation soapAction="http://tempuri.org/IAccountService/Authenticate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogOff">
+      <soap:operation soapAction="http://tempuri.org/IAccountService/LogOff" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendEmailForVerification">
+      <soap:operation soapAction="http://tempuri.org/IAccountService/sendEmailForVerification" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AccountService">
+    <wsdl:port name="BasicHttpBinding_IAccountService" binding="tns:BasicHttpBinding_IAccountService">
+      <soap:address location="http://localhost:50615/AccountService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
