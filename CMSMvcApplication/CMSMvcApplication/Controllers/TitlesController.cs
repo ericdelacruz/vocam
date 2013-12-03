@@ -195,23 +195,23 @@ namespace CMSMvcApplication.Controllers
         {
             int nNum =0;
             double dNum=0;
-            if(!int.TryParse(collection["duration"], out nNum))
+            if(collection["duration"].Trim() != "" && !int.TryParse(collection["duration"], out nNum))
             {
                 errorMsg = "Invalid input for Duration";
                 return true;
             }
-            if(!int.TryParse(collection["totalChap"],out nNum))
+            if(collection["totalChap"].Trim() != "" &&!int.TryParse(collection["totalChap"],out nNum))
             {
                 errorMsg = "Invalid input for total chapters";
                 return true;
             }
-            if(!int.TryParse(collection["indisc"],out nNum))
+            if(collection["indisc"].Trim() != "" && !int.TryParse(collection["indisc"],out nNum))
             {
                 errorMsg = "Invalid input for In Disc";
                 return true;
             }
              
-            if(!double.TryParse(collection["time"],out dNum))
+            if(collection["time"].Trim() != "" && !double.TryParse(collection["time"],out dNum))
             {
                 errorMsg = "Invalid input for Time";
                 return true;
