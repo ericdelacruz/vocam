@@ -10,8 +10,9 @@ namespace SODAMvcApplication.Controllers
     {
         //
         // GET: /Home/
-        private static CMSServiceReference.CMS_ServiceClient cmsServiceClient = new CMSServiceReference.CMS_ServiceClient();
+        private CMSServiceReference.CMS_ServiceClient cmsServiceClient = new CMSServiceReference.CMS_ServiceClient();
         private string password = "myS0D@P@ssw0rd";
+
         private const string HOME = "Home";
         private const string CONTACT = "Contact";
         private const string LEARN = "Learn";
@@ -33,7 +34,11 @@ namespace SODAMvcApplication.Controllers
             return View(lContentDef);
         }
 
-       
+        protected override void Dispose(bool disposing)
+        {
+           cmsServiceClient.Close();
+            base.Dispose(disposing);
+        }
         //
         //GET: /Contact/
         public ActionResult Contact()

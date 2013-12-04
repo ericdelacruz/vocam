@@ -28,6 +28,11 @@ namespace SODAMvcApplication.Controllers
                                   select cat;
              return View(listCategories);
         }
+        protected override void Dispose(bool disposing)
+        {
+            categoriesServiceClient.Close();
+            base.Dispose(disposing);
+        }
         //
         //GET: /Categories/Browse?cID=catname
         /// <summary>
@@ -35,10 +40,13 @@ namespace SODAMvcApplication.Controllers
         /// </summary>
         /// <param name="cID"></param>
         /// <returns></returns>
-        public ActionResult Browse(string cID)
+        public ActionResult Browse(string cat)
         {
-            long lCatID = 0;
-            long.TryParse(HttpUtility.HtmlEncode(cID), out lCatID);
+            string strCatName = HttpUtility.HtmlEncode(cat);
+
+
+            long lCatID = getCategoryId(strCatName);
+            //long.TryParse(HttpUtility.HtmlEncode(cID), out lCatID);
             if (!categoriesServiceClient.Authenticate(password) || lCatID == 0)
             {
                 //error page
@@ -46,12 +54,22 @@ namespace SODAMvcApplication.Controllers
             //var listSpecByCat = categoriesServiceClient.getSpecificByCatID(lCatID);
             var listSpecByCat = from ca in categoriesServiceClient.getCatAssign()
                                 join spec in categoriesServiceClient.get() on ca.SpecID equals spec.Id
-                                where spec.CategoryID == lCatID
+                                where ca.CategoryId == lCatID
                                 select spec;
 
             ViewBag.SelCategory = categoriesServiceClient.get_Category(lCatID).First();
 
             return View(listSpecByCat);
+        }
+
+        private long getCategoryId(string strCatName)
+        {
+            //long lCatID = 0;
+
+            var category = categoriesServiceClient.get_Categories().Select(c => c).Where(c => c.CategoryName.ToLower().Replace("-"," ") == strCatName.Replace("-", " ").ToLower());
+
+            
+            return category.Count() > 0? category.First().CategoryId:0;
         }
         //
         //GET:/Categories/Details/1234
@@ -60,23 +78,29 @@ namespace SODAMvcApplication.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ActionResult Details(long id)
+        public ActionResult Details(string id)
         {
+            
+
             if (!categoriesServiceClient.Authenticate(password))
             {
                 //error page
             }
-            var spec = categoriesServiceClient.getSpecificByID(id).First();
-            ViewBag.SelCategory = categoriesServiceClient.get_Category(spec.CategoryID).First();
+            //var spec = categoriesServiceClient.getSpecificByID(id).First();
+            var spec = categoriesServiceClient.get().Select(s => s).Where(s => s.Title.ToLower().Replace("-"," ") == id.Replace("-", " ").ToLower());
+            
+            ViewBag.SelCategory = categoriesServiceClient.get_Category(spec.First().CategoryID).First();
             try
             {
-                ViewBag.Related = categoriesServiceClient.getRelatedByID(spec.Id);
+                ViewBag.Related = categoriesServiceClient.getRelatedByID(spec.First().Id);
             }
             catch(Exception ex)
             {
                 //
             }
-            return View(spec);
+            return View(spec.First());
         }
+
+         
     }
 }
