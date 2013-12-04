@@ -439,6 +439,8 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <Content Include="Views\drm\authenticate.cshtml" />
+    <Content Include="Views\home\contactFreePpt.cshtml" />
+    <Content Include="Views\home\thankyou.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
