@@ -16,10 +16,31 @@ a:focus {border: none !important;}
 	padding:45px;
 	min-height: 465px; }
 
-selectedUI { border:1px solid #999; background:#CCC; padding:4px; overflow:hidden; }
-	.selectedList { float:left; border:1px solid #999; background:#DDD; padding:4px; margin-right:4px; }
-	.selectedList:hover { background:#FFF; }
-	.selectedList a { text-decoration:none; }
+ .ifield {
+        background: #fefefe;
+        height: 30px;
+        width: 60%;
+        border: 1px solid #cccccc;
+        padding: 5px;
+        border: 1px solid #999;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -web-kit-border-radius: 4px;
+        -khtml-border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    }
+
+ .addedCat {margin:10px 0;}
+
+    .selectedUI { border:1px solid #CCCCCC; background:#F5F5F5; padding:5px; overflow:hidden; border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05); margin-top:20px; }
+	.selectedList { float:left; border:1px solid #999999; background:#FFF; padding:5px; margin:4px; }
+	.selectedList:hover { background:#EBEBEB; }
+	.selectedList a { text-decoration:none; font-size:18px; font-family:Arial 'Blackoak Std'; font-weight:bold; color:#760202; margin-left:5px;}
+
 
 .formSignin {
 margin: 35px auto 50px;
