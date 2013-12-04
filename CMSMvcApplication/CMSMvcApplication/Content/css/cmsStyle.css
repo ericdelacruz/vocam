@@ -16,6 +16,11 @@ a:focus {border: none !important;}
 	padding:45px;
 	min-height: 465px; }
 
+selectedUI { border:1px solid #999; background:#CCC; padding:4px; overflow:hidden; }
+	.selectedList { float:left; border:1px solid #999; background:#DDD; padding:4px; margin-right:4px; }
+	.selectedList:hover { background:#FFF; }
+	.selectedList a { text-decoration:none; }
+
 .formSignin {
 margin: 35px auto 50px;
 max-width: 450px;

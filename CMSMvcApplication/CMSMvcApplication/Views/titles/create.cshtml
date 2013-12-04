@@ -40,14 +40,17 @@
         <label>Code*</label>
         <input type="text" class="form-control" placeholder="Enter Title Code" autofocus="" name="Code" required>
         <label>Category*</label>
-        <select class="form-control" name="Category">
-        @foreach(var cat in catlist)
-        {
-            <option value=@cat.CategoryId>@cat.CategoryName</option>
-        }
-           
+        <select id="dddd" name="d" class="form-control" name="Category">
+            @foreach (var cat in catlist)
+            {
+                <option value=@cat.CategoryId>@cat.CategoryName</option>
+            }
+
         </select>
-        <br />
+    <button type="button" id="button" class="btn btn-default fl">Add</button>
+
+        <div class="selectedUI"></div>
+        <br /> <br />
 
         <label>Overview</label>
         <textarea class="field span12 form-control" id="textarea" rows="3" cols="49" placeholder="" name="Overview"></textarea>

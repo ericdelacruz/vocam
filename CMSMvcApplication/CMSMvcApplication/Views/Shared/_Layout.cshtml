@@ -154,6 +154,45 @@
         }
     </script>
 
+    <script>
+        jQuery(document).ready(function () {
+
+
+            jQuery('#button').click(function () {
+                $selected = jQuery('#dddd').val();
+                if ($selected == null) { return false; }
+                for ($x = 0; $x < $selected.length; $x++) {
+                    $xvals = jQuery("#dddd option[value='" + $selected[$x] + "']").text();
+                    $selectedUI = jQuery('.selectedUI').append('<div class="selectedList">' + $xvals + ' <a class="unselect" href="#" rel="' + $selected[$x] + '">x</a></div>');
+
+                    jQuery('#tttt').append('<option value="' + $selected[$x] + '">' + $xvals + '</option>');
+
+                }
+
+
+                jQuery('#tttt option').prop('selected', 'selected');
+                jQuery('option:selected', '#dddd').remove();
+
+
+            });
+
+
+            jQuery(document).on('click', '.unselect', function () {
+
+                $itsVal = jQuery(this).attr('rel');
+                $itsTxt = jQuery(this).parent().text();
+                $itsTxt = $itsTxt.replace(" x", "");
+
+                jQuery('#dddd').append('<option value="' + $itsVal + '">' + $itsTxt + '</option>');
+
+                jQuery('#tttt option[value=' + $itsVal + ']').remove();
+
+                jQuery(this).parent().remove();
+            });
+
+        });
+    </script>
+
     
 
 
