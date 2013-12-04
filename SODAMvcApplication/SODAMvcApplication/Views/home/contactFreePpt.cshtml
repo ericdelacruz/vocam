@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "contactFreePpt";
 }
-
+@using Recaptcha.Web.Mvc;
 @using(@Html.BeginForm("thankyou", "home", FormMethod.Post, new { @class = "contactFormPop" }))
 { 
 
@@ -32,7 +32,7 @@
     <label>Verification code*</label>
     <input type="text" style="width:300px;" class="form-control" id="" name="captcha" required>
     <br><br>
-
+    @Html.Recaptcha()
     <button class="btn btn-lg btn-primary btn-block" style="width:50%; margin-left:158px;" type="submit">Submit</button>
 
 }

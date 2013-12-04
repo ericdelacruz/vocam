@@ -29,7 +29,7 @@
                     {
                         var cat = Model.ElementAt(i - 1);
                         <div class="catThumb">
-                           <a href=@Url.Action("Browse", new { cID = cat.CategoryId })>
+                           <a href=@Url.Action("Browse", new { cat = cat.CategoryName.Trim().Replace(" ","-").ToLower()})>
                                   <img alt=@cat.CategoryName src=@HttpUtility.UrlPathEncode(cat.IMG_URL)>
                                        <h2>@cat.CategoryName</h2>
                                                 
