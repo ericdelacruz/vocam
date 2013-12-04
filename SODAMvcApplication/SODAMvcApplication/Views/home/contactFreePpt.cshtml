@@ -2,8 +2,8 @@
     ViewBag.Title = "contactFreePpt";
 }
 
-
-<form class="contactFormPop" id="contactFormPop" method="post" action="thankyou.cshtml">
+@using(@Html.BeginForm("thankyou", "home", FormMethod.Post, new { @class = "contactFormPop" }))
+{ 
 
     <label>Name*</label><input type="text" style="width:300px;" class="form-control" name="name" required>
     <br>
@@ -35,7 +35,4 @@
 
     <button class="btn btn-lg btn-primary btn-block" style="width:50%; margin-left:158px;" type="submit">Submit</button>
 
-
-
-
-</form>
+}
