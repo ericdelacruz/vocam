@@ -18,19 +18,27 @@
             <h3>Product Name</h3>
             <p>Product Desciption. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.</p>
 
+            <h3>Purchase Additional License</h3>
+            <label>Quantity: </label><input type="text" name="quantity" class="form-control">
+            <br>
+
             <h3>Sales code/Promo code </h3>
             <div class="form-group">
                 @using(@Html.BeginForm("verify","user"))
                 { 
-                    <label class="col-sm-2 control-label" style="text-align:right; line-height:34px; margin-left:0px;">Sales Code:</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="SalesCode" autofocus="" required="" placeholder="Enter Sales Code" class="form-control fl" style="max-width:50%; margin-right:5px;">
-                        <button type="submit" class="btn btn-default fl">Verify</button>
-                    </div>
+                 
+                    <h3>Sales code/Promo code </h3>
+                    <label>Sales Code: </label><input type="text" name="salesCode" required class="form-control" value="" style="margin-right:5px;">
+                    <button type="submit" class="btn btn-default fl">Verify</button>
+                    
                 }
             </div>
 
-            
+            <p>&nbsp;</p>
+            <p>60 Subscription for 6 months.</p>
+            <p>$10 Recurring billing after 6 months initial subscription.</p>
+            <p>&nbsp;</p>
+
             @if(SalesCode != null)
             { 
             
@@ -48,7 +56,7 @@
             <p>&nbsp;</p>
                 using(@Html.BeginForm("termsinit","user"))
                 {
-                       <button type="submit" class="btn btn-lg btn-primary btn-block" style="max-width:50%;">Proceed  > > </button>
+                       <button type="submit" class="btn btn-lg btn-primary btn-block" style="width: 200px; float: right; margin-right: 5%;">Proceed  > > </button>
                 }
             }
         </div>
