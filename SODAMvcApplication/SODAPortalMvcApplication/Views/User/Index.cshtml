@@ -7,32 +7,65 @@
 <div class="portalWrap border">
     @RenderPage("usermenu.cshtml")
 
-    <div class="portalCont margin15">
-       
-        <h2>Buy/Cancel</h2>
-        <p>Product description here, with clear statement of it is monthly subscription with minimum 6 months contract.....</p>
-        
-        <h2 style="font-size:20px; margin-top:30px;">Sales Code: <span style="color: #676767;">@Model.salesCode.Sales_Code</span></h2><a href="@Url.Action("reverify", new { salescode = @Model.salesCode.Sales_Code })">Verify</a>
-         @if(isSCVerified.HasValue && isSCVerified.Value)
-         { 
-            <p>@Model.price.PriceAmt</p>
-              if (Model.customer.DateSubscriptionEnd.Value.Month < DateTime.Now.Month - 1)
-              {
+    <div class="portalCont displayInline margin15">
 
-                        <a href=@Url.Action("unsubscribe")>Cancel subscripion</a>
-              }
-              else
-              {
-                        
-                  <a href=@Url.Action("termsinit")>Buy</a>
-              }
-         }
-         else if (isSCVerified.HasValue &&  !isSCVerified.Value)
-         {
-             <p>Sales code not verified. Please call Customer service</p>
-             <a href=@Url.Action("indexpurchase")>Buy now</a>
-         }
-       
-       
+        <h2 class="clearfix">Sales code/Promo code </h2>
+        <p><strong>QWE3</strong>, with clear statement of it is monthly subscription with minimum 6 months contract.....</p>
+        <br>
+        <h2>Purchase Additional License</h2>
+        <label>Quantity:</label><input type="text" name="quantity" class="form-control">
+        <br><br>
+        <label>Sales Code:</label><input type="text" value="@Model.salesCode.Sales_Code" name="salesCode" class="form-control" style="margin-right:5px;" /> 
+            <a href="@Url.Action("reverify", new { salescode = @Model.salesCode.Sales_Code })"><button type="submit" class="btn btn-default fl">Verify</button></a>
+           
+        @if (isSCVerified.HasValue && isSCVerified.Value)
+        {
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p align="left">@Model.price.PriceAmt</p>
+            if (Model.customer.DateSubscriptionEnd.Value.Month < DateTime.Now.Month - 1)
+            {
+
+                <a href=@Url.Action("unsubscribe")>Cancel subscripion</a>
+            }
+            else
+            {
+                <a href=@Url.Action("termsinit")><button style="width:200px; float:right; display:block;" type="submit" class="fl btn btn-lg btn-primary">Purchase</button></a>
+               
+            }
+        }
+        else if (isSCVerified.HasValue && !isSCVerified.Value)
+        {
+            <p>Sales code not verified. Please call Customer service</p>
+            <a href=@Url.Action("indexpurchase")>Buy now</a>
+        }
+        
+        <br /><br />
+        <hr />
+
+        <h2 class="clearfix">Cancel Subscription </h2>
+        <p>lorem ipsum</p>
+            <button style="width:200px; float:right; " type="submit" class="fl btn btn-lg btn-primary">Cancel</button>
+        <br><br>
+
+        <p>expired na ------> </p>
+        <br><br>
+        <h2>Renew Subscription</h2>
+        <label>Quantity:</label><input type="text" name="quantity" class="form-control">
+        <br><br>
+        <label>Sales Code: </label><input type="text" name="salesCode" class="form-control" value="" style="margin-right:5px;"><button type="submit" class="btn btn-default fl">Verify</button>
+        <br>
+
+        <br><br><br>
+        <p>
+            $60 Subscription for 6 months.
+
+        </p>
+        <p>$10 Recurring billing after 6 months initial subscription.</p>
+        <br><br>
+        <button style="width:200px; float:right; " type="submit" class="fl btn btn-lg btn-primary">Purchase</button>
+        <br><br><br>
+
     </div>
+
 </div>
