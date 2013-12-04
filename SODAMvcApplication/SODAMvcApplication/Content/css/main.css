@@ -646,6 +646,7 @@ footer {
 .contactFormPop {padding-top:30px;}
 .contactFormPop input, .contactFormPop select  {display: inline; margin-left: 5px; margin-top:5px;}
 .contactFormPop label {width:150px; text-align: right;}
+.pp_social {display: none;}
 
 
 .browseCatBtn{
