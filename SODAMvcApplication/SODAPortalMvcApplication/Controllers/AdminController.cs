@@ -30,6 +30,12 @@ namespace SODAPortalMvcApplication.Controllers
             }
             
         }
+        protected override void Dispose(bool disposing)
+        {
+            account.Close();
+            portalClient.Close();
+            base.Dispose(disposing);
+        }
         //[HttpPost]
         //public ActionResult index(FormCollection collection)
         //{
@@ -573,8 +579,7 @@ namespace SODAPortalMvcApplication.Controllers
         [HttpPost]
         public ActionResult addmarketer(FormCollection collection)
         {
-            DateTime birthdate = new DateTime();
-            DateTime.TryParse(collection["datefrom"], out birthdate);
+            
            var user = from accnt in account.getAccount(collection["Email"].Trim())
                       select accnt;
             if(user.Count() == 0)
@@ -587,7 +592,7 @@ namespace SODAPortalMvcApplication.Controllers
                 Email = collection["Email"],
                 ContactNo = collection["ContactNo"],
                 Company = collection["Company"],
-                Birthdate = birthdate,
+                //Birthdate =default(DateTime),
                 Address = collection["Address"],
                 Role = 1,
                 Status = 0
@@ -622,11 +627,7 @@ namespace SODAPortalMvcApplication.Controllers
             {
                 return RedirectToAction("login", "Home");
             }
-            DateTime birthdate = new DateTime();
-            if(collection["datefrom"].Trim() != "")
-            {
-                birthdate = DateTime.Parse(collection["datefrom"]);
-            }
+
             var marAccnt = from accnt in account.getAccount("")
                            where accnt.Role == 1 && accnt.Id == id
                            select accnt;
@@ -641,7 +642,7 @@ namespace SODAPortalMvcApplication.Controllers
                     Email = collection["Email"],
                     ContactNo = collection["ContactNo"],
                     Company = collection["Company"],
-                    Birthdate = birthdate,
+                   // Birthdate = birthdate,
                     Address = collection["Address"],
                     Role = 1,
                     Status = 0,

@@ -57,7 +57,13 @@ namespace SODAPortalMvcApplication.Controllers
             }
            
         }
-
+        protected override void Dispose(bool disposing)
+        {
+            portalClient.Close();
+            AccountClient.Close();
+            paypalClient.Close();
+            base.Dispose(disposing);
+        }
         private bool isPayPalRecurActive(long userid)
         {
 

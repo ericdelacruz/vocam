@@ -32,6 +32,12 @@ namespace SODAPortalMvcApplication.Controllers
             }
             
         }
+        protected override void Dispose(bool disposing)
+        {
+            account.Close();
+            portalClient.Close();
+            base.Dispose(disposing);
+        }
         [HttpPost]
         public ActionResult index(FormCollection collection)
         {

@@ -17,6 +17,11 @@ namespace SODAPortalMvcApplication.Controllers
            
             return View();
         }
+        protected override void Dispose(bool disposing)
+        {
+            accountClient.Close();
+            base.Dispose(disposing);
+        }
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -43,14 +48,9 @@ namespace SODAPortalMvcApplication.Controllers
                             return View(collection);
                         }
                     case 3:
-                        if(account.EmailVerified)
+                        
                         return RedirectToAction("Index", "User");
-                        else
-                        {
-                            Session["Username"] = null;
-                            ViewBag.loginError = "Email not yet verified";
-                            return View(collection);
-                        }
+                       
 
                 }
             }
@@ -86,11 +86,12 @@ namespace SODAPortalMvcApplication.Controllers
                                                      
                     });
 
-                    sendEmailVerification(model);
+                    //sendEmailVerification(model);
                     TempData["EmailSent"] = true;
-                    return RedirectToAction("Index", "Home");
+                    Session.Add("Username", model.Email);
+                    return RedirectToAction("Index", "User");
                 }
-                catch
+                catch(Exception ex)
                 {
                     ModelState.AddModelError("", "Error");
                 }
