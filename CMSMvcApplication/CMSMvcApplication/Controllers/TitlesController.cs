@@ -24,7 +24,11 @@ namespace CMSMvcApplication.Controllers
         {
             base.OnActionExecuted(filterContext);
         }
-        
+        protected override void Dispose(bool disposing)
+        {
+            catClient.Close();
+            base.Dispose(disposing);
+        }
         //
         // GET: /Titles/
 

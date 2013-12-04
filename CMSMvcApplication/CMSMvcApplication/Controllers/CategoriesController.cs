@@ -34,7 +34,11 @@ namespace CMSMvcApplication.Controllers
 
         //
         // GET: /Categories/Create
-
+        protected override void Dispose(bool disposing)
+        {
+            catListingClient.Close();
+            base.Dispose(disposing);
+        }
         public ActionResult Create()
         {
             if (Session["Username"] == null)

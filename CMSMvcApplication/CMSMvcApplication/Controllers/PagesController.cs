@@ -20,6 +20,11 @@ namespace CMSMvcApplication.Controllers
 
             return View();
         }
+        protected override void Dispose(bool disposing)
+        {
+            cmsService.Close();
+            base.Dispose(disposing);
+        }
         //
         //GET: /Pages/Home
         public ActionResult EditHome()
