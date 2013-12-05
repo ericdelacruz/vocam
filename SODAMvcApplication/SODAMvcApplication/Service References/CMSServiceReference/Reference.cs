@@ -108,7 +108,7 @@ namespace SODAMvcApplication.CMSServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Contact", Namespace="http://schemas.datacontract.org/2004/07/SODAwcfService")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Contact", Namespace="http://schemas.datacontract.org/2004/07/SODAwcfService.Models")]
     [System.SerializableAttribute()]
     public partial class Contact : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -135,6 +135,9 @@ namespace SODAMvcApplication.CMSServiceReference {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string PostcodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool isFreePPTField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -233,6 +236,19 @@ namespace SODAMvcApplication.CMSServiceReference {
                 if ((object.ReferenceEquals(this.PostcodeField, value) != true)) {
                     this.PostcodeField = value;
                     this.RaisePropertyChanged("Postcode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool isFreePPT {
+            get {
+                return this.isFreePPTField;
+            }
+            set {
+                if ((this.isFreePPTField.Equals(value) != true)) {
+                    this.isFreePPTField = value;
+                    this.RaisePropertyChanged("isFreePPT");
                 }
             }
         }
