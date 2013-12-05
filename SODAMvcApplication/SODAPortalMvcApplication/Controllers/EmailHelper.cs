@@ -30,7 +30,7 @@ namespace SODAPortalMvcApplication.Controllers
             }
             catch(Exception exp)
             {
-                SmtpClient smtp_alter = new SmtpClient();
+                //SmtpClient smtp_alter = new SmtpClient();
                  
                 //throw (exp);
             }
