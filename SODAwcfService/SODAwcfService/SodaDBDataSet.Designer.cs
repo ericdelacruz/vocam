@@ -3293,6 +3293,8 @@ namespace SODAwcfService {
             
             private global::System.Data.DataColumn columnMessage;
             
+            private global::System.Data.DataColumn columnisFreePPT;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ContactDataTable() {
@@ -3384,6 +3386,14 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn isFreePPTColumn {
+                get {
+                    return this.columnisFreePPT;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -3419,7 +3429,7 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ContactRow AddContactRow(string Name, string Company, string Phone, string Email, string Postcode, string Message) {
+            public ContactRow AddContactRow(string Name, string Company, string Phone, string Email, string Postcode, string Message, bool isFreePPT) {
                 ContactRow rowContactRow = ((ContactRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -3428,7 +3438,8 @@ namespace SODAwcfService {
                         Phone,
                         Email,
                         Postcode,
-                        Message};
+                        Message,
+                        isFreePPT};
                 rowContactRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowContactRow);
                 return rowContactRow;
@@ -3465,6 +3476,7 @@ namespace SODAwcfService {
                 this.columnEmail = base.Columns["Email"];
                 this.columnPostcode = base.Columns["Postcode"];
                 this.columnMessage = base.Columns["Message"];
+                this.columnisFreePPT = base.Columns["isFreePPT"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3484,6 +3496,8 @@ namespace SODAwcfService {
                 base.Columns.Add(this.columnPostcode);
                 this.columnMessage = new global::System.Data.DataColumn("Message", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnMessage);
+                this.columnisFreePPT = new global::System.Data.DataColumn("isFreePPT", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnisFreePPT);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -3498,6 +3512,7 @@ namespace SODAwcfService {
                 this.columnEmail.MaxLength = 50;
                 this.columnPostcode.MaxLength = 20;
                 this.columnMessage.MaxLength = 500;
+                this.columnisFreePPT.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5443,6 +5458,17 @@ namespace SODAwcfService {
                 }
                 set {
                     this[this.tableContact.MessageColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool isFreePPT {
+                get {
+                    return ((bool)(this[this.tableContact.isFreePPTColumn]));
+                }
+                set {
+                    this[this.tableContact.isFreePPTColumn] = value;
                 }
             }
             
@@ -9856,6 +9882,7 @@ WHERE        (CategoryId = @CategoryId)";
             tableMapping.ColumnMappings.Add("Email", "Email");
             tableMapping.ColumnMappings.Add("Postcode", "Postcode");
             tableMapping.ColumnMappings.Add("Message", "Message");
+            tableMapping.ColumnMappings.Add("isFreePPT", "isFreePPT");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -9865,7 +9892,8 @@ WHERE        (CategoryId = @CategoryId)";
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = "INSERT INTO [contact] ([Name], [Company], [Phone], [Email], [Postcode], [Message]" +
-                ") VALUES (@Name, @Company, @Phone, @Email, @Postcode, @Message)";
+                ", [isFreePPT]) VALUES (@Name, @Company, @Phone, @Email, @Postcode, @Message, @is" +
+                "FreePPT)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Name", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Company", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Company", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -9873,11 +9901,12 @@ WHERE        (CategoryId = @CategoryId)";
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Email", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Email", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Postcode", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Postcode", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Message", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Message", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@isFreePPT", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "isFreePPT", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = "UPDATE [contact] SET [Name] = @Name, [Company] = @Company, [Phone] = @Phone, [Ema" +
-                "il] = @Email, [Postcode] = @Postcode, [Message] = @Message WHERE (([Id] = @Origi" +
-                "nal_Id))";
+                "il] = @Email, [Postcode] = @Postcode, [Message] = @Message, [isFreePPT] = @isFre" +
+                "ePPT WHERE (([Id] = @Original_Id))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Name", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Company", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Company", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -9885,6 +9914,7 @@ WHERE        (CategoryId = @CategoryId)";
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Email", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Email", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Postcode", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Postcode", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Message", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Message", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@isFreePPT", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "isFreePPT", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
@@ -9984,7 +10014,7 @@ WHERE        (CategoryId = @CategoryId)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string Name, string Company, string Phone, string Email, string Postcode, string Message) {
+        public virtual int Insert(string Name, string Company, string Phone, string Email, string Postcode, string Message, bool isFreePPT) {
             if ((Name == null)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -10021,6 +10051,7 @@ WHERE        (CategoryId = @CategoryId)";
             else {
                 this.Adapter.InsertCommand.Parameters[5].Value = ((string)(Message));
             }
+            this.Adapter.InsertCommand.Parameters[6].Value = ((bool)(isFreePPT));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -10041,7 +10072,7 @@ WHERE        (CategoryId = @CategoryId)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string Name, string Company, string Phone, string Email, string Postcode, string Message, int Original_Id) {
+        public virtual int Update(string Name, string Company, string Phone, string Email, string Postcode, string Message, bool isFreePPT, int Original_Id) {
             if ((Name == null)) {
                 this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -10078,7 +10109,8 @@ WHERE        (CategoryId = @CategoryId)";
             else {
                 this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Message));
             }
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_Id));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((bool)(isFreePPT));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
