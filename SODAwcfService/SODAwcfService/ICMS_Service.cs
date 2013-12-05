@@ -32,6 +32,6 @@ namespace SODAwcfService
         bool Authenticate(string Password);
 
         [OperationContract]
-        int addContact(Contact contact);
+        int addContact(Models.Contact contact);
     }
 }

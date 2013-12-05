@@ -104,11 +104,11 @@ namespace SODAwcfService
 
 
 
-        public int addContact(SODAwcfService.Contact contact)
+        public int addContact(Models.Contact contact)
         {
             if (!Allowed)
                 throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
-            return contactTableAdapter.Insert(contact.Name, contact.Company, contact.Phone, contact.Email, contact.Postcode, contact.Message);
+            return contactTableAdapter.Insert(contact.Name, contact.Company, contact.Phone, contact.Email, contact.Postcode, contact.Message,contact.isFreePPT);
         }
     }
 }
