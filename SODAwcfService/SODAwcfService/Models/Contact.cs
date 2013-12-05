@@ -4,25 +4,28 @@ using System.Linq;
 using System.Web;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 namespace SODAwcfService.Models
 {
-    
-    public class Contact_temp
+    [DataContract]
+    public class Contact
     {
+        
+        [DataMember]
         public int Id { get; set; }
-        [Required]
+        [DataMember]
         public string Name { get; set; }
-        [Required]
+        [DataMember]
         public string Company { get; set; }
-        [Required]
-        [DataType(DataType.PhoneNumber)]
+        [DataMember]
         public string Phone { get; set; }
-        [Required]
-        [DataType(DataType.EmailAddress)]
+        [DataMember]
         public string Email { get; set; }
-        [Required]
-        [DataType(DataType.PostalCode)]
+        [DataMember]
         public string Postcode { get; set; }
+        [DataMember]
         public string Message { get; set; }
+        [DataMember]
+        public bool isFreePPT { get; set; }
     }
 }
