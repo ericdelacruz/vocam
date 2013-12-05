@@ -1,4 +1,8 @@
 ﻿@charset "UTF-8";
+
+
+
+
 /* CSS Document */
 body {background-color:#f8f8f8 !important;}
 a {outline:none !important;}
@@ -15,6 +19,7 @@ a:focus {border: none !important;}
 	border:1px solid #c9c9c9; 
 	padding:45px;
 	min-height: 465px; }
+
 
  .ifield {
         background: #fefefe;
@@ -194,3 +199,25 @@ thead {background-color: #fff !important;}
 	width: 15% !important; 
 	display: inline;}
 .panel-title {font-weight: bold;}
+
+@media screen and (min-width: 980px) {
+    .cms2 {
+        display: none;
+    }
+}
+/* Media Queries - width (980px)*/
+@media screen and (max-width: 980px) {
+a {outline:none !important;}
+a:hover {text-decoration: none;}
+a:focus {border: none !important; text-decoration:none;  border:1px solid #cee2e5 !important; }
+.cms {display:none; }  
+.cmsWrapCont {height:60px !important; margin:0 auto; }
+.mmenu {color:#000; !important;}
+.homeMenu, .pageMenu, .categoryMenu, .titleMenu, .profileMenu, .logoutMenu  { background-size:100%; background-image:none;   }
+.cms2 { right: 0px; position: relative; padding-left:0px; margin-left:-10px;}
+    .cms2 li { list-style:none; padding:0; margin:0; float:left;  }
+    .cms2 a { color:#333333 !important; text-align:center; text-transform:uppercase; font-size:12px; background-color:#EEEEEE; border:1px solid #cee2e5; padding:15px; margin-left:2px; }
+    .cms2 a:hover { border:1px solid #cee2e5; background-color:#fff;}
+
+
+}
