@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var catlist = new List<int>();
+   
+}
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -175,7 +179,7 @@
                     $selectedUI = jQuery('.selectedUI').append('<div class="selectedList">' + $xvals + ' <a class="unselect" href="#" rel="' + $selected[$x] + '">x</a></div>');
 
                     jQuery('#tttt').append('<option value="' + $selected[$x] + '">' + $xvals + '</option>');
-
+                       
                 }
 
 

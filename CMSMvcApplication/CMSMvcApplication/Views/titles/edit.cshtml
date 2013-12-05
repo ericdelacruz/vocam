@@ -4,6 +4,8 @@
     var catList = ViewBag.CatList as IEnumerable<CMSMvcApplication.CatListingServiceReference.Category>;
     var TopicList = ViewBag.TopicList as IEnumerable<CMSMvcApplication.CatListingServiceReference.Topic>;
     var ChapterList = ViewBag.ChapterList as IEnumerable<CMSMvcApplication.CatListingServiceReference.Chapter>;
+    var CAList = ViewBag.CAList as IEnumerable<CMSMvcApplication.CatListingServiceReference.Category>;
+   
 }
 
 
@@ -50,24 +52,28 @@
 
                       </select>
                       <button type="button" id="button" class="btn btn-default fl">Add</button>
-                      <select id="tttt" name="t" multiple style="height:300px; width:200px; display:none;"></select>
-
-                     
+                      <select id="tttt" name="t" multiple style="height:300px; width:200px; display:none;">
+                          @foreach (var ca in CAList)
+                          {
+                            <option value="@ca.CategoryId">@ca.CategoryName</option>
+                          }
+                      </select>
                       <div>
 
                         
-                          @foreach (var cat in catList)
+                                    
+                            <div class="selectedUI">
+                                <p class="addedCat">&nbsp; <strong>Added Category:</strong></p>
+                                @foreach(var ca in CAList)
                                 {
-                                    if (Model.CategoryID == cat.CategoryId)
-                                    {
-                                         <div class="selectedUI">
-                                             <p class="addedCat">&nbsp; <strong>Added Category:</strong></p>
-                                             <div class="selectedList">@cat.CategoryName <a class="unselect" href="#" rel="' + $selected[$x] + '">x</a></div>
-                          
-                                        </div>
-                                    }
-                                   
+                                    <div class="selectedList">@ca.CategoryName <a class="unselect" href="#" rel="@ca.CategoryId">x</a></div>
                                 }
+                                @*<div class="selectedList">@cat.CategoryName <a class="unselect" href="#" rel="' + $selected[$x] + '">x</a></div>*@
+                          
+                             </div>
+                                    
+                                   
+                                
                        </div>
                    </div>
         </div>

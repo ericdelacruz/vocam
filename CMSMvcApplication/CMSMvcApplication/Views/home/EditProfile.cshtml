@@ -8,21 +8,27 @@
 {
     <div class="cmsForm selectBdate">
         <label><b>First Name</label>
-        <input type="text" class="form-control" value="@Model.FirstName" autofocus="" name="First Name">
+        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", autofocus = "" })
+        @*<input type="text" class="form-control" value="@Model.FirstName" autofocus="" name="First Name">*@
 
         <label>Last Name</label>
-        <input type="text" class="form-control" value="@Model.LastName" autofocus="" name="Last Name">
+        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", autofocus = "" })
+        @*<input type="text" class="form-control" value="@Model.LastName" autofocus="" name="Last Name">*@
 
-        <label>Distributor:></label>
-        <input type="text" class="form-control" value="@Model.Distributor" autofocus="" name="Distributor">
+        <label>Distributor</label>
+        @Html.TextBoxFor(m => m.Company, new { @class = "form-control", autofocus = "" })
+        @*<input type="text" class="form-control" value="@Model.Company" autofocus="" name="Distributor">*@
         <label>Contact No</label>
-        <input type="text" class="form-control" value="@Model.ContactNo" autofocus="" name="Contact No">
+        @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control", autofocus = "" })
+        @*<input type="text" class="form-control" value="@Model.ContactNo" autofocus="" name="Contact No">*@
 
         <label>Address</label>
-        <input type="text" class="form-control" value="@Model.Address" autofocus="" name="Address">
+        @Html.TextBoxFor(m => m.Address, new { @class = "form-control", autofocus = "" })
+        @*<input type="text" class="form-control" value="@Model.Address" autofocus="" name="Address">*@
 
         <label>Email Address</label>
-        <input type="text" class="form-control" value="@Model.Email" autofocus="" name="Email Address">
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", autofocus = "" })
+        @*<input type="text" class="form-control" value="@Model.Email" autofocus="" name="Email Address">*@
 
         <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">UPDATE</button>
         <br />
