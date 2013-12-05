@@ -737,6 +737,83 @@ namespace CMSMvcApplication.CatListingServiceReference {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CategoryAssignment", Namespace="http://schemas.datacontract.org/2004/07/SODAwcfService.Models")]
+    [System.SerializableAttribute()]
+    public partial class CategoryAssignment : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long CategoryIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long SpecIDField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long CategoryId {
+            get {
+                return this.CategoryIdField;
+            }
+            set {
+                if ((this.CategoryIdField.Equals(value) != true)) {
+                    this.CategoryIdField = value;
+                    this.RaisePropertyChanged("CategoryId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long SpecID {
+            get {
+                return this.SpecIDField;
+            }
+            set {
+                if ((this.SpecIDField.Equals(value) != true)) {
+                    this.SpecIDField = value;
+                    this.RaisePropertyChanged("SpecID");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="CatListingServiceReference.ICatListingService")]
     public interface ICatListingService {
@@ -803,6 +880,18 @@ namespace CMSMvcApplication.CatListingServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICatListingService/deleteTopic", ReplyAction="http://tempuri.org/ICatListingService/deleteTopicResponse")]
         int deleteTopic(long id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICatListingService/getCatAssign", ReplyAction="http://tempuri.org/ICatListingService/getCatAssignResponse")]
+        CMSMvcApplication.CatListingServiceReference.CategoryAssignment[] getCatAssign();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICatListingService/addCatAssign", ReplyAction="http://tempuri.org/ICatListingService/addCatAssignResponse")]
+        int addCatAssign(long specId, long catId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICatListingService/updateCatAssign", ReplyAction="http://tempuri.org/ICatListingService/updateCatAssignResponse")]
+        int updateCatAssign(long specId, long catId, int Id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICatListingService/deleteCatAssign", ReplyAction="http://tempuri.org/ICatListingService/deleteCatAssignResponse")]
+        int deleteCatAssign(int Id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -914,6 +1003,22 @@ namespace CMSMvcApplication.CatListingServiceReference {
         
         public int deleteTopic(long id) {
             return base.Channel.deleteTopic(id);
+        }
+        
+        public CMSMvcApplication.CatListingServiceReference.CategoryAssignment[] getCatAssign() {
+            return base.Channel.getCatAssign();
+        }
+        
+        public int addCatAssign(long specId, long catId) {
+            return base.Channel.addCatAssign(specId, catId);
+        }
+        
+        public int updateCatAssign(long specId, long catId, int Id) {
+            return base.Channel.updateCatAssign(specId, catId, Id);
+        }
+        
+        public int deleteCatAssign(int Id) {
+            return base.Channel.deleteCatAssign(Id);
         }
     }
 }

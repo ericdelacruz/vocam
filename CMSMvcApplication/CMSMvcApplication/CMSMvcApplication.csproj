@@ -326,6 +326,9 @@
     <Content Include="Service References\CatListingServiceReference\CMSMvcApplication.CatListingServiceReference.Topic.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <Content Include="Service References\CatListingServiceReference\CMSMvcApplication.CatListingServiceReference.CategoryAssignment.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <None Include="Service References\CatListingServiceReference\configuration91.svcinfo" />
     <None Include="Service References\CatListingServiceReference\configuration.svcinfo" />
     <None Include="Service References\CatListingServiceReference\Reference.svcmap">
