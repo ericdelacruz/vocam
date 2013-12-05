@@ -83,4 +83,18 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Topic" nillable="true" type="tns:Topic" />
+  <xs:complexType name="ArrayOfCategoryAssignment">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CategoryAssignment" nillable="true" type="tns:CategoryAssignment" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCategoryAssignment" nillable="true" type="tns:ArrayOfCategoryAssignment" />
+  <xs:complexType name="CategoryAssignment">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CategoryId" type="xs:long" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="SpecID" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CategoryAssignment" nillable="true" type="tns:CategoryAssignment" />
 </xs:schema>
