@@ -103,6 +103,14 @@ namespace CMSMvcApplication.Controllers
         {
             if(Session["Username"] !=null)
             {
+                var accnt_orig = accountClient.getAccount(Session["Username"].ToString()).Select(a => a).First();
+                accnt_orig.FirstName = accnt.FirstName;
+                accnt_orig.LastName = accnt.LastName;
+                accnt_orig.Company = accnt.Company;
+                accnt_orig.ContactNo = accnt.ContactNo;
+                accnt_orig.Address = accnt.Address;
+                accnt_orig.Email = accnt.Email;
+                accnt.USERNAME = accnt.Email;
                 accountClient.updateAccount(accnt);
                 return RedirectToAction("profile");
             }

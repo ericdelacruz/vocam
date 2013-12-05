@@ -122,13 +122,13 @@ namespace CMSMvcApplication.Controllers
             DateTime dateQuestion = new DateTime();
 
             DateTime.TryParse(collection["datefrom"], out dateQuestion);
-            string errorMsg = "";
-            if(hasErrorInTitles(collection,out errorMsg))
-            {
-                ModelState.AddModelError("", errorMsg);
-                ViewBag.catList = catClient.get_Categories();
-                return View();
-            }
+            //string errorMsg = "";
+            //if(hasErrorInTitles(collection,out errorMsg))
+            //{
+            //    ModelState.AddModelError("", errorMsg);
+            //    ViewBag.catList = catClient.get_Categories();
+            //    return View();
+            //}
             
             try
             {
@@ -137,7 +137,7 @@ namespace CMSMvcApplication.Controllers
                 {
                     Title = collection["Title"],
                     TitleCode = collection["Code"],
-                    CategoryID = long.Parse(collection["Category"]),
+                    CategoryID = 1,//long.Parse(collection["Category"]),
                     Overview = collection["Overview"],
                     Description = collection["Description"],
                     PageTitle = collection["TitlePageTitle"],
@@ -153,37 +153,24 @@ namespace CMSMvcApplication.Controllers
                      Approved = collection["approved"] == "yes",
                      Downloadlable = collection["downloadable"] == "yes",
                       DateQuestionAnswerChange = dateQuestion,
-                       InDisc =collection["indisc"].Trim() !=""? int.Parse(collection["indisc"]):0,
+                      InDisc =collection["indisc"].Trim() !=""? int.Parse(collection["indisc"]):0,
                       isDOwnloadNews = collection["isdownloadnews"] == "yes",
                     
                     Id = 0 
                 });
+
+                
                 var title = catClient.get().Select(c => c).Where(c => c.TitleCode == collection["Code"]).First();
-                if ( !string.IsNullOrEmpty(collection["topicName"]))
+                if (!string.IsNullOrEmpty(collection["t"].Trim()))
                 {
-
-                    catClient.addTopic(title.Id, collection["topicName"]);
-                    if (!string.IsNullOrEmpty(collection["topicName[]"]))
-                    foreach(string topic in collection["topicName[]"].Split(','))
+                    foreach (string strNum in collection["t"].Trim().Split(','))
                     {
-                        catClient.addTopic(title.Id, topic);
+                        catClient.addCatAssign(title.Id, long.Parse(strNum));
                     }
                 }
+                addTopics(collection, title);
 
-                if(!string.IsNullOrEmpty(collection["chapterName[]"]))
-                {
-                     //catClient.addChapter(title.Id,collection["chapterName"],TimeSpan.FromMilliseconds(double.Parse(collection["chapterTime"])));
-                    
-                    if (!string.IsNullOrEmpty(collection["chapterName[]"]))
-                    {
-                        string[] chapterNameCollection = collection["chapterName[]"].Split(',');
-                        string[] chapterTimeCollection = collection["chapterTime[]"].Split(',');
-                        for (int i = 0; i < chapterNameCollection.Count(); i++)
-                        {
-                            catClient.addChapter(title.Id, chapterNameCollection[i], TimeSpan.FromMilliseconds(double.Parse(chapterTimeCollection[i])));
-                        }
-                    }
-                }
+                addChapters(collection, title);
                 return RedirectToAction("Index");
             }
             catch(Exception ex)
@@ -193,6 +180,38 @@ namespace CMSMvcApplication.Controllers
                 return View();
             }
             
+        }
+
+        private void addChapters(FormCollection collection, CatListingServiceReference.Specific title)
+        {
+            if (!string.IsNullOrEmpty(collection["chapterName[]"]))
+            {
+                //catClient.addChapter(title.Id,collection["chapterName"],TimeSpan.FromMilliseconds(double.Parse(collection["chapterTime"])));
+
+                if (!string.IsNullOrEmpty(collection["chapterName[]"]))
+                {
+                    string[] chapterNameCollection = collection["chapterName[]"].Split(',');
+                    string[] chapterTimeCollection = collection["chapterTime[]"].Split(',');
+                    for (int i = 0; i < chapterNameCollection.Count(); i++)
+                    {
+                        catClient.addChapter(title.Id, chapterNameCollection[i], TimeSpan.FromMilliseconds(double.Parse(chapterTimeCollection[i])));
+                    }
+                }
+            }
+        }
+
+        private void addTopics(FormCollection collection, CatListingServiceReference.Specific title)
+        {
+            if (!string.IsNullOrEmpty(collection["topicName"]))
+            {
+
+                catClient.addTopic(title.Id, collection["topicName"]);
+                if (!string.IsNullOrEmpty(collection["topicName[]"]))
+                    foreach (string topic in collection["topicName[]"].Split(','))
+                    {
+                        catClient.addTopic(title.Id, topic);
+                    }
+            }
         }
 
         private bool hasErrorInTitles(FormCollection collection, out string errorMsg)
@@ -236,10 +255,15 @@ namespace CMSMvcApplication.Controllers
             if (title.Count() == 0)
                 return Redirect("Titles");
             
-                ViewBag.CatList = catClient.get_Categories();
+                //ViewBag.CatList = catClient.get_Categories();
+                var CAList = catClient.getCatAssign().Where(ca=>ca.SpecID == id);
+               var excludeIds = new HashSet<long>(CAList.Select(ca=>ca.CategoryId));
+                ViewBag.CatList = catClient.get_Categories().Where(cat => !excludeIds.Contains(cat.CategoryId));
                 ViewBag.TopicList = catClient.getTopics().Select(t => t).Where(t => t.SpecId == id);
                 ViewBag.ChapterList = catClient.getChapter().Select(c => c).Where(c => c.SpecID == id);
-
+                ViewBag.CAList = from CA in CAList
+                                 join cat in catClient.get_Categories() on CA.CategoryId equals cat.CategoryId
+                                 select cat;
                 return View(title.First());
             
         }
@@ -253,17 +277,17 @@ namespace CMSMvcApplication.Controllers
             DateTime dateQuestion = new DateTime();
 
             DateTime.TryParse(collection["datefrom"], out dateQuestion);
-            string errorMsg = "";
-            if (hasErrorInTitles(collection, out errorMsg))
-            {
-                ModelState.AddModelError("", errorMsg);
-                var title = catClient.get().Select(t => t).Where(t => t.Id == id);
-                ViewBag.CatList = catClient.get_Categories();
-                ViewBag.TopicList = catClient.getTopics().Select(t => t).Where(t => t.SpecId == id);
-                ViewBag.ChapterList = catClient.getChapter().Select(c => c).Where(c => c.SpecID == id);
+            //string errorMsg = "";
+            //if (hasErrorInTitles(collection, out errorMsg))
+            //{
+            //    ModelState.AddModelError("", errorMsg);
+            //    var title = catClient.get().Select(t => t).Where(t => t.Id == id);
+            //    ViewBag.CatList = catClient.get_Categories();
+            //    ViewBag.TopicList = catClient.getTopics().Select(t => t).Where(t => t.SpecId == id);
+            //    ViewBag.ChapterList = catClient.getChapter().Select(c => c).Where(c => c.SpecID == id);
 
-                return View(title.First());
-            }
+            //    return View(collection);
+            //}
 
             try
             {
@@ -273,18 +297,18 @@ namespace CMSMvcApplication.Controllers
                     Id = id,
                     TitleCode = collection["Code"],
                     Title = collection["Title"],
-                    CategoryID = long.Parse(collection["Category"]),
+                    CategoryID = 1,
                     Overview = collection["Overview"],
                     Description = collection["Description"],
                     PageTitle = collection["TitlePageTitle"],
                     Metatags = collection["TitleMetaKeywords"],
                     MetaDesc = collection["TitleMetaDescription"],
                     ImageURL = !string.IsNullOrEmpty(Request.Files["Thumb"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority), FileTransferHelper.UploadImage(Request.Files["Thumb"], Server)) : catClient.getSpecificByID(id).First().ImageURL,
-                    BG_Img = !string.IsNullOrEmpty(Request.Files["BG_IMG"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority), FileTransferHelper.UploadImage(Request.Files["BG_IMG"], Server)) : catClient.getSpecificByID(id).First().BG_Img,
+                    BG_Img = !string.IsNullOrEmpty(Request.Files["BG_IMG"].FileName)? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority), FileTransferHelper.UploadImage(Request.Files["BG_IMG"], Server)) : catClient.getSpecificByID(id).First().BG_Img,
                     VideoURL = collection["VidURL"],
-                     FileName = collection["filename"],
+                    FileName = collection["filename"],
                     Duration = collection["duration"].Trim() != "" ? int.Parse(collection["duration"]) : 0,
-                    time = TimeSpan.FromMilliseconds(double.Parse(collection["time"])),
+                    time = collection["time"].Trim() != "" ? TimeSpan.FromMilliseconds(double.Parse(collection["time"])) : default(TimeSpan),
                     totalChapters = collection["totalChap"].Trim() != "" ? int.Parse(collection["totalChap"]) : 0,
                     Approved = collection["approved"] == "yes",
                     Downloadlable = collection["downloadable"] == "yes",
@@ -305,34 +329,47 @@ namespace CMSMvcApplication.Controllers
                 foreach (var chap in chapters)
                 catClient.deleteChapter(chap.Id);
 
-                if (!string.IsNullOrEmpty(collection["topicName"]))
+                var CAs = catClient.getCatAssign().Where(ca => ca.SpecID == title.Id);
+                foreach (var ca in CAs)
+                    catClient.deleteCatAssign(ca.Id);
+
+                if (!string.IsNullOrEmpty(collection["t"].Trim()))
                 {
-
-                    catClient.addTopic(title.Id, collection["topicName"]);
-                    if (!string.IsNullOrEmpty(collection["topicName[]"]))
-
-                        foreach (string topic in collection["topicName[]"].Split(','))
-                        {
-                            if(!string.IsNullOrEmpty(topic))
-                            catClient.addTopic(title.Id, topic);
-                        }
-                }
-
-                if (!string.IsNullOrEmpty(collection["chapterName[]"]))
-                {
-                    
-
-                    if (!string.IsNullOrEmpty(collection["chapterName[]"]))
+                    foreach (string strNum in collection["t"].Trim().Split(','))
                     {
-                        string[] chapterNameCollection = collection["chapterName[]"].Split(',');
-                        string[] chapterTimeCollection = collection["chapterTime[]"].Split(',');
-                        for (int i = 0; i < chapterNameCollection.Count(); i++)
-                        {
-                            if(!string.IsNullOrEmpty(chapterNameCollection[i]))
-                            catClient.addChapter(title.Id, chapterNameCollection[i], TimeSpan.FromMilliseconds(double.Parse(chapterTimeCollection[i])));
-                        }
+                        catClient.addCatAssign(title.Id, long.Parse(strNum));
                     }
                 }
+                addTopics(collection,title);
+                addChapters(collection, title);
+                //if (!string.IsNullOrEmpty(collection["topicName"]))
+                //{
+
+                //    catClient.addTopic(title.Id, collection["topicName"]);
+                //    if (!string.IsNullOrEmpty(collection["topicName[]"]))
+
+                //        foreach (string topic in collection["topicName[]"].Split(','))
+                //        {
+                //            if(!string.IsNullOrEmpty(topic))
+                //            catClient.addTopic(title.Id, topic);
+                //        }
+                //}
+
+                //if (!string.IsNullOrEmpty(collection["chapterName[]"]))
+                //{
+                    
+
+                //    if (!string.IsNullOrEmpty(collection["chapterName[]"]))
+                //    {
+                //        string[] chapterNameCollection = collection["chapterName[]"].Split(',');
+                //        string[] chapterTimeCollection = collection["chapterTime[]"].Split(',');
+                //        for (int i = 0; i < chapterNameCollection.Count(); i++)
+                //        {
+                //            if(!string.IsNullOrEmpty(chapterNameCollection[i]))
+                //            catClient.addChapter(title.Id, chapterNameCollection[i], TimeSpan.FromMilliseconds(double.Parse(chapterTimeCollection[i])));
+                //        }
+                //    }
+                //}
                
 
 
