@@ -5,7 +5,7 @@
     ViewBag.Keywords = "";
     ViewBag.CurPage = "Contact";
 }
-
+@using Recaptcha.Web.Mvc;
 <div class="commonSection commonSection2 >
     <div class=" container row">
     <div class="col-md-12">
@@ -27,7 +27,7 @@
                     <label>Postcode/Area Code/Zip*</label>@Html.TextBoxFor(m => m.Postcode, new { @class = "form-control", placeholder = "Postcode/Area Code/Zip", required = "" })
                     <label>Enquiry</label>@Html.TextAreaFor(m => m.Message, new { @class = "field span12 form-control", placeholder = "Enter Your Enquiry" })
 
-
+                    @Html.Recaptcha()
                     <button class="btnSubmit btn btn-lg btn-primary btn-block fl" type="submit">SUBMIT</button>
                     <p><br><br><br></p>
                 }
