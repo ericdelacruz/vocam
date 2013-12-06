@@ -97,7 +97,7 @@ namespace SODAMvcApplication.Controllers
             string key = EmailHelper.GetMd5Hash(contact.Email.Substring(0, contact.Email.IndexOf('@')) + dateAdded.Ticks.ToString());
             string selected = collection["selectppt"];
             contact.key = key;
-            contact.DateLinkEX = dateAdded;
+            contact.DateLinkEx = dateAdded;
             cmsServiceClient.addContact(contact);
             
             EmailHelper.SendEmail("test@yahoo.com", contact.Email, "TEST", createDownloadPPTLink(key,selected));
@@ -113,7 +113,7 @@ namespace SODAMvcApplication.Controllers
         public ActionResult download(string key, string select)
         {
             var contact = cmsServiceClient.getContact().Where(c => c.key == key);
-            if(contact.Count() >0 && (contact.First().DateLinkEX.Value - DateTime.Now).Hours < 1)
+            if(contact.Count() >0 && (contact.First().DateLinkEx.Value - DateTime.Now).Hours < 1)
             {
                 
                 return View();
