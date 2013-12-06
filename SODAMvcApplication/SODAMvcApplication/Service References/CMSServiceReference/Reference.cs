@@ -119,6 +119,9 @@ namespace SODAMvcApplication.CMSServiceReference {
         private string CompanyField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> DateLinkExField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string EmailField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -139,6 +142,12 @@ namespace SODAMvcApplication.CMSServiceReference {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool isFreePPTField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> isVerifiedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string keyField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -158,6 +167,19 @@ namespace SODAMvcApplication.CMSServiceReference {
                 if ((object.ReferenceEquals(this.CompanyField, value) != true)) {
                     this.CompanyField = value;
                     this.RaisePropertyChanged("Company");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> DateLinkEx {
+            get {
+                return this.DateLinkExField;
+            }
+            set {
+                if ((this.DateLinkExField.Equals(value) != true)) {
+                    this.DateLinkExField = value;
+                    this.RaisePropertyChanged("DateLinkEx");
                 }
             }
         }
@@ -253,6 +275,32 @@ namespace SODAMvcApplication.CMSServiceReference {
             }
         }
         
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> isVerified {
+            get {
+                return this.isVerifiedField;
+            }
+            set {
+                if ((this.isVerifiedField.Equals(value) != true)) {
+                    this.isVerifiedField = value;
+                    this.RaisePropertyChanged("isVerified");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string key {
+            get {
+                return this.keyField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.keyField, value) != true)) {
+                    this.keyField = value;
+                    this.RaisePropertyChanged("key");
+                }
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -284,6 +332,15 @@ namespace SODAMvcApplication.CMSServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/addContact", ReplyAction="http://tempuri.org/ICMS_Service/addContactResponse")]
         int addContact(SODAMvcApplication.CMSServiceReference.Contact contact);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/getContact", ReplyAction="http://tempuri.org/ICMS_Service/getContactResponse")]
+        SODAMvcApplication.CMSServiceReference.Contact[] getContact();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/updateContact", ReplyAction="http://tempuri.org/ICMS_Service/updateContactResponse")]
+        int updateContact(SODAMvcApplication.CMSServiceReference.Contact contact);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/deleteContact", ReplyAction="http://tempuri.org/ICMS_Service/deleteContactResponse")]
+        int deleteContact(int id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -335,6 +392,18 @@ namespace SODAMvcApplication.CMSServiceReference {
         
         public int addContact(SODAMvcApplication.CMSServiceReference.Contact contact) {
             return base.Channel.addContact(contact);
+        }
+        
+        public SODAMvcApplication.CMSServiceReference.Contact[] getContact() {
+            return base.Channel.getContact();
+        }
+        
+        public int updateContact(SODAMvcApplication.CMSServiceReference.Contact contact) {
+            return base.Channel.updateContact(contact);
+        }
+        
+        public int deleteContact(int id) {
+            return base.Channel.deleteContact(id);
         }
     }
 }

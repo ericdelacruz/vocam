@@ -412,6 +412,9 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery.backstretch.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Service References\CMSServiceReference\SODAMvcApplication.CMSServiceReference.Contact.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <None Include="Service References\PortalServiceReference\PortalService.disco" />
     <None Include="Service References\PortalServiceReference\configuration91.svcinfo" />
     <None Include="Service References\PortalServiceReference\configuration.svcinfo" />
