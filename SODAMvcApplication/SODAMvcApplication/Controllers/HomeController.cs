@@ -19,7 +19,8 @@ namespace SODAMvcApplication.Controllers
         private const string HOME = "Home";
         private const string CONTACT = "Contact";
         private const string LEARN = "Learn";
-
+        private string[] filenames = { "USO-AUS-PPS.pps", "USW-AUS-PPS.pps", "WHSE-AUS-PPS.pps" };
+        
         public ActionResult Index()
         {
 
@@ -73,7 +74,7 @@ namespace SODAMvcApplication.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<ActionResult> contactFreeppt(CMSServiceReference.Contact contact)
+        public async Task<ActionResult> contactFreeppt(CMSServiceReference.Contact contact,FormCollection collection)
         {
             RecaptchaVerificationHelper recaptchaHelper = this.GetRecaptchaVerificationHelper();
             if (String.IsNullOrEmpty(recaptchaHelper.Response))
@@ -90,11 +91,41 @@ namespace SODAMvcApplication.Controllers
                 return View(contact);
             }
            
-            contact.isFreePPT = false;
+            contact.isFreePPT = true;
+            DateTime dateAdded = DateTime.Now;
+            contact.isVerified = false;
+            string key = EmailHelper.GetMd5Hash(contact.Email.Substring(0, contact.Email.IndexOf('@')) + dateAdded.Ticks.ToString());
+            string selected = collection["selectppt"];
+            contact.key = key;
+            contact.DateLinkEX = dateAdded;
             cmsServiceClient.addContact(contact);
-            EmailHelper.SendEmail("test@yahoo.com", contact.Email, "TEST", "TEST BODY");
+            
+            EmailHelper.SendEmail("test@yahoo.com", contact.Email, "TEST", createDownloadPPTLink(key,selected));
             return RedirectToAction("thankyou");
            
+        }
+
+        private string createDownloadPPTLink(string key,string selected)
+        {
+            
+            return Request.Url.GetLeftPart(UriPartial.Authority)+ Url.Action("download", new { key = key, selected = selected });
+        }
+        public ActionResult download(string key, string select)
+        {
+            var contact = cmsServiceClient.getContact().Where(c => c.key == key);
+            if(contact.Count() >0 && (contact.First().DateLinkEX.Value - DateTime.Now).Hours < 1)
+            {
+                
+                return View();
+            }
+            return RedirectToAction("index");
+        }
+
+        public FileStreamResult StreamFileFromDisk(int index)
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory + "Content/download/";
+            string filename = filenames[index];
+            return File(new System.IO.FileStream(path + filename, System.IO.FileMode.Open),"application/vnd.ms-powerpoint", filename);
         }
 
     }
