@@ -43,6 +43,24 @@
   <wsdl:message name="ICMS_Service_addContact_OutputMessage">
     <wsdl:part name="parameters" element="tns:addContactResponse" />
   </wsdl:message>
+  <wsdl:message name="ICMS_Service_getContact_InputMessage">
+    <wsdl:part name="parameters" element="tns:getContact" />
+  </wsdl:message>
+  <wsdl:message name="ICMS_Service_getContact_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getContactResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICMS_Service_updateContact_InputMessage">
+    <wsdl:part name="parameters" element="tns:updateContact" />
+  </wsdl:message>
+  <wsdl:message name="ICMS_Service_updateContact_OutputMessage">
+    <wsdl:part name="parameters" element="tns:updateContactResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICMS_Service_deleteContact_InputMessage">
+    <wsdl:part name="parameters" element="tns:deleteContact" />
+  </wsdl:message>
+  <wsdl:message name="ICMS_Service_deleteContact_OutputMessage">
+    <wsdl:part name="parameters" element="tns:deleteContactResponse" />
+  </wsdl:message>
   <wsdl:portType name="ICMS_Service">
     <wsdl:operation name="addContent">
       <wsdl:input wsaw:Action="http://tempuri.org/ICMS_Service/addContent" message="tns:ICMS_Service_addContent_InputMessage" />
@@ -67,6 +85,18 @@
     <wsdl:operation name="addContact">
       <wsdl:input wsaw:Action="http://tempuri.org/ICMS_Service/addContact" message="tns:ICMS_Service_addContact_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICMS_Service/addContactResponse" message="tns:ICMS_Service_addContact_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getContact">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICMS_Service/getContact" message="tns:ICMS_Service_getContact_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICMS_Service/getContactResponse" message="tns:ICMS_Service_getContact_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="updateContact">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICMS_Service/updateContact" message="tns:ICMS_Service_updateContact_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICMS_Service/updateContactResponse" message="tns:ICMS_Service_updateContact_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteContact">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICMS_Service/deleteContact" message="tns:ICMS_Service_deleteContact_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICMS_Service/deleteContactResponse" message="tns:ICMS_Service_deleteContact_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ICMS_Service" type="tns:ICMS_Service">
@@ -118,6 +148,33 @@
     </wsdl:operation>
     <wsdl:operation name="addContact">
       <soap:operation soapAction="http://tempuri.org/ICMS_Service/addContact" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getContact">
+      <soap:operation soapAction="http://tempuri.org/ICMS_Service/getContact" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateContact">
+      <soap:operation soapAction="http://tempuri.org/ICMS_Service/updateContact" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteContact">
+      <soap:operation soapAction="http://tempuri.org/ICMS_Service/deleteContact" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
