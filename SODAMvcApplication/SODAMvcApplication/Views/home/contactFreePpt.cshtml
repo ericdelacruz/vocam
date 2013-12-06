@@ -1,34 +1,36 @@
-﻿@model SODAMvcApplication.CMSServiceReference.Contact
+﻿@*@model SODAMvcApplication.CMSServiceReference.Contact*@
 @{
     ViewBag.Title = "contactFreePpt";
 }
 @using Recaptcha.Web.Mvc;
-@using (@Html.BeginForm("contactfreeppt", "home", FormMethod.Post, new { @class = "contactFormPop" }))
-{ 
 
+
+@*@using (@Html.BeginForm("thankyou", "home", FormMethod.Post, new { @class = "contactFormPop" }))
+{*@ 
+<form id="my-detail-form">
     <label>Name*</label>
-    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", style = "width:300px;", required = "" })
-    @*<input type="text" style="width:300px;" class="form-control" name="name" required>*@
+    @*@Html.TextBoxFor(m => m.Name, new { @class = "form-control", style = "width:300px;", required = "" })*@
+    <input type="text" style="width:300px;" class="form-control" name="name" required>
     <br>
 
     <label>Company*</label>
-     @Html.TextBoxFor(m => m.Company, new { @class = "form-control", style = "width:300px;", required = "" })
-    @*<input type="text" style="width:300px;" class="form-control" name="company" required>*@
+    @*@Html.TextBoxFor(m => m.Company, new { @class = "form-control", style = "width:300px;", required = "" })*@
+    <input type="text" style="width:300px;" class="form-control" name="company" required>
     <br>
 
     <label>Phone*</label>
-     @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", style = "width:300px;", required = "" })
-    @*<input type="text" style="width:300px;" class="form-control" name="phone" required>*@
+    @*@Html.TextBoxFor(m => m.Phone, new { @class = "form-control", style = "width:300px;", required = "" })*@
+    <input type="text" style="width:300px;" class="form-control" name="phone" required>
     <br>
 
     <label>Email*</label>
-     @Html.TextBoxFor(m => m.Email, new { @class = "form-control", style = "width:300px;", required = "" })
-    @*<input type="text" style="width:300px;" class="form-control" id="email" name="" required>*@
+    @*@Html.TextBoxFor(m => m.Email, new { @class = "form-control", style = "width:300px;", required = "" })*@
+    <input type="text" style="width:300px;" class="form-control" id="email" name="" required>
     <br>
 
     <label>Postcode / Area / Zip*</label>
-     @Html.TextBoxFor(m => m.Postcode, new { @class = "form-control", style = "width:300px;", required = "" })
-    @*<input type="text" style="width:300px;" class="form-control" id="" name="postcode" required>*@
+    @*@Html.TextBoxFor(m => m.Postcode, new { @class = "form-control", style = "width:300px;", required = "" })*@
+    <input type="text" style="width:300px;" class="form-control" id="" name="postcode" required>
     <br>
 
     <label>Select Powerpoint</label>
@@ -39,12 +41,15 @@
 
     </select>
 
-    @*<div align="center"><img style="border-width:0px;" src="http://www.safety-tv.com//VerificationCode.ashx" id=""></div>
-    <label>Verification code*</label>*@
-       @*@Html.Recaptcha()*@
-   
-    @Html.Recaptcha(theme: Recaptcha.Web.RecaptchaTheme.Clean)
-   
+
+
+    <div align="center"><img style="border-width:0px;" src="http://www.safety-tv.com//verificationcode.ashx" id=""></div>
+    <label>verification code*</label>
+    <input type="text" style="width:300px;" class="form-control" id="" name="captcha" required>
+
+    @*@Html.Recaptcha(theme: Recaptcha.Web.RecaptchaTheme.Clean)*@
+
     <button class="btn btn-lg btn-primary btn-block" style="width:50%; margin-left:158px;" type="submit">Submit</button>
 
-}
+    @*}*@
+</form>

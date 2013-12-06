@@ -177,6 +177,7 @@
     <Content Include="Content\css\bootstrap-theme.min.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\formstyle.css" />
     <Content Include="Content\css\main.css" />
     <Content Include="Content\css\mainOLD.css" />
     <Content Include="Content\css\prettyPhoto.css" />
@@ -361,6 +362,8 @@
     <None Include="Service References\AccountServiceReference\AccountService1.xsd" />
     <None Include="Service References\AccountServiceReference\AccountService2.xsd" />
     <Content Include="RecaptchaNet.ReadMe.txt" />
+    <Content Include="Scripts\jquery.form.min.js" />
+    <Content Include="Scripts\my-form-script.js" />
     <Content Include="Service References\AccountServiceReference\SODAMvcApplication.AccountServiceReference.Account.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -462,7 +465,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <Content Include="Views\drm\authenticate.cshtml" />
-    <Content Include="Views\home\contactFreePpt.cshtml" />
+    <Content Include="Views\home\contactfreeppt.cshtml" />
     <Content Include="Views\home\thankyou.cshtml" />
   </ItemGroup>
   <ItemGroup>
