@@ -27,5 +27,11 @@ namespace SODAwcfService.Models
         public string Message { get; set; }
         [DataMember]
         public bool isFreePPT { get; set; }
+        [DataMember]
+        public string key { get; set; }
+        [DataMember]
+        public DateTime? DateLinkEx { get; set; }
+        [DataMember]
+        public bool? isVerified { get; set; }
     }
 }
