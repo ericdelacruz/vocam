@@ -18,7 +18,7 @@
   <xs:complexType name="Contact">
     <xs:sequence>
       <xs:element minOccurs="0" name="Company" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DateLinkEX" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DateLinkEx" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
