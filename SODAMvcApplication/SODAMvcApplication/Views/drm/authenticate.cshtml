@@ -1,8 +1,8 @@
-﻿@model System.DateTime 
-@*Subsciption end date*@
+﻿@model SODAMvcApplication.Models.drmModel
+Authorized=@Model.Authorized
+AccessExpirationDays=@Model.AccessExpirationDays
 @{
     Layout = null;
-    var dateDiff = Model != null? (DateTime.Now - Model).TotalDays:0;
+    Response.ContentType = "text/plain";
 }
-Attribute = true <br />
-AccessExpirationDays=@dateDiff
+
