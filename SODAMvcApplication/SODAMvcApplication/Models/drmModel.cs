@@ -7,5 +7,8 @@ namespace SODAMvcApplication.Models
 {
     public class drmModel
     {
+        public bool Authorized { get; set; }
+
+        public int AccessExpirationDays { get; set; }
     }
 }
