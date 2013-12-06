@@ -33,5 +33,11 @@ namespace SODAwcfService
 
         [OperationContract]
         int addContact(Models.Contact contact);
+        [OperationContract]
+        IEnumerable<Models.Contact> getContact();
+        [OperationContract]
+        int updateContact(Models.Contact contact);
+        [OperationContract]
+        int deleteContact(int id);
     }
 }

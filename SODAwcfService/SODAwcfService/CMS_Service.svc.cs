@@ -108,7 +108,46 @@ namespace SODAwcfService
         {
             if (!Allowed)
                 throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
-            return contactTableAdapter.Insert(contact.Name, contact.Company, contact.Phone, contact.Email, contact.Postcode, contact.Message,contact.isFreePPT);
+            return contactTableAdapter.Insert(contact.Name, contact.Company, contact.Phone, contact.Email, contact.Postcode, contact.Message,contact.isFreePPT,contact.key, contact.DateLinkEx,contact.isVerified);
+        }
+
+
+
+        public IEnumerable<Models.Contact> getContact()
+        {
+
+            if (!Allowed)
+                throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
+            return contactTableAdapter.GetData().Select(c => new Models.Contact()
+            {
+                Id = c.Id,
+                Company = c.Company,
+                Postcode = c.Postcode,
+                Phone = c.Phone,
+                Name = c.Name,
+                Message = c.Message,
+                key = c.key,
+                DateLinkEx = c.DateLinkEx,
+                Email = c.Email,
+                isFreePPT = c.isFreePPT,
+                isVerified = c.isVerified
+            });
+        }
+
+        public int updateContact(Models.Contact contact)
+        {
+
+            if (!Allowed)
+                throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
+            return contactTableAdapter.Update(contact.Name, contact.Company, contact.Phone, contact.Email, contact.Postcode, contact.Message, contact.isFreePPT, contact.key, contact.DateLinkEx, contact.isVerified, contact.Id);
+        }
+
+        public int deleteContact(int id)
+        {
+
+            if (!Allowed)
+                throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
+            return contactTableAdapter.Delete(id);
         }
     }
 }
