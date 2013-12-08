@@ -363,7 +363,6 @@
     <None Include="Service References\AccountServiceReference\AccountService2.xsd" />
     <Content Include="RecaptchaNet.ReadMe.txt" />
     <Content Include="Scripts\jquery.form.min.js" />
-    <Content Include="Scripts\my-form-script.js" />
     <Content Include="Service References\AccountServiceReference\SODAMvcApplication.AccountServiceReference.Account.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -470,6 +469,7 @@
     <Content Include="Views\drm\authenticate.cshtml" />
     <Content Include="Views\home\contactfreeppt.cshtml" />
     <Content Include="Views\home\thankyou.cshtml" />
+    <Content Include="Views\home\sitemap.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
