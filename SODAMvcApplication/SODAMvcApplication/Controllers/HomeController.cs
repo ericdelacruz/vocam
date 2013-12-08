@@ -45,6 +45,16 @@ namespace SODAMvcApplication.Controllers
             
             return View();
         }
+
+
+        //GET: /Sitemap/
+        public ActionResult Sitemap()
+        {
+
+            return View();
+        }
+
+
         [HttpPost]
         public ActionResult contact(CMSServiceReference.Contact contact)
         {
