@@ -55,7 +55,7 @@ namespace CMSMvcApplication.Controllers
             UpdateHomeContent("thumbPost_thum2_Title", "text", collection["FTitle2"]);
             UpdateHomeContent("thumbPost_thum2_Details", "text", collection["fDesc2"]);
 
-            UpdateHomeContent("thumbPost_thum2_href", "href", collection["FURL1"]);
+            UpdateHomeContent("thumbPost_thum2_href", "href", collection["FURL2"]);
 
             UpdateImageContent(cmsService.getContent("Home", "thumbPost_thum3_Pic_href").First(), "FP3_Thumb");
             UpdateHomeContent("thumbPost_thum3_Title", "text", collection["FTitle3"]);
