@@ -177,6 +177,12 @@
     <Content Include="Content\css\bootstrap-theme.min.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\colorbox\colorbox.css" />
+    <Content Include="Content\css\colorbox\images\border.png" />
+    <Content Include="Content\css\colorbox\images\controls.png" />
+    <Content Include="Content\css\colorbox\images\loading.gif" />
+    <Content Include="Content\css\colorbox\images\loading_background.png" />
+    <Content Include="Content\css\colorbox\images\overlay.png" />
     <Content Include="Content\css\formstyle.css" />
     <Content Include="Content\css\main.css" />
     <Content Include="Content\css\mainOLD.css" />
@@ -359,12 +365,14 @@
     <Content Include="Content\download\USO-AUS-PPS.pps" />
     <Content Include="Content\download\USW-AUS-PPS.pps" />
     <Content Include="Content\download\WHSE-AUS-PPS.pps" />
+    <Content Include="Content\css\colorbox\images\overlay.pngdsd" />
     <None Include="Properties\PublishProfiles\Daddy Main.pubxml" />
     <None Include="Service References\AccountServiceReference\AccountService.wsdl" />
     <None Include="Service References\AccountServiceReference\AccountService.xsd" />
     <None Include="Service References\AccountServiceReference\AccountService1.xsd" />
     <None Include="Service References\AccountServiceReference\AccountService2.xsd" />
     <Content Include="RecaptchaNet.ReadMe.txt" />
+    <Content Include="Scripts\jquery.colorbox.js" />
     <Content Include="Scripts\jquery.form.min.js" />
     <Content Include="Service References\AccountServiceReference\SODAMvcApplication.AccountServiceReference.Account.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
