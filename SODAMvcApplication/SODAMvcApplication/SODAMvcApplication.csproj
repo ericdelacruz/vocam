@@ -470,6 +470,7 @@
     <Content Include="Views\home\contactfreeppt.cshtml" />
     <Content Include="Views\home\thankyou.cshtml" />
     <Content Include="Views\home\sitemap.cshtml" />
+    <Content Include="Views\home\legals.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
