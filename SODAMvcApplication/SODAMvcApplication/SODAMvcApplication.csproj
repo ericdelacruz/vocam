@@ -356,6 +356,9 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\download\USO-AUS-PPS.pps" />
+    <Content Include="Content\download\USW-AUS-PPS.pps" />
+    <Content Include="Content\download\WHSE-AUS-PPS.pps" />
     <None Include="Properties\PublishProfiles\Daddy Main.pubxml" />
     <None Include="Service References\AccountServiceReference\AccountService.wsdl" />
     <None Include="Service References\AccountServiceReference\AccountService.xsd" />
@@ -363,6 +366,7 @@
     <None Include="Service References\AccountServiceReference\AccountService2.xsd" />
     <Content Include="RecaptchaNet.ReadMe.txt" />
     <Content Include="Scripts\jquery.form.min.js" />
+    <Content Include="Scripts\my-form-script.js" />
     <Content Include="Service References\AccountServiceReference\SODAMvcApplication.AccountServiceReference.Account.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -469,7 +473,7 @@
     <Content Include="Views\drm\authenticate.cshtml" />
     <Content Include="Views\home\contactfreeppt.cshtml" />
     <Content Include="Views\home\thankyou.cshtml" />
-    <Content Include="Views\home\sitemap.cshtml" />
+    <Content Include="Views\home\download.cshtml" />
     <Content Include="Views\home\legals.cshtml" />
   </ItemGroup>
   <ItemGroup>

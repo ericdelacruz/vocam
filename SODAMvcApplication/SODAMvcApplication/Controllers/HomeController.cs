@@ -127,13 +127,28 @@ namespace SODAMvcApplication.Controllers
             
             return Request.Url.GetLeftPart(UriPartial.Authority)+ Url.Action("download", new { key = key, selected = selected });
         }
-        public ActionResult download(string key, string select)
+        public ActionResult download(string key, string selected)
         {
+            if(cmsServiceClient.State == System.ServiceModel.CommunicationState.Closed)
+            {
+                cmsServiceClient.Open();
+            }
             var contact = cmsServiceClient.getContact().Where(c => c.key == key);
+            int i = 0;
             if(contact.Count() >0 && (contact.First().DateLinkEx.Value - DateTime.Now).Hours < 1)
             {
-                
-                return View();
+                switch(selected)
+                {
+                    case "industrial": i = 0;
+                        break;
+                    case "office": i = 1; 
+                        break;
+                    case "warehouse": i=2;
+                        break;
+                    default: return RedirectToAction("index");
+
+                }
+                return View(i);
             }
             return RedirectToAction("index");
         }

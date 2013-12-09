@@ -194,6 +194,7 @@ namespace CMSMvcApplication.Controllers
                     string[] chapterTimeCollection = collection["chapterTime[]"].Split(',');
                     for (int i = 0; i < chapterNameCollection.Count(); i++)
                     {
+                        if (chapterTimeCollection[i].Trim() != "")
                         catClient.addChapter(title.Id, chapterNameCollection[i], TimeSpan.FromMilliseconds(double.Parse(chapterTimeCollection[i])));
                     }
                 }
@@ -333,7 +334,7 @@ namespace CMSMvcApplication.Controllers
                 foreach (var ca in CAs)
                     catClient.deleteCatAssign(ca.Id);
 
-                if (!string.IsNullOrEmpty(collection["t"].Trim()))
+                if ( collection["t"] !=null && !string.IsNullOrEmpty(collection["t"].Trim()))
                 {
                     foreach (string strNum in collection["t"].Trim().Split(','))
                     {

@@ -5521,11 +5521,11 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string key {
                 get {
-                    try {
-                        return ((string)(this[this.tableContact.keyColumn]));
+                    if (this.IskeyNull()) {
+                        return string.Empty;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'key\' in table \'Contact\' is DBNull.", e);
+                    else {
+                        return ((string)(this[this.tableContact.keyColumn]));
                     }
                 }
                 set {

@@ -52,6 +52,11 @@
 
                       </select>
                       <button type="button" id="button" class="btn btn-default fl">Add</button>
+                      <script>
+                          jQuery('#button').ready(function () {
+                              jQuery('#tttt option').prop('selected', 'selected');
+                          });
+                      </script>
                       <select id="tttt" name="t" multiple style="height:300px; width:200px; display:none;">
                           @foreach (var ca in CAList)
                           {
