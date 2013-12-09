@@ -40,26 +40,26 @@
 <div class="container">
     <div class="whitespace row">
         <div class="thumbPost col-md-4">
-            <img class="thumbPic" src=@HttpUtility.UrlPathEncode(@getVal("thumbPost_thum_Pic_href", "href")) alt=@MvcHtmlString.Create(@getVal("thumbPost_thum_Title", "text"))> @*thumbPost_thum_Pic_href*@
+            <a href=@getVal("thumbPost_thum_href", "href")><img class="thumbPic" src=@HttpUtility.UrlPathEncode(@getVal("thumbPost_thum_Pic_href", "href")) alt=@MvcHtmlString.Create(@getVal("thumbPost_thum_Title", "text"))></a> @*thumbPost_thum_Pic_href*@
             <h3>@MvcHtmlString.Create(@getVal("thumbPost_thum_Title", "text"))</h3>@*thumbPost_thum_Title*@
             <p>@MvcHtmlString.Create(@getVal("thumbPost_thum_details", "text"))</p>
             @*thumbPost_thum_details*@
             <a class="moreLBtn fr" href=@getVal("thumbPost_thum_href", "href")>MORE</a>
         </div>
         <div class="thumbPost col-md-4">
-            <img class="thumbPic" src=@HttpUtility.UrlPathEncode(@getVal("thumbPost_thum2_Pic_href", "href")) alt=@MvcHtmlString.Create(@getVal("thumbPost_thum2_Title", "text"))> @*thumbPost_thum2_Pic_href*@
-            <h3>@MvcHtmlString.Create(@getVal("thumbPost_thum2_Title", "text"))</h3>@*thumbPost_thum2_Title*@
-            <p>@MvcHtmlString.Create(@getVal("thumbPost_thum2_Details", "text"))</p>
-            @*thumbPost_thum2_Details*@
-            <a class="moreLBtn fr" href=@getVal("thumbPost_thum2_href", "href")>MORE</a>@*thumbPost_thum2_href*@
-        </div>
+            <a href=@getVal("thumbPost_thum2_href", "href")><img class="thumbPic" src=@HttpUtility.UrlPathEncode(@getVal("thumbPost_thum2_Pic_href", "href")) alt=@MvcHtmlString.Create(@getVal("thumbPost_thum2_Title", "text"))></a>@*thumbPost_thum2_Pic_href*@
+                <h3>@MvcHtmlString.Create(@getVal("thumbPost_thum2_Title", "text"))</h3>@*thumbPost_thum2_Title*@
+                <p>@MvcHtmlString.Create(@getVal("thumbPost_thum2_Details", "text"))</p>
+                @*thumbPost_thum2_Details*@
+                <a class="moreLBtn fr" href=@getVal("thumbPost_thum2_href", "href")>MORE</a>@*thumbPost_thum2_href*@
+</div>
         <div class="thumbPost col-md-4">
-            <img class="thumbPic" src=@HttpUtility.UrlPathEncode(@getVal("thumbPost_thum3_Pic_href", "href")) alt=@MvcHtmlString.Create(@getVal("thumbPost_thum3_Title", "text"))> @*thumbPost_thum3_Pic_href*@
-            <h3>@MvcHtmlString.Create(@getVal("thumbPost_thum3_Title", "text"))</h3>@*thumbPost_thum3_Title*@
-            <p>@MvcHtmlString.Create(@getVal("thumbPost_thum3_Details", "text"))</p>
-            @*thumbPost_thum3_Details*@
-            <a class="moreLBtn fr" href=@getVal("thumbPost_thum3_href", "href")>MORE</a>
-        </div>
+            <a href=@getVal("thumbPost_thum3_href", "href")><img class="thumbPic" src=@HttpUtility.UrlPathEncode(@getVal("thumbPost_thum3_Pic_href", "href")) alt=@MvcHtmlString.Create(@getVal("thumbPost_thum3_Title", "text"))></a> @*thumbPost_thum3_Pic_href*@
+                <h3>@MvcHtmlString.Create(@getVal("thumbPost_thum3_Title", "text"))</h3>@*thumbPost_thum3_Title*@
+                <p>@MvcHtmlString.Create(@getVal("thumbPost_thum3_Details", "text"))</p>
+                @*thumbPost_thum3_Details*@
+                <a class="moreLBtn fr" href=@getVal("thumbPost_thum3_href", "href")>MORE</a>
+</div>
     </div>
 </div>
 
