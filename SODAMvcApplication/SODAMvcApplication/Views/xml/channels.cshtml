@@ -1,0 +1,13 @@
+﻿@model IEnumerable<SODAMvcApplication.CategoriesServiceReference.Category>
+@{
+    Layout = null;
+    Response.ContentType = "text/xml";
+}
+<trainnow>
+    <channels>
+        @foreach(var channel in Model)
+        {
+            <channel name="@channel.CategoryName" image="@System.IO.Path.GetFileName(channel.IMG_URL)" id="@channel.CategoryId"/>
+        }
+    </channels>
+</trainnow>

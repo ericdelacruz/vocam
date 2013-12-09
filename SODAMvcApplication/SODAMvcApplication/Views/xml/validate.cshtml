@@ -1,0 +1,25 @@
+﻿@model SODAMvcApplication.Models.XML.Users
+@{
+    Layout = null;
+    Response.ContentType = "text/xml";
+}
+<users>
+    <user authorized="@Model.authorized.ToString()" />
+    <subscription daysleft="@Model.daysleft" />
+    <news shownews="@Model.shownews" />
+    <image file="" />
+    <clientwebsite websiteurl="" />
+    <pclaptop licenses="" />
+    <pclaptop licensesconsumed="" />
+    <server viewcount="" />
+    <server viewcountconsumed="" />
+    <iphone licenses="" />
+    <iphone licensesconsumed="" />
+    <ipad licenses="" />
+    <ipad licensesconsumed="" />
+    <androidphone licenses="" />
+    <androidphone licensesconsumed="" />
+    <androidtab licenses="" />
+    <androidtab licensesconsumed="" />
+</users>
+

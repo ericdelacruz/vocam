@@ -1,0 +1,44 @@
+﻿@model IEnumerable<SODAMvcApplication.CategoriesServiceReference.Specific>
+@{
+    Layout = null;
+    Response.ContentType = "text/xml";
+}
+<trainnow>
+    @foreach(var title in Model)
+    {
+        
+            var catClient_temp = new SODAMvcApplication.CategoriesServiceReference.CatListingServiceClient();
+            var indisc = title.InDisc == 0?"":title.InDisc.ToString();
+            var DateQuestion = string.Format("{0:M/d/yyyy}", title.DateQuestionAnswerChange);
+            var time = title.time.TotalMilliseconds;
+            var channels = (from cat in catClient_temp.get_Categories()
+                            join CA in catClient_temp.getCatAssign() on cat.CategoryId equals CA.CategoryId
+                            select cat.CategoryName).ToList();
+            var topics = catClient_temp.getTopics().Where(t => t.SpecId == title.Id).ToList();
+            var Chapters = catClient_temp.getChapter().Where(chap => chap.SpecID == title.Id).ToList();
+
+            catClient_temp.Close();
+         
+        <title id="@title.Id" code="@title.TitleCode" name="@title.Title" filename="@title.FileName" duration="@title.Duration" description="@title.Description" summary="@title.Overview" IsDownloadable = "@title.Downloadlable" Chapters="@title.totalChapters" InDisc = "@indisc" DownloadNews="@title.isDOwnloadNews" QuestionAnswerChangeDate="@DateQuestion" time="@time">
+            <channels>
+                @foreach(var channel in channels)
+                {
+                    <channel name="@channel"/>
+                }
+                <topics>
+                @foreach(var topic in topics)
+                {
+                    <topic name="@topic.Name"/>
+                }
+                </topics>
+                <chapters>
+                    @foreach (var chapter in Chapters)
+                    {
+                        <chapter name="@chapter.ChapterName" time="@chapter.time.Value.TotalMilliseconds.ToString()" />
+                    }
+                </chapters>
+            </channels>
+        </title>
+    }
+</trainnow>
+
