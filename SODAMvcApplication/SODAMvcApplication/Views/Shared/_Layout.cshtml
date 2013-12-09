@@ -14,6 +14,7 @@
 
     <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="~/Content/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="~/Content/css/colorbox/colorbox.css" rel="stylesheet" media="screen" />
     <link href="~/Content/css/main.css" rel="stylesheet" media="screen" />
     <link href="~/Content/css/prettyPhoto.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="/Content/css/formstyle.css">
@@ -130,17 +131,18 @@
     </footer>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="/Scripts/jquery.min.js"></script>
-
+    <script src="/Scripts/jquery.colorbox.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/Scripts/bootstrap.min.js"></script>
 
     <script src="/Scripts/jquery.prettyPhoto.js" type="text/javascript"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            $("a[rel^='freePowerPoint']").prettyPhoto();
-            $("#recaptcha_reload").hide();
+        //$(document).ready(function () {
+          //  $("a[rel^='freePowerPoint']").prettyPhoto();
+            //$("#recaptcha_reload").hide();
           
-        });
+        //});
+        $("#iframe").colorbox({ iframe: true, width: 500, height: 600, innerWidth: 500, innerHeight: 409 });
     </script>
 
     <script src="/Scripts/jquery.form.min.js"></script>
