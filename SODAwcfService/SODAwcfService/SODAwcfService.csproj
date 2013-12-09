@@ -107,31 +107,13 @@
     <Compile Include="AccountService.svc.cs">
       <DependentUpon>AccountService.svc</DependentUpon>
     </Compile>
-    <Compile Include="Category.cs">
-      <DependentUpon>SODAMvcModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="CatListingService.svc.cs">
       <DependentUpon>CatListingService.svc</DependentUpon>
     </Compile>
-    <Compile Include="chapter.cs">
-      <DependentUpon>SODAMvcModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\CategoryAssignment.cs" />
-    <Compile Include="Topic.cs">
-      <DependentUpon>SODAMvcModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="XMLModel\Channel.cs" />
     <Compile Include="CMS_Service.svc.cs">
       <DependentUpon>CMS_Service.svc</DependentUpon>
-    </Compile>
-    <Compile Include="Contact.cs">
-      <DependentUpon>SODAMvcModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ContentDef.cs">
-      <DependentUpon>SODAMvcModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Customer.cs">
-      <DependentUpon>PortalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EncDec.cs" />
     <Compile Include="IAccountService.cs" />
@@ -140,9 +122,6 @@
     <Compile Include="IPortalService.cs" />
     <Compile Include="ISODAPaypalService.cs" />
     <Compile Include="IVideoplayerService.cs" />
-    <Compile Include="LogsTable.cs">
-      <DependentUpon>PortalModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Chapter.cs" />
@@ -157,45 +136,15 @@
     <Compile Include="Models\SalesPerson.cs" />
     <Compile Include="Models\Specific.cs" />
     <Compile Include="Models\Topic.cs" />
-    <Compile Include="Page.cs">
-      <DependentUpon>SODAMvcModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="PortalDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PortalDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="PortalModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PortalModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PortalModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PortalModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PortalModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PortalModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="PortalService.svc.cs">
       <DependentUpon>PortalService.svc</DependentUpon>
     </Compile>
-    <Compile Include="PriceTable.cs">
-      <DependentUpon>PortalModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Region.cs">
-      <DependentUpon>PortalModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SalesCode.cs">
-      <DependentUpon>PortalModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SalesPerson.cs">
-      <DependentUpon>PortalModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Service References\PayPalServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -206,26 +155,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SodaDBDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="SODAMvcModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SODAMvcModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SODAMvcModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SODAMvcModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SODAMvcModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SODAMvcModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="SODAPaypalService.svc.cs">
       <DependentUpon>SODAPaypalService.svc</DependentUpon>
-    </Compile>
-    <Compile Include="Specific.cs">
-      <DependentUpon>SODAMvcModel.tt</DependentUpon>
     </Compile>
     <Compile Include="XMLModel\Title.cs" />
     <Compile Include="XMLModel\Users.cs" />
@@ -251,23 +182,6 @@
     </None>
     <Content Include="PortalDataSet.xss">
       <DependentUpon>PortalDataSet.xsd</DependentUpon>
-    </Content>
-    <EntityDeploy Include="PortalModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>PortalModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="PortalModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PortalModel.edmx</DependentUpon>
-      <LastGenOutput>PortalModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="PortalModel.edmx.diagram">
-      <DependentUpon>PortalModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="PortalModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PortalModel.edmx</DependentUpon>
-      <LastGenOutput>PortalModel.cs</LastGenOutput>
     </Content>
     <None Include="Properties\PublishProfiles\Daddy.pubxml" />
     <None Include="Service References\PayPalServiceReference\CoreComponentTypes.xsd" />
@@ -626,23 +540,6 @@
     </None>
     <Content Include="SodaDBDataSet.xss">
       <DependentUpon>SodaDBDataSet.xsd</DependentUpon>
-    </Content>
-    <EntityDeploy Include="SODAMvcModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SODAMvcModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="SODAMvcModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SODAMvcModel.edmx</DependentUpon>
-      <LastGenOutput>SODAMvcModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="SODAMvcModel.edmx.diagram">
-      <DependentUpon>SODAMvcModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="SODAMvcModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SODAMvcModel.edmx</DependentUpon>
-      <LastGenOutput>SODAMvcModel.cs</LastGenOutput>
     </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
