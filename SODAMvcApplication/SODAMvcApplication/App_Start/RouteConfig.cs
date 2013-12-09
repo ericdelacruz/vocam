@@ -22,10 +22,15 @@ namespace SODAMvcApplication
                 url: "titles/{id}",
                 defaults: new { controller = "Categories", action = "Details", id = UrlParameter.Optional });
             routes.MapRoute(
+                name: "authorize",
+                url: "users/{action}/{id}",
+                defaults: new{controller="xml", action="validate", id = UrlParameter.Optional});
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+           
             
         }
     }
