@@ -54,6 +54,13 @@ namespace SODAMvcApplication.Controllers
             return View();
         }
 
+        //GET: /Legals/
+        public ActionResult Legals()
+        {
+
+            return View();
+        }
+
 
         [HttpPost]
         public ActionResult contact(CMSServiceReference.Contact contact)
