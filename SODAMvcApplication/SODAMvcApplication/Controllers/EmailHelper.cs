@@ -21,11 +21,11 @@ namespace SODAMvcApplication.Controllers
            
             //SmtpClient smtp = port == 0 ? new SmtpClient(host) : new SmtpClient(host, port);
             SmtpClient smtp = new SmtpClient();
-            //string username = "test@sac-iis.com";
-            //string password = "P@ssw0rd12345";
+            string username = "test@sac-iis.com";
+            string password = "P@ssw0rd12345";
 
-            //smtp.Credentials = new NetworkCredential(username, password);
-            smtp.Credentials = new NetworkCredential();
+            smtp.Credentials = new NetworkCredential(username, password);
+            //smtp.Credentials = new NetworkCredential();
             //smtp.EnableSsl = true;
             //smtp.UseDefaultCredentials = false;
            
