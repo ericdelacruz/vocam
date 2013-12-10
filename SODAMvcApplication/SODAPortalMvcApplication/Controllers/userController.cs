@@ -39,11 +39,11 @@ namespace SODAPortalMvcApplication.Controllers
                         Session.Add("CustomerData", customer.First());
                         if(customer.First().customer.DateSubscriptionEnd.Value.Month >=  DateTime.Now.Month)
                         {
-                            if(isPayPalRecurActive(customer.First().account.Id))
-                            {
-                                customer.First().customer.DateSubscriptionEnd = customer.First().customer.DateSubscriptionEnd.Value.AddMonths(1);
-                                portalClient.updateCustomer(customer.First().customer);
-                            }
+                            //if(isPayPalRecurActive(customer.First().account.Id))
+                            //{
+                            //    customer.First().customer.DateSubscriptionEnd = customer.First().customer.DateSubscriptionEnd.Value.AddMonths(1);
+                            //    portalClient.updateCustomer(customer.First().customer);
+                            //}
                         }
                         return View(customer.First());
                     }
@@ -295,6 +295,13 @@ namespace SODAPortalMvcApplication.Controllers
         {
             return View();
         }
+
+        public ActionResult termsconditions()
+        {
+            return View();
+        }
+
+
         public FileStreamResult StreamFileFromDisk()
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + "Content/download/";
