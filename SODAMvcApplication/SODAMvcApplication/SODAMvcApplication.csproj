@@ -367,7 +367,6 @@
     <Content Include="Content\download\USO-AUS-PPS.pps" />
     <Content Include="Content\download\USW-AUS-PPS.pps" />
     <Content Include="Content\download\WHSE-AUS-PPS.pps" />
-    <Content Include="Content\css\colorbox\images\overlay.pngdsd" />
     <None Include="Properties\PublishProfiles\Daddy Main.pubxml" />
     <None Include="Service References\AccountServiceReference\AccountService.wsdl" />
     <None Include="Service References\AccountServiceReference\AccountService.xsd" />
@@ -481,7 +480,7 @@
     </Content>
     <Content Include="Views\drm\authenticate.cshtml" />
     <Content Include="Views\home\contactfreeppt.cshtml" />
-    <Content Include="Views\home\thankyou.cshtml" />
+    <Content Include="Views\home\replyfreeppt.cshtml" />
     <Content Include="Views\home\download.cshtml" />
     <Content Include="Views\home\legals.cshtml" />
     <Content Include="Views\xml\titles.cshtml" />

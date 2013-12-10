@@ -5,6 +5,8 @@
     
 }
 
+
+
 <div class="container row portalContainer">
 
     <div class="portalWrap displayInline border">
@@ -18,11 +20,31 @@
             <h3>Product Name</h3>
             <p>Product Desciption. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.</p>
 
-            <h3>Purchase Additional License</h3>
+            <h3>Select Your Subscription</h3>
+            <div class="row">
+                <div class="col-sm-4 border2 shadow">
+                    <div class="monthSub">1 MONTH</div>
+                    <div class="priceSub">$13.99</div>
+                    <div class="radioBg"><input type="radio" name="subscription"></div>
+                </div>
+
+                <div class="col-sm-4 border2 shadow">
+                    <div class="monthSub">3 MONTHS</div>
+                    <div class="priceSub">$13.99</div>
+                    <div class="radioBg"><input type="radio" name="subscription"></div>
+                </div>
+
+                <div class="col-sm-4 border2 shadow">
+                    <div class="monthSub">6 MONTHS</div>
+                    <div class="priceSub">$13.99</div>
+                    <div class="radioBg"><input type="radio" name="subscription"></div>
+                </div>
+            </div>
+            <br> <br>   
+
             <label>Quantity: </label><input type="text" name="quantity" class="form-control">
             <br>
-
-            <h3>Sales code/Promo code </h3>
+           
             <div class="form-group">
                 @using(@Html.BeginForm("verify","user"))
                 { 
@@ -34,6 +56,7 @@
                 }
             </div>
 
+            <p>&nbsp;</p>
             <p>&nbsp;</p>
             <p>60 Subscription for 6 months.</p>
             <p>$10 Recurring billing after 6 months initial subscription.</p>

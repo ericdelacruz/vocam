@@ -69,12 +69,13 @@ namespace SODAwcfService
 
         public int addCustomer(Models.Customer customer)
         {
-            return customerTableAdapter.Insert(customer.UserId, customer.SalesCodeId, customer.DatePurchase, customer.DateSubscriptionEnd);
+            return customerTableAdapter.Insert(customer.UserId, customer.SalesCodeId, customer.DatePurchase, 
+                                            customer.DateSubscriptionEnd,customer.RecurringType, customer.Licenses,customer.DateUpdated,customer.PPId );
         }
 
         public int updateCustomer(Models.Customer customer)
         {
-            return customerTableAdapter.Update(customer.UserId, customer.SalesCodeId, customer.DatePurchase, customer.DateSubscriptionEnd, customer.Id);
+            return customerTableAdapter.Update(customer.UserId, customer.SalesCodeId, customer.DatePurchase, customer.DateSubscriptionEnd,customer.RecurringType, customer.Licenses,customer.DateUpdated,customer.PPId, customer.Id);
         }
 
         public int deleteCustomer(long id)
@@ -200,12 +201,12 @@ namespace SODAwcfService
 
         public int addRegion(Models.Region region)
         {
-            return regionTableAdapter.Insert(region.RegionName);
+            return regionTableAdapter.Insert(region.RegionName,region.Currency);
         }
 
         public int updateRegion(Models.Region region)
         {
-            return regionTableAdapter.Update(region.RegionName, region.Id);
+            return regionTableAdapter.Update(region.RegionName,region.Currency, region.Id);
         }
 
         public int deleteRegion(int id)

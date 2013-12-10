@@ -111,6 +111,7 @@
       <DependentUpon>CatListingService.svc</DependentUpon>
     </Compile>
     <Compile Include="Models\CategoryAssignment.cs" />
+    <Compile Include="Models\PayPalModel.cs" />
     <Compile Include="XMLModel\Channel.cs" />
     <Compile Include="CMS_Service.svc.cs">
       <DependentUpon>CMS_Service.svc</DependentUpon>

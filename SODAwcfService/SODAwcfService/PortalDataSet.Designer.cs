@@ -48,6 +48,10 @@ namespace SODAwcfService {
         
         private global::System.Data.DataRelation relationFK_Customer_ToSaleCode;
         
+        private global::System.Data.DataRelation relationFK_Customer_ToPayPalTrans;
+        
+        private global::System.Data.DataRelation relationFK_PaypalTrans_ToTable;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -353,6 +357,8 @@ namespace SODAwcfService {
             this.relationFK_SalesPersonTable_ToSalesCode1 = this.Relations["FK_SalesPersonTable_ToSalesCode1"];
             this.relationFK_PriceTable_ToRegion = this.Relations["FK_PriceTable_ToRegion"];
             this.relationFK_Customer_ToSaleCode = this.Relations["FK_Customer_ToSaleCode"];
+            this.relationFK_Customer_ToPayPalTrans = this.Relations["FK_Customer_ToPayPalTrans"];
+            this.relationFK_PaypalTrans_ToTable = this.Relations["FK_PaypalTrans_ToTable"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -397,6 +403,14 @@ namespace SODAwcfService {
                         this.tableSalesCode.IdColumn}, new global::System.Data.DataColumn[] {
                         this.tableCustomer.SalesCodeIdColumn}, false);
             this.Relations.Add(this.relationFK_Customer_ToSaleCode);
+            this.relationFK_Customer_ToPayPalTrans = new global::System.Data.DataRelation("FK_Customer_ToPayPalTrans", new global::System.Data.DataColumn[] {
+                        this.tablePaypalTrans.IdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableCustomer.PPIdColumn}, false);
+            this.Relations.Add(this.relationFK_Customer_ToPayPalTrans);
+            this.relationFK_PaypalTrans_ToTable = new global::System.Data.DataRelation("FK_PaypalTrans_ToTable", new global::System.Data.DataColumn[] {
+                        this.tableSalesCode.IdColumn}, new global::System.Data.DataColumn[] {
+                        this.tablePaypalTrans.SalesCodeIdColumn}, false);
+            this.Relations.Add(this.relationFK_PaypalTrans_ToTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -534,6 +548,14 @@ namespace SODAwcfService {
             
             private global::System.Data.DataColumn columnSalesCodeId;
             
+            private global::System.Data.DataColumn columnRecuringType;
+            
+            private global::System.Data.DataColumn columnLicencses;
+            
+            private global::System.Data.DataColumn columnDateUpdated;
+            
+            private global::System.Data.DataColumn columnPPId;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public CustomerDataTable() {
@@ -609,6 +631,38 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn RecuringTypeColumn {
+                get {
+                    return this.columnRecuringType;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn LicencsesColumn {
+                get {
+                    return this.columnLicencses;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn DateUpdatedColumn {
+                get {
+                    return this.columnDateUpdated;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn PPIdColumn {
+                get {
+                    return this.columnPPId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -644,16 +698,23 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public CustomerRow AddCustomerRow(long UserId, System.DateTime DatePurchase, System.DateTime DateSubscriptionEnd, SalesCodeRow parentSalesCodeRowByFK_Customer_ToSaleCode) {
+            public CustomerRow AddCustomerRow(long UserId, System.DateTime DatePurchase, System.DateTime DateSubscriptionEnd, SalesCodeRow parentSalesCodeRowByFK_Customer_ToSaleCode, short RecuringType, int Licencses, System.DateTime DateUpdated, PaypalTransRow parentPaypalTransRowByFK_Customer_ToPayPalTrans) {
                 CustomerRow rowCustomerRow = ((CustomerRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         UserId,
                         DatePurchase,
                         DateSubscriptionEnd,
+                        null,
+                        RecuringType,
+                        Licencses,
+                        DateUpdated,
                         null};
                 if ((parentSalesCodeRowByFK_Customer_ToSaleCode != null)) {
                     columnValuesArray[4] = parentSalesCodeRowByFK_Customer_ToSaleCode[0];
+                }
+                if ((parentPaypalTransRowByFK_Customer_ToPayPalTrans != null)) {
+                    columnValuesArray[8] = parentPaypalTransRowByFK_Customer_ToPayPalTrans[5];
                 }
                 rowCustomerRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowCustomerRow);
@@ -689,6 +750,10 @@ namespace SODAwcfService {
                 this.columnDatePurchase = base.Columns["DatePurchase"];
                 this.columnDateSubscriptionEnd = base.Columns["DateSubscriptionEnd"];
                 this.columnSalesCodeId = base.Columns["SalesCodeId"];
+                this.columnRecuringType = base.Columns["RecuringType"];
+                this.columnLicencses = base.Columns["Licencses"];
+                this.columnDateUpdated = base.Columns["DateUpdated"];
+                this.columnPPId = base.Columns["PPId"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -704,6 +769,14 @@ namespace SODAwcfService {
                 base.Columns.Add(this.columnDateSubscriptionEnd);
                 this.columnSalesCodeId = new global::System.Data.DataColumn("SalesCodeId", typeof(long), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSalesCodeId);
+                this.columnRecuringType = new global::System.Data.DataColumn("RecuringType", typeof(short), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRecuringType);
+                this.columnLicencses = new global::System.Data.DataColumn("Licencses", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLicencses);
+                this.columnDateUpdated = new global::System.Data.DataColumn("DateUpdated", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDateUpdated);
+                this.columnPPId = new global::System.Data.DataColumn("PPId", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPPId);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -714,6 +787,8 @@ namespace SODAwcfService {
                 this.columnId.Unique = true;
                 this.columnUserId.AllowDBNull = false;
                 this.columnSalesCodeId.AllowDBNull = false;
+                this.columnRecuringType.AllowDBNull = false;
+                this.columnLicencses.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2137,6 +2212,8 @@ namespace SODAwcfService {
             
             private global::System.Data.DataColumn columnRegionName;
             
+            private global::System.Data.DataColumn columnCurrency;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public RegionDataTable() {
@@ -2188,6 +2265,14 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn CurrencyColumn {
+                get {
+                    return this.columnCurrency;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2223,11 +2308,12 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public RegionRow AddRegionRow(int Id, string RegionName) {
+            public RegionRow AddRegionRow(int Id, string RegionName, string Currency) {
                 RegionRow rowRegionRow = ((RegionRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Id,
-                        RegionName};
+                        RegionName,
+                        Currency};
                 rowRegionRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowRegionRow);
                 return rowRegionRow;
@@ -2259,6 +2345,7 @@ namespace SODAwcfService {
             internal void InitVars() {
                 this.columnId = base.Columns["Id"];
                 this.columnRegionName = base.Columns["RegionName"];
+                this.columnCurrency = base.Columns["Currency"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2268,12 +2355,15 @@ namespace SODAwcfService {
                 base.Columns.Add(this.columnId);
                 this.columnRegionName = new global::System.Data.DataColumn("RegionName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRegionName);
+                this.columnCurrency = new global::System.Data.DataColumn("Currency", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCurrency);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AllowDBNull = false;
                 this.columnId.Unique = true;
                 this.columnRegionName.AllowDBNull = false;
                 this.columnRegionName.MaxLength = 50;
+                this.columnCurrency.MaxLength = 5;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2407,8 +2497,6 @@ namespace SODAwcfService {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class PaypalTransDataTable : global::System.Data.TypedTableBase<PaypalTransRow> {
             
-            private global::System.Data.DataColumn columnId;
-            
             private global::System.Data.DataColumn columnUserID;
             
             private global::System.Data.DataColumn columnECTransID;
@@ -2418,6 +2506,14 @@ namespace SODAwcfService {
             private global::System.Data.DataColumn columnDateLog;
             
             private global::System.Data.DataColumn columnActive;
+            
+            private global::System.Data.DataColumn columnId;
+            
+            private global::System.Data.DataColumn columnSalesCodeId;
+            
+            private global::System.Data.DataColumn columnTotalAmt;
+            
+            private global::System.Data.DataColumn columnQty;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -2450,14 +2546,6 @@ namespace SODAwcfService {
             protected PaypalTransDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn IdColumn {
-                get {
-                    return this.columnId;
-                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2502,6 +2590,38 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn IdColumn {
+                get {
+                    return this.columnId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn SalesCodeIdColumn {
+                get {
+                    return this.columnSalesCodeId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn TotalAmtColumn {
+                get {
+                    return this.columnTotalAmt;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn QtyColumn {
+                get {
+                    return this.columnQty;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2537,25 +2657,24 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public PaypalTransRow AddPaypalTransRow(int Id, long UserID, string ECTransID, string RPProfile, System.DateTime DateLog, bool Active) {
+            public PaypalTransRow AddPaypalTransRow(long UserID, string ECTransID, string RPProfile, System.DateTime DateLog, bool Active, SalesCodeRow parentSalesCodeRowByFK_PaypalTrans_ToTable, decimal TotalAmt, int Qty) {
                 PaypalTransRow rowPaypalTransRow = ((PaypalTransRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        Id,
                         UserID,
                         ECTransID,
                         RPProfile,
                         DateLog,
-                        Active};
+                        Active,
+                        null,
+                        null,
+                        TotalAmt,
+                        Qty};
+                if ((parentSalesCodeRowByFK_PaypalTrans_ToTable != null)) {
+                    columnValuesArray[6] = parentSalesCodeRowByFK_PaypalTrans_ToTable[0];
+                }
                 rowPaypalTransRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowPaypalTransRow);
                 return rowPaypalTransRow;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public PaypalTransRow FindById(int Id) {
-                return ((PaypalTransRow)(this.Rows.Find(new object[] {
-                            Id})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2575,19 +2694,20 @@ namespace SODAwcfService {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
-                this.columnId = base.Columns["Id"];
                 this.columnUserID = base.Columns["UserID"];
                 this.columnECTransID = base.Columns["ECTransID"];
                 this.columnRPProfile = base.Columns["RPProfile"];
                 this.columnDateLog = base.Columns["DateLog"];
                 this.columnActive = base.Columns["Active"];
+                this.columnId = base.Columns["Id"];
+                this.columnSalesCodeId = base.Columns["SalesCodeId"];
+                this.columnTotalAmt = base.Columns["TotalAmt"];
+                this.columnQty = base.Columns["Qty"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
-                this.columnId = new global::System.Data.DataColumn("Id", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnId);
                 this.columnUserID = new global::System.Data.DataColumn("UserID", typeof(long), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnUserID);
                 this.columnECTransID = new global::System.Data.DataColumn("ECTransID", typeof(string), null, global::System.Data.MappingType.Element);
@@ -2598,12 +2718,27 @@ namespace SODAwcfService {
                 base.Columns.Add(this.columnDateLog);
                 this.columnActive = new global::System.Data.DataColumn("Active", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnActive);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnId}, true));
-                this.columnId.AllowDBNull = false;
-                this.columnId.Unique = true;
+                this.columnId = new global::System.Data.DataColumn("Id", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnId);
+                this.columnSalesCodeId = new global::System.Data.DataColumn("SalesCodeId", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSalesCodeId);
+                this.columnTotalAmt = new global::System.Data.DataColumn("TotalAmt", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTotalAmt);
+                this.columnQty = new global::System.Data.DataColumn("Qty", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnQty);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint2", new global::System.Data.DataColumn[] {
+                                this.columnId}, false));
                 this.columnECTransID.MaxLength = 50;
                 this.columnRPProfile.MaxLength = 50;
+                this.columnId.AutoIncrement = true;
+                this.columnId.AutoIncrementSeed = -1;
+                this.columnId.AutoIncrementStep = -1;
+                this.columnId.AllowDBNull = false;
+                this.columnId.ReadOnly = true;
+                this.columnId.Unique = true;
+                this.columnSalesCodeId.AllowDBNull = false;
+                this.columnTotalAmt.AllowDBNull = false;
+                this.columnQty.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2815,12 +2950,77 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public short RecuringType {
+                get {
+                    return ((short)(this[this.tableCustomer.RecuringTypeColumn]));
+                }
+                set {
+                    this[this.tableCustomer.RecuringTypeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int Licencses {
+                get {
+                    return ((int)(this[this.tableCustomer.LicencsesColumn]));
+                }
+                set {
+                    this[this.tableCustomer.LicencsesColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public System.DateTime DateUpdated {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableCustomer.DateUpdatedColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DateUpdated\' in table \'Customer\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCustomer.DateUpdatedColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long PPId {
+                get {
+                    try {
+                        return ((long)(this[this.tableCustomer.PPIdColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PPId\' in table \'Customer\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCustomer.PPIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public SalesCodeRow SalesCodeRow {
                 get {
                     return ((SalesCodeRow)(this.GetParentRow(this.Table.ParentRelations["FK_Customer_ToSaleCode"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_Customer_ToSaleCode"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public PaypalTransRow PaypalTransRow {
+                get {
+                    return ((PaypalTransRow)(this.GetParentRow(this.Table.ParentRelations["FK_Customer_ToPayPalTrans"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_Customer_ToPayPalTrans"]);
                 }
             }
             
@@ -2846,6 +3046,30 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetDateSubscriptionEndNull() {
                 this[this.tableCustomer.DateSubscriptionEndColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsDateUpdatedNull() {
+                return this.IsNull(this.tableCustomer.DateUpdatedColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetDateUpdatedNull() {
+                this[this.tableCustomer.DateUpdatedColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsPPIdNull() {
+                return this.IsNull(this.tableCustomer.PPIdColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetPPIdNull() {
+                this[this.tableCustomer.PPIdColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -3089,6 +3313,17 @@ namespace SODAwcfService {
                     return ((CustomerRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Customer_ToSaleCode"])));
                 }
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public PaypalTransRow[] GetPaypalTransRows() {
+                if ((this.Table.ChildRelations["FK_PaypalTrans_ToTable"] == null)) {
+                    return new PaypalTransRow[0];
+                }
+                else {
+                    return ((PaypalTransRow[])(base.GetChildRows(this.Table.ChildRelations["FK_PaypalTrans_ToTable"])));
+                }
+            }
         }
         
         /// <summary>
@@ -3269,6 +3504,34 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Currency {
+                get {
+                    try {
+                        return ((string)(this[this.tableRegion.CurrencyColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Currency\' in table \'Region\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableRegion.CurrencyColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsCurrencyNull() {
+                return this.IsNull(this.tableRegion.CurrencyColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetCurrencyNull() {
+                this[this.tableRegion.CurrencyColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public SalesPersonRow[] GetSalesPersonRows() {
                 if ((this.Table.ChildRelations["FK_SalesPerson_ToRegion"] == null)) {
                     return new SalesPersonRow[0];
@@ -3302,17 +3565,6 @@ namespace SODAwcfService {
             internal PaypalTransRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
                 this.tablePaypalTrans = ((PaypalTransDataTable)(this.Table));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int Id {
-                get {
-                    return ((int)(this[this.tablePaypalTrans.IdColumn]));
-                }
-                set {
-                    this[this.tablePaypalTrans.IdColumn] = value;
-                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3397,6 +3649,61 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long Id {
+                get {
+                    return ((long)(this[this.tablePaypalTrans.IdColumn]));
+                }
+                set {
+                    this[this.tablePaypalTrans.IdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long SalesCodeId {
+                get {
+                    return ((long)(this[this.tablePaypalTrans.SalesCodeIdColumn]));
+                }
+                set {
+                    this[this.tablePaypalTrans.SalesCodeIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal TotalAmt {
+                get {
+                    return ((decimal)(this[this.tablePaypalTrans.TotalAmtColumn]));
+                }
+                set {
+                    this[this.tablePaypalTrans.TotalAmtColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int Qty {
+                get {
+                    return ((int)(this[this.tablePaypalTrans.QtyColumn]));
+                }
+                set {
+                    this[this.tablePaypalTrans.QtyColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public SalesCodeRow SalesCodeRow {
+                get {
+                    return ((SalesCodeRow)(this.GetParentRow(this.Table.ParentRelations["FK_PaypalTrans_ToTable"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_PaypalTrans_ToTable"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsUserIDNull() {
                 return this.IsNull(this.tablePaypalTrans.UserIDColumn);
             }
@@ -3453,6 +3760,17 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetActiveNull() {
                 this[this.tablePaypalTrans.ActiveColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public CustomerRow[] GetCustomerRows() {
+                if ((this.Table.ChildRelations["FK_Customer_ToPayPalTrans"] == null)) {
+                    return new CustomerRow[0];
+                }
+                else {
+                    return ((CustomerRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Customer_ToPayPalTrans"])));
+                }
             }
         }
         
@@ -3824,6 +4142,10 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("DatePurchase", "DatePurchase");
             tableMapping.ColumnMappings.Add("DateSubscriptionEnd", "DateSubscriptionEnd");
             tableMapping.ColumnMappings.Add("SalesCodeId", "SalesCodeId");
+            tableMapping.ColumnMappings.Add("RecuringType", "RecuringType");
+            tableMapping.ColumnMappings.Add("Licencses", "Licencses");
+            tableMapping.ColumnMappings.Add("DateUpdated", "DateUpdated");
+            tableMapping.ColumnMappings.Add("PPId", "PPId");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -3833,22 +4155,30 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = "INSERT INTO [Customer] ([UserId], [SalesCodeId], [DatePurchase], [DateSubscriptio" +
-                "nEnd]) VALUES (@UserId, @SalesCodeId, @DatePurchase, @DateSubscriptionEnd)";
+                "nEnd], [RecuringType], [Licencses], [DateUpdated], [PPId]) VALUES (@UserId, @Sal" +
+                "esCodeId, @DatePurchase, @DateSubscriptionEnd, @RecuringType, @Licencses, @DateU" +
+                "pdated, @PPId)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UserId", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UserId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SalesCodeId", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SalesCodeId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DatePurchase", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DatePurchase", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DateSubscriptionEnd", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DateSubscriptionEnd", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RecuringType", global::System.Data.SqlDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RecuringType", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Licencses", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Licencses", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DateUpdated", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DateUpdated", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PPId", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PPId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE [Customer] SET [UserId] = @UserId, [SalesCodeId] = @SalesCodeId, [DatePurc" +
-                "hase] = @DatePurchase, [DateSubscriptionEnd] = @DateSubscriptionEnd WHERE (([Id]" +
-                " = @Original_Id))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [Customer] SET [UserId] = @UserId, [SalesCodeId] = @SalesCodeId, [DatePurchase] = @DatePurchase, [DateSubscriptionEnd] = @DateSubscriptionEnd, [RecuringType] = @RecuringType, [Licencses] = @Licencses, [DateUpdated] = @DateUpdated, [PPId] = @PPId WHERE (([Id] = @Original_Id))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UserId", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UserId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SalesCodeId", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SalesCodeId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DatePurchase", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DatePurchase", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DateSubscriptionEnd", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DateSubscriptionEnd", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RecuringType", global::System.Data.SqlDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RecuringType", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Licencses", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Licencses", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DateUpdated", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DateUpdated", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PPId", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PPId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
@@ -3865,7 +4195,7 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT Id, UserId, SalesCodeId, DatePurchase, DateSubscriptionEnd FROM Customer";
+            this._commandCollection[0].CommandText = "SELECT * FROM Customer";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -3948,7 +4278,7 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(long UserId, long SalesCodeId, global::System.Nullable<global::System.DateTime> DatePurchase, global::System.Nullable<global::System.DateTime> DateSubscriptionEnd) {
+        public virtual int Insert(long UserId, long SalesCodeId, global::System.Nullable<global::System.DateTime> DatePurchase, global::System.Nullable<global::System.DateTime> DateSubscriptionEnd, short RecuringType, int Licencses, global::System.Nullable<global::System.DateTime> DateUpdated, global::System.Nullable<long> PPId) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((long)(UserId));
             this.Adapter.InsertCommand.Parameters[1].Value = ((long)(SalesCodeId));
             if ((DatePurchase.HasValue == true)) {
@@ -3962,6 +4292,20 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             }
             else {
                 this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.InsertCommand.Parameters[4].Value = ((short)(RecuringType));
+            this.Adapter.InsertCommand.Parameters[5].Value = ((int)(Licencses));
+            if ((DateUpdated.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[6].Value = ((System.DateTime)(DateUpdated.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            if ((PPId.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[7].Value = ((long)(PPId.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -3983,7 +4327,7 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(long UserId, long SalesCodeId, global::System.Nullable<global::System.DateTime> DatePurchase, global::System.Nullable<global::System.DateTime> DateSubscriptionEnd, long Original_Id) {
+        public virtual int Update(long UserId, long SalesCodeId, global::System.Nullable<global::System.DateTime> DatePurchase, global::System.Nullable<global::System.DateTime> DateSubscriptionEnd, short RecuringType, int Licencses, global::System.Nullable<global::System.DateTime> DateUpdated, global::System.Nullable<long> PPId, long Original_Id) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((long)(UserId));
             this.Adapter.UpdateCommand.Parameters[1].Value = ((long)(SalesCodeId));
             if ((DatePurchase.HasValue == true)) {
@@ -3998,7 +4342,21 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             else {
                 this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((long)(Original_Id));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((short)(RecuringType));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Licencses));
+            if ((DateUpdated.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((System.DateTime)(DateUpdated.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            if ((PPId.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((long)(PPId.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((long)(Original_Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -5374,6 +5732,7 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             tableMapping.DataSetTable = "Region";
             tableMapping.ColumnMappings.Add("Id", "Id");
             tableMapping.ColumnMappings.Add("RegionName", "RegionName");
+            tableMapping.ColumnMappings.Add("Currency", "Currency");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -5382,14 +5741,17 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [Region] ([RegionName]) VALUES (@RegionName)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [Region] ([RegionName], [Currency]) VALUES (@RegionName, @Currency)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionName", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Currency", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Currency", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE [Region] SET [RegionName] = @RegionName WHERE (([Id] = @Original_Id))";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [Region] SET [RegionName] = @RegionName, [Currency] = @Currency WHERE (([I" +
+                "d] = @Original_Id))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionName", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Currency", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Currency", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
@@ -5489,12 +5851,18 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string RegionName) {
+        public virtual int Insert(string RegionName, string Currency) {
             if ((RegionName == null)) {
                 throw new global::System.ArgumentNullException("RegionName");
             }
             else {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((string)(RegionName));
+            }
+            if ((Currency == null)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(Currency));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -5516,14 +5884,20 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string RegionName, int Original_Id) {
+        public virtual int Update(string RegionName, string Currency, int Original_Id) {
             if ((RegionName == null)) {
                 throw new global::System.ArgumentNullException("RegionName");
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(RegionName));
             }
-            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(Original_Id));
+            if ((Currency == null)) {
+                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(Currency));
+            }
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -5662,40 +6036,50 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "PaypalTrans";
-            tableMapping.ColumnMappings.Add("Id", "Id");
             tableMapping.ColumnMappings.Add("UserID", "UserID");
             tableMapping.ColumnMappings.Add("ECTransID", "ECTransID");
             tableMapping.ColumnMappings.Add("RPProfile", "RPProfile");
             tableMapping.ColumnMappings.Add("DateLog", "DateLog");
             tableMapping.ColumnMappings.Add("Active", "Active");
+            tableMapping.ColumnMappings.Add("Id", "Id");
+            tableMapping.ColumnMappings.Add("SalesCodeId", "SalesCodeId");
+            tableMapping.ColumnMappings.Add("TotalAmt", "TotalAmt");
+            tableMapping.ColumnMappings.Add("Qty", "Qty");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
             this._adapter.DeleteCommand.CommandText = "DELETE FROM [paypaltrans] WHERE (([Id] = @Original_Id))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [paypaltrans] ([UserID], [ECTransID], [RPProfile], [Active], [DateLog" +
-                "]) VALUES (@UserID, @ECTransID, @RPProfile, @Active, @DateLog)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [PaypalTrans] ([UserID], [ECTransID], [RPProfile], [Active], [DateLog" +
+                "], [SalesCodeId], [TotalAmt], [Qty]) VALUES (@UserID, @ECTransID, @RPProfile, @A" +
+                "ctive, @DateLog, @SalesCodeId, @TotalAmt, @Qty)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UserID", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UserID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ECTransID", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ECTransID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RPProfile", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RPProfile", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Active", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Active", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DateLog", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DateLog", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SalesCodeId", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SalesCodeId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TotalAmt", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TotalAmt", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Qty", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Qty", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = "UPDATE [paypaltrans] SET [UserID] = @UserID, [ECTransID] = @ECTransID, [RPProfile" +
-                "] = @RPProfile, [Active] = @Active, [DateLog] = @DateLog WHERE (([Id] = @Origina" +
-                "l_Id))";
+                "] = @RPProfile, [Active] = @Active, [DateLog] = @DateLog, [SalesCodeId] = @Sales" +
+                "CodeId, [TotalAmt] = @TotalAmt, [Qty] = @Qty WHERE (([Id] = @Original_Id))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UserID", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UserID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ECTransID", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ECTransID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RPProfile", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RPProfile", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Active", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Active", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DateLog", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DateLog", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SalesCodeId", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SalesCodeId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TotalAmt", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TotalAmt", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Qty", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Qty", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5711,7 +6095,8 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT  * from paypaltrans";
+            this._commandCollection[0].CommandText = "SELECT UserID, ECTransID, RPProfile, Active, DateLog, SalesCodeId, TotalAmt, Qty " +
+                "FROM PaypalTrans";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -5772,8 +6157,8 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_Id) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Id));
+        public virtual int Delete(long Original_Id) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((long)(Original_Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -5794,7 +6179,7 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(global::System.Nullable<long> UserID, string ECTransID, string RPProfile, global::System.Nullable<bool> Active, global::System.Nullable<global::System.DateTime> DateLog) {
+        public virtual int Insert(global::System.Nullable<long> UserID, string ECTransID, string RPProfile, global::System.Nullable<bool> Active, global::System.Nullable<global::System.DateTime> DateLog, long SalesCodeId, decimal TotalAmt, int Qty) {
             if ((UserID.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((long)(UserID.Value));
             }
@@ -5825,6 +6210,9 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             else {
                 this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
+            this.Adapter.InsertCommand.Parameters[5].Value = ((long)(SalesCodeId));
+            this.Adapter.InsertCommand.Parameters[6].Value = ((decimal)(TotalAmt));
+            this.Adapter.InsertCommand.Parameters[7].Value = ((int)(Qty));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -5845,7 +6233,7 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(global::System.Nullable<long> UserID, string ECTransID, string RPProfile, global::System.Nullable<bool> Active, global::System.Nullable<global::System.DateTime> DateLog, int Original_Id) {
+        public virtual int Update(global::System.Nullable<long> UserID, string ECTransID, string RPProfile, global::System.Nullable<bool> Active, global::System.Nullable<global::System.DateTime> DateLog, long SalesCodeId, decimal TotalAmt, int Qty, long Original_Id) {
             if ((UserID.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((long)(UserID.Value));
             }
@@ -5876,7 +6264,10 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             else {
                 this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_Id));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((long)(SalesCodeId));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((decimal)(TotalAmt));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Qty));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((long)(Original_Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -6152,6 +6543,15 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
+            if ((this._paypalTransTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.PaypalTrans.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._paypalTransTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._customerTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.Customer.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -6176,15 +6576,6 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._priceTableTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._paypalTransTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.PaypalTrans.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._paypalTransTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -6222,6 +6613,14 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
+            if ((this._paypalTransTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.PaypalTrans.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._paypalTransTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._customerTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.Customer.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -6246,14 +6645,6 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._paypalTransTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.PaypalTrans.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._paypalTransTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             return result;
         }
         
@@ -6264,14 +6655,6 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private int UpdateDeletedRows(PortalDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
-            if ((this._paypalTransTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.PaypalTrans.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._paypalTransTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._priceTableTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.PriceTable.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -6293,6 +6676,14 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._customerTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._paypalTransTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.PaypalTrans.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._paypalTransTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }

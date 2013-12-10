@@ -12,5 +12,13 @@ namespace SODAwcfService.Models
         public Nullable<System.DateTime> DateSubscriptionEnd { get; set; }
         public long UserId { get; set; }
         public long SalesCodeId { get; set; }
+
+        public short RecurringType { get; set; }
+
+        public int Licenses { get; set; }
+
+        public DateTime? DateUpdated { get; set; }
+
+        public long? PPId { get; set; }
     }
 }

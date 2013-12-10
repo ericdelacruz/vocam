@@ -47,7 +47,92 @@ namespace SODAwcfService
         }
 
         
+        public string checkoutModel(Models.PayPalCheckOutModel model)
+        {
+            SetExpressCheckoutRequestType request = new SetExpressCheckoutRequestType();
+            populateRequestObject(request,model);
 
+            SetExpressCheckoutReq wrapper = new SetExpressCheckoutReq();
+            wrapper.SetExpressCheckoutRequest = request;
+
+            Dictionary<string, string> configurationMap = GetAcctAndConfig();
+
+            // Create the PayPalAPIInterfaceServiceService service object to make the API call
+            PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
+
+            // # API call 
+            // Invoke the SetExpressCheckout method in service wrapper object  
+            SetExpressCheckoutResponseType setECResponse = service.SetExpressCheckout(wrapper);
+            if (setECResponse.Ack.Equals(AckCodeType.FAILURE) ||
+                (setECResponse.Errors != null && setECResponse.Errors.Count > 0))
+            {
+                throw new FaultException("Express Checkout Failed:");
+            }
+
+            return "https://www.sandbox.paypal.com/webscr&cmd=" + "_express-checkout&token=" + setECResponse.Token;
+        }
+
+       
+
+        private void populateRequestObject(SetExpressCheckoutRequestType request,Models.PayPalCheckOutModel model)
+        {
+            SetExpressCheckoutRequestDetailsType ecDetails = new SetExpressCheckoutRequestDetailsType();
+            
+                ecDetails.ReturnURL = model.confirmUrl;
+            
+                ecDetails.CancelURL = model.cancelurl;
+            
+
+            /* Populate payment requestDetails. 
+            * SetExpressCheckout allows parallel payments of upto 10 payments. 
+            * This samples shows just one payment.
+            */
+            PaymentDetailsType paymentDetails = new PaymentDetailsType();
+            ecDetails.PaymentDetails.Add(paymentDetails);
+
+            double orderTotal = model.orderTotalamt;
+            double itemTotal = model.itemTotalamt;
+
+            
+                paymentDetails.OrderDescription = model.OrderDesc;
+            
+
+            // Each payment can include requestDetails about multiple items
+            // This example shows just one payment item
+
+            PaymentDetailsItemType itemDetails = new PaymentDetailsItemType();
+            itemDetails.Name = model.itemName;
+            itemDetails.Amount = new BasicAmountType(model.CType, model.ItemAmt);
+            itemDetails.Quantity = model.Quantity;
+            // Indicates whether an item is digital or physical. For digital goods, this field is required and must be set to Digital. It is one of the following values:
+            //   1.Digital
+            //   2.Physical
+            //  This field is available since version 65.1. 
+            itemDetails.ItemCategory = ItemCategoryType.DIGITAL;
+
+            //itemTotal = 1;
+
+            //(Optional) Item description.
+            // Character length and limitations: 127 single-byte characters
+            // This field is introduced in version 53.0. 
+
+            itemDetails.Description = model.itemDesc;
+
+            paymentDetails.PaymentDetailsItem.Add(itemDetails);
+
+            //orderTotal += itemTotal;
+            paymentDetails.ItemTotal = new BasicAmountType(model.CType, itemTotal.ToString());
+            paymentDetails.OrderTotal = new BasicAmountType(model.CType, orderTotal.ToString());
+
+         
+            BillingCodeType billingCodeType = BillingCodeType.RECURRINGPAYMENTS;
+            BillingAgreementDetailsType baType = new BillingAgreementDetailsType(billingCodeType);
+            baType.BillingAgreementDescription = model.BillingAgreement;
+
+            ecDetails.BillingAgreementDetails.Add(baType);
+
+            request.SetExpressCheckoutRequestDetails = ecDetails;
+        }
        
 
         public string confirmation(long userid, string payorid, string token, decimal amt, decimal recur_amt, CurrencyCodeType cType, string itemName, string itemDesc, DateTime dateStart)
@@ -68,7 +153,7 @@ namespace SODAwcfService
             {
                 try
                 {
-                    paypalAdapter.Insert(userid, doECResponse.DoExpressCheckoutPaymentResponseDetails.PaymentInfo[0].TransactionID, response.CreateRecurringPaymentsProfileResponseDetails.ProfileID, true, DateTime.Now);
+                    //paypalAdapter.Insert(userid, doECResponse.DoExpressCheckoutPaymentResponseDetails.PaymentInfo[0].TransactionID, response.CreateRecurringPaymentsProfileResponseDetails.ProfileID, true, DateTime.Now);
                 }
                 catch (Exception ex)
                 {
@@ -77,6 +162,113 @@ namespace SODAwcfService
             }
             return doECResponse.DoExpressCheckoutPaymentResponseDetails.PaymentInfo[0].TransactionID + ";" + response.CreateRecurringPaymentsProfileResponseDetails.ProfileID;
         }
+        public string confirmationModel(Models.PayPalConfirmModel model)
+        {
+            var details = getExpressCheckoutDetails(model.token);
+            DoExpressCheckoutPaymentResponseType doECResponse = DoExpressCheckOut(details,model);
+             //DoExpressCheckoutPaymentResponseType doECResponse = DoExpressCheckOut(model.payorid, model.token, details);
+
+            var response = CreateRecurringProfile(model);
+            
+            if (response.Ack.Equals(AckCodeType.FAILURE) ||
+             (response.Errors != null && response.Errors.Count > 0))
+            {
+                throw new FaultException("Error on creating profile");
+            }
+
+            using (PortalDataSetTableAdapters.PaypalTransTableAdapter paypalAdapter = new PortalDataSetTableAdapters.PaypalTransTableAdapter())
+            {
+                try
+                {
+                    //paypalAdapter.Insert(model.userid,doECResponse.DoExpressCheckoutPaymentResponseDetails.PaymentInfo[0].TransactionID, response.CreateRecurringPaymentsProfileResponseDetails.ProfileID, true, DateTime.Now,model.SalesCodeId,model.PaymenytAmt,model.Qty);
+                    paypalAdapter.Insert(model.userid.Value,doECResponse.DoExpressCheckoutPaymentResponseDetails.PaymentInfo[0].TransactionID, response.CreateRecurringPaymentsProfileResponseDetails.ProfileID, true, DateTime.Now,model.SalesCodeId,model.PaymenytAmt,model.Qty);
+                }
+                catch (Exception ex)
+                {
+                    //log to textfile instead
+                }
+                finally
+                {
+                    paypalAdapter.Connection.Close();
+                }
+            }
+            return doECResponse.DoExpressCheckoutPaymentResponseDetails.PaymentInfo[0].TransactionID + ";" + response.CreateRecurringPaymentsProfileResponseDetails.ProfileID;
+        }
+
+        private CreateRecurringPaymentsProfileResponseType CreateRecurringProfile(Models.PayPalConfirmModel model)
+        {
+            CreateRecurringPaymentsProfileRequestType request = new CreateRecurringPaymentsProfileRequestType();
+
+            CreateRecurringPaymentsProfileRequestDetailsType profileDetails = new CreateRecurringPaymentsProfileRequestDetailsType();
+            request.CreateRecurringPaymentsProfileRequestDetails = profileDetails;
+
+            profileDetails.Token = model.token;
+
+            RecurringPaymentsProfileDetailsType rpProfileDetails =
+               new RecurringPaymentsProfileDetailsType(model.dateStart.ToString("yyyy-MM-ddTHH:mm:ss"));
+           
+            profileDetails.RecurringPaymentsProfileDetails = rpProfileDetails;
+
+            // (Required) Describes the recurring payments schedule, including the regular payment period, whether there is a trial period, and the number of payments that can fail before a profile is suspended.
+            ScheduleDetailsType scheduleDetails = new ScheduleDetailsType();
+            scheduleDetails.Description = model.schedDesc;
+
+            BasicAmountType paymentAmount = new BasicAmountType(model.cType, Convert.ToDouble(model.PaymenytAmt).ToString());
+
+            BillingPeriodType period = BillingPeriodType.MONTH;
+
+            BillingPeriodDetailsType paymentPeriod = new BillingPeriodDetailsType(period, model.BillingFrequency, paymentAmount);
+
+
+            scheduleDetails.PaymentPeriod = paymentPeriod;
+
+            profileDetails.ScheduleDetails = scheduleDetails;
+
+            CreateRecurringPaymentsProfileReq wrapper = new CreateRecurringPaymentsProfileReq();
+            wrapper.CreateRecurringPaymentsProfileRequest = request;
+
+            // Configuration map containing signature credentials and other required configuration.
+            // For a full list of configuration parameters refer in wiki page 
+            // [https://github.com/paypal/sdk-core-dotnet/wiki/SDK-Configuration-Parameters]
+            Dictionary<string, string> configurationMap = GetAcctAndConfig();
+
+            // Create the PayPalAPIInterfaceServiceService service object to make the API call
+            PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
+
+            // # API call 
+            // Invoke the CreateRecurringPaymentsProfile method in service wrapper object  
+            return service.CreateRecurringPaymentsProfile(wrapper);
+        }
+
+        private DoExpressCheckoutPaymentResponseType DoExpressCheckOut(GetExpressCheckoutDetailsResponseType details, Models.PayPalConfirmModel model)
+        {
+            DoExpressCheckoutPaymentRequestType request = new DoExpressCheckoutPaymentRequestType();
+            DoExpressCheckoutPaymentRequestDetailsType requestDetails = new DoExpressCheckoutPaymentRequestDetailsType();
+            request.DoExpressCheckoutPaymentRequestDetails = requestDetails;
+
+            requestDetails.PaymentDetails = details.GetExpressCheckoutDetailsResponseDetails.PaymentDetails;
+            requestDetails.Token = model.token;
+            requestDetails.PayerID = model.payorid;
+            requestDetails.PaymentAction = PaymentActionCodeType.SALE;
+
+            Dictionary<string, string> configurationMap = GetAcctAndConfig();
+            PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
+            // Invoke the API
+            DoExpressCheckoutPaymentReq wrapper = new DoExpressCheckoutPaymentReq();
+            wrapper.DoExpressCheckoutPaymentRequest = request;
+            // # API call 
+            // Invoke the DoExpressCheckoutPayment method in service wrapper object
+            DoExpressCheckoutPaymentResponseType doECResponse = service.DoExpressCheckoutPayment(wrapper);
+
+            if (doECResponse.Ack.Equals(AckCodeType.FAILURE) ||
+              (doECResponse.Errors != null && doECResponse.Errors.Count > 0))
+            {
+                throw new FaultException("Confirmation Failed");
+            }
+            return doECResponse;
+        }
+
+      
         public bool cancelSubscription(long userid)
         {
             string profileID = "";
@@ -107,6 +299,7 @@ namespace SODAwcfService
         {
             return new Models.RecuringProfileDetails() { profileStatus = getRecurProfileDetailsfromPayPal(userid).GetRecurringPaymentsProfileDetailsResponseDetails.ProfileStatus };
         }
+
         private CreateRecurringPaymentsProfileResponseType CreateRecurringProfile(string token, decimal amt, CurrencyCodeType cType, string itemDesc, DateTime dateStart)
         {
             CreateRecurringPaymentsProfileRequestType request = new CreateRecurringPaymentsProfileRequestType();
@@ -412,9 +605,11 @@ namespace SODAwcfService
 
 
 
-        
 
 
-      
+
+
+
+        public DateTime amt { get; set; }
     }
 }

@@ -9,5 +9,7 @@ namespace SODAwcfService.Models
     {
         public int Id { get; set; }
         public string RegionName { get; set; }
+
+        public string Currency { get; set; }
     }
 }

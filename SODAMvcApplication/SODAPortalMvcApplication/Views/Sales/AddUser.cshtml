@@ -17,16 +17,17 @@
          alert("User added successfully and verification Email has been sent to the user");
       </script>
     }
-   @using (@Html.BeginForm("adduser", "sales", FormMethod.Post, new { @class = "formRegistration border shadow" }))
+   @using (@Html.BeginForm("adduser", "sales", FormMethod.Post, new { @class = "formRegistration" }))
 {
     @Html.ValidationSummary()
-    <h2 class="margin15">Sign up</h2>
+    <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+    <h2 class="margin15" style="color: #F8981D;">Add User</h2>
     <label>First Name *</label>
-    @Html.TextBoxFor(m => m.FirtName, new { placeholder = "First Name", @class = "form-control" })
+    @Html.TextBoxFor(m => m.FirtName, new { placeholder = "First Name", @class = "form-control", required = "" })
     <label>Last Name *</label>
-    @Html.TextBoxFor(m => m.LastName, new { placeholder = "Last Name", @class = "form-control" })
+    @Html.TextBoxFor(m => m.LastName, new { placeholder = "Last Name", @class = "form-control", required = "" })
     <label>Email Address *</label>
-    @Html.TextBoxFor(m => m.Email, new { placeholder = "Email Address", @class = "form-control" })
+    @Html.TextBoxFor(m => m.Email, new { placeholder = "Email Address", @class = "form-control", required = "" })
 
     <label>Contact Number (optional)</label>
     @Html.TextBoxFor(m => m.Contact, new { placeholder = "Contact Number", @class = "form-control" })
@@ -35,15 +36,15 @@
     @Html.TextBoxFor(m => m.Company, new { placeholder = "Company Name", @class = "form-control" })
 
     <label>Password</label>
-    @Html.PasswordFor(m => m.Password, new { placeholder = "Password", @class = "form-control" })
+    @Html.PasswordFor(m => m.Password, new { placeholder = "Password", @class = "form-control", required = "" })
 
     <label>Confirm Password</label>
-    @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Re-type Password", @class = "form-control" })
+    @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Re-type Password", @class = "form-control", required = "" })
 
     <p>&nbsp;</p>
     <div>
-        <button style="width:200px;" type="submit" class="fl btn btn-lg btn-primary">Sign up</button>
-        <a href="@Url.Action("index")"> <button style="width:200px;" type="button" class="fr btn btn-lg btn-primary" name="Cancel" value="cancel">Cancel</button></a>
+        <button style="width:200px;" type="submit" class="fl btn btn-lg btn-primary">PUBLISH</button>
+       
     </div>
     <div style="clear:none;"></div>
     <p>&nbsp;</p>
