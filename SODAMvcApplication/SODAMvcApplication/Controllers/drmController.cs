@@ -31,12 +31,19 @@ namespace SODAMvcApplication.Controllers
                                join a in accountClient.getAccount(username) on c.UserId equals a.Id
                                orderby c.DateSubscriptionEnd descending
                                select new SODAMvcApplication.Models.drmModel() { Authorized = true, AccessExpirationDays = Convert.ToInt32(getDays(c)) };
+                accountClient.Close();
+                portalClient.Close();
+                catClient.Close();
                 
-                
+                    if(customer.Count() > 0)
                     return View(customer.First());
-             
+                    else
+                    {
+                        return View(new SODAMvcApplication.Models.drmModel() { Authorized = false, AccessExpirationDays = 0 });
+                    }
                 
             }
+           
             
         }
 
