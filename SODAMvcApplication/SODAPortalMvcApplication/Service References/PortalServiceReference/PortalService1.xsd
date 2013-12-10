@@ -10,7 +10,11 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="DatePurchase" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="DateSubscriptionEnd" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DateUpdated" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Licenses" type="xs:int" />
+      <xs:element minOccurs="0" name="PPId" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="RecurringType" type="xs:short" />
       <xs:element minOccurs="0" name="SalesCodeId" type="xs:long" />
       <xs:element minOccurs="0" name="UserId" type="xs:long" />
     </xs:sequence>
@@ -72,6 +76,7 @@
   <xs:element name="ArrayOfRegion" nillable="true" type="tns:ArrayOfRegion" />
   <xs:complexType name="Region">
     <xs:sequence>
+      <xs:element minOccurs="0" name="Currency" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="RegionName" nillable="true" type="xs:string" />
     </xs:sequence>

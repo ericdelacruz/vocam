@@ -29,7 +29,19 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         private System.Nullable<System.DateTime> DateSubscriptionEndField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> DateUpdatedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private long IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int LicensesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<long> PPIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short RecurringTypeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private long SalesCodeIdField;
@@ -74,6 +86,19 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> DateUpdated {
+            get {
+                return this.DateUpdatedField;
+            }
+            set {
+                if ((this.DateUpdatedField.Equals(value) != true)) {
+                    this.DateUpdatedField = value;
+                    this.RaisePropertyChanged("DateUpdated");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public long Id {
             get {
                 return this.IdField;
@@ -82,6 +107,45 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
                 if ((this.IdField.Equals(value) != true)) {
                     this.IdField = value;
                     this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Licenses {
+            get {
+                return this.LicensesField;
+            }
+            set {
+                if ((this.LicensesField.Equals(value) != true)) {
+                    this.LicensesField = value;
+                    this.RaisePropertyChanged("Licenses");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<long> PPId {
+            get {
+                return this.PPIdField;
+            }
+            set {
+                if ((this.PPIdField.Equals(value) != true)) {
+                    this.PPIdField = value;
+                    this.RaisePropertyChanged("PPId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public short RecurringType {
+            get {
+                return this.RecurringTypeField;
+            }
+            set {
+                if ((this.RecurringTypeField.Equals(value) != true)) {
+                    this.RecurringTypeField = value;
+                    this.RaisePropertyChanged("RecurringType");
                 }
             }
         }
@@ -459,6 +523,9 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CurrencyField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -471,6 +538,19 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Currency {
+            get {
+                return this.CurrencyField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CurrencyField, value) != true)) {
+                    this.CurrencyField = value;
+                    this.RaisePropertyChanged("Currency");
+                }
             }
         }
         
