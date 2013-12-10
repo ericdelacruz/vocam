@@ -93,20 +93,20 @@ namespace SODAMvcApplication.Controllers
         [HttpPost]
         public async Task<ActionResult> contactFreeppt(CMSServiceReference.Contact contact,FormCollection collection)
         {
-            RecaptchaVerificationHelper recaptchaHelper = this.GetRecaptchaVerificationHelper();
-            if (String.IsNullOrEmpty(recaptchaHelper.Response))
-            {
-                ModelState.AddModelError("", "Captcha answer cannot be empty.");
-                return View(contact);
-            }
+            //RecaptchaVerificationHelper recaptchaHelper = this.GetRecaptchaVerificationHelper();
+            //if (String.IsNullOrEmpty(recaptchaHelper.Response))
+            //{
+            //    ModelState.AddModelError("", "Captcha answer cannot be empty.");
+            //    return View(contact);
+            //}
 
-            RecaptchaVerificationResult recaptchaResult = await recaptchaHelper.VerifyRecaptchaResponseTaskAsync();
+            //RecaptchaVerificationResult recaptchaResult = await recaptchaHelper.VerifyRecaptchaResponseTaskAsync();
 
-            if (recaptchaResult != RecaptchaVerificationResult.Success)
-            {
-                ModelState.AddModelError("", "Incorrect captcha answer.");
-                return View(contact);
-            }
+            //if (recaptchaResult != RecaptchaVerificationResult.Success)
+            //{
+            //    ModelState.AddModelError("", "Incorrect captcha answer.");
+            //    return View(contact);
+            //}
            
             contact.isFreePPT = true;
             DateTime dateAdded = DateTime.Now;
