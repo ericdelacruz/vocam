@@ -1,14 +1,22 @@
-﻿@model SODAMvcApplication.CMSServiceReference.Contact
-@{
+﻿@{
+
     ViewBag.Title = "contactFreePpt";
+    if (ViewBag.Title == "contactFreePpt")
+    {
+        <style>
+            @@media screen and (max-width: 550px) 
+            {
+                header { display: none; }
+                footer { display: none; }
+            }
+        </style>
+            
+    }
 }
+
+
+@model SODAMvcApplication.CMSServiceReference.Contact
 @using Recaptcha.Web.Mvc;
-
-<style>
-    header {display:none;}
-    footer {display:none;}
-
-</style>
 
 @using (@Html.BeginForm("replyfreeppt", "home", FormMethod.Post, new { @class = "contactFormPop" }))
 {
