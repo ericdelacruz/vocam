@@ -46,6 +46,13 @@ namespace SODAMvcApplication.Controllers
             return View();
         }
 
+        //GET: /ContactFreePpt/
+        public ActionResult contactfreeppt()
+        {
+
+            return View();
+        }
+
 
         //GET: /Sitemap/
         public ActionResult Sitemap()
@@ -86,7 +93,7 @@ namespace SODAMvcApplication.Controllers
 
             return View(lContentDef);
         }
-        public ActionResult thankyou()
+        public ActionResult replyfreeppt()
         {
             return View();
         }
