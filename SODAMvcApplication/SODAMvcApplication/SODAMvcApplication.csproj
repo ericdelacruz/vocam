@@ -481,7 +481,7 @@
     </Content>
     <Content Include="Views\drm\authenticate.cshtml" />
     <Content Include="Views\home\contactfreeppt.cshtml" />
-    <Content Include="Views\home\thankyou.cshtml" />
+    <Content Include="Views\home\replyfreeppt.cshtml" />
     <Content Include="Views\home\download.cshtml" />
     <Content Include="Views\home\legals.cshtml" />
     <Content Include="Views\xml\titles.cshtml" />

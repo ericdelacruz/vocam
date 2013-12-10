@@ -93,10 +93,12 @@ namespace SODAMvcApplication.Controllers
 
             return View(lContentDef);
         }
-        public ActionResult replyfreeppt()
+
+        public ActionResult Replyfreeppt()
         {
             return View();
         }
+
         [HttpPost]
         public async Task<ActionResult> contactFreeppt(CMSServiceReference.Contact contact,FormCollection collection)
         {
