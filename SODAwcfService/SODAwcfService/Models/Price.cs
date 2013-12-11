@@ -12,5 +12,9 @@ namespace SODAwcfService.Models
         public bool FirstMonthFree { get; set; }
         public bool Active { get; set; }
         public int RegionId { get; set; }
+
+        public decimal PriceAmt_B { get; set; }
+
+        public decimal priceAmt_C { get; set; }
     }
 }
