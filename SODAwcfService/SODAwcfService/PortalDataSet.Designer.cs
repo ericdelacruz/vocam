@@ -1893,6 +1893,10 @@ namespace SODAwcfService {
             
             private global::System.Data.DataColumn columnRegionId;
             
+            private global::System.Data.DataColumn columnPrice_b;
+            
+            private global::System.Data.DataColumn columnPrice_c;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public PriceTableDataTable() {
@@ -1968,6 +1972,22 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn Price_bColumn {
+                get {
+                    return this.columnPrice_b;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn Price_cColumn {
+                get {
+                    return this.columnPrice_c;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2003,14 +2023,16 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public PriceTableRow AddPriceTableRow(decimal Price, bool FirstMonthFree, bool Active, RegionRow parentRegionRowByFK_PriceTable_ToRegion) {
+            public PriceTableRow AddPriceTableRow(decimal Price, bool FirstMonthFree, bool Active, RegionRow parentRegionRowByFK_PriceTable_ToRegion, decimal Price_b, decimal Price_c) {
                 PriceTableRow rowPriceTableRow = ((PriceTableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         Price,
                         FirstMonthFree,
                         Active,
-                        null};
+                        null,
+                        Price_b,
+                        Price_c};
                 if ((parentRegionRowByFK_PriceTable_ToRegion != null)) {
                     columnValuesArray[4] = parentRegionRowByFK_PriceTable_ToRegion[0];
                 }
@@ -2048,6 +2070,8 @@ namespace SODAwcfService {
                 this.columnFirstMonthFree = base.Columns["FirstMonthFree"];
                 this.columnActive = base.Columns["Active"];
                 this.columnRegionId = base.Columns["RegionId"];
+                this.columnPrice_b = base.Columns["Price_b"];
+                this.columnPrice_c = base.Columns["Price_c"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2063,6 +2087,10 @@ namespace SODAwcfService {
                 base.Columns.Add(this.columnActive);
                 this.columnRegionId = new global::System.Data.DataColumn("RegionId", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRegionId);
+                this.columnPrice_b = new global::System.Data.DataColumn("Price_b", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPrice_b);
+                this.columnPrice_c = new global::System.Data.DataColumn("Price_c", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPrice_c);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -2075,6 +2103,8 @@ namespace SODAwcfService {
                 this.columnFirstMonthFree.AllowDBNull = false;
                 this.columnActive.AllowDBNull = false;
                 this.columnRegionId.AllowDBNull = false;
+                this.columnPrice_b.AllowDBNull = false;
+                this.columnPrice_c.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2679,6 +2709,13 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public PaypalTransRow FindById(long Id) {
+                return ((PaypalTransRow)(this.Rows.Find(new object[] {
+                            Id})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public override global::System.Data.DataTable Clone() {
                 PaypalTransDataTable cln = ((PaypalTransDataTable)(base.Clone()));
                 cln.InitVars();
@@ -2727,7 +2764,7 @@ namespace SODAwcfService {
                 this.columnQty = new global::System.Data.DataColumn("Qty", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnQty);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint2", new global::System.Data.DataColumn[] {
-                                this.columnId}, false));
+                                this.columnId}, true));
                 this.columnECTransID.MaxLength = 50;
                 this.columnRPProfile.MaxLength = 50;
                 this.columnId.AutoIncrement = true;
@@ -3451,6 +3488,28 @@ namespace SODAwcfService {
                 }
                 set {
                     this[this.tablePriceTable.RegionIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal Price_b {
+                get {
+                    return ((decimal)(this[this.tablePriceTable.Price_bColumn]));
+                }
+                set {
+                    this[this.tablePriceTable.Price_bColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal Price_c {
+                get {
+                    return ((decimal)(this[this.tablePriceTable.Price_cColumn]));
+                }
+                set {
+                    this[this.tablePriceTable.Price_cColumn] = value;
                 }
             }
             
@@ -5438,6 +5497,8 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("FirstMonthFree", "FirstMonthFree");
             tableMapping.ColumnMappings.Add("Active", "Active");
             tableMapping.ColumnMappings.Add("RegionId", "RegionId");
+            tableMapping.ColumnMappings.Add("Price_b", "Price_b");
+            tableMapping.ColumnMappings.Add("Price_c", "Price_c");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -5446,22 +5507,28 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [PriceTable] ([Price], [FirstMonthFree], [RegionId], [Active]) VALUES" +
-                " (@Price, @FirstMonthFree, @RegionId, @Active)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [PriceTable] ([Price], [FirstMonthFree], [RegionId], [Active], [Price" +
+                "_b], [Price_c]) VALUES (@Price, @FirstMonthFree, @RegionId, @Active, @Price_b, @" +
+                "Price_c)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Price", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Price", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@FirstMonthFree", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "FirstMonthFree", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Active", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Active", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Price_b", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Price_b", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Price_c", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Price_c", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = "UPDATE [PriceTable] SET [Price] = @Price, [FirstMonthFree] = @FirstMonthFree, [Re" +
-                "gionId] = @RegionId, [Active] = @Active WHERE (([Id] = @Original_Id))";
+                "gionId] = @RegionId, [Active] = @Active, [Price_b] = @Price_b, [Price_c] = @Pric" +
+                "e_c WHERE (([Id] = @Original_Id))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Price", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Price", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@FirstMonthFree", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "FirstMonthFree", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Active", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Active", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Price_b", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Price_b", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Price_c", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Price_c", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
@@ -5478,7 +5545,7 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT Id, Price, FirstMonthFree, RegionId, Active FROM PriceTable";
+            this._commandCollection[0].CommandText = "SELECT * FROM PriceTable";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -5561,11 +5628,13 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(decimal Price, bool FirstMonthFree, int RegionId, bool Active) {
+        public virtual int Insert(decimal Price, bool FirstMonthFree, int RegionId, bool Active, decimal Price_b, decimal Price_c) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((decimal)(Price));
             this.Adapter.InsertCommand.Parameters[1].Value = ((bool)(FirstMonthFree));
             this.Adapter.InsertCommand.Parameters[2].Value = ((int)(RegionId));
             this.Adapter.InsertCommand.Parameters[3].Value = ((bool)(Active));
+            this.Adapter.InsertCommand.Parameters[4].Value = ((decimal)(Price_b));
+            this.Adapter.InsertCommand.Parameters[5].Value = ((decimal)(Price_c));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -5586,12 +5655,14 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(decimal Price, bool FirstMonthFree, int RegionId, bool Active, int Original_Id) {
+        public virtual int Update(decimal Price, bool FirstMonthFree, int RegionId, bool Active, decimal Price_b, decimal Price_c, int Original_Id) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((decimal)(Price));
             this.Adapter.UpdateCommand.Parameters[1].Value = ((bool)(FirstMonthFree));
             this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(RegionId));
             this.Adapter.UpdateCommand.Parameters[3].Value = ((bool)(Active));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_Id));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((decimal)(Price_b));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((decimal)(Price_c));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -6048,7 +6119,7 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [paypaltrans] WHERE (([Id] = @Original_Id))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [PaypalTrans] WHERE (([Id] = @Original_Id))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
@@ -6067,7 +6138,7 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Qty", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Qty", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE [paypaltrans] SET [UserID] = @UserID, [ECTransID] = @ECTransID, [RPProfile" +
+            this._adapter.UpdateCommand.CommandText = "UPDATE [PaypalTrans] SET [UserID] = @UserID, [ECTransID] = @ECTransID, [RPProfile" +
                 "] = @RPProfile, [Active] = @Active, [DateLog] = @DateLog, [SalesCodeId] = @Sales" +
                 "CodeId, [TotalAmt] = @TotalAmt, [Qty] = @Qty WHERE (([Id] = @Original_Id))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
@@ -6095,8 +6166,7 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT UserID, ECTransID, RPProfile, Active, DateLog, SalesCodeId, TotalAmt, Qty " +
-                "FROM PaypalTrans";
+            this._commandCollection[0].CommandText = "SELECT * FROM PaypalTrans";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
