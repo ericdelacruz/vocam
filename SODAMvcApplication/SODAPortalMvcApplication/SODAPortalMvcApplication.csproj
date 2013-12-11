@@ -475,6 +475,9 @@
     <Content Include="Service References\SODAPayPalSerRef\SODAPortalMvcApplication.SODAPayPalSerRef.RecuringProfileDetails.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <Content Include="Service References\SODAPayPalSerRef\SODAPortalMvcApplication.SODAPayPalSerRef.PayPalTrans.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
