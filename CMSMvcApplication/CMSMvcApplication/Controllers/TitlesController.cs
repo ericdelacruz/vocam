@@ -161,7 +161,7 @@ namespace CMSMvcApplication.Controllers
 
                 
                 var title = catClient.get().Select(c => c).Where(c => c.TitleCode == collection["Code"]).First();
-                if (!string.IsNullOrEmpty(collection["t"].Trim()))
+                if (!string.IsNullOrEmpty(collection["t"]))
                 {
                     foreach (string strNum in collection["t"].Trim().Split(','))
                     {
@@ -177,6 +177,7 @@ namespace CMSMvcApplication.Controllers
             {
 
                 ModelState.AddModelError("", "Error.");
+                ViewBag.catList = catClient.get_Categories();
                 return View();
             }
             
@@ -334,7 +335,7 @@ namespace CMSMvcApplication.Controllers
                 foreach (var ca in CAs)
                     catClient.deleteCatAssign(ca.Id);
 
-                if ( collection["t"] !=null && !string.IsNullOrEmpty(collection["t"].Trim()))
+                if ( collection["t"] !=null && !string.IsNullOrEmpty(collection["t"]))
                 {
                     foreach (string strNum in collection["t"].Trim().Split(','))
                     {
@@ -378,7 +379,9 @@ namespace CMSMvcApplication.Controllers
             }
             catch(Exception ex)
             {
-                throw (ex);
+                ModelState.AddModelError("", "Error.");
+                ViewBag.catList = catClient.get_Categories();
+                return View();
             }
         }
 
