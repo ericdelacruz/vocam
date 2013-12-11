@@ -1,5 +1,9 @@
 ﻿@{
     ViewBag.Title = "AddRegion";
+     //USD,
+     //       EUR,
+     //       AUD,
+     //       GBP
 }
 
 <div class="portalWrap border">
@@ -15,9 +19,15 @@
             <label>Region:</label>
             <input style="width:70%;" type="text" class="form-control" name="RegionName" required>
             <label>Currency:</label>
-            <input style="width:70%;" type="text" class="form-control" name="RegionCurrency">
+           @* <input style="width:70%;" type="text" class="form-control" name="RegionCurrency">*@
             <!-- Script by hscripts.com -->
-
+             <select class="form-control" name="currency">
+                <option selected="selected" value="">Select Currency</option>
+                 <option value="AUD">AUD</option>
+                 <option value="USD">USD</option>
+                 <option value="GBP">GBP</option>
+                 <option value= "EUR">EUR</option>
+              </select>
             <br />
 
             <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">PUBLISH</button>

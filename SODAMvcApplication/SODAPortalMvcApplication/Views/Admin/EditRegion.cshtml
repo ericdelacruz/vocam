@@ -16,9 +16,15 @@
             <label>Region:</label>
             <input type="text" style="width:70%;" class="form-control" name="RegionName" value="@Model.RegionName">
             <label>Currency:</label>
-            <input type="text" style="width:70%;" class="form-control" name="RegionCurrency" value="@Model.RegionCurrency">
+            @*<input type="text" style="width:70%;" class="form-control" name="RegionCurrency" value="@Model.RegionCurrency">*@
             <!-- Script by hscripts.com -->
-
+             <select class="form-control" name="currency">
+                <option selected="selected" value="">Select Currency</option>
+                 <option value="AUD">AUD</option>
+                 <option value="USD">USD</option>
+                 <option value="GBP">GBP</option>
+                 <option value= "EUR">EUR</option>
+              </select>
 
 
             <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">UPDATE</button>
