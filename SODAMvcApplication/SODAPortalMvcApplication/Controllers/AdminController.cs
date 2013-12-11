@@ -25,6 +25,7 @@ namespace SODAPortalMvcApplication.Controllers
                 var reportlist = from customer in portalClient.getCustomer()
                                  join accnt in account.getAccount("") on customer.UserId equals accnt.Id
                                  join sc in portalClient.getSaleCode() on customer.SalesCodeId equals sc.Id
+                                
                                  select new ViewModel.ReportViewModel() { account = accnt, customer = customer,salesCode = sc };
                 return View(reportlist);
             }
@@ -214,7 +215,7 @@ namespace SODAPortalMvcApplication.Controllers
 
             
             ViewBag.SalesCodeList = from salesCode in portalClient.getSaleCode()
-                                    where salesCode.SalesPersonID != -1
+                                    where salesCode.SalesPersonID == -1
                                     select salesCode;
 
             var salesPerson_orig = from salesperson in portalClient.getSalePerson()
@@ -251,6 +252,7 @@ namespace SODAPortalMvcApplication.Controllers
 
             PortalServiceReference.SalesCode sc = portalClient.getSaleCode().Select(model=> model).Where(model => model.Id == salesPerson_orig.First().SalesCodeId).First();
             sc.Discount = decimal.Parse(collection["Discount"]) / 100;
+            //sc.Sales_Code = collection["SalesCode"];
             portalClient.updateSalsCode(sc);
             //portalClient.updateSalsCode(new PortalServiceReference.SalesCode()
             //{
@@ -261,6 +263,10 @@ namespace SODAPortalMvcApplication.Controllers
             //    SalesPersonID = salesPerson_orig.First().Id,
             //    Sales_Code =  
             //});
+            var salesperson = portalClient.getSalePerson().Where(sp => sp.Id== id);
+            salesperson.First().SalesCodeId = long.Parse(collection["SalesCode"]);
+            portalClient.updateSalesPerson(salesperson.First());
+            //var salesperson = portalClient.getSalePerson().Where(sp=>sp.)
             return RedirectToAction("sales");
         }
 
@@ -494,7 +500,8 @@ namespace SODAPortalMvcApplication.Controllers
         {
             if(portalClient.getRegion().Select(r => r).Where(r => r.RegionName == collection["RegionName"]).Count() ==0)
             portalClient.addRegion(new PortalServiceReference.Region(){
-                 RegionName = collection["RegionName"]
+                 RegionName = collection["RegionName"],
+                  Currency = collection["currency"]
             });
             else
             {
@@ -522,7 +529,8 @@ namespace SODAPortalMvcApplication.Controllers
             portalClient.updateRegion(new PortalServiceReference.Region()
             {
                 Id = id,
-                RegionName = collection["RegionName"]
+                RegionName = collection["RegionName"],
+                Currency = collection["currency"]
             });
             else
             {
