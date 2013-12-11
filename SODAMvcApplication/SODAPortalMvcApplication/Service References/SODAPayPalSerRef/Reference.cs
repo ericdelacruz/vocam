@@ -545,6 +545,400 @@ namespace SODAPortalMvcApplication.SODAPayPalSerRef {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PayPalCheckOutModel", Namespace="http://schemas.datacontract.org/2004/07/SODAwcfService.Models")]
+    [System.SerializableAttribute()]
+    public partial class PayPalCheckOutModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string BillingAgreementField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<SODAPortalMvcApplication.SODAPayPalSerRef.CurrencyCodeType> CTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ItemAmtField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OrderDescField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> QuantityField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string cancelurlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string confirmUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string itemDescField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string itemNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double itemTotalamtField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double orderTotalamtField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string BillingAgreement {
+            get {
+                return this.BillingAgreementField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BillingAgreementField, value) != true)) {
+                    this.BillingAgreementField = value;
+                    this.RaisePropertyChanged("BillingAgreement");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<SODAPortalMvcApplication.SODAPayPalSerRef.CurrencyCodeType> CType {
+            get {
+                return this.CTypeField;
+            }
+            set {
+                if ((this.CTypeField.Equals(value) != true)) {
+                    this.CTypeField = value;
+                    this.RaisePropertyChanged("CType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ItemAmt {
+            get {
+                return this.ItemAmtField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ItemAmtField, value) != true)) {
+                    this.ItemAmtField = value;
+                    this.RaisePropertyChanged("ItemAmt");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string OrderDesc {
+            get {
+                return this.OrderDescField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OrderDescField, value) != true)) {
+                    this.OrderDescField = value;
+                    this.RaisePropertyChanged("OrderDesc");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Quantity {
+            get {
+                return this.QuantityField;
+            }
+            set {
+                if ((this.QuantityField.Equals(value) != true)) {
+                    this.QuantityField = value;
+                    this.RaisePropertyChanged("Quantity");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string cancelurl {
+            get {
+                return this.cancelurlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.cancelurlField, value) != true)) {
+                    this.cancelurlField = value;
+                    this.RaisePropertyChanged("cancelurl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string confirmUrl {
+            get {
+                return this.confirmUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.confirmUrlField, value) != true)) {
+                    this.confirmUrlField = value;
+                    this.RaisePropertyChanged("confirmUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string itemDesc {
+            get {
+                return this.itemDescField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.itemDescField, value) != true)) {
+                    this.itemDescField = value;
+                    this.RaisePropertyChanged("itemDesc");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string itemName {
+            get {
+                return this.itemNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.itemNameField, value) != true)) {
+                    this.itemNameField = value;
+                    this.RaisePropertyChanged("itemName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double itemTotalamt {
+            get {
+                return this.itemTotalamtField;
+            }
+            set {
+                if ((this.itemTotalamtField.Equals(value) != true)) {
+                    this.itemTotalamtField = value;
+                    this.RaisePropertyChanged("itemTotalamt");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double orderTotalamt {
+            get {
+                return this.orderTotalamtField;
+            }
+            set {
+                if ((this.orderTotalamtField.Equals(value) != true)) {
+                    this.orderTotalamtField = value;
+                    this.RaisePropertyChanged("orderTotalamt");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PayPalConfirmModel", Namespace="http://schemas.datacontract.org/2004/07/SODAwcfService.Models")]
+    [System.SerializableAttribute()]
+    public partial class PayPalConfirmModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> BillingFrequencyField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal PaymenytAmtField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int QtyField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long SalesCodeIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<SODAPortalMvcApplication.SODAPayPalSerRef.CurrencyCodeType> cTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime dateStartField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string payoridField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string schedDescField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string tokenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<long> useridField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> BillingFrequency {
+            get {
+                return this.BillingFrequencyField;
+            }
+            set {
+                if ((this.BillingFrequencyField.Equals(value) != true)) {
+                    this.BillingFrequencyField = value;
+                    this.RaisePropertyChanged("BillingFrequency");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal PaymenytAmt {
+            get {
+                return this.PaymenytAmtField;
+            }
+            set {
+                if ((this.PaymenytAmtField.Equals(value) != true)) {
+                    this.PaymenytAmtField = value;
+                    this.RaisePropertyChanged("PaymenytAmt");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Qty {
+            get {
+                return this.QtyField;
+            }
+            set {
+                if ((this.QtyField.Equals(value) != true)) {
+                    this.QtyField = value;
+                    this.RaisePropertyChanged("Qty");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long SalesCodeId {
+            get {
+                return this.SalesCodeIdField;
+            }
+            set {
+                if ((this.SalesCodeIdField.Equals(value) != true)) {
+                    this.SalesCodeIdField = value;
+                    this.RaisePropertyChanged("SalesCodeId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<SODAPortalMvcApplication.SODAPayPalSerRef.CurrencyCodeType> cType {
+            get {
+                return this.cTypeField;
+            }
+            set {
+                if ((this.cTypeField.Equals(value) != true)) {
+                    this.cTypeField = value;
+                    this.RaisePropertyChanged("cType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime dateStart {
+            get {
+                return this.dateStartField;
+            }
+            set {
+                if ((this.dateStartField.Equals(value) != true)) {
+                    this.dateStartField = value;
+                    this.RaisePropertyChanged("dateStart");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string payorid {
+            get {
+                return this.payoridField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.payoridField, value) != true)) {
+                    this.payoridField = value;
+                    this.RaisePropertyChanged("payorid");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string schedDesc {
+            get {
+                return this.schedDescField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.schedDescField, value) != true)) {
+                    this.schedDescField = value;
+                    this.RaisePropertyChanged("schedDesc");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string token {
+            get {
+                return this.tokenField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.tokenField, value) != true)) {
+                    this.tokenField = value;
+                    this.RaisePropertyChanged("token");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<long> userid {
+            get {
+                return this.useridField;
+            }
+            set {
+                if ((this.useridField.Equals(value) != true)) {
+                    this.useridField = value;
+                    this.RaisePropertyChanged("userid");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="RecuringProfileDetails", Namespace="http://schemas.datacontract.org/2004/07/SODAwcfService.Models")]
     [System.SerializableAttribute()]
     public partial class RecuringProfileDetails : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -608,6 +1002,163 @@ namespace SODAPortalMvcApplication.SODAPayPalSerRef {
         SUSPENDEDPROFILE = 4,
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PayPalTrans", Namespace="http://schemas.datacontract.org/2004/07/SODAwcfService.Models")]
+    [System.SerializableAttribute()]
+    public partial class PayPalTrans : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ActiveField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ECTransIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int QtyField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RPPProfileField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long SalesCodeIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal TotalAmtField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime dateLogField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Active {
+            get {
+                return this.ActiveField;
+            }
+            set {
+                if ((this.ActiveField.Equals(value) != true)) {
+                    this.ActiveField = value;
+                    this.RaisePropertyChanged("Active");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ECTransID {
+            get {
+                return this.ECTransIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ECTransIDField, value) != true)) {
+                    this.ECTransIDField = value;
+                    this.RaisePropertyChanged("ECTransID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Qty {
+            get {
+                return this.QtyField;
+            }
+            set {
+                if ((this.QtyField.Equals(value) != true)) {
+                    this.QtyField = value;
+                    this.RaisePropertyChanged("Qty");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RPPProfile {
+            get {
+                return this.RPPProfileField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RPPProfileField, value) != true)) {
+                    this.RPPProfileField = value;
+                    this.RaisePropertyChanged("RPPProfile");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long SalesCodeID {
+            get {
+                return this.SalesCodeIDField;
+            }
+            set {
+                if ((this.SalesCodeIDField.Equals(value) != true)) {
+                    this.SalesCodeIDField = value;
+                    this.RaisePropertyChanged("SalesCodeID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal TotalAmt {
+            get {
+                return this.TotalAmtField;
+            }
+            set {
+                if ((this.TotalAmtField.Equals(value) != true)) {
+                    this.TotalAmtField = value;
+                    this.RaisePropertyChanged("TotalAmt");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime dateLog {
+            get {
+                return this.dateLogField;
+            }
+            set {
+                if ((this.dateLogField.Equals(value) != true)) {
+                    this.dateLogField = value;
+                    this.RaisePropertyChanged("dateLog");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="SODAPayPalSerRef.ISODAPaypalService")]
     public interface ISODAPaypalService {
@@ -618,11 +1169,23 @@ namespace SODAPortalMvcApplication.SODAPayPalSerRef {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISODAPaypalService/checkout", ReplyAction="http://tempuri.org/ISODAPaypalService/checkoutResponse")]
         System.Threading.Tasks.Task<string> checkoutAsync(decimal amt, SODAPortalMvcApplication.SODAPayPalSerRef.CurrencyCodeType cType, string itemName, string itemDesc, string itemURL, string cancelurl, string confirmUrl);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISODAPaypalService/checkoutModel", ReplyAction="http://tempuri.org/ISODAPaypalService/checkoutModelResponse")]
+        string checkoutModel(SODAPortalMvcApplication.SODAPayPalSerRef.PayPalCheckOutModel model);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISODAPaypalService/checkoutModel", ReplyAction="http://tempuri.org/ISODAPaypalService/checkoutModelResponse")]
+        System.Threading.Tasks.Task<string> checkoutModelAsync(SODAPortalMvcApplication.SODAPayPalSerRef.PayPalCheckOutModel model);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISODAPaypalService/confirmation", ReplyAction="http://tempuri.org/ISODAPaypalService/confirmationResponse")]
         string confirmation(long userid, string payorid, string token, decimal amt, decimal recur_amt, SODAPortalMvcApplication.SODAPayPalSerRef.CurrencyCodeType cType, string itemName, string itemDesc, System.DateTime dateStart);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISODAPaypalService/confirmation", ReplyAction="http://tempuri.org/ISODAPaypalService/confirmationResponse")]
         System.Threading.Tasks.Task<string> confirmationAsync(long userid, string payorid, string token, decimal amt, decimal recur_amt, SODAPortalMvcApplication.SODAPayPalSerRef.CurrencyCodeType cType, string itemName, string itemDesc, System.DateTime dateStart);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISODAPaypalService/confirmationModel", ReplyAction="http://tempuri.org/ISODAPaypalService/confirmationModelResponse")]
+        string confirmationModel(SODAPortalMvcApplication.SODAPayPalSerRef.PayPalConfirmModel model);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISODAPaypalService/confirmationModel", ReplyAction="http://tempuri.org/ISODAPaypalService/confirmationModelResponse")]
+        System.Threading.Tasks.Task<string> confirmationModelAsync(SODAPortalMvcApplication.SODAPayPalSerRef.PayPalConfirmModel model);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISODAPaypalService/cancelSubscription", ReplyAction="http://tempuri.org/ISODAPaypalService/cancelSubscriptionResponse")]
         bool cancelSubscription(long userid);
@@ -635,6 +1198,18 @@ namespace SODAPortalMvcApplication.SODAPayPalSerRef {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISODAPaypalService/getRecurProfileDetails", ReplyAction="http://tempuri.org/ISODAPaypalService/getRecurProfileDetailsResponse")]
         System.Threading.Tasks.Task<SODAPortalMvcApplication.SODAPayPalSerRef.RecuringProfileDetails> getRecurProfileDetailsAsync(long userid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISODAPaypalService/getRecurProfileDetailsByTransID", ReplyAction="http://tempuri.org/ISODAPaypalService/getRecurProfileDetailsByTransIDResponse")]
+        SODAPortalMvcApplication.SODAPayPalSerRef.RecuringProfileDetails getRecurProfileDetailsByTransID(string TransID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISODAPaypalService/getRecurProfileDetailsByTransID", ReplyAction="http://tempuri.org/ISODAPaypalService/getRecurProfileDetailsByTransIDResponse")]
+        System.Threading.Tasks.Task<SODAPortalMvcApplication.SODAPayPalSerRef.RecuringProfileDetails> getRecurProfileDetailsByTransIDAsync(string TransID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISODAPaypalService/getPayPalTrans", ReplyAction="http://tempuri.org/ISODAPaypalService/getPayPalTransResponse")]
+        SODAPortalMvcApplication.SODAPayPalSerRef.PayPalTrans[] getPayPalTrans();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISODAPaypalService/getPayPalTrans", ReplyAction="http://tempuri.org/ISODAPaypalService/getPayPalTransResponse")]
+        System.Threading.Tasks.Task<SODAPortalMvcApplication.SODAPayPalSerRef.PayPalTrans[]> getPayPalTransAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -672,12 +1247,28 @@ namespace SODAPortalMvcApplication.SODAPayPalSerRef {
             return base.Channel.checkoutAsync(amt, cType, itemName, itemDesc, itemURL, cancelurl, confirmUrl);
         }
         
+        public string checkoutModel(SODAPortalMvcApplication.SODAPayPalSerRef.PayPalCheckOutModel model) {
+            return base.Channel.checkoutModel(model);
+        }
+        
+        public System.Threading.Tasks.Task<string> checkoutModelAsync(SODAPortalMvcApplication.SODAPayPalSerRef.PayPalCheckOutModel model) {
+            return base.Channel.checkoutModelAsync(model);
+        }
+        
         public string confirmation(long userid, string payorid, string token, decimal amt, decimal recur_amt, SODAPortalMvcApplication.SODAPayPalSerRef.CurrencyCodeType cType, string itemName, string itemDesc, System.DateTime dateStart) {
             return base.Channel.confirmation(userid, payorid, token, amt, recur_amt, cType, itemName, itemDesc, dateStart);
         }
         
         public System.Threading.Tasks.Task<string> confirmationAsync(long userid, string payorid, string token, decimal amt, decimal recur_amt, SODAPortalMvcApplication.SODAPayPalSerRef.CurrencyCodeType cType, string itemName, string itemDesc, System.DateTime dateStart) {
             return base.Channel.confirmationAsync(userid, payorid, token, amt, recur_amt, cType, itemName, itemDesc, dateStart);
+        }
+        
+        public string confirmationModel(SODAPortalMvcApplication.SODAPayPalSerRef.PayPalConfirmModel model) {
+            return base.Channel.confirmationModel(model);
+        }
+        
+        public System.Threading.Tasks.Task<string> confirmationModelAsync(SODAPortalMvcApplication.SODAPayPalSerRef.PayPalConfirmModel model) {
+            return base.Channel.confirmationModelAsync(model);
         }
         
         public bool cancelSubscription(long userid) {
@@ -694,6 +1285,22 @@ namespace SODAPortalMvcApplication.SODAPayPalSerRef {
         
         public System.Threading.Tasks.Task<SODAPortalMvcApplication.SODAPayPalSerRef.RecuringProfileDetails> getRecurProfileDetailsAsync(long userid) {
             return base.Channel.getRecurProfileDetailsAsync(userid);
+        }
+        
+        public SODAPortalMvcApplication.SODAPayPalSerRef.RecuringProfileDetails getRecurProfileDetailsByTransID(string TransID) {
+            return base.Channel.getRecurProfileDetailsByTransID(TransID);
+        }
+        
+        public System.Threading.Tasks.Task<SODAPortalMvcApplication.SODAPayPalSerRef.RecuringProfileDetails> getRecurProfileDetailsByTransIDAsync(string TransID) {
+            return base.Channel.getRecurProfileDetailsByTransIDAsync(TransID);
+        }
+        
+        public SODAPortalMvcApplication.SODAPayPalSerRef.PayPalTrans[] getPayPalTrans() {
+            return base.Channel.getPayPalTrans();
+        }
+        
+        public System.Threading.Tasks.Task<SODAPortalMvcApplication.SODAPayPalSerRef.PayPalTrans[]> getPayPalTransAsync() {
+            return base.Channel.getPayPalTransAsync();
         }
     }
 }

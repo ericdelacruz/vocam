@@ -426,7 +426,13 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         private decimal PriceAmtField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal PriceAmt_BField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int RegionIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal priceAmt_CField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -491,6 +497,19 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal PriceAmt_B {
+            get {
+                return this.PriceAmt_BField;
+            }
+            set {
+                if ((this.PriceAmt_BField.Equals(value) != true)) {
+                    this.PriceAmt_BField = value;
+                    this.RaisePropertyChanged("PriceAmt_B");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int RegionId {
             get {
                 return this.RegionIdField;
@@ -499,6 +518,19 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
                 if ((this.RegionIdField.Equals(value) != true)) {
                     this.RegionIdField = value;
                     this.RaisePropertyChanged("RegionId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal priceAmt_C {
+            get {
+                return this.priceAmt_CField;
+            }
+            set {
+                if ((this.priceAmt_CField.Equals(value) != true)) {
+                    this.priceAmt_CField = value;
+                    this.RaisePropertyChanged("priceAmt_C");
                 }
             }
         }

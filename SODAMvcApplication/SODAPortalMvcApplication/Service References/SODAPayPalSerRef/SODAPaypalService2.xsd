@@ -1,10 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/SODAwcfService.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/SODAwcfService.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:50615/SODAPaypalService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/PayPal.PayPalAPIInterfaceService.Model" />
+  <xs:complexType name="PayPalCheckOutModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BillingAgreement" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/PayPal.PayPalAPIInterfaceService.Model" minOccurs="0" name="CType" nillable="true" type="q1:CurrencyCodeType" />
+      <xs:element minOccurs="0" name="ItemAmt" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrderDesc" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Quantity" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="cancelurl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="confirmUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="itemDesc" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="itemName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="itemTotalamt" type="xs:double" />
+      <xs:element minOccurs="0" name="orderTotalamt" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PayPalCheckOutModel" nillable="true" type="tns:PayPalCheckOutModel" />
+  <xs:complexType name="PayPalConfirmModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BillingFrequency" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="PaymenytAmt" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Qty" type="xs:int" />
+      <xs:element minOccurs="0" name="SalesCodeId" type="xs:long" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/PayPal.PayPalAPIInterfaceService.Model" minOccurs="0" name="cType" nillable="true" type="q2:CurrencyCodeType" />
+      <xs:element minOccurs="0" name="dateStart" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="payorid" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="schedDesc" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="token" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="userid" nillable="true" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PayPalConfirmModel" nillable="true" type="tns:PayPalConfirmModel" />
   <xs:complexType name="RecuringProfileDetails">
     <xs:sequence>
-      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/PayPal.PayPalAPIInterfaceService.Model" minOccurs="0" name="profileStatus" nillable="true" type="q1:RecurringPaymentsProfileStatusType" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/PayPal.PayPalAPIInterfaceService.Model" minOccurs="0" name="profileStatus" nillable="true" type="q3:RecurringPaymentsProfileStatusType" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="RecuringProfileDetails" nillable="true" type="tns:RecuringProfileDetails" />
+  <xs:complexType name="ArrayOfPayPalTrans">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PayPalTrans" nillable="true" type="tns:PayPalTrans" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPayPalTrans" nillable="true" type="tns:ArrayOfPayPalTrans" />
+  <xs:complexType name="PayPalTrans">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Active" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ECTransID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Qty" type="xs:int" />
+      <xs:element minOccurs="0" name="RPPProfile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SalesCodeID" type="xs:long" />
+      <xs:element minOccurs="0" name="TotalAmt" type="xs:decimal" />
+      <xs:element minOccurs="0" name="dateLog" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PayPalTrans" nillable="true" type="tns:PayPalTrans" />
 </xs:schema>

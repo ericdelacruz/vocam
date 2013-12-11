@@ -22,6 +22,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="checkoutModel">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/SODAwcfService.Models" minOccurs="0" name="model" nillable="true" type="q2:PayPalCheckOutModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="checkoutModelResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="checkoutModelResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="confirmation">
     <xs:complexType>
       <xs:sequence>
@@ -30,7 +44,7 @@
         <xs:element minOccurs="0" name="token" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="amt" type="xs:decimal" />
         <xs:element minOccurs="0" name="recur_amt" type="xs:decimal" />
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/PayPal.PayPalAPIInterfaceService.Model" minOccurs="0" name="cType" type="q2:CurrencyCodeType" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/PayPal.PayPalAPIInterfaceService.Model" minOccurs="0" name="cType" type="q3:CurrencyCodeType" />
         <xs:element minOccurs="0" name="itemName" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="itemDesc" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="dateStart" type="xs:dateTime" />
@@ -41,6 +55,20 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="confirmationResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="confirmationModel">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/SODAwcfService.Models" minOccurs="0" name="model" nillable="true" type="q4:PayPalConfirmModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="confirmationModelResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="confirmationModelResult" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -68,7 +96,33 @@
   <xs:element name="getRecurProfileDetailsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/SODAwcfService.Models" minOccurs="0" name="getRecurProfileDetailsResult" nillable="true" type="q3:RecuringProfileDetails" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/SODAwcfService.Models" minOccurs="0" name="getRecurProfileDetailsResult" nillable="true" type="q5:RecuringProfileDetails" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getRecurProfileDetailsByTransID">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="TransID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getRecurProfileDetailsByTransIDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/SODAwcfService.Models" minOccurs="0" name="getRecurProfileDetailsByTransIDResult" nillable="true" type="q6:RecuringProfileDetails" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getPayPalTrans">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getPayPalTransResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/SODAwcfService.Models" minOccurs="0" name="getPayPalTransResult" nillable="true" type="q7:ArrayOfPayPalTrans" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

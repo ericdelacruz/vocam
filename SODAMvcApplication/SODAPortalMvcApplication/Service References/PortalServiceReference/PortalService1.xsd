@@ -64,7 +64,9 @@
       <xs:element minOccurs="0" name="FirstMonthFree" type="xs:boolean" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="PriceAmt" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PriceAmt_B" type="xs:decimal" />
       <xs:element minOccurs="0" name="RegionId" type="xs:int" />
+      <xs:element minOccurs="0" name="priceAmt_C" type="xs:decimal" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Price" nillable="true" type="tns:Price" />

@@ -14,11 +14,23 @@
   <wsdl:message name="ISODAPaypalService_checkout_OutputMessage">
     <wsdl:part name="parameters" element="tns:checkoutResponse" />
   </wsdl:message>
+  <wsdl:message name="ISODAPaypalService_checkoutModel_InputMessage">
+    <wsdl:part name="parameters" element="tns:checkoutModel" />
+  </wsdl:message>
+  <wsdl:message name="ISODAPaypalService_checkoutModel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:checkoutModelResponse" />
+  </wsdl:message>
   <wsdl:message name="ISODAPaypalService_confirmation_InputMessage">
     <wsdl:part name="parameters" element="tns:confirmation" />
   </wsdl:message>
   <wsdl:message name="ISODAPaypalService_confirmation_OutputMessage">
     <wsdl:part name="parameters" element="tns:confirmationResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISODAPaypalService_confirmationModel_InputMessage">
+    <wsdl:part name="parameters" element="tns:confirmationModel" />
+  </wsdl:message>
+  <wsdl:message name="ISODAPaypalService_confirmationModel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:confirmationModelResponse" />
   </wsdl:message>
   <wsdl:message name="ISODAPaypalService_cancelSubscription_InputMessage">
     <wsdl:part name="parameters" element="tns:cancelSubscription" />
@@ -32,14 +44,34 @@
   <wsdl:message name="ISODAPaypalService_getRecurProfileDetails_OutputMessage">
     <wsdl:part name="parameters" element="tns:getRecurProfileDetailsResponse" />
   </wsdl:message>
+  <wsdl:message name="ISODAPaypalService_getRecurProfileDetailsByTransID_InputMessage">
+    <wsdl:part name="parameters" element="tns:getRecurProfileDetailsByTransID" />
+  </wsdl:message>
+  <wsdl:message name="ISODAPaypalService_getRecurProfileDetailsByTransID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getRecurProfileDetailsByTransIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISODAPaypalService_getPayPalTrans_InputMessage">
+    <wsdl:part name="parameters" element="tns:getPayPalTrans" />
+  </wsdl:message>
+  <wsdl:message name="ISODAPaypalService_getPayPalTrans_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getPayPalTransResponse" />
+  </wsdl:message>
   <wsdl:portType name="ISODAPaypalService">
     <wsdl:operation name="checkout">
       <wsdl:input wsaw:Action="http://tempuri.org/ISODAPaypalService/checkout" message="tns:ISODAPaypalService_checkout_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISODAPaypalService/checkoutResponse" message="tns:ISODAPaypalService_checkout_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="checkoutModel">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISODAPaypalService/checkoutModel" message="tns:ISODAPaypalService_checkoutModel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISODAPaypalService/checkoutModelResponse" message="tns:ISODAPaypalService_checkoutModel_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="confirmation">
       <wsdl:input wsaw:Action="http://tempuri.org/ISODAPaypalService/confirmation" message="tns:ISODAPaypalService_confirmation_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISODAPaypalService/confirmationResponse" message="tns:ISODAPaypalService_confirmation_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="confirmationModel">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISODAPaypalService/confirmationModel" message="tns:ISODAPaypalService_confirmationModel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISODAPaypalService/confirmationModelResponse" message="tns:ISODAPaypalService_confirmationModel_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="cancelSubscription">
       <wsdl:input wsaw:Action="http://tempuri.org/ISODAPaypalService/cancelSubscription" message="tns:ISODAPaypalService_cancelSubscription_InputMessage" />
@@ -48,6 +80,14 @@
     <wsdl:operation name="getRecurProfileDetails">
       <wsdl:input wsaw:Action="http://tempuri.org/ISODAPaypalService/getRecurProfileDetails" message="tns:ISODAPaypalService_getRecurProfileDetails_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISODAPaypalService/getRecurProfileDetailsResponse" message="tns:ISODAPaypalService_getRecurProfileDetails_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getRecurProfileDetailsByTransID">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISODAPaypalService/getRecurProfileDetailsByTransID" message="tns:ISODAPaypalService_getRecurProfileDetailsByTransID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISODAPaypalService/getRecurProfileDetailsByTransIDResponse" message="tns:ISODAPaypalService_getRecurProfileDetailsByTransID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getPayPalTrans">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISODAPaypalService/getPayPalTrans" message="tns:ISODAPaypalService_getPayPalTrans_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISODAPaypalService/getPayPalTransResponse" message="tns:ISODAPaypalService_getPayPalTrans_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISODAPaypalService" type="tns:ISODAPaypalService">
@@ -61,8 +101,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="checkoutModel">
+      <soap:operation soapAction="http://tempuri.org/ISODAPaypalService/checkoutModel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="confirmation">
       <soap:operation soapAction="http://tempuri.org/ISODAPaypalService/confirmation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="confirmationModel">
+      <soap:operation soapAction="http://tempuri.org/ISODAPaypalService/confirmationModel" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -81,6 +139,24 @@
     </wsdl:operation>
     <wsdl:operation name="getRecurProfileDetails">
       <soap:operation soapAction="http://tempuri.org/ISODAPaypalService/getRecurProfileDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRecurProfileDetailsByTransID">
+      <soap:operation soapAction="http://tempuri.org/ISODAPaypalService/getRecurProfileDetailsByTransID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPayPalTrans">
+      <soap:operation soapAction="http://tempuri.org/ISODAPaypalService/getPayPalTrans" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
