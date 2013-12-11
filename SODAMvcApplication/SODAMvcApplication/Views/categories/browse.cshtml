@@ -28,7 +28,7 @@
                             var spec = Model.ElementAt(i - 1);
                             <div class="catThumb listThumbBg">
                                 <a href=@Url.Action("Details",new{id=spec.Title.Trim().Replace(" ","-").ToLower()})>
-                                    <img alt="Aged Care" src=@HttpUtility.UrlPathEncode(@spec.ImageURL)>
+                                    <img alt="@spec.Title" src=@HttpUtility.UrlPathEncode(@spec.ImageURL)>
                                     <h2 style="width:210px;">@spec.Title</h2>
                                 </a>
                             </div> @*end catThumb listThumbBg*@
