@@ -602,14 +602,65 @@ namespace SODAwcfService
 
 
 
+        public IEnumerable<Models.PayPalTrans> getPayPalTrans()
+        {
+
+            PortalDataSetTableAdapters.PaypalTransTableAdapter paypalAdapter = new PortalDataSetTableAdapters.PaypalTransTableAdapter();
+            var paypalList = paypalAdapter.GetData().ToList();
+            paypalAdapter.Dispose();
+            return paypalList.Select(p=>new Models.PayPalTrans()
+             {
+                Id = p.Id,
+                ECTransID = p.ECTransID,
+                RPPProfile = p.RPProfile,
+                Active = p.Active,
+                dateLog = p.DateLog,
+                SalesCodeID = p.SalesCodeId,
+                TotalAmt = p.TotalAmt,
+                Qty = p.Qty
+
+            });
+           
+          
+            
+        }
 
 
+        public Models.RecuringProfileDetails getRecurProfileDetailsByTransID(string TransID)
+        {
+            GetRecurringPaymentsProfileDetailsResponseType recurringPaymentsProfileDetailsResponse = new GetRecurringPaymentsProfileDetailsResponseType();
+            using (PortalDataSetTableAdapters.PaypalTransTableAdapter paypalAdapter = new PortalDataSetTableAdapters.PaypalTransTableAdapter())
+            {
+                var recur_profile = paypalAdapter.GetData().Select(p => p).Where(p => p.ECTransID == TransID);
+                if (recur_profile.Count() > 0)
+                {
+                    string profileid = recur_profile.First().RPProfile;
+                    GetRecurringPaymentsProfileDetailsRequestType request = new GetRecurringPaymentsProfileDetailsRequestType();
+                    request.ProfileID = profileid;
 
+                    GetRecurringPaymentsProfileDetailsReq wrapper = new GetRecurringPaymentsProfileDetailsReq();
+                    wrapper.GetRecurringPaymentsProfileDetailsRequest = request;
 
+                    // Configuration map containing signature credentials and other required configuration.
+                    // For a full list of configuration parameters refer in wiki page 
+                    // [https://github.com/paypal/sdk-core-dotnet/wiki/SDK-Configuration-Parameters]
+                    Dictionary<string, string> configurationMap = GetAcctAndConfig();
 
+                    // Create the PayPalAPIInterfaceServiceService service object to make the API call
+                    PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
 
+                    try
+                    {
+                        recurringPaymentsProfileDetailsResponse = service.GetRecurringPaymentsProfileDetails(wrapper);
+                    }
+                    catch
+                    {
+                        recurringPaymentsProfileDetailsResponse = null;
+                    }
 
-
-        public DateTime amt { get; set; }
+                }
+            }
+            return new Models.RecuringProfileDetails() { profileStatus = recurringPaymentsProfileDetailsResponse.GetRecurringPaymentsProfileDetailsResponseDetails.ProfileStatus };
+        }
     }
 }

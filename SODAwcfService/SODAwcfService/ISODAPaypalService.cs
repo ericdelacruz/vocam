@@ -25,5 +25,10 @@ namespace SODAwcfService
 
         [OperationContract]
         Models.RecuringProfileDetails getRecurProfileDetails(long userid);
+        [OperationContract]
+        Models.RecuringProfileDetails getRecurProfileDetailsByTransID(string TransID);
+        [OperationContract]
+        IEnumerable<Models.PayPalTrans> getPayPalTrans();
+        
     }
 }

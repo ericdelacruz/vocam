@@ -168,12 +168,12 @@ namespace SODAwcfService
 
         public int addPrice(Models.Price price)
         {
-            return priceTableAdapter.Insert(price.PriceAmt, price.FirstMonthFree, price.RegionId, price.Active);
+            return priceTableAdapter.Insert(price.PriceAmt, price.FirstMonthFree, price.RegionId, price.Active, price.PriceAmt_B, price.priceAmt_C);
         }
 
         public int updatePrice(Models.Price price)
         {
-            return priceTableAdapter.Update(price.PriceAmt, price.FirstMonthFree, price.RegionId, price.Active, price.Id);
+            return priceTableAdapter.Update(price.PriceAmt, price.FirstMonthFree, price.RegionId, price.Active, price.PriceAmt_B, price.priceAmt_C, price.Id);
         }
 
         public int deletePrice(int Id)
@@ -213,5 +213,7 @@ namespace SODAwcfService
         {
             return regionTableAdapter.Delete(id);
         }
+
+       
     }
 }
