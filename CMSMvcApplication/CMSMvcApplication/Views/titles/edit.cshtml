@@ -117,7 +117,7 @@
                        
 
                         <hr />
-                        <input type="text" value="" class="ifield" placeholder="Input topic name" name="topicName" /><input type="button" class="btn btn-default topicBtn" name="add" value="Add more Topic"  style="height: 32px; margin-left: 4px;"  />
+                        <input type="text" value="" class="ifield" placeholder="Input topic name" name="topicName[]" /><input type="button" class="btn btn-default topicBtn" name="add" value="Add more Topic"  style="height: 32px; margin-left: 4px;"  />
 
 
                     <div id="text">
@@ -203,7 +203,7 @@
                   </div>
                 </div>
 
-                 <label>QuestionAnswer change date (dd-mm-yy)</label><p style="color:#F8981D !important;">@Model.DateQuestionAnswerChange</p>
+                 <label>QuestionAnswer change date (dd-mm-yy)</label><p style="color:#F8981D !important;">@string.Format("{0:dd-MM-yy}",Model.DateQuestionAnswerChange)</p>
     <input type="text" id="popupDatepicker" class="form-control" placeholder="Click to choose date" name="datefrom" value="@Model.DateQuestionAnswerChange.ToShortDateString()">
                  <p>&nbsp;</p>
         
