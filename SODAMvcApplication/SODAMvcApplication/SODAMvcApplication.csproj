@@ -217,6 +217,7 @@
     <Content Include="Content\images\home\mac.png" />
     <Content Include="Content\images\home\moreBtn.png" />
     <Content Include="Content\images\home\previewNowBtn.png" />
+    <Content Include="Content\images\home\readMoreHomeBtn.png" />
     <Content Include="Content\images\home\topBanner.jpg" />
     <Content Include="Content\images\categories\agedCare_thumb.jpg" />
     <Content Include="Content\images\categories\bullyingAndHarassement_thumb.jpg" />
@@ -489,6 +490,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\images\home\fz3-13868147289010\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
