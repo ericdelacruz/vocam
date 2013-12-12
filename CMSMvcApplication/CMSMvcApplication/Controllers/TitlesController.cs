@@ -204,13 +204,14 @@ namespace CMSMvcApplication.Controllers
 
         private void addTopics(FormCollection collection, CatListingServiceReference.Specific title)
         {
-            if (!string.IsNullOrEmpty(collection["topicName"]))
+            if (!string.IsNullOrEmpty(collection["topicName[]"]))
             {
 
-                catClient.addTopic(title.Id, collection["topicName"]);
+                //catClient.addTopic(title.Id, collection["topicName"]);
                 if (!string.IsNullOrEmpty(collection["topicName[]"]))
                     foreach (string topic in collection["topicName[]"].Split(','))
                     {
+                        if(topic != "")
                         catClient.addTopic(title.Id, topic);
                     }
             }

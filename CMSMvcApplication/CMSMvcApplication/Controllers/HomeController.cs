@@ -110,6 +110,7 @@ namespace CMSMvcApplication.Controllers
                 accnt_orig.ContactNo = accnt.ContactNo;
                 accnt_orig.Address = accnt.Address;
                 accnt_orig.Email = accnt.Email;
+                accnt_orig.Role = 1;
                 accnt.USERNAME = accnt.Email;
                 accountClient.updateAccount(accnt);
                 return RedirectToAction("profile");
