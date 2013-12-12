@@ -13,9 +13,9 @@
 
 <div class="landingSection" style="background:#ffffff url(@Model.BG_Img) top center no-repeat;">
     <div class="landingWrapper">
-        <div class="margin15">Category &nbsp; <span class="glyphicon glyphicon-play"></span>&nbsp; <span id="active2">@selCat.CategoryName</span></div>
+        <div class="margin15" id="catName">Category &nbsp; <span class="glyphicon glyphicon-play"></span>&nbsp; <span id="active2">@selCat.CategoryName</span></div>
         <div class="row">
-            <h1 class="col-md-8">@Model.Title</h1>
+            <h1 class="col-md-8" id="titleName" style="margin-bottom:10px;">@Model.Title</h1>
             <a href="http://portal.sac-iis.com/" class="purchaseBtn fr col-md-4">Purchase</a>
         </div>
 
@@ -29,7 +29,7 @@
             <div class="videoDetails">
                 <p>@Model.Description</p>
                 <p><br></p>
-                <p>Category &nbsp; &nbsp; @selCat.CategoryName</p>
+                <p><span style="font-weight: bold; color: #f48518;">Category</span> &nbsp; &nbsp; @selCat.CategoryName</p>
             </div>
         </div>
 
@@ -51,7 +51,7 @@
                             <a href=@Url.Action("Details", new { id  = spec.Title.Trim().Replace(" ", "-").ToLower() })>
 
                                 <img alt=@spec.Title src=@HttpUtility.UrlPathEncode(@spec.ImageURL)>
-                                <h3>@spec.Title</h3>
+                                <h3 style="width:210px;">@spec.Title</h3>
                             </a>
                         </div>
                     }
