@@ -490,7 +490,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\images\home\fz3-13868147289010\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
