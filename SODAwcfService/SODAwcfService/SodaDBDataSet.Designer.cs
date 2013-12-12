@@ -1680,7 +1680,7 @@ namespace SODAwcfService {
                 this.columnCategoryName.MaxLength = 50;
                 this.columnDescription.MaxLength = 2000;
                 this.columnIMG_URL.MaxLength = 300;
-                this.columnMetatags.MaxLength = 200;
+                this.columnMetatags.MaxLength = 500;
                 this.columnbg_img.MaxLength = 300;
                 this.columnbanner_img.MaxLength = 300;
                 this.columnOverview.MaxLength = 200;
@@ -2260,7 +2260,7 @@ namespace SODAwcfService {
                 this.columnVideoURL.MaxLength = 200;
                 this.columnImageURL.AllowDBNull = false;
                 this.columnImageURL.MaxLength = 200;
-                this.columnMetatags.MaxLength = 200;
+                this.columnMetatags.MaxLength = 500;
                 this.columnbg_img.MaxLength = 200;
                 this.columnOverview.AllowDBNull = false;
                 this.columnOverview.MaxLength = 500;
@@ -4466,11 +4466,11 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string Metatags {
                 get {
-                    try {
-                        return ((string)(this[this.tableCategory.MetatagsColumn]));
+                    if (this.IsMetatagsNull()) {
+                        return string.Empty;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Metatags\' in table \'Category\' is DBNull.", e);
+                    else {
+                        return ((string)(this[this.tableCategory.MetatagsColumn]));
                     }
                 }
                 set {
@@ -4531,7 +4531,7 @@ namespace SODAwcfService {
             public string Meta_Desc {
                 get {
                     if (this.IsMeta_DescNull()) {
-                        return null;
+                        return string.Empty;
                     }
                     else {
                         return ((string)(this[this.tableCategory.Meta_DescColumn]));

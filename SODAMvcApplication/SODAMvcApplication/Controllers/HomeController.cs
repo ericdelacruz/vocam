@@ -4,9 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data;
-using Recaptcha.Web;
-using Recaptcha.Web.Mvc;
-using System.Threading.Tasks;
+//using Recaptcha.Web;
+//using Recaptcha.Web.Mvc;
+using CaptchaMvc.Attributes;
+using CaptchaMvc.HtmlHelpers;
+using CaptchaMvc.Interface;
+
 namespace SODAMvcApplication.Controllers
 {
     public class HomeController : Controller
@@ -98,25 +101,35 @@ namespace SODAMvcApplication.Controllers
         {
             return View();
         }
-
         [HttpPost]
-        public async Task<ActionResult> contactFreeppt(CMSServiceReference.Contact contact,FormCollection collection)
+        public ActionResult Replyfreeppt(FormCollection collection)
         {
-            //RecaptchaVerificationHelper recaptchaHelper = this.GetRecaptchaVerificationHelper();
+            return View();
+        }
+        //public async Task<ActionResult> contactFreeppt(CMSServiceReference.Contact contact,FormCollection collection)
+        //{
+        [HttpPost]
+        public ActionResult contactFreeppt(CMSServiceReference.Contact contact, FormCollection collection)
+        {
+            //RecaptchaVerificationHelper recaptchaHelper = this.ge;
             //if (String.IsNullOrEmpty(recaptchaHelper.Response))
             //{
             //    ModelState.AddModelError("", "Captcha answer cannot be empty.");
             //    return View(contact);
             //}
-
-            //RecaptchaVerificationResult recaptchaResult = await recaptchaHelper.VerifyRecaptchaResponseTaskAsync();
+           
+            //RecaptchaVerificationResult recaptchaResult = recaptchaHelper.VerifyRecaptchaResponse();
 
             //if (recaptchaResult != RecaptchaVerificationResult.Success)
             //{
             //    ModelState.AddModelError("", "Incorrect captcha answer.");
             //    return View(contact);
             //}
-           
+            if (this.IsCaptchaValid("Captcha is not valid"))
+            {
+                ModelState.AddModelError("", "Incorrect captcha answer.");
+                  return View(contact);
+            }
             contact.isFreePPT = true;
             DateTime dateAdded = DateTime.Now;
             contact.isVerified = false;
@@ -127,7 +140,7 @@ namespace SODAMvcApplication.Controllers
             cmsServiceClient.addContact(contact);
             
             EmailHelper.SendEmail("test@yahoo.com", contact.Email, "TEST", createDownloadPPTLink(key,selected));
-            return RedirectToAction("thankyou");
+            return RedirectToAction("Replyfreeppt");
            
         }
 

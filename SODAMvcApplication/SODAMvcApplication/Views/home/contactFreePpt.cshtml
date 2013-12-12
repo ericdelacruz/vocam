@@ -16,9 +16,9 @@
 
 
 @model SODAMvcApplication.CMSServiceReference.Contact
-@using Recaptcha.Web.Mvc;
-
-@using (@Html.BeginForm("replyfreeppt", "home", FormMethod.Post, new { @class = "contactFormPop" }))
+@*@using Recaptcha.Web.Mvc;*@
+@using CaptchaMvc.HtmlHelpers
+@using (@Html.BeginForm("contactFreeppt", "home", FormMethod.Post, new { @class = "contactFormPop" }))
 {
 
     <label>Name*</label>
@@ -58,7 +58,8 @@
         <label>Verification code*</label>*@
     @*@Html.Recaptcha()*@
 
-    <div align="center"><br />@Html.Recaptcha(theme: Recaptcha.Web.RecaptchaTheme.Clean)</div>
+    @*<div align="center"><br />@Html.Recaptcha(theme: Recaptcha.Web.RecaptchaTheme.Clean)</div>*@
+    <div align="center"><br />@Html.Captcha("Refresh", "Input", 5, "Is required field.", true)</div>
     <br/>
     <button class="btn btn-lg btn-primary btn-block" style="width:50%; margin-left:158px;" type="submit">Submit</button>
 

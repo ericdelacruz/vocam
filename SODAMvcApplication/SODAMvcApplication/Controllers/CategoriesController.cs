@@ -25,8 +25,15 @@ namespace SODAMvcApplication.Controllers
 
              var listCategories = from cat in categoriesServiceClient.get_Categories()
                                   where cat.CategoryId != 1
+                                  orderby ConvertGrade(cat.CategoryId)
                                   select cat;
              return View(listCategories);
+        }
+
+        private long ConvertGrade(long CatID)
+        {
+            //can be database but for now hard code
+            return CatID == 22 ? 0 : CatID == 3 ? 1 : 4;
         }
         protected override void Dispose(bool disposing)
         {
@@ -58,7 +65,7 @@ namespace SODAMvcApplication.Controllers
                                 select spec;
 
             ViewBag.SelCategory = categoriesServiceClient.get_Category(lCatID).First();
-
+            Session.Add("CatID", lCatID.ToString());
             return View(listSpecByCat);
         }
 
@@ -88,11 +95,19 @@ namespace SODAMvcApplication.Controllers
             }
             //var spec = categoriesServiceClient.getSpecificByID(id).First();
             var spec = categoriesServiceClient.get().Select(s => s).Where(s => s.Title.ToLower().Replace("-"," ") == id.Replace("-", " ").ToLower());
+            long lCatId = 0;
+            long.TryParse(Session["CatID"].ToString(),out lCatId);
+            ViewBag.SelCategory = categoriesServiceClient.get_Category(lCatId).First();
             
-            ViewBag.SelCategory = categoriesServiceClient.get_Category(spec.First().CategoryID).First();
             try
             {
-                ViewBag.Related = categoriesServiceClient.getRelatedByID(spec.First().Id);
+                //Random rnd = new Random();
+                var listSpecByCat = from ca in categoriesServiceClient.getCatAssign()
+                                    join s in categoriesServiceClient.get() on ca.SpecID equals s.Id
+                                    where ca.CategoryId == lCatId && s.Id != spec.First().Id
+                                    select s;
+                ViewBag.Related = listSpecByCat;
+                //ViewBag.Related = categoriesServiceClient.getRelatedByID(spec.First().Id);
             }
             catch(Exception ex)
             {

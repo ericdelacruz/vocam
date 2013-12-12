@@ -61,20 +61,44 @@ namespace SODAPortalMvcApplication.Controllers
                                 //}
                             }          
                         }
-                        
+                        var verifyModel = getVerifyViewModel(customer.Last().salesCode.Sales_Code);
+                        if (verifyModel.Count() > 0)
+                            Session.Add("SalesCode", verifyModel);
+                        else
+                            Session["SalesCode"] = null;
                         return View(customer);
                     }
                 }
                 else
                 {
                     var customer = getCustomerData(username);
+
+                    var verifyModel = getVerifyViewModel(customer.Last().salesCode.Sales_Code);
+                    if (verifyModel.Count() > 0)
+                        Session.Add("SalesCode", verifyModel);
+                    else
+                        Session["SalesCode"] = null;
                     Session["CustomerData"] = customer;
                     return View(customer);
                 }
             }
            
         }
-
+        //Verify SC
+        [HttpPost]
+        public ActionResult index(FormCollection collection)
+        {
+            if(collection["subscription"] == null)
+            {
+                ModelState.AddModelError("", "Please select subscrption");
+                return View();
+            }
+            var VerifyModel = Session["SalesCode"] as ViewModel.VerifyModel;
+            VerifyModel.selectedSubscription = int.Parse(collection["subscription"]);
+            VerifyModel.qty = !string.IsNullOrEmpty(collection["quantity"]) ? int.Parse(collection["quantity"]) : 1;
+            Session["SalesCode"] = VerifyModel;
+            return RedirectToAction("termsinit");
+        }
         private bool isPayPalRecurActive(string ECTRans)
         {
             var response = paypalClient.getRecurProfileDetailsByTransID(ECTRans);
@@ -120,11 +144,8 @@ namespace SODAPortalMvcApplication.Controllers
 
                 if (salescodeList.Count() > 0)
                 {
-                    var Verify = salescodeList.First();
-                    Verify.discountedPrice_A = Verify.price.PriceAmt - (Verify.price.PriceAmt * Verify.salescode.Discount);
-                    Verify.discountedPrice_B = Verify.price.PriceAmt_B - (Verify.price.PriceAmt_B * Verify.salescode.Discount);
-                    Verify.discountedPrice_C = Verify.price.priceAmt_C - (Verify.price.priceAmt_C * Verify.salescode.Discount);
-                    Session.Add("SalesCode", Verify);
+                 
+                    Session.Add("SalesCode", salescodeList.First());
                 }
                 else
                     Session["SalesCode"] = null;
@@ -145,16 +166,27 @@ namespace SODAPortalMvcApplication.Controllers
             Session["SalesCode"] = VerifyModel;
             return RedirectToAction("termsinit");
         }
-        public ActionResult reverify(string salescode)
+        [HttpPost]
+        public ActionResult reverify(FormCollection collection)
         {
-            var verifymodel = getVerifyViewModel(salescode);
-            TempData["VerifiedSC"] = false;
-            if (verifymodel.Count() > 0)
-            {
-                TempData["VerifiedSC"] = true;
-                Session.Add("SalesCode", verifymodel.First());
-            }
+            //var verifymodel = getVerifyViewModel(salescode);
+            //TempData["VerifiedSC"] = false;
+            //if (verifymodel.Count() > 0)
+            //{
+            //    TempData["VerifiedSC"] = true;
+            //    Session.Add("SalesCode", verifymodel.First());
+            //}
            
+            //return RedirectToAction("index");
+            string salescode = collection["SalesCode"];
+            var salescodeList = getVerifyViewModel(salescode);
+
+            if (salescodeList.Count() > 0)
+            {
+                Session.Add("SalesCode", salescodeList.First());
+            }
+            else
+                Session["SalesCode"] = null;
             return RedirectToAction("index");
         }
         [HttpPost]
@@ -165,11 +197,7 @@ namespace SODAPortalMvcApplication.Controllers
             
             if (salescodeList.Count() > 0)
             {
-                var Verify = salescodeList.First();
-                Verify.discountedPrice_A = Verify.price.PriceAmt - (Verify.price.PriceAmt * Verify.salescode.Discount);
-                Verify.discountedPrice_B = Verify.price.PriceAmt_B - (Verify.price.PriceAmt_B * Verify.salescode.Discount);
-                Verify.discountedPrice_C = Verify.price.priceAmt_C - (Verify.price.priceAmt_C * Verify.salescode.Discount);
-                Session.Add("SalesCode", Verify);
+                Session.Add("SalesCode", salescodeList.First());
             }
             else
                 Session["SalesCode"] = null;
@@ -185,6 +213,15 @@ namespace SODAPortalMvcApplication.Controllers
                                 join r in portalClient.getRegion() on sp.RegionId equals r.Id
                                 where sc.Sales_Code == salescode.Trim()
                                 select new ViewModel.VerifyModel() { price = p, saleperson = sp, salescode = sc, region = r };
+            if(salescodeList.Count() > 0)
+            {
+                
+                var Verify = salescodeList.First();
+                Verify.discountedPrice_A = Verify.price.PriceAmt - (Verify.price.PriceAmt * Verify.salescode.Discount);
+                Verify.discountedPrice_B = Verify.price.PriceAmt_B - (Verify.price.PriceAmt_B * Verify.salescode.Discount);
+                Verify.discountedPrice_C = Verify.price.priceAmt_C - (Verify.price.priceAmt_C * Verify.salescode.Discount);
+                
+            }
             return salescodeList;
         }
 
