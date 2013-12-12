@@ -34,7 +34,14 @@
     @using (Html.BeginForm("Edit", "Titles", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
        @Html.ValidationSummary()
-         <label>Title*</label>
+        
+        <label>Region: </label><br />
+        <select id="" class="form-control" name="titleRegion" style="width: 300px !important; margin-bottom:10px; ">
+            <option value="AU">Australia</option>
+            <option value="GB">GB</option>
+        </select>
+        <br />
+        <label>Title*</label>
         <input type="text" class="form-control" value="@Model.Title" autofocus="" name="Title">
 
         <label>Code*</label>
