@@ -132,6 +132,8 @@ ul.portalUserMenu li a:hover {
 	clear: both;
 }
 
+.btnSubmit {width:30% !important;}
+
 .portalCont h2 {color:#f8981d; margin-bottom: 10px;}
 
 /* portal-user: multiple licenses*/

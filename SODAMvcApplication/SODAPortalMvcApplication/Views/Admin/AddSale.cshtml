@@ -13,7 +13,7 @@
 
     <div class="portalCont margin15">
         <h2>Add Sales</h2>
-        @using (@Html.BeginForm("addsale", "admin", FormMethod.Post))
+        @using (@Html.BeginForm("addsale", "admin", FormMethod.Post, new { @class = "portalForm" }))
         { 
             <!-- Script by hscripts.com -->
             <label>Region:</label>
@@ -28,6 +28,7 @@
             </select>
             <!-- Script by hscripts.com -->
             
+            <br />
             <!-- Script by hscripts.com -->
             <label>SalesCode:</label>
             <select class="form-control" name="SalesCode" id="regionlist" >
@@ -40,7 +41,7 @@
                 }
             </select>
             <!-- Script by hscripts.com -->
-
+            <br />
             <label><b>First Name*</label>
             <input type="text" class="form-control" required name="FirstName" value="">
             <label>Last Name*</label>

@@ -224,6 +224,7 @@
     <Compile Include="ViewModel\UserModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\bootstrap-formhelpers.min.css" />
     <Content Include="Content\css\bootstrap-responsive.css" />
     <Content Include="Content\css\bootstrap-responsive.min.css" />
     <Content Include="Content\css\bootstrap-theme.css" />
@@ -254,6 +255,7 @@
     <Content Include="Content\images\socialTwitter.jpg" />
     <Content Include="Content\images\socialYoutube.jpg" />
     <Content Include="Content\js\birthdate.js" />
+    <Content Include="Content\js\bootstrap-formhelpers.min.js" />
     <Content Include="Content\js\bootstrap.js" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\datepick.js" />

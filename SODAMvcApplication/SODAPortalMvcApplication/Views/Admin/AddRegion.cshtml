@@ -12,7 +12,7 @@
 
     <div class="portalCont margin15">
         <h2>Add Region</h2>
-        @using (@Html.BeginForm("addregion", "admin", FormMethod.Post))
+        @using (@Html.BeginForm("addregion", "admin", FormMethod.Post, new { @class = "portalForm" }))
         {
             @Html.ValidationSummary()
             <!-- Script by hscripts.com -->
@@ -21,13 +21,13 @@
             <label>Currency:</label>
            @* <input style="width:70%;" type="text" class="form-control" name="RegionCurrency">*@
             <!-- Script by hscripts.com -->
-             <select class="form-control" name="currency">
+            <select style="width:70%;" class="form-control" name="currency">
                 <option selected="selected" value="">Select Currency</option>
-                 <option value="AUD">AUD</option>
-                 <option value="USD">USD</option>
-                 <option value="GBP">GBP</option>
-                 <option value= "EUR">EUR</option>
-              </select>
+                <option value="AUD">AUD</option>
+                <option value="USD">USD</option>
+                <option value="GBP">GBP</option>
+                <option value="EUR">EUR</option>
+            </select>
             <br />
 
             <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">PUBLISH</button>
