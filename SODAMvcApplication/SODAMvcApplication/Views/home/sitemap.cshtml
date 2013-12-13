@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<SODAMvcApplication.Models.SiteMapModel>
+@{
     ViewBag.Title = "sitemap";
 }
 
@@ -12,6 +13,17 @@
                 <div style="padding:4%;">
                     <p><a href="http://sac-iis.com/">Home</a></p>
                     <p><a href="http://www.sac-iis.com/categories">Categories</a/></p>
+                    @foreach(var cat in Model)
+                    {
+                        <p><a href="@Url.Action("Browse", "categories", new { cat = cat.CatName.Trim().Replace(" ", "-").ToLower() })">@cat.CatName </a></p>
+                        if(cat.Titles != null)
+                        {
+                            foreach(var title in cat.Titles)
+                            {
+                                <p><a href="@Url.Action("Details", "categories", new { id = title.Trim().Replace(" ", "-").ToLower(),catid=cat.CatId })">@title</a></p>
+                            }
+                        }
+                    }
                     <p><a href="http://www.sac-iis.com/home/learnmore">Learn More</a></p>
                     <p><a href="http://www.sac-iis.com/home/contact">Contact</a></p>
                     <p><a href="http://www.sac-iis.com/home/sitemap">Sitemap</a></p>
