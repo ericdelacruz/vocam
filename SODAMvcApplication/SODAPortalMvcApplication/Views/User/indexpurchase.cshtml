@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "indexpurchase";
     var SalesCode = Session["SalesCode"] as SODAPortalMvcApplication.ViewModel.VerifyModel;
-    
+    var username = Session["Username"].ToString().Substring(0, Session["Username"].ToString().IndexOf('@'));
     
 }
 
@@ -11,7 +11,7 @@
 
     <div class="portalWrap displayInline border">
         <div class="fr">
-            <div class="logoutSec fr clearfix">Hi user! @Html.ActionLink("(Logout)","logout","home")</div>
+            <div class="logoutSec fr clearfix">@Html.ActionLink("Hi!" + username + " (Logout)", "logout", "home")</div>
         </div>
 
         <div class="portalCont margin15">

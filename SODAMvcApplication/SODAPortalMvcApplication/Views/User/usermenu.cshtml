@@ -5,5 +5,8 @@
         <li><a href="@Url.Action("downloads")">DOWNLOADS</a></li>
         <li><a href="@Url.Action("termsconditions")">TERMS AND CONDITIONS</a></li>
     </ul> <!-- end of portal user menu-->
-    <div class="logoutSec fr clearfix"> @Html.ActionLink("Logout", "logout", "home")</div>
+   @{
+       var username = Session["Username"].ToString().Substring(0,Session["Username"].ToString().IndexOf('@'));
+       }
+    <div class="logoutSec fr clearfix"> @Html.ActionLink("Hi" +username+"(Logout)", "logout", "home")</div>
 </div>
