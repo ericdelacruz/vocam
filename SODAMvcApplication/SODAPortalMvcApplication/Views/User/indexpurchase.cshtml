@@ -21,7 +21,7 @@
                 @using(@Html.BeginForm("verify","user"))
                 { 
                  
-                    <img src="/Content/images/portal/step1.jpg" alt="Step 1: Enter Your Sales Code">
+                    <img src="/Content/images/portal/step1.jpg" alt="Step 1: Enter Your Sales Code"><br /><br />
                     <label>Sales Code: </label><input type="text" name="salesCode" required class="form-control" value="" style="margin-right:5px;">
                     <button type="submit" class="btn btn-default fl">Verify</button>
                     
@@ -44,12 +44,11 @@
                 //using(@Html.BeginForm("termsinit","user"))
                 using(@Html.BeginForm("indexpurchase","user", FormMethod.Post))
                 {
-                      <h2>Payment Details</h2>
-
-                    <h3>Product Name</h3>
+                    <img src="/Content/images/portal/step2.jpg" alt="Step 2: Choose Your Subscription">
+                    <h4 style="margin-top:15px !important;">Product Name</h4>
                         <p>Product Desciption. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.</p>
 
-                        <h3>Select Your Subscription</h3>
+                       
                         <div class="row">
                             <div class="col-sm-4 border2 shadow">
                                 <div class="monthSub">1 MONTH</div>
@@ -73,7 +72,7 @@
 
           
                         <br> 
-                    <label>Quantity: </label><input type="text" name="quantity" class="form-control">  
+                    <label>Quantity: </label><input type="text" name="quantity" class="form-control" placeholder="Enter number of licenses">  
                     <button type="submit" class="btn btn-lg btn-primary btn-block" style="width: 200px; float: right; margin-right: 5%;">Proceed  > > </button>
                 }
             }
