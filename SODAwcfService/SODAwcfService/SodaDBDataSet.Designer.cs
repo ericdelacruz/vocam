@@ -4450,11 +4450,11 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string IMG_URL {
                 get {
-                    try {
-                        return ((string)(this[this.tableCategory.IMG_URLColumn]));
+                    if (this.IsIMG_URLNull()) {
+                        return string.Empty;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'IMG_URL\' in table \'Category\' is DBNull.", e);
+                    else {
+                        return ((string)(this[this.tableCategory.IMG_URLColumn]));
                     }
                 }
                 set {
@@ -4482,11 +4482,11 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string bg_img {
                 get {
-                    try {
-                        return ((string)(this[this.tableCategory.bg_imgColumn]));
+                    if (this.Isbg_imgNull()) {
+                        return string.Empty;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'bg_img\' in table \'Category\' is DBNull.", e);
+                    else {
+                        return ((string)(this[this.tableCategory.bg_imgColumn]));
                     }
                 }
                 set {
@@ -4498,11 +4498,11 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string banner_img {
                 get {
-                    try {
-                        return ((string)(this[this.tableCategory.banner_imgColumn]));
+                    if (this.Isbanner_imgNull()) {
+                        return string.Empty;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'banner_img\' in table \'Category\' is DBNull.", e);
+                    else {
+                        return ((string)(this[this.tableCategory.banner_imgColumn]));
                     }
                 }
                 set {
