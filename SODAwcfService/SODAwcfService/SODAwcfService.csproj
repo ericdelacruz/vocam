@@ -97,6 +97,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="soda.svc" />
     <Content Include="SODAPaypalService.svc" />
     <Content Include="VideoplayerService.svc" />
     <Content Include="Web.config">
@@ -110,9 +111,13 @@
     <Compile Include="CatListingService.svc.cs">
       <DependentUpon>CatListingService.svc</DependentUpon>
     </Compile>
+    <Compile Include="Isoda.cs" />
     <Compile Include="Models\CategoryAssignment.cs" />
     <Compile Include="Models\PayPalModel.cs" />
     <Compile Include="Models\PayPalTrans.cs" />
+    <Compile Include="soda.svc.cs">
+      <DependentUpon>soda.svc</DependentUpon>
+    </Compile>
     <Compile Include="XMLModel\Channel.cs" />
     <Compile Include="CMS_Service.svc.cs">
       <DependentUpon>CMS_Service.svc</DependentUpon>
