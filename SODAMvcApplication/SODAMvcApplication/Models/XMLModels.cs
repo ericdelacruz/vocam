@@ -10,6 +10,12 @@ namespace SODAMvcApplication.Models.XML
         public bool authorized { get; set; }
         public int daysleft { get; set; }
         public bool shownews { get; set; }
+
+        public int PCLicenses { get; set; }
+
+       
+
+        public int PCLicenseConsumed { get; set; }
     }
    
 }
