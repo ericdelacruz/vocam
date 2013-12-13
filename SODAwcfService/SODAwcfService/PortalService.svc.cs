@@ -38,7 +38,11 @@ namespace SODAwcfService
                      UserId = row.UserId,
                      DatePurchase = row.DatePurchase,
                      DateSubscriptionEnd = row.DateSubscriptionEnd,
-                     SalesCodeId = row.SalesCodeId
+                     SalesCodeId = row.SalesCodeId,
+                      DateUpdated = row.DateUpdated,
+                       Licenses = row.Licencses,
+                        PPId = row.PPId,
+                         RecurringType = row.RecuringType
                 });
             }
             return listCustomer;
@@ -160,7 +164,9 @@ namespace SODAwcfService
                     FirstMonthFree = price.FirstMonthFree,
                     Active = price.Active,
                     PriceAmt = price.Price,
-                    RegionId = price.RegionId
+                    RegionId = price.RegionId,
+                     PriceAmt_B = price.Price_b,
+                      priceAmt_C = price.Price_c
                 });
             }
             return priceList;
@@ -193,7 +199,8 @@ namespace SODAwcfService
                 regionlist.Add(new Models.Region()
                 {
                     RegionName = region.RegionName,
-                    Id = region.Id
+                    Id = region.Id,
+                     Currency = region.Currency
                 });
             }
             return regionlist;
