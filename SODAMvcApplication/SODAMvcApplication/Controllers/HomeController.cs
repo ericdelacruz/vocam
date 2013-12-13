@@ -125,7 +125,7 @@ namespace SODAMvcApplication.Controllers
             //    ModelState.AddModelError("", "Incorrect captcha answer.");
             //    return View(contact);
             //}
-            if (this.IsCaptchaValid("Captcha is not valid"))
+            if (!this.IsCaptchaValid("Captcha is not valid"))
             {
                 ModelState.AddModelError("", "Incorrect captcha answer.");
                   return View(contact);

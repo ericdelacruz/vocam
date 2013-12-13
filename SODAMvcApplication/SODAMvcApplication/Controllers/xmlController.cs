@@ -33,6 +33,7 @@ namespace SODAMvcApplication.Controllers
             {
                 var customer = from accnt in account.getAccount(username)
                                join cust in portalClient.getCustomer() on accnt.Id equals cust.UserId
+                               orderby cust.DateSubscriptionEnd descending
                                select cust;
                 
 
@@ -40,7 +41,7 @@ namespace SODAMvcApplication.Controllers
                 {
                     int daysleft = 0;
                     if (customer.First().DateSubscriptionEnd.HasValue)
-                        daysleft = ((TimeSpan)(DateTime.Now - customer.First().DateSubscriptionEnd.Value)).Days;
+                        daysleft = ((TimeSpan)(customer.First().DateSubscriptionEnd.Value - DateTime.Now)).Days;
                     return View(new Users() { authorized = true,daysleft=daysleft, shownews = true });
                 }
                 else
