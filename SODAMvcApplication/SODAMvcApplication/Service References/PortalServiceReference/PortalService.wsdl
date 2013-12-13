@@ -139,6 +139,30 @@
   <wsdl:message name="IPortalService_deleteRegion_OutputMessage">
     <wsdl:part name="parameters" element="tns:deleteRegionResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_getLicenseConsumption_InputMessage">
+    <wsdl:part name="parameters" element="tns:getLicenseConsumption" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_getLicenseConsumption_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getLicenseConsumptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_addLicenseConsumption_InputMessage">
+    <wsdl:part name="parameters" element="tns:addLicenseConsumption" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_addLicenseConsumption_OutputMessage">
+    <wsdl:part name="parameters" element="tns:addLicenseConsumptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_updateLicenseConsumption_InputMessage">
+    <wsdl:part name="parameters" element="tns:updateLicenseConsumption" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_updateLicenseConsumption_OutputMessage">
+    <wsdl:part name="parameters" element="tns:updateLicenseConsumptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_delteLicenseConsumption_InputMessage">
+    <wsdl:part name="parameters" element="tns:delteLicenseConsumption" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_delteLicenseConsumption_OutputMessage">
+    <wsdl:part name="parameters" element="tns:delteLicenseConsumptionResponse" />
+  </wsdl:message>
   <wsdl:portType name="IPortalService">
     <wsdl:operation name="getCustomer">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/getCustomer" message="tns:IPortalService_getCustomer_InputMessage" />
@@ -227,6 +251,22 @@
     <wsdl:operation name="deleteRegion">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/deleteRegion" message="tns:IPortalService_deleteRegion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/deleteRegionResponse" message="tns:IPortalService_deleteRegion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getLicenseConsumption">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/getLicenseConsumption" message="tns:IPortalService_getLicenseConsumption_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/getLicenseConsumptionResponse" message="tns:IPortalService_getLicenseConsumption_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="addLicenseConsumption">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/addLicenseConsumption" message="tns:IPortalService_addLicenseConsumption_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/addLicenseConsumptionResponse" message="tns:IPortalService_addLicenseConsumption_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="updateLicenseConsumption">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/updateLicenseConsumption" message="tns:IPortalService_updateLicenseConsumption_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/updateLicenseConsumptionResponse" message="tns:IPortalService_updateLicenseConsumption_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="delteLicenseConsumption">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/delteLicenseConsumption" message="tns:IPortalService_delteLicenseConsumption_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/delteLicenseConsumptionResponse" message="tns:IPortalService_delteLicenseConsumption_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPortalService" type="tns:IPortalService">
@@ -422,6 +462,42 @@
     </wsdl:operation>
     <wsdl:operation name="deleteRegion">
       <soap:operation soapAction="http://tempuri.org/IPortalService/deleteRegion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getLicenseConsumption">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/getLicenseConsumption" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addLicenseConsumption">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/addLicenseConsumption" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateLicenseConsumption">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/updateLicenseConsumption" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="delteLicenseConsumption">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/delteLicenseConsumption" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

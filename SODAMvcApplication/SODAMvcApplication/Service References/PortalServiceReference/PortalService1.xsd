@@ -10,7 +10,11 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="DatePurchase" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="DateSubscriptionEnd" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DateUpdated" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Licenses" type="xs:int" />
+      <xs:element minOccurs="0" name="PPId" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="RecurringType" type="xs:short" />
       <xs:element minOccurs="0" name="SalesCodeId" type="xs:long" />
       <xs:element minOccurs="0" name="UserId" type="xs:long" />
     </xs:sequence>
@@ -60,7 +64,9 @@
       <xs:element minOccurs="0" name="FirstMonthFree" type="xs:boolean" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="PriceAmt" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PriceAmt_B" type="xs:decimal" />
       <xs:element minOccurs="0" name="RegionId" type="xs:int" />
+      <xs:element minOccurs="0" name="priceAmt_C" type="xs:decimal" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Price" nillable="true" type="tns:Price" />
@@ -72,9 +78,25 @@
   <xs:element name="ArrayOfRegion" nillable="true" type="tns:ArrayOfRegion" />
   <xs:complexType name="Region">
     <xs:sequence>
+      <xs:element minOccurs="0" name="Currency" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="RegionName" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Region" nillable="true" type="tns:Region" />
+  <xs:complexType name="ArrayOfLicenseConsumption">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LicenseConsumption" nillable="true" type="tns:LicenseConsumption" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLicenseConsumption" nillable="true" type="tns:ArrayOfLicenseConsumption" />
+  <xs:complexType name="LicenseConsumption">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Consumed" type="xs:int" />
+      <xs:element minOccurs="0" name="DateUpdated" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="UserId" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LicenseConsumption" nillable="true" type="tns:LicenseConsumption" />
 </xs:schema>
