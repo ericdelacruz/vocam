@@ -83,6 +83,17 @@ namespace SODAwcfService
         [OperationContract]
         int deleteRegion(int id);
         #endregion
+
+        #region LicenseConsumption
+        [OperationContract]
+        IEnumerable<Models.LicenseConsumption> getLicenseConsumption();
+        [OperationContract]
+        int addLicenseConsumption(Models.LicenseConsumption license);
+        [OperationContract]
+        int updateLicenseConsumption(Models.LicenseConsumption license);
+        [OperationContract]
+        int delteLicenseConsumption(int id);
+        #endregion
     }
 
 }

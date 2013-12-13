@@ -68,9 +68,6 @@ namespace SODAwcfService
             return adapter.GetData().Where(lc => lc.UserId == userid).First();
         }
 
-        
-
-        
 
         private int getMaxActiveLicenses(string username)
         {

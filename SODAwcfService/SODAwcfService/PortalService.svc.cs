@@ -17,7 +17,7 @@ namespace SODAwcfService
         private PortalDataSetTableAdapters.SalesCodeTableAdapter salesCodeTableAdapter;
         private PortalDataSetTableAdapters.SalesPersonTableAdapter salesPersonTableAdapter;
         private PortalDataSetTableAdapters.RegionTableAdapter regionTableAdapter;
-        
+        private PortalDataSetTableAdapters.LicenseConsumptionTableAdapter licenseAdapter;
         public PortalService()
         {
             customerTableAdapter = new PortalDataSetTableAdapters.CustomerTableAdapter();
@@ -26,6 +26,7 @@ namespace SODAwcfService
             salesCodeTableAdapter = new PortalDataSetTableAdapters.SalesCodeTableAdapter();
             salesPersonTableAdapter = new PortalDataSetTableAdapters.SalesPersonTableAdapter();
             regionTableAdapter = new PortalDataSetTableAdapters.RegionTableAdapter();
+            licenseAdapter = new PortalDataSetTableAdapters.LicenseConsumptionTableAdapter();
         }
        
         public IEnumerable<Models.Customer> getCustomer()
@@ -221,6 +222,33 @@ namespace SODAwcfService
             return regionTableAdapter.Delete(id);
         }
 
-       
+
+
+
+        public IEnumerable<Models.LicenseConsumption> getLicenseConsumption()
+        {
+            return licenseAdapter.GetData().Select(lc => new Models.LicenseConsumption()
+            {
+                Id = lc.Id,
+                Consumed = lc.Consumed,
+                DateUpdated = lc.DateUpdated,
+                UserId = lc.UserId
+            });
+        }
+
+        public int addLicenseConsumption(Models.LicenseConsumption license)
+        {
+            return licenseAdapter.Insert(license.UserId, license.Consumed, license.DateUpdated);
+        }
+
+        public int updateLicenseConsumption(Models.LicenseConsumption license)
+        {
+            return licenseAdapter.Update(license.UserId, license.Consumed, license.DateUpdated, license.Id);
+        }
+
+        public int delteLicenseConsumption(int id)
+        {
+            return licenseAdapter.Delete(id);
+        }
     }
 }
