@@ -149,6 +149,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\drmModel.cs" />
+    <Compile Include="Models\SiteMapModel.cs" />
     <Compile Include="Models\XMLModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\AccountServiceReference\Reference.cs">
@@ -490,6 +491,10 @@
     <Content Include="Views\xml\titles.cshtml" />
     <Content Include="Views\xml\channels.cshtml" />
     <Content Include="Views\xml\validate.cshtml" />
+    <Content Include="Service References\PortalServiceReference\SODAMvcApplication.PortalServiceReference.LicenseConsumption.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Views\home\sitemap.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
