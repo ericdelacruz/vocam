@@ -247,6 +247,9 @@
     <Content Include="Content\images\portal\delete.png" />
     <Content Include="Content\images\portal\download.jpg" />
     <Content Include="Content\images\portal\edit.png" />
+    <Content Include="Content\images\portal\paypal.jpg" />
+    <Content Include="Content\images\portal\step1.jpg" />
+    <Content Include="Content\images\portal\step2.jpg" />
     <Content Include="Content\images\portal\warning.png" />
     <Content Include="Content\images\safetyOnDemand-logo.jpg" />
     <Content Include="Content\images\safetyOnDemand-logoFooter.jpg" />
