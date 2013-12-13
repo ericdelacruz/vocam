@@ -462,13 +462,13 @@ namespace SODAPortalMvcApplication.Controllers
                 case 2:
                     ppConfirm.dateStart = VerfiyModel.price.FirstMonthFree ? DateTime.Now.AddMonths(4) : DateTime.Now.AddMonths(3);
                     ppConfirm.PaymenytAmt = VerfiyModel.discountedPrice_B * VerfiyModel.qty;
-                    ppConfirm.schedDesc = string.Format(BILLING_AGREEMENT_FORMAT, 1);
+                    ppConfirm.schedDesc = string.Format(BILLING_AGREEMENT_FORMAT, 3);
                     ppConfirm.BillingFrequency = 3;
                     break;
                 case 3:
                      ppConfirm.dateStart = VerfiyModel.price.FirstMonthFree ? DateTime.Now.AddMonths(7) : DateTime.Now.AddMonths(6);
                     ppConfirm.PaymenytAmt = VerfiyModel.discountedPrice_C * VerfiyModel.qty;
-                    ppConfirm.schedDesc = string.Format(BILLING_AGREEMENT_FORMAT, 1);
+                    ppConfirm.schedDesc = string.Format(BILLING_AGREEMENT_FORMAT, 6);
                     ppConfirm.BillingFrequency = 6;
                     break;
 
