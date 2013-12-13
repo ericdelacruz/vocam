@@ -33,25 +33,33 @@ namespace SODAMvcApplication.Controllers
             {
                 var customer = from accnt in account.getAccount(username)
                                join cust in portalClient.getCustomer() on accnt.Id equals cust.UserId
+                               where cust.DateSubscriptionEnd > DateTime.Now
                                orderby cust.DateSubscriptionEnd descending
                                select cust;
-                
+                                
+                                        
 
                 if(customer.Count() > 0)
                 {
                     int daysleft = 0;
+                    int consumed = 0;
+                    var maxActiveLicenses = customer.Sum(c => c.Licenses);
+
+                    var LicenseConsumption = portalClient.getLicenseConsumption().Where(lc => lc.UserId == customer.First().UserId);
+                    if (LicenseConsumption.Count() > 0)
+                        consumed = LicenseConsumption.First().Consumed;
                     if (customer.First().DateSubscriptionEnd.HasValue)
                         daysleft = ((TimeSpan)(customer.First().DateSubscriptionEnd.Value - DateTime.Now)).Days;
-                    return View(new Users() { authorized = true,daysleft=daysleft, shownews = true });
+                    return View(new Users() { authorized = true,daysleft=daysleft, shownews = true,PCLicenses=maxActiveLicenses, PCLicenseConsumed = consumed });
                 }
                 else
                 {
-                    return View(new Users() { authorized = false, daysleft = 0, shownews = true });
+                    return View(new Users() { authorized = false, daysleft = 0, shownews = true, PCLicenses = 0, PCLicenseConsumed = 0 });
                 }
             }
             else
             {
-                return View(new Users() { authorized = false, daysleft = 0, shownews = true });
+                return View(new Users() { authorized = false, daysleft = 0, shownews = true, PCLicenses = 0, PCLicenseConsumed = 0 });
             }
         }
         public ActionResult channels()

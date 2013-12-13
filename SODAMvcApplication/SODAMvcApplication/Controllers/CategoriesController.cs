@@ -85,7 +85,7 @@ namespace SODAMvcApplication.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ActionResult Details(string id)
+        public ActionResult Details(string id,string catid)
         {
             
 
@@ -96,7 +96,10 @@ namespace SODAMvcApplication.Controllers
             //var spec = categoriesServiceClient.getSpecificByID(id).First();
             var spec = categoriesServiceClient.get().Select(s => s).Where(s => s.Title.ToLower().Replace("-"," ") == id.Replace("-", " ").ToLower());
             long lCatId = 0;
-            long.TryParse(Session["CatID"].ToString(),out lCatId);
+            if (catid == null)
+                long.TryParse(Session["CatID"].ToString(), out lCatId);
+            else
+                long.TryParse(catid,out lCatId);
             ViewBag.SelCategory = categoriesServiceClient.get_Category(lCatId).First();
             
             try

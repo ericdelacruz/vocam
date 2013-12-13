@@ -17,6 +17,7 @@ namespace SODAMvcApplication.Controllers
         //
         // GET: /Home/
         private CMSServiceReference.CMS_ServiceClient cmsServiceClient = new CMSServiceReference.CMS_ServiceClient();
+        private CategoriesServiceReference.CatListingServiceClient catListingSerivceClient = new CategoriesServiceReference.CatListingServiceClient();
         private string password = "myS0D@P@ssw0rd";
 
         private const string HOME = "Home";
@@ -39,6 +40,7 @@ namespace SODAMvcApplication.Controllers
         protected override void Dispose(bool disposing)
         {
            cmsServiceClient.Close();
+           catListingSerivceClient.Close();
             base.Dispose(disposing);
         }
         //
@@ -60,9 +62,33 @@ namespace SODAMvcApplication.Controllers
         //GET: /Sitemap/
         public ActionResult Sitemap()
         {
+            var sitemapData = from cat in catListingSerivceClient.get_Categories()
+                              where cat.CategoryId > 1
+                              orderby ConvertGrade(cat.CategoryId)
+                              select new Models.SiteMapModel()
+                              {
+                                  CatName = cat.CategoryName,
+                                  Titles = getTitlesUnderCat(cat.CategoryId),
+                                  CatId = cat.CategoryId
+                              };
 
-            return View();
+            return View(sitemapData);
         }
+        private long ConvertGrade(long CatID)
+        {
+            //can be database but for now hard code
+            return CatID == 22 ? 0 : CatID == 3 ? 1 : 4;
+        }
+        private List<string> getTitlesUnderCat(long catid)
+        {
+            var catTitles = from ca in catListingSerivceClient.getCatAssign()
+                            join title in catListingSerivceClient.get() on ca.SpecID equals title.Id
+                            where ca.CategoryId == catid
+                            select title.Title;
+            return catTitles.Count() > 0 ? catTitles.ToList() : null;
+        }
+
+        
 
         //GET: /Legals/
         public ActionResult Legals()
