@@ -75,7 +75,7 @@
   <xs:element name="cancelSubscription">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="userid" type="xs:long" />
+        <xs:element minOccurs="0" name="transid" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

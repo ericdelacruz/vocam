@@ -1188,10 +1188,10 @@ namespace SODAPortalMvcApplication.SODAPayPalSerRef {
         System.Threading.Tasks.Task<string> confirmationModelAsync(SODAPortalMvcApplication.SODAPayPalSerRef.PayPalConfirmModel model);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISODAPaypalService/cancelSubscription", ReplyAction="http://tempuri.org/ISODAPaypalService/cancelSubscriptionResponse")]
-        bool cancelSubscription(long userid);
+        bool cancelSubscription(string transid);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISODAPaypalService/cancelSubscription", ReplyAction="http://tempuri.org/ISODAPaypalService/cancelSubscriptionResponse")]
-        System.Threading.Tasks.Task<bool> cancelSubscriptionAsync(long userid);
+        System.Threading.Tasks.Task<bool> cancelSubscriptionAsync(string transid);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISODAPaypalService/getRecurProfileDetails", ReplyAction="http://tempuri.org/ISODAPaypalService/getRecurProfileDetailsResponse")]
         SODAPortalMvcApplication.SODAPayPalSerRef.RecuringProfileDetails getRecurProfileDetails(long userid);
@@ -1271,12 +1271,12 @@ namespace SODAPortalMvcApplication.SODAPayPalSerRef {
             return base.Channel.confirmationModelAsync(model);
         }
         
-        public bool cancelSubscription(long userid) {
-            return base.Channel.cancelSubscription(userid);
+        public bool cancelSubscription(string transid) {
+            return base.Channel.cancelSubscription(transid);
         }
         
-        public System.Threading.Tasks.Task<bool> cancelSubscriptionAsync(long userid) {
-            return base.Channel.cancelSubscriptionAsync(userid);
+        public System.Threading.Tasks.Task<bool> cancelSubscriptionAsync(string transid) {
+            return base.Channel.cancelSubscriptionAsync(transid);
         }
         
         public SODAPortalMvcApplication.SODAPayPalSerRef.RecuringProfileDetails getRecurProfileDetails(long userid) {
