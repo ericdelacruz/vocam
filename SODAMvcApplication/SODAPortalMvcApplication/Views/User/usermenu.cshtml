@@ -8,5 +8,5 @@
    @{
        var username = Session["Username"].ToString().Substring(0,Session["Username"].ToString().IndexOf('@'));
        }
-    <div class="logoutSec fr clearfix"> @Html.ActionLink("Hi" +username+"(Logout)", "logout", "home")</div>
+    <div class="logoutSec fr clearfix"> @Html.ActionLink("Hi!" +username+" (Logout)", "logout", "home")</div>
 </div>
