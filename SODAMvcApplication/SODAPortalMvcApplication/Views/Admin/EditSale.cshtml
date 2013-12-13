@@ -39,7 +39,7 @@
             <br />
             
             <!-- Script by hscripts.com -->
-            <label>Sales Code:</label>
+            <label>Current Sales Code: <span style="color:#F8981D;">QWET3</span></label>
             <select class="form-control" name="SalesCode">
                 <option selected="selected" value="-1">Select sales code</option>
                 @foreach(var salescode in SalesCodeList)
@@ -72,7 +72,7 @@
             <label>Confirm Password</label>
             <input type="password" name="Password" class="form-control" value=@Model.account.PASSWORD readonly>
             
-            <label>Discount Rate</label>
+            <label>Discount Rate (%) ex. 12</label>
             <input type="number" class="form-control" name="Discount"  value=@(Model.salesCode.Discount * 100)>
 
             <br>
