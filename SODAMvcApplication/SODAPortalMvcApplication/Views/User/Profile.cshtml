@@ -15,7 +15,7 @@
         <p><b>Email Address:</b> @Html.DisplayFor(m=>m.account.Email)</p>
         <p><b>Company:</b> @Html.DisplayFor(m=>m.account.Company)</p>
         <p><b>Contact No:</b> @Html.DisplayFor(m=>m.account.ContactNo)</p>
-        <p><b>Contract end date:</b> @Html.DisplayFor(m=>m.customer.DateSubscriptionEnd)</p>
+        <p><b>Contract end date:</b>@string.Format("{0:MM/dd/yyyy}",Model.customer.DateSubscriptionEnd.Value)</p>
 
     </div>
 </div>

@@ -22,7 +22,7 @@
                 <div align="center">
                     <br> <br />
                     @*<form action="user/index.html">*@
-                    @using(@Html.BeginForm("index","user"))
+                    @using(@Html.BeginForm("index","user", FormMethod.Get))
                     {
                         <button  class="btn btn-lg btn-primary btn-block" style="max-width:40%;"> Return to Home Page</button>
                     }                
@@ -45,7 +45,7 @@
                 <div align="center">
                     <br> <br />
                     
-                    @using (@Html.BeginForm("index", "user"))
+                    @using (@Html.BeginForm("index", "user", FormMethod.Get))
                     {
                         <button class="btn btn-lg btn-primary btn-block" style="max-width:40%;"> Return to Home Page</button>
                     }
