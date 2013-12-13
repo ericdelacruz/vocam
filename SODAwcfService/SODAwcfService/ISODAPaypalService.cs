@@ -21,7 +21,7 @@ namespace SODAwcfService
         [OperationContract]
         string confirmationModel(Models.PayPalConfirmModel model);
         [OperationContract]
-        bool cancelSubscription(long userid);
+        bool cancelSubscription(string transid);
 
         [OperationContract]
         Models.RecuringProfileDetails getRecurProfileDetails(long userid);

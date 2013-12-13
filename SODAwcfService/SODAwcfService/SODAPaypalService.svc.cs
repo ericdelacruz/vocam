@@ -269,7 +269,7 @@ namespace SODAwcfService
         }
 
       
-        public bool cancelSubscription(long userid)
+        public bool cancelSubscription(string transid)
         {
             string profileID = "";
             bool flag = false;
@@ -278,7 +278,7 @@ namespace SODAwcfService
                 try
                 {
                     var result = (from row in paypalAdapter.GetData()
-                                  where row.UserID == userid
+                                  where row.ECTransID == transid
                                   select row).First();
 
                     if ((flag = cancel(result.RPProfile)))
