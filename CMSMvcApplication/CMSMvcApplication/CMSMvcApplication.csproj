@@ -187,7 +187,6 @@
     <Content Include="Content\images\cms\profile.jpg" />
     <Content Include="Content\images\cms\view.png" />
     <Content Include="Content\images\footerBg.jpg" />
-    <Content Include="Content\images\home\browseChannelBtn.png" />
     <Content Include="Content\images\home\featThumb1.jpg" />
     <Content Include="Content\images\home\featThumb2.jpg" />
     <Content Include="Content\images\home\featThumb3.jpg" />
