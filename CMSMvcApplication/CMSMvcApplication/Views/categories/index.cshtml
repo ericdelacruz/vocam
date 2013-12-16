@@ -26,7 +26,7 @@
                         <td width="415">&nbsp; @cat.CategoryName</td>
                         <td width="100"><a href=@Url.Action("edit",new{id=cat.CategoryId})><img src="~/Content/images/cms/edit.png"></a></td>
                         <td width="100"><a onclick="return confirm('Are you sure you want to delete the item?');" href=@Url.Action("delete",new{id=cat.CategoryId})><img src="/Content/images/cms/delete.png"></a></td>
-                        <td width="100"> <a target="_blank" href="@webpageUrl/categories/browse/@cat.CategoryName.ToLower().Replace("-"," ")"><img src="/Content/images/cms/view.png"> </a></td>
+                        <td width="100"> <a target="_blank" href="@webpageUrl/categories/browse/@cat.CategoryName.ToLower().Replace(" ","-")"><img src="/Content/images/cms/view.png"> </a></td>
                     </tr>
                 }
 
