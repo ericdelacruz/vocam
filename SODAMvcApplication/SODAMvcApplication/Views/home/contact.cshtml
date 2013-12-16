@@ -17,10 +17,11 @@
                 </span>
                 <p>Please fill in your details and one of our sales consultants will be in touch as soon as possible.</p>
             </div>
-            @if(TempData["MsgSent"] != null)
-            {
-                <p>Message sent</p>
-            }
+            @if (TempData["MsgSent"] != null)
+{
+    <div style="margin:5% 10% 2% 10%; text-align:center; font-size:14px;" class="alert alert-success"><strong>Request sent successfully.</strong> One of our sales consultant will contact you as soon as possible.</div>
+
+}
             <div class="formInput">
                 @using (@Html.BeginForm("contact", "Home", FormMethod.Post))
                 {
