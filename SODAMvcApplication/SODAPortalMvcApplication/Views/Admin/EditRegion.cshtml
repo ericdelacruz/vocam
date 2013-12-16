@@ -1,6 +1,8 @@
 ﻿@model SODAPortalMvcApplication.PortalServiceReference.Region
 @{
     ViewBag.Title = "EditRegion";
+    var CurrencyList = new List<string>() { "AUD", "USD", "GBP", "EUR" };
+    
 }
 
 <div class="portalWrap border">
@@ -19,11 +21,22 @@
             @*<input type="text" style="width:70%;" class="form-control" name="RegionCurrency" value="@Model.RegionCurrency">*@
             <!-- Script by hscripts.com -->
             <select class="form-control" style="width:70%;" name="currency">
-                <option selected="selected" value="">Select Currency</option>
+              @foreach(var cur in CurrencyList)
+              {
+                  if(Model.Currency == cur)
+                  {
+                     <option value="@cur" selected>@cur</option>
+                  }
+                 else
+                 {
+                      <option value="@cur">@cur</option>        
+                 }
+              }  
+              @*<option selected="selected" value="">Select Currency</option>
                 <option value="AUD">AUD</option>
                 <option value="USD">USD</option>
                 <option value="GBP">GBP</option>
-                <option value="EUR">EUR</option>
+                <option value="EUR">EUR</option>*@
             </select>
 
             <br />

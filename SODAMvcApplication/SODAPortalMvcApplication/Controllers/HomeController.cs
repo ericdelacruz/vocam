@@ -67,7 +67,7 @@ namespace SODAPortalMvcApplication.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult registration(ViewModel.UserModel model)
+        public ActionResult registration(ViewModel.UserModel model,FormCollection collection)
         {
             if (ModelState.IsValid)
             {
@@ -83,6 +83,7 @@ namespace SODAPortalMvcApplication.Controllers
                          Email = model.Email,
                          FirstName = model.FirtName,
                          LastName = model.LastName,
+                         Country = collection["country"]
                                                      
                     });
 

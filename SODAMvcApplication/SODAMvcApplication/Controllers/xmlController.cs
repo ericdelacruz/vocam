@@ -67,9 +67,11 @@ namespace SODAMvcApplication.Controllers
             var channels = catClient.get_Categories();
             return View(channels);
         }
-        public ActionResult titles()
+
+        public ActionResult titles(string id)
         {
-            var titles = catClient.get();
+            int regionId = id != null? portalClient.getRegion().Where(r => r.RegionName.ToLower() == id.ToLower().Trim()).First().Id:12; //default to 12 AU 
+            var titles =  catClient.get().Where(title=> title.RegionId == regionId);
             
             return View(titles);
         }

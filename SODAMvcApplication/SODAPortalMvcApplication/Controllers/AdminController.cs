@@ -250,10 +250,10 @@ namespace SODAPortalMvcApplication.Controllers
                 Status = 0
             });
 
-            PortalServiceReference.SalesCode sc = portalClient.getSaleCode().Select(model=> model).Where(model => model.Id == salesPerson_orig.First().SalesCodeId).First();
-            sc.Discount = decimal.Parse(collection["Discount"]) / 100;
-            //sc.Sales_Code = collection["SalesCode"];
-            portalClient.updateSalsCode(sc);
+            //PortalServiceReference.SalesCode sc = portalClient.getSaleCode().Where(model => model.Id == salesPerson_orig.First().SalesCodeId).First();
+            //sc.Discount = decimal.Parse(collection["Discount"]) / 100;
+            //portalClient.updateSalsCode(sc);
+            
             //portalClient.updateSalsCode(new PortalServiceReference.SalesCode()
             //{
             //    Id = long.Parse(collection["SalesCode"]),
@@ -263,9 +263,34 @@ namespace SODAPortalMvcApplication.Controllers
             //    SalesPersonID = salesPerson_orig.First().Id,
             //    Sales_Code =  
             //});
-            var salesperson = portalClient.getSalePerson().Where(sp => sp.Id== id);
-            salesperson.First().SalesCodeId = long.Parse(collection["SalesCode"]);
-            portalClient.updateSalesPerson(salesperson.First());
+           
+            long Salescodeid = 0;
+            
+                var salesperson = (portalClient.getSalePerson().Where(sp => sp.Id == id)).First();
+                if (long.TryParse(collection["SalesCode"], out Salescodeid) && Salescodeid > 0)
+                {
+                    var salescode_new = portalClient.getSaleCode().Where(sc => sc.Id == Salescodeid).First();
+                    salescode_new.SalesPersonID = salesperson.Id;
+                    salescode_new.Discount = decimal.Parse(collection["Discount"]) / 100;
+                    portalClient.updateSalsCode(salescode_new);
+
+                    salesperson.SalesCodeId = Salescodeid;
+                    portalClient.updateSalesPerson(salesperson);
+
+                    
+
+                }
+                else
+                {
+                    var salescode_new = portalClient.getSaleCode().Where(sc => sc.Id == salesperson.SalesCodeId).First();
+                    //salescode_new.SalesPersonID = salesperson.Id;
+                    salescode_new.Discount = decimal.Parse(collection["Discount"]) / 100;
+                    portalClient.updateSalsCode(salescode_new);
+
+                    salesperson.RegionId = int.Parse(collection["Region"]);
+                    portalClient.updateSalesPerson(salesperson);
+             
+                }
             //var salesperson = portalClient.getSalePerson().Where(sp=>sp.)
             return RedirectToAction("sales");
         }

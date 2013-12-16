@@ -13,6 +13,7 @@
             var time = title.time.TotalMilliseconds;
             var channels = (from cat in catClient_temp.get_Categories()
                             join CA in catClient_temp.getCatAssign() on cat.CategoryId equals CA.CategoryId
+                            where CA.SpecID == title.Id
                             select cat.CategoryName).ToList();
             var topics = catClient_temp.getTopics().Where(t => t.SpecId == title.Id).ToList();
             var Chapters = catClient_temp.getChapter().Where(chap => chap.SpecID == title.Id).ToList();

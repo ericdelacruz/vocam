@@ -4,11 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data;
+using System.Configuration;
 namespace SODAMvcApplication.Controllers
 {
     public class CategoriesController : Controller
     {
         CategoriesServiceReference.CatListingServiceClient categoriesServiceClient = new CategoriesServiceReference.CatListingServiceClient();
+        private int RegionId = int.Parse(ConfigurationManager.AppSettings["RegionId"].ToString());
         private string password = "myS0D@P@ssw0rd";
         //
         // GET: /Categories/
@@ -61,12 +63,12 @@ namespace SODAMvcApplication.Controllers
             //var listSpecByCat = categoriesServiceClient.getSpecificByCatID(lCatID);
             var listSpecByCat = from ca in categoriesServiceClient.getCatAssign()
                                 join spec in categoriesServiceClient.get() on ca.SpecID equals spec.Id
-                                where ca.CategoryId == lCatID
+                                where ca.CategoryId == lCatID && spec.RegionId == RegionId
                                 select spec;
-
+           
             ViewBag.SelCategory = categoriesServiceClient.get_Category(lCatID).First();
             Session.Add("CatID", lCatID.ToString());
-            return View(listSpecByCat);
+            return View(listSpecByCat.Where(s => s.RegionId == RegionId));
         }
 
         private long getCategoryId(string strCatName)
@@ -105,11 +107,19 @@ namespace SODAMvcApplication.Controllers
             try
             {
                 //Random rnd = new Random();
-                var listSpecByCat = from ca in categoriesServiceClient.getCatAssign()
-                                    join s in categoriesServiceClient.get() on ca.SpecID equals s.Id
-                                    where ca.CategoryId == lCatId && s.Id != spec.First().Id
-                                    select s;
-                ViewBag.Related = listSpecByCat;
+                
+                   
+
+                    var listSpecByCat = from ca in categoriesServiceClient.getCatAssign()
+                                        join s in categoriesServiceClient.get() on ca.SpecID equals s.Id
+                                        where ca.CategoryId == lCatId && s.Id != spec.First().Id
+                                        select s;
+
+                    ViewBag.Related = listSpecByCat.Where(s => s.RegionId == RegionId);
+                    
+                    
+                
+                
                 //ViewBag.Related = categoriesServiceClient.getRelatedByID(spec.First().Id);
             }
             catch(Exception ex)

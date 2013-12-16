@@ -29,6 +29,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <FilesToIncludeForPublish>AllFilesInTheProject</FilesToIncludeForPublish>
+    <PublishDatabases>false</PublishDatabases>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -344,6 +346,7 @@
     <Content Include="Content\download\USW-AUS-PPS.pps" />
     <Content Include="Content\download\WHSE-AUS-PPS.pps" />
     <None Include="Properties\PublishProfiles\Daddy Main.pubxml" />
+    <None Include="Properties\PublishProfiles\Pakaged Main.pubxml" />
     <None Include="Service References\AccountServiceReference\AccountService.wsdl" />
     <None Include="Service References\AccountServiceReference\AccountService.xsd" />
     <None Include="Service References\AccountServiceReference\AccountService1.xsd" />
@@ -417,7 +420,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Service References\CMSServiceReference\CMS_Service.wsdl" />
     <None Include="Service References\CMSServiceReference\CMS_Service.xsd" />
     <None Include="Service References\CMSServiceReference\CMS_Service2.xsd" />
@@ -465,6 +470,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <Content Include="Views\home\sitemap.cshtml" />
+    <Content Include="Views\home\reply.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
