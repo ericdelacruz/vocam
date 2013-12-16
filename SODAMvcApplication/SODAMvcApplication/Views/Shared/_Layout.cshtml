@@ -58,35 +58,52 @@
 
                     <div class="navbar2 fr clearfix">
                         <ul class="menuNav">
-                            <li>
+                            <li id="activeHome">
                                 @Html.ActionLink("HOME", "index", "home") @{
                                     if (ViewBag.CurPage == "Home")
                                     {
                                         <div class="arrowActive"></div>
+                                        <style>
+                                            #activeHome a { color: #F48518; }
+                                        </style>
+                                      
                                     }
                                 }
                             </li>
-                            <li>
+                            <li id="activeCat">
                                 @Html.ActionLink("CATEGORIES", "index", "categories")@{
                                     if (ViewBag.CurPage == "Category")
                                     {
                                         <div class="arrowActive"></div>
+                                        <style>
+                                            #activeCat a { color: #F48518; }
+                                        </style>
                                     }
                                 }
                             </li>
-                            <li>
+                            <li id="activeLearnMore">
                                 @Html.ActionLink("LEARN MORE", "learnmore", "home")@{
                                     if (ViewBag.CurPage == "LearnMore")
                                     {
                                         <div class="arrowActive"></div>
+                                        <style>
+                                            #activeLearnMore a {
+                                                color: #F48518;
+                                            }
+                                        </style>
                                     }
                                 }
                             </li>
-                            <li>
+                            <li id="activeContact">
                                 @Html.ActionLink("CONTACT", "contact", "home")@{
                                     if (ViewBag.CurPage == "Contact")
                                     {
                                         <div class="arrowActive"></div>
+                                        <style>
+                                            #activeContact a {
+                                                color: #F48518;
+                                            }
+                                        </style>
                                     }
                                 }
                             </li>
