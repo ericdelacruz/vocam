@@ -14,6 +14,23 @@
             }
         </style>
     }
+
+    if (ViewBag.CurPage == "LearnMore")
+    {
+        <style>
+            @@media screen and (max-width: 550px) {
+                header {
+                    display: block !important;
+                }
+
+                footer {
+                    display: block !important;
+                }
+            }
+        </style>
+    }
+
+
     ViewBag.Title = "contactFreePpt";
     if (ViewBag.Title == "contactFreePpt")
     {
@@ -41,6 +58,7 @@
 
     }
 }
+
 
 @model SODAMvcApplication.CMSServiceReference.Contact
 @*@using Recaptcha.Web.Mvc;*@
@@ -85,9 +103,9 @@
         <label>Verification code*</label>*@
     @*@Html.Recaptcha()*@
 
-    @*<div align="center"><br />@Html.Recaptcha(theme: Recaptcha.Web.RecaptchaTheme.Clean)</div>*@
-    <div align="center"><br />@Html.Captcha("Refresh", "Input", 5, "Is required field.", true)</div>
-    <br/>
-    <button class="btn btn-lg btn-primary btn-block" style="width:50%; margin-left:158px;" type="submit">Submit</button>
+    @*<div align="center">@Html.Recaptcha(theme: Recaptcha.Web.RecaptchaTheme.Clean)</div>*@
+    <div align="center">@Html.Captcha("Refresh", "Enter Code", 5, "Is required field.", true)</div>
+
+    <button class="btn btn-lg btn-primary btn-block" style="width:50%; margin-top:10px; margin-left:158px;" type="submit">Submit</button>
 
 }
