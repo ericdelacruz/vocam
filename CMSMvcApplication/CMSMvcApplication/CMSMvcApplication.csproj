@@ -187,13 +187,7 @@
     <Content Include="Content\images\cms\profile.jpg" />
     <Content Include="Content\images\cms\view.png" />
     <Content Include="Content\images\footerBg.jpg" />
-    <Content Include="Content\images\home\featThumb1.jpg" />
-    <Content Include="Content\images\home\featThumb2.jpg" />
-    <Content Include="Content\images\home\featThumb3.jpg" />
     <Content Include="Content\images\home\mac.png" />
-    <Content Include="Content\images\home\moreBtn.png" />
-    <Content Include="Content\images\home\previewNowBtn.png" />
-    <Content Include="Content\images\home\topBanner.jpg" />
     <Content Include="Content\images\cms\remove.jpg" />
     <Content Include="Content\images\safetyOnDemand-logo.jpg" />
     <Content Include="Content\images\safetyOnDemand-logoFooter.jpg" />
