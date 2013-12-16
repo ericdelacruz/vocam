@@ -219,10 +219,9 @@
     <Content Include="Content\images\home\readMoreHomeBtn.png" />
     <Content Include="Content\images\categories\purchaseBtn.png" />
     <Content Include="Content\images\landing\browseCategories.jpg" />
-    <Content Include="Content\images\landing\freePowerPoint2.png" />
-    <Content Include="Content\images\landing\landingBg.jpg" />
     <Content Include="Content\images\landing\purchaseBtn2.jpg" />
     <Content Include="Content\images\landing\purchaseNow.jpg" />
+    <Content Include="Content\images\landing\purchaseNowBig.png" />
     <Content Include="Content\images\safetyOnDemand-logo.jpg" />
     <Content Include="Content\images\safetyOnDemand-logoFooter.jpg" />
     <Content Include="Content\images\socialFacebook.jpg" />
@@ -469,7 +468,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\images\listings\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
