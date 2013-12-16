@@ -1,12 +1,16 @@
 ﻿@{
 
     if (ViewBag.CurPage == "Home")
-       {
-         <style>
-            @@media screen and (max-width: 550px) 
-            {
-                header { display: block !important; }
-                footer { display: block !important; }
+    {
+        <style>
+            @@media screen and (max-width: 550px) {
+                header {
+                    display: block !important;
+                }
+
+                footer {
+                    display: block !important;
+                }
             }
         </style>
     }
@@ -14,16 +18,29 @@
     if (ViewBag.Title == "contactFreePpt")
     {
         <style>
-            @@media screen and (max-width: 550px) 
-            {
-                header { display: none; }
-                footer { display: none; }
+            @@media screen and (max-width: 550px) {
+                header {
+                    display: none;
+                }
+
+                footer {
+                    display: none;
+                }
+
+                #CaptchaInputText {
+                    border: 1px solid #CCCCCC;
+                    border-radius: 4px;
+                    height: 25px;
+                    padding: 5px;
+                    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+                }
+            }
+
             }
         </style>
-            
+
     }
 }
-
 
 @model SODAMvcApplication.CMSServiceReference.Contact
 @*@using Recaptcha.Web.Mvc;*@
