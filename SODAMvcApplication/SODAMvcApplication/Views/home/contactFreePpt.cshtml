@@ -1,5 +1,15 @@
 ﻿@{
 
+    if (ViewBag.CurPage == "Home")
+       {
+         <style>
+            @@media screen and (max-width: 550px) 
+            {
+                header { display: block !important; }
+                footer { display: block !important; }
+            }
+        </style>
+    }
     ViewBag.Title = "contactFreePpt";
     if (ViewBag.Title == "contactFreePpt")
     {
