@@ -91,6 +91,7 @@
     <Content Include="CatListingService.svc" />
     <Content Include="CMS_Service.svc" />
     <Content Include="PortalService.svc" />
+    <None Include="Properties\PublishProfiles\Pakaged Services.pubxml" />
     <None Include="Service References\PayPalServiceReference\configuration91.svcinfo" />
     <None Include="Service References\PayPalServiceReference\configuration.svcinfo" />
     <None Include="Service References\PayPalServiceReference\Reference.svcmap">

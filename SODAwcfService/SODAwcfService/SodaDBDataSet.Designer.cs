@@ -1861,6 +1861,8 @@ namespace SODAwcfService {
             
             private global::System.Data.DataColumn columnDuration;
             
+            private global::System.Data.DataColumn columnRegionId;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public SpecificDataTable() {
@@ -2064,6 +2066,14 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn RegionIdColumn {
+                get {
+                    return this.columnRegionId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2120,7 +2130,8 @@ namespace SODAwcfService {
                         bool Approved, 
                         bool Downloadable, 
                         int InDisc, 
-                        int Duration) {
+                        int Duration, 
+                        int RegionId) {
                 SpecificRow rowSpecificRow = ((SpecificRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Id,
@@ -2143,7 +2154,8 @@ namespace SODAwcfService {
                         Approved,
                         Downloadable,
                         InDisc,
-                        Duration};
+                        Duration,
+                        RegionId};
                 if ((parentCategoryRowByFK_Table_ToTable != null)) {
                     columnValuesArray[1] = parentCategoryRowByFK_Table_ToTable[0];
                 }
@@ -2197,6 +2209,7 @@ namespace SODAwcfService {
                 this.columnDownloadable = base.Columns["Downloadable"];
                 this.columnInDisc = base.Columns["InDisc"];
                 this.columnDuration = base.Columns["Duration"];
+                this.columnRegionId = base.Columns["RegionId"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2244,6 +2257,8 @@ namespace SODAwcfService {
                 base.Columns.Add(this.columnInDisc);
                 this.columnDuration = new global::System.Data.DataColumn("Duration", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDuration);
+                this.columnRegionId = new global::System.Data.DataColumn("RegionId", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRegionId);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrementSeed = -1;
@@ -4966,6 +4981,22 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int RegionId {
+                get {
+                    if (this.IsRegionIdNull()) {
+                        return -1;
+                    }
+                    else {
+                        return ((int)(this[this.tableSpecific.RegionIdColumn]));
+                    }
+                }
+                set {
+                    this[this.tableSpecific.RegionIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public CategoryRow CategoryRow {
                 get {
                     return ((CategoryRow)(this.GetParentRow(this.Table.ParentRelations["FK_Table_ToTable"])));
@@ -5069,6 +5100,18 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetTotalChaptersNull() {
                 this[this.tableSpecific.TotalChaptersColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsRegionIdNull() {
+                return this.IsNull(this.tableSpecific.RegionIdColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetRegionIdNull() {
+                this[this.tableSpecific.RegionIdColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8260,6 +8303,7 @@ WHERE        (CategoryId = @CategoryId)";
             tableMapping.ColumnMappings.Add("Downloadable", "Downloadable");
             tableMapping.ColumnMappings.Add("InDisc", "InDisc");
             tableMapping.ColumnMappings.Add("Duration", "Duration");
+            tableMapping.ColumnMappings.Add("RegionId", "RegionId");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -8268,7 +8312,7 @@ WHERE        (CategoryId = @CategoryId)";
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Specific] ([CategoryID], [Title], [Description], [VideoURL], [ImageURL], [Metatags], [bg_img], [TitleCode], [Overview], [PageTitle], [Meta_Desc], [filename], [isDownloadNews], [DateQuestionAnswerChange], [Time], [TotalChapters], [Approved], [Downloadable], [InDisc], [Duration]) VALUES (@CategoryID, @Title, @Description, @VideoURL, @ImageURL, @Metatags, @bg_img, @TitleCode, @Overview, @PageTitle, @Meta_Desc, @filename, @isDownloadNews, @DateQuestionAnswerChange, @Time, @TotalChapters, @Approved, @Downloadable, @InDisc, @Duration)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Specific] ([CategoryID], [Title], [Description], [VideoURL], [ImageURL], [Metatags], [bg_img], [TitleCode], [Overview], [PageTitle], [Meta_Desc], [filename], [isDownloadNews], [DateQuestionAnswerChange], [Time], [TotalChapters], [Approved], [Downloadable], [InDisc], [Duration], [RegionId]) VALUES (@CategoryID, @Title, @Description, @VideoURL, @ImageURL, @Metatags, @bg_img, @TitleCode, @Overview, @PageTitle, @Meta_Desc, @filename, @isDownloadNews, @DateQuestionAnswerChange, @Time, @TotalChapters, @Approved, @Downloadable, @InDisc, @Duration, @RegionId)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CategoryID", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CategoryID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Title", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Title", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -8290,9 +8334,10 @@ WHERE        (CategoryId = @CategoryId)";
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Downloadable", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Downloadable", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@InDisc", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "InDisc", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Duration", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Duration", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [Specific] SET [CategoryID] = @CategoryID, [Title] = @Title, [Description] = @Description, [VideoURL] = @VideoURL, [ImageURL] = @ImageURL, [Metatags] = @Metatags, [bg_img] = @bg_img, [TitleCode] = @TitleCode, [Overview] = @Overview, [PageTitle] = @PageTitle, [Meta_Desc] = @Meta_Desc, [filename] = @filename, [isDownloadNews] = @isDownloadNews, [DateQuestionAnswerChange] = @DateQuestionAnswerChange, [Time] = @Time, [TotalChapters] = @TotalChapters, [Approved] = @Approved, [Downloadable] = @Downloadable, [InDisc] = @InDisc, [Duration] = @Duration WHERE (([Id] = @Original_Id))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [Specific] SET [CategoryID] = @CategoryID, [Title] = @Title, [Description] = @Description, [VideoURL] = @VideoURL, [ImageURL] = @ImageURL, [Metatags] = @Metatags, [bg_img] = @bg_img, [TitleCode] = @TitleCode, [Overview] = @Overview, [PageTitle] = @PageTitle, [Meta_Desc] = @Meta_Desc, [filename] = @filename, [isDownloadNews] = @isDownloadNews, [DateQuestionAnswerChange] = @DateQuestionAnswerChange, [Time] = @Time, [TotalChapters] = @TotalChapters, [Approved] = @Approved, [Downloadable] = @Downloadable, [InDisc] = @InDisc, [Duration] = @Duration, [RegionId] = @RegionId WHERE (([Id] = @Original_Id))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CategoryID", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CategoryID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Title", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Title", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -8314,6 +8359,7 @@ WHERE        (CategoryId = @CategoryId)";
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Downloadable", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Downloadable", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@InDisc", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "InDisc", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Duration", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Duration", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
@@ -8556,7 +8602,8 @@ WHERE        (CategoryId = @CategoryId)";
                     bool Approved, 
                     bool Downloadable, 
                     int InDisc, 
-                    int Duration) {
+                    int Duration, 
+                    global::System.Nullable<int> RegionId) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((long)(CategoryID));
             if ((Title == null)) {
                 throw new global::System.ArgumentNullException("Title");
@@ -8647,6 +8694,12 @@ WHERE        (CategoryId = @CategoryId)";
             this.Adapter.InsertCommand.Parameters[17].Value = ((bool)(Downloadable));
             this.Adapter.InsertCommand.Parameters[18].Value = ((int)(InDisc));
             this.Adapter.InsertCommand.Parameters[19].Value = ((int)(Duration));
+            if ((RegionId.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[20].Value = ((int)(RegionId.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[20].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -8688,6 +8741,7 @@ WHERE        (CategoryId = @CategoryId)";
                     bool Downloadable, 
                     int InDisc, 
                     int Duration, 
+                    global::System.Nullable<int> RegionId, 
                     long Original_Id) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((long)(CategoryID));
             if ((Title == null)) {
@@ -8779,7 +8833,13 @@ WHERE        (CategoryId = @CategoryId)";
             this.Adapter.UpdateCommand.Parameters[17].Value = ((bool)(Downloadable));
             this.Adapter.UpdateCommand.Parameters[18].Value = ((int)(InDisc));
             this.Adapter.UpdateCommand.Parameters[19].Value = ((int)(Duration));
-            this.Adapter.UpdateCommand.Parameters[20].Value = ((long)(Original_Id));
+            if ((RegionId.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[20].Value = ((int)(RegionId.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[20].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[21].Value = ((long)(Original_Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {

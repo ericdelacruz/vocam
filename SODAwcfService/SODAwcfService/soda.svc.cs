@@ -23,7 +23,7 @@ namespace SODAwcfService
 
             if(user.Count() >0)
             {
-                int maxLicenses= getMaxActiveLicenses(username);
+                int maxLicenses= getMaxActiveLicenses(user.First().Id);
                 if(maxLicenses > 0)
                 {
                     switch(productType)
@@ -49,7 +49,7 @@ namespace SODAwcfService
                 var LCrecord = adapter.GetData().Where(lc => lc.UserId == userid).Count() > 0 ? adapter.GetData().Where(lc => lc.UserId == userid).First() :
                                 insertLCRecord(userid,adapter);
 
-                if(LCrecord.Consumed <= maxLicenses)
+                if(LCrecord.Consumed < maxLicenses)
                 {
                     LCrecord.Consumed++;
                     adapter.Update(LCrecord);
@@ -69,12 +69,12 @@ namespace SODAwcfService
         }
 
 
-        private int getMaxActiveLicenses(string username)
+        private int getMaxActiveLicenses(long id)
         {
             using(PortalDataSetTableAdapters.CustomerTableAdapter customerAdapter = new PortalDataSetTableAdapters.CustomerTableAdapter())
             {
-                var customer = customerAdapter.GetData().Where(c => c.DateSubscriptionEnd > DateTime.Now);
-                
+                //var customer = customerAdapter.GetData().Where(c => c.DateSubscriptionEnd > DateTime.Now);
+                var customer = customerAdapter.GetData().Where(c => c.DateSubscriptionEnd > DateTime.Now && c.UserId == id);
                 return customer.Count() >0? customer.Sum(cust => cust.Licencses):0;
             }
         }

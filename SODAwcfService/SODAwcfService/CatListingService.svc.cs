@@ -129,7 +129,7 @@ namespace SODAwcfService
             return specTableAdaptor.Insert(specific_new.CategoryID, specific_new.Title, specific_new.Description,
                             specific_new.VideoURL, specific_new.ImageURL, specific_new.Metatags, specific_new.BG_Img, specific_new.TitleCode,specific_new.Overview, 
                             specific_new.PageTitle, specific_new.MetaDesc,specific_new.FileName, specific_new.isDOwnloadNews,specific_new.DateQuestionAnswerChange,specific_new.time, 
-                            specific_new.totalChapters, specific_new.Approved, specific_new.Downloadlable, specific_new.InDisc,specific_new.Duration);
+                            specific_new.totalChapters, specific_new.Approved, specific_new.Downloadlable, specific_new.InDisc,specific_new.Duration,specific_new.RegionId);
         }
 
         public int update_Specific(Models.Specific specific_new)
@@ -141,7 +141,7 @@ namespace SODAwcfService
             return specTableAdaptor.Update(specific_new.CategoryID, specific_new.Title, specific_new.Description,
                             specific_new.VideoURL, specific_new.ImageURL, specific_new.Metatags, specific_new.BG_Img, specific_new.TitleCode,specific_new.Overview,
                             specific_new.PageTitle, specific_new.MetaDesc, specific_new.FileName, specific_new.isDOwnloadNews, specific_new.DateQuestionAnswerChange, specific_new.time,
-                            specific_new.totalChapters, specific_new.Approved, specific_new.Downloadlable, specific_new.InDisc, specific_new.Duration,specific_new.Id);
+                            specific_new.totalChapters, specific_new.Approved, specific_new.Downloadlable, specific_new.InDisc, specific_new.Duration,specific_new.RegionId,specific_new.Id);
         }
 
         public int delete_Specific(long id)
@@ -257,7 +257,8 @@ namespace SODAwcfService
                    Duration = spec.Duration,
                     InDisc = spec.InDisc,
                      time = spec.Time,
-                      totalChapters = spec.TotalChapters
+                      totalChapters = spec.TotalChapters,
+                       RegionId = spec.RegionId
             });
         }
         #endregion

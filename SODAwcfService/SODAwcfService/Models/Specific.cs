@@ -50,5 +50,7 @@ namespace SODAwcfService.Models
         public int InDisc { get; set; }
         [DataMember]
         public int Duration { get; set; }
+        [DataMember]
+        public int? RegionId { get; set; }
     }
 }
