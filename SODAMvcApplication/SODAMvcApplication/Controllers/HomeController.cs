@@ -103,7 +103,9 @@ namespace SODAMvcApplication.Controllers
         {
             contact.isFreePPT = false;
             cmsServiceClient.addContact(contact);
-            return RedirectToAction("Index");
+            TempData["MsgSent"] = true;
+            return RedirectToAction("contact");
+            //return View();
         }
         //
         //GET: /LearnMore/
