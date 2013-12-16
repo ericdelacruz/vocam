@@ -39,6 +39,7 @@
       <xs:element minOccurs="0" name="Metatags" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Overview" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PageTitle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegionId" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TitleCode" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="VideoURL" nillable="true" type="xs:string" />

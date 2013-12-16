@@ -276,6 +276,7 @@
     <Content Include="Content\fonts\openSans\opensans-semibold-webfont.ttf" />
     <Content Include="Content\fonts\openSans\opensans-semibold-webfont.woff" />
     <None Include="Properties\PublishProfiles\Daddy-cms.pubxml" />
+    <None Include="Properties\PublishProfiles\Packaged CMS.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />

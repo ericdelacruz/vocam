@@ -112,7 +112,8 @@ namespace CMSMvcApplication.Controllers
                 accnt_orig.Email = accnt.Email;
                 accnt_orig.Role = 1;
                 accnt.USERNAME = accnt.Email;
-                accountClient.updateAccount(accnt);
+                accnt_orig.Id = accnt.Id;
+                accountClient.updateAccount(accnt_orig);
                 return RedirectToAction("profile");
             }
             else

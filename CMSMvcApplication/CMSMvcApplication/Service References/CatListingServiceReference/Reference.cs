@@ -257,6 +257,9 @@ namespace CMSMvcApplication.CatListingServiceReference {
         private string PageTitleField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> RegionIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TitleField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -475,6 +478,19 @@ namespace CMSMvcApplication.CatListingServiceReference {
                 if ((object.ReferenceEquals(this.PageTitleField, value) != true)) {
                     this.PageTitleField = value;
                     this.RaisePropertyChanged("PageTitle");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> RegionId {
+            get {
+                return this.RegionIdField;
+            }
+            set {
+                if ((this.RegionIdField.Equals(value) != true)) {
+                    this.RegionIdField = value;
+                    this.RaisePropertyChanged("RegionId");
                 }
             }
         }

@@ -155,7 +155,7 @@ namespace CMSMvcApplication.Controllers
                       DateQuestionAnswerChange = dateQuestion,
                       InDisc =collection["indisc"].Trim() !=""? int.Parse(collection["indisc"]):0,
                       isDOwnloadNews = collection["isdownloadnews"] == "yes",
-                    
+                       RegionId = int.Parse(collection["titleRegion"]),
                     Id = 0 
                 });
 
@@ -318,21 +318,22 @@ namespace CMSMvcApplication.Controllers
                     DateQuestionAnswerChange = dateQuestion,
                     InDisc = collection["indisc"].Trim() != "" ? int.Parse(collection["indisc"]) : 0,
                     isDOwnloadNews = collection["isdownloadnews"] == "yes",
+                    RegionId = int.Parse(collection["titleRegion"])
                 });
                 
                 
-                var title = catClient.get().Select(c => c).Where(c => c.TitleCode == collection["Code"]).First();
-                var topics = catClient.getTopics().Select(t => t).Where(t => t.SpecId == title.Id);
+                var title = catClient.get().Select(c => c).Where(c => c.Id == id).First();
+                var topics = catClient.getTopics().Select(t => t).Where(t => t.SpecId == id);
 
                 foreach (var topic in topics)
                 catClient.deleteTopic(topic.Id);
                 
 
-                var chapters = catClient.getChapter().Select(c => c).Where(c => c.SpecID == title.Id);
+                var chapters = catClient.getChapter().Select(c => c).Where(c => c.SpecID == id);
                 foreach (var chap in chapters)
                 catClient.deleteChapter(chap.Id);
 
-                var CAs = catClient.getCatAssign().Where(ca => ca.SpecID == title.Id);
+                var CAs = catClient.getCatAssign().Where(ca => ca.SpecID == id);
                 foreach (var ca in CAs)
                     catClient.deleteCatAssign(ca.Id);
 
