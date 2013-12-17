@@ -81,8 +81,11 @@
 
             else
             {
-                <p>&nbsp;</p>
-                <div style="text-align:center; font-size:14px;" class="alert alert-danger clearfix">Sales Code Not Verified! Please try again.</div>
+                if(TempData["error"] != null)
+                { 
+                    <p>&nbsp;</p>
+                    <div style="text-align:center; font-size:14px;" class="alert alert-danger clearfix">Sales Code Not Verified! Please try again.</div>
+                }
             }
         </div>
     </div>

@@ -1,13 +1,15 @@
 ﻿@model SODAPortalMvcApplication.AccountServiceRef.Account
 @{
     ViewBag.Title = "termsandconditions2";
+    var user = Session["Username"].ToString();
+    user = user.Substring(0, user.IndexOf('@'));
 }
 
 <div class="container row portalContainer">
 
     <div class="portalWrap border">
         <div class="fr">
-            <div class="logoutSec fr clearfix">Hi user! @Html.ActionLink("(Logout)","logout","home")</div>
+            <div class="logoutSec fr clearfix">Hi @user @Html.ActionLink("(Logout)","logout","home")</div>
         </div>
 
         <div class="portalCont margin15">

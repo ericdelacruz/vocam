@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SODAPortalMvcApplication.Models;
+using System.IO;
 namespace SODAPortalMvcApplication.Controllers
 {
     public class HomeController : Controller
@@ -161,7 +162,101 @@ namespace SODAPortalMvcApplication.Controllers
             return RedirectToAction("index");
         }
        
-
+        public ActionResult forgotpassword()
+        {
+            return View();
+        }
        
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult forgotpassword(FormCollection collection)
+        {
+            if(!string.IsNullOrEmpty(collection["Username"]))
+            {
+                if(accountClient.getAccount(collection["Username"]).Count() > 0)
+                {
+                    long userid = accountClient.getAccount(collection["Username"]).First().Id;
+                    DateTime dateSent = DateTime.Now;
+                    DateTime dateEx = dateSent.AddDays(1);
+                    
+                    string key = EmailHelper.GetMd5Hash(collection["Username"] + ";" + dateSent.ToString());
+                    accountClient.addResetPassword(key, dateSent, dateEx, userid);
+                    ViewData.Add("resetlink", Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("resetpassword", new { code = key }));
+                    string body = EmailHelper.ToHtml("forgotpasswordemail",ViewData, this.ControllerContext);
+                    EmailHelper.SendEmail("test@sec-iis.com", collection["Username"], "Reset password", body);
+                    TempData["ResetPassSent"] = true;
+                    return View();
+
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Error account doesn't exists");
+                    return View();
+                }
+            }
+            else
+            {
+                //error
+                return RedirectToAction("forgotpassword");
+               
+            }
+        }
+
+        public ActionResult resetpassword(string code)
+        {
+            var resetpass = accountClient.getRestPassword().Where(rp => rp.key == code);
+           
+            if (resetpass.Count() > 0)
+            {
+                TempData["resetuserid"] = resetpass.First().UserId.ToString();
+                return View();
+            }
+            else
+                return Redirect("index");
+        }
+        [HttpPost]
+        public ActionResult resetpassword(FormCollection collection)
+        {
+              if(collection["Password"] == collection["ConfirmPassword"])
+              {
+                  long userid = 0;
+                  if (long.TryParse(TempData["resetuserid"].ToString(), out userid))
+                  {
+                      var accnt = accountClient.getAccount("").Where(a => a.Id == userid).First();
+                      accountClient.updatePassword(userid, accnt.PASSWORD, collection["Password"]);
+                      string redirectLink = getRedirectLinkByRole(accnt.Role);
+                      Session.Add("Username", accnt.USERNAME);
+                      TempData["PasswordUpdated"] = redirectLink;//reuse tempdata for redirection link
+                      return View(); 
+                  }
+                  else
+                  {
+                      ModelState.AddModelError("", "Error");
+                      return View();
+                  }
+              }
+              else
+              {
+                  ModelState.AddModelError("", "Password doesnot match please try again");
+                  return View();
+              }
+        }
+
+        private string getRedirectLinkByRole(int Role)
+        {
+            switch(Role)
+            {
+                case 0: return Url.Action("index","admin");
+
+                //case 1: return Redirect(string.Format(CMSURL, collection["Username"]));
+
+                case 2:
+                        return Url.Action("index","sales");
+                case 3:
+
+                        return Url.Action("index", "user");
+                default:return "";
+            }
+        }
     }
 }

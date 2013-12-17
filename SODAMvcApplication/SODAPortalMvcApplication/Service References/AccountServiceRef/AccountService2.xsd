@@ -29,4 +29,21 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfAccount" nillable="true" type="tns:ArrayOfAccount" />
+  <xs:complexType name="ArrayOfResetPassword">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ResetPassword" nillable="true" type="tns:ResetPassword" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfResetPassword" nillable="true" type="tns:ArrayOfResetPassword" />
+  <xs:complexType name="ResetPassword">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="UserId" type="xs:long" />
+      <xs:element minOccurs="0" name="dateEx" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="dateSent" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="isVerified" type="xs:boolean" />
+      <xs:element minOccurs="0" name="key" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ResetPassword" nillable="true" type="tns:ResetPassword" />
 </xs:schema>

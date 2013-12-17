@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<SODAPortalMvcApplication.ViewModel.ReportViewModel>
 @{
     ViewBag.Title = "Index";
+    var user = Session["Username"].ToString();
+    user = user.Substring(0, user.IndexOf('@'));
 }
 
 <div class="portalWrap border">
@@ -9,7 +11,7 @@
             <li style="padding-left:0px;"><a href="@Url.Action("Index")">REPORTS</a></li>
             <li><a href="@Url.Action("AddUser")">ADD USER</a></li>
         </ul> <!-- end of portal user menu-->
-        <div class="logoutSec fr clearfix">Hi user! <a href=@Url.Action("logout","home")>(logout)</a></div>
+        <div class="logoutSec fr clearfix">Hi @user! <a href=@Url.Action("logout","home")>(logout)</a></div>
     </div>
 
     <div class="portalCont margin15">

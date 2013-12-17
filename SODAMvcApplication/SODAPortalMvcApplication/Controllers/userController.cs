@@ -324,7 +324,7 @@ namespace SODAPortalMvcApplication.Controllers
                 accnt.ContactNo = user.Contact;
 
                 AccountClient.updateAccount(accnt);
-                Session["CustomerData"] = getCustomerData(user.Email).First();
+                Session["CustomerData"] = getCustomerData(user.Email);
                 return RedirectToAction("profile");
             }
                 return View(user);
