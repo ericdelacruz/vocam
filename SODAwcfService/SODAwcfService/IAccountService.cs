@@ -30,16 +30,22 @@ namespace SODAwcfService
         bool isUserNameExists(string UserName);
 
         [OperationContract]
-        bool sendEmailForPassword(Models.Account account);
+        int addResetPassword(string key, DateTime dateSent, DateTime dateEx, long UserId);
 
+        [OperationContract]
+        IEnumerable<Models.ResetPassword> getRestPassword();
+        [OperationContract]
+        int updateResetPassword(Models.ResetPassword resetPass);
+        [OperationContract]
+        int deleteResetPassword(int id);
         [OperationContract]
         bool Authenticate(string Password);
 
         [OperationContract]
         void LogOff(string UserName);
-
         [OperationContract]
-        bool sendEmailForVerification(string UserName);
+        bool updatePassword(long userID, string orig_pass, string new_pass);
+        
 
     }
 }

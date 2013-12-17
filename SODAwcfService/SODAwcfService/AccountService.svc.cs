@@ -12,6 +12,7 @@ namespace SODAwcfService
     public class AccountService : IAccountService
     {
         SodaDBDataSetTableAdapters.AccountsTableAdapter AccountsTableAdapter;
+        SodaDBDataSetTableAdapters.ResetPasswordTableAdapter resetAdapter;
         private string asdasd = EncDec.EncryptData("myS0D@P@ssw0rd");
         private bool Allowed = false;
        
@@ -32,7 +33,7 @@ namespace SODAwcfService
         public AccountService()
         {
             AccountsTableAdapter = new SodaDBDataSetTableAdapters.AccountsTableAdapter();
-            
+            resetAdapter = new SodaDBDataSetTableAdapters.ResetPasswordTableAdapter();
         }
 
         public bool Authenticate(string Password)
@@ -149,10 +150,7 @@ namespace SODAwcfService
         {
             return getAccount(UserName).Count() > 0;
         }
-        public bool sendEmailForPassword(Models.Account account)
-        {
-            throw new NotImplementedException();
-        }
+        
         public void LogOff(string UserName)
         {
             if( isUserNameExists(UserName))
@@ -168,9 +166,50 @@ namespace SODAwcfService
 
 
 
-        public bool sendEmailForVerification(string UserName)
+       
+
+
+        public int addResetPassword(string key, DateTime dateSent, DateTime dateEx, long userid)
         {
-            throw new NotImplementedException();
+            return resetAdapter.Insert(key, dateSent, dateEx, false,userid);
+        }
+
+        public IEnumerable<Models.ResetPassword> getRestPassword()
+        {
+            return resetAdapter.GetData().Select(rp => new Models.ResetPassword()
+            {
+                Id = rp.Id,
+                key = rp.key,
+                dateSent = rp.DateSent,
+                dateEx = rp.DateEx,
+                isVerified = rp.isVerified,
+                UserId =  rp.UserId
+            });
+        }
+
+        public int updateResetPassword(Models.ResetPassword resetPass)
+        {
+            return resetAdapter.Update(resetPass.key, resetPass.dateSent, resetPass.dateEx, resetPass.isVerified,resetPass.UserId, resetPass.Id);
+        }
+
+        public int deleteResetPassword(int id)
+        {
+            return resetAdapter.Delete(id);
+        }
+
+
+        public bool updatePassword(long userID, string orig_Enc_pass, string new_pass)
+        {
+            var accnt = AccountsTableAdapter.GetData().Where(a => a.Id == userID && a.PASSWORD == orig_Enc_pass);
+            if (accnt.Count() > 0)
+            {
+                var accntUser = accnt.First();
+                accntUser.PASSWORD = EncDec.EncryptData(new_pass);
+                AccountsTableAdapter.Update(accntUser);
+                return true;
+            }
+            else
+                return false;
         }
     }
 }

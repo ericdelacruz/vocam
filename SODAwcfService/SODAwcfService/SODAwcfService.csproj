@@ -117,6 +117,7 @@
     <Compile Include="Models\LicenseConsumption.cs" />
     <Compile Include="Models\PayPalModel.cs" />
     <Compile Include="Models\PayPalTrans.cs" />
+    <Compile Include="Models\ResetPassword.cs" />
     <Compile Include="soda.svc.cs">
       <DependentUpon>soda.svc</DependentUpon>
     </Compile>
