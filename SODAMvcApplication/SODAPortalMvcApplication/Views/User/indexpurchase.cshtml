@@ -32,11 +32,13 @@
 
             @if(SalesCode != null)
             { 
-            
+              
+               <p>&nbsp;</p>
+               <div style="text-align:center; font-size:14px;" class="alert alert-success"><strong>@SalesCode.salescode.Sales_Code</strong>: Sales Code Verified!</div>
                
                  
                 var culture = SODAPortalMvcApplication.ViewModel.VerifyModel.getCultureInfo((SODAPortalMvcApplication.ViewModel.VerifyModel.Currency)(Enum.Parse(typeof(SODAPortalMvcApplication.ViewModel.VerifyModel.Currency),SalesCode.region.Currency)));
-              <p>&nbsp;</p>
+             
                         
                @*<p>@DiscountedSubcriptionPrice for the first 6 months then @DiscountedPermonthPrice monthly recurring </p>*@
                
@@ -75,6 +77,12 @@
                     <label>Quantity: </label><input type="text" name="quantity" class="form-control" placeholder="Enter number of licenses">  
                     <button type="submit" class="btn btn-lg btn-primary btn-block" style="width: 200px; float: right; margin-right: 5%;">Proceed  > > </button>
                 }
+            }
+
+            else
+            {
+                <p>&nbsp;</p>
+                <div style="text-align:center; font-size:14px;" class="alert alert-danger clearfix">Sales Code Not Verified! Please try again.</div>
             }
         </div>
     </div>
