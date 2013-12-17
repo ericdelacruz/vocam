@@ -226,7 +226,7 @@ namespace SODAPortalMvcApplication.Controllers
                       accountClient.updatePassword(userid, accnt.PASSWORD, collection["Password"]);
                       string redirectLink = getRedirectLinkByRole(accnt.Role);
                       Session.Add("Username", accnt.USERNAME);
-                      TempData["PasswordUpdated"] = redirectLink;//reuse tempdata for redirection link
+                      TempData["PasswordUpdated"] = true;//reuse tempdata for redirection link
                       return View(); 
                   }
                   else
