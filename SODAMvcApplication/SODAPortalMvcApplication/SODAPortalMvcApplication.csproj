@@ -484,6 +484,7 @@
     <Content Include="Service References\SODAPayPalSerRef\SODAPortalMvcApplication.SODAPayPalSerRef.PayPalTrans.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <Content Include="Views\Home\forgotPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
