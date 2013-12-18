@@ -9,6 +9,7 @@ using System.Data;
 using CaptchaMvc.Attributes;
 using CaptchaMvc.HtmlHelpers;
 using CaptchaMvc.Interface;
+using System.Configuration;
 
 namespace SODAMvcApplication.Controllers
 {
@@ -18,6 +19,8 @@ namespace SODAMvcApplication.Controllers
         // GET: /Home/
         private CMSServiceReference.CMS_ServiceClient cmsServiceClient = new CMSServiceReference.CMS_ServiceClient();
         private CategoriesServiceReference.CatListingServiceClient catListingSerivceClient = new CategoriesServiceReference.CatListingServiceClient();
+        private PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
+        private string Region = ConfigurationManager.AppSettings["Region"].ToString();
         private string password = "myS0D@P@ssw0rd";
 
         private const string HOME = "Home";
@@ -31,16 +34,22 @@ namespace SODAMvcApplication.Controllers
           
             
               var  lContentDef = cmsServiceClient.getContent(HOME, string.Empty);
+
+              var filterByRegion = from content in lContentDef
+                                   join region in portalClient.getRegion() on content.RegionId equals region.Id
+                                   where region.RegionName == Region
+                                   select content;
             
               
                  
-            return View(lContentDef);
+            return View(filterByRegion);
         }
 
         protected override void Dispose(bool disposing)
         {
            cmsServiceClient.Close();
            catListingSerivceClient.Close();
+            portalClient.Close();
             base.Dispose(disposing);
         }
         //
@@ -83,7 +92,8 @@ namespace SODAMvcApplication.Controllers
         {
             var catTitles = from ca in catListingSerivceClient.getCatAssign()
                             join title in catListingSerivceClient.get() on ca.SpecID equals title.Id
-                            where ca.CategoryId == catid
+                            join region in portalClient.getRegion() on title.RegionId equals region.Id 
+                            where ca.CategoryId == catid && region.RegionName == Region
                             select title.Title;
             return catTitles.Count() > 0 ? catTitles.ToList() : null;
         }
@@ -119,10 +129,13 @@ namespace SODAMvcApplication.Controllers
 
 
             var lContentDef = cmsServiceClient.getContent(LEARN, string.Empty);
-           
 
+            var filterByRegion = from content in lContentDef
+                                 join region in portalClient.getRegion() on content.RegionId equals region.Id
+                                 where region.RegionName == Region
+                                 select content;
 
-            return View(lContentDef);
+            return View(filterByRegion);
         }
 
         public ActionResult Replyfreeppt()

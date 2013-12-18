@@ -3,6 +3,7 @@
   <xs:complexType name="ContentDef">
     <xs:sequence>
       <xs:element minOccurs="0" name="PageCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegionId" type="xs:int" />
       <xs:element minOccurs="0" name="SectionName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Value" nillable="true" type="xs:string" />

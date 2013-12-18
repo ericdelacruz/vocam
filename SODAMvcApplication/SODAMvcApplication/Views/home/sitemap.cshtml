@@ -11,8 +11,8 @@
             <div class="marginCommon contactFormCont border">
                 <div class="contentHeading videoHead headCommonh1"> SafetyOnDemand.com Site Map</div>
                 <div style="padding:4%;">
-                    <p style="font-weight:bold;"><a href="http://sac-iis.com/">Home</a></p>
-                    <p style="font-weight:bold;"><a href="http://www.sac-iis.com/categories">Categories</a></p>
+                    <p style="font-weight:bold;"><a href="@Url.Action("index","home")">Home</a></p>
+                    <p style="font-weight:bold;"><a href="@Url.Action("index","Categories")">Categories</a></p>
                     @foreach (var cat in Model)
 {
                     <p style="margin-left:20px;"><a href="@Url.Action("Browse", "categories", new { cat = cat.CatName.Trim().Replace(" ", "-").ToLower() })">@cat.CatName </a></p>
@@ -24,10 +24,10 @@
                             }
                         }
                     }
-                    <p style="font-weight:bold;"><a href="http://www.sac-iis.com/home/learnmore">Learn More</a></p>
-                    <p style="font-weight:bold;"><a href="http://www.sac-iis.com/home/contact">Contact</a></p>
-                    <p style="font-weight:bold;"><a href="http://www.sac-iis.com/home/sitemap">Sitemap</a></p>
-                    <p style="font-weight:bold;"><a href="http://www.sac-iis.com/home/legals">Legals</a></p>
+                    <p style="font-weight:bold;"><a href="@Url.Action("learnmore","home")">Learn More</a></p>
+                    <p style="font-weight:bold;"><a href="@Url.Action("Contact","home")">Contact</a></p>
+                    <p style="font-weight:bold;"><a href="@Url.Action("sitemap","home")">Sitemap</a></p>
+                    <p style="font-weight:bold;"><a href="@Url.Action("legals","home")">Legals</a></p>
                 </div>
             </div>
         </div>

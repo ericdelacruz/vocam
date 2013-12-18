@@ -26,6 +26,9 @@ namespace SODAMvcApplication.CMSServiceReference {
         private string PageCodeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int RegionIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SectionNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -53,6 +56,19 @@ namespace SODAMvcApplication.CMSServiceReference {
                 if ((object.ReferenceEquals(this.PageCodeField, value) != true)) {
                     this.PageCodeField = value;
                     this.RaisePropertyChanged("PageCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int RegionId {
+            get {
+                return this.RegionIdField;
+            }
+            set {
+                if ((this.RegionIdField.Equals(value) != true)) {
+                    this.RegionIdField = value;
+                    this.RaisePropertyChanged("RegionId");
                 }
             }
         }

@@ -10,7 +10,9 @@ namespace SODAMvcApplication.Controllers
     public class CategoriesController : Controller
     {
         CategoriesServiceReference.CatListingServiceClient categoriesServiceClient = new CategoriesServiceReference.CatListingServiceClient();
-        private int RegionId = int.Parse(ConfigurationManager.AppSettings["RegionId"].ToString());
+        PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
+        //private int RegionId = int.Parse(ConfigurationManager.AppSettings["RegionId"].ToString());
+        private string Region = ConfigurationManager.AppSettings["Region"].ToString();
         private string password = "myS0D@P@ssw0rd";
         //
         // GET: /Categories/
@@ -40,6 +42,7 @@ namespace SODAMvcApplication.Controllers
         protected override void Dispose(bool disposing)
         {
             categoriesServiceClient.Close();
+            portalClient.Close();
             base.Dispose(disposing);
         }
         //
@@ -60,15 +63,16 @@ namespace SODAMvcApplication.Controllers
             {
                 //error page
             }
-            //var listSpecByCat = categoriesServiceClient.getSpecificByCatID(lCatID);
+
             var listSpecByCat = from ca in categoriesServiceClient.getCatAssign()
                                 join spec in categoriesServiceClient.get() on ca.SpecID equals spec.Id
-                                where ca.CategoryId == lCatID && spec.RegionId == RegionId
+                                join r in portalClient.getRegion() on spec.RegionId equals r.Id
+                                where ca.CategoryId == lCatID && r.RegionName.ToLower() == Region.ToLower()
                                 select spec;
            
             ViewBag.SelCategory = categoriesServiceClient.get_Category(lCatID).First();
             Session.Add("CatID", lCatID.ToString());
-            return View(listSpecByCat.Where(s => s.RegionId == RegionId));
+            return View(listSpecByCat);
         }
 
         private long getCategoryId(string strCatName)
@@ -99,28 +103,33 @@ namespace SODAMvcApplication.Controllers
             var spec = categoriesServiceClient.get().Select(s => s).Where(s => s.Title.ToLower().Replace("-"," ") == id.Replace("-", " ").ToLower());
             long lCatId = 0;
             if (catid == null)
+            {
+                if(Session["CatID"] != null)
                 long.TryParse(Session["CatID"].ToString(), out lCatId);
+                else
+                {
+                    var ca = categoriesServiceClient.getCatAssign().Where(c => c.SpecID == spec.First().Id);
+                    lCatId = ca.Count() > 0 ? ca.First().CategoryId : 1;//else no_cat
+                }
+            }
             else
-                long.TryParse(catid,out lCatId);
+                long.TryParse(catid, out lCatId);
             ViewBag.SelCategory = categoriesServiceClient.get_Category(lCatId).First();
             
             try
             {
-                //Random rnd = new Random();
-                
-                   
+             
 
                     var listSpecByCat = from ca in categoriesServiceClient.getCatAssign()
                                         join s in categoriesServiceClient.get() on ca.SpecID equals s.Id
                                         where ca.CategoryId == lCatId && s.Id != spec.First().Id
                                         select s;
 
-                    ViewBag.Related = listSpecByCat.Where(s => s.RegionId == RegionId);
-                    
-                    
-                
-                
-                //ViewBag.Related = categoriesServiceClient.getRelatedByID(spec.First().Id);
+                    ViewBag.Related = from titleCat in listSpecByCat
+                                      join region in portalClient.getRegion() on titleCat.RegionId equals region.Id
+                                      where region.RegionName.ToLower() == Region.ToLower()
+                                      select titleCat;
+ 
             }
             catch(Exception ex)
             {
