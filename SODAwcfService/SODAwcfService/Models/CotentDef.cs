@@ -16,5 +16,7 @@ namespace SODAwcfService.Models
         public string Type { get; set; }
         [DataMember]
         public string Value { get; set; }
+        [DataMember]
+        public int RegionId { get; set; }
     }
 }

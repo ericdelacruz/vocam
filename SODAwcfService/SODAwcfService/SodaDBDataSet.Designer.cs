@@ -658,6 +658,8 @@ namespace SODAwcfService {
             
             private global::System.Data.DataColumn columnValue;
             
+            private global::System.Data.DataColumn columnRegionId;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ContentDefDataTable() {
@@ -725,6 +727,14 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn RegionIdColumn {
+                get {
+                    return this.columnRegionId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -760,13 +770,14 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ContentDefRow AddContentDefRow(string PageCode, string SectionName, string Type, string Value) {
+            public ContentDefRow AddContentDefRow(string PageCode, string SectionName, string Type, string Value, int RegionId) {
                 ContentDefRow rowContentDefRow = ((ContentDefRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         PageCode,
                         SectionName,
                         Type,
-                        Value};
+                        Value,
+                        RegionId};
                 rowContentDefRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowContentDefRow);
                 return rowContentDefRow;
@@ -793,6 +804,7 @@ namespace SODAwcfService {
                 this.columnSectionName = base.Columns["SectionName"];
                 this.columnType = base.Columns["Type"];
                 this.columnValue = base.Columns["Value"];
+                this.columnRegionId = base.Columns["RegionId"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -806,6 +818,8 @@ namespace SODAwcfService {
                 base.Columns.Add(this.columnType);
                 this.columnValue = new global::System.Data.DataColumn("Value", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnValue);
+                this.columnRegionId = new global::System.Data.DataColumn("RegionId", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRegionId);
                 this.columnPageCode.AllowDBNull = false;
                 this.columnPageCode.MaxLength = 25;
                 this.columnSectionName.AllowDBNull = false;
@@ -4443,6 +4457,22 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int RegionId {
+                get {
+                    if (this.IsRegionIdNull()) {
+                        return -1;
+                    }
+                    else {
+                        return ((int)(this[this.tableContentDef.RegionIdColumn]));
+                    }
+                }
+                set {
+                    this[this.tableContentDef.RegionIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsValueNull() {
                 return this.IsNull(this.tableContentDef.ValueColumn);
             }
@@ -4451,6 +4481,18 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetValueNull() {
                 this[this.tableContentDef.ValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsRegionIdNull() {
+                return this.IsNull(this.tableContentDef.RegionIdColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetRegionIdNull() {
+                this[this.tableContentDef.RegionIdColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -6742,6 +6784,7 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("SectionName", "SectionName");
             tableMapping.ColumnMappings.Add("Type", "Type");
             tableMapping.ColumnMappings.Add("Value", "Value");
+            tableMapping.ColumnMappings.Add("RegionId", "RegionId");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -6786,6 +6829,7 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Type", global::System.Data.SqlDbType.VarChar, 20, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Value", global::System.Data.SqlDbType.VarChar, 2147483647, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PageCode", global::System.Data.SqlDbType.VarChar, 25, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SectionName", global::System.Data.SqlDbType.VarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
@@ -6923,7 +6967,7 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int UpdateContent(string Type, string Value, string PageCode, string SectionName) {
+        public virtual int UpdateContent(string Type, string Value, global::System.Nullable<int> RegionId, string PageCode, string SectionName) {
             global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[3];
             if ((Type == null)) {
                 command.Parameters[1].Value = global::System.DBNull.Value;
@@ -6937,17 +6981,23 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
             else {
                 command.Parameters[2].Value = ((string)(Value));
             }
-            if ((PageCode == null)) {
-                command.Parameters[3].Value = global::System.DBNull.Value;
+            if ((RegionId.HasValue == true)) {
+                command.Parameters[3].Value = ((int)(RegionId.Value));
             }
             else {
-                command.Parameters[3].Value = ((string)(PageCode));
+                command.Parameters[3].Value = global::System.DBNull.Value;
             }
-            if ((SectionName == null)) {
+            if ((PageCode == null)) {
                 command.Parameters[4].Value = global::System.DBNull.Value;
             }
             else {
-                command.Parameters[4].Value = ((string)(SectionName));
+                command.Parameters[4].Value = ((string)(PageCode));
+            }
+            if ((SectionName == null)) {
+                command.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            else {
+                command.Parameters[5].Value = ((string)(SectionName));
             }
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 

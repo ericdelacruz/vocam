@@ -54,7 +54,7 @@ namespace SODAwcfService
 
             if (!Allowed)
                 throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
-             return CMSTableAdapter.UpdateContent(contedef_new.Type, contedef_new.Value, contedef_new.PageCode, contedef_new.SectionName);
+            return CMSTableAdapter.UpdateContent(contedef_new.Type, contedef_new.Value, contedef_new.RegionId, contedef_new.PageCode, contedef_new.SectionName);
            
             
         }
@@ -93,7 +93,8 @@ namespace SODAwcfService
                                     PageCode= row["PageCode"].ToString(),
                                     SectionName = row["SectionName"].ToString(),
                                     Type= row["type"].ToString(),
-                                    Value = row["Value"].ToString()
+                                    Value = row["Value"].ToString(),
+                                    RegionId = int.Parse(row["RegionId"].ToString())
                 });
                 
             }
