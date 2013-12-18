@@ -22,6 +22,13 @@
     { 
         <label>Page Title*</label>
         <input type="text" class="form-control" placeholder="" name="Title" value="@getVal("LearnMore_Title","text")" autofocus="">
+        <label>Region</label><br />
+        <select id="" class="form-control" name="titleRegion" style="width: 300px !important; margin-bottom:10px; ">
+          
+                <option value="12">Australia</option>
+                <option value="27">GB</option>               
+        </select>
+        <br />
         <label>Content</label>
         <textarea class="field span12 form-control" id="textarea" name="Desc" rows="15" cols="49" placeholder="">@getVal("LearnMore_Desc", "text").Replace("<br/>", "\n")</textarea>
         <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">UPDATE</button>

@@ -362,7 +362,7 @@
       <BrowseToURL>~/home/index</BrowseToURL>
     </Content>
     <Content Include="Views\pages\index.cshtml" />
-    <Content Include="Views\pages\contact.cshtml">
+    <Content Include="Views\pages\editContact.cshtml">
       <BrowseToURL>~/pages/contact</BrowseToURL>
     </Content>
     <Content Include="Views\pages\learnmore.cshtml" />
