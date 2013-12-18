@@ -26,6 +26,9 @@ namespace CMSMvcApplication.CMSServiceReference {
         private string PageCodeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int RegionIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SectionNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -53,6 +56,19 @@ namespace CMSMvcApplication.CMSServiceReference {
                 if ((object.ReferenceEquals(this.PageCodeField, value) != true)) {
                     this.PageCodeField = value;
                     this.RaisePropertyChanged("PageCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int RegionId {
+            get {
+                return this.RegionIdField;
+            }
+            set {
+                if ((this.RegionIdField.Equals(value) != true)) {
+                    this.RegionIdField = value;
+                    this.RaisePropertyChanged("RegionId");
                 }
             }
         }
@@ -106,6 +122,211 @@ namespace CMSMvcApplication.CMSServiceReference {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Contact", Namespace="http://schemas.datacontract.org/2004/07/SODAwcfService.Models")]
+    [System.SerializableAttribute()]
+    public partial class Contact : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CompanyField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> DateLinkExField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EmailField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MessageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PhoneField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PostcodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool isFreePPTField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> isVerifiedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string keyField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Company {
+            get {
+                return this.CompanyField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompanyField, value) != true)) {
+                    this.CompanyField = value;
+                    this.RaisePropertyChanged("Company");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> DateLinkEx {
+            get {
+                return this.DateLinkExField;
+            }
+            set {
+                if ((this.DateLinkExField.Equals(value) != true)) {
+                    this.DateLinkExField = value;
+                    this.RaisePropertyChanged("DateLinkEx");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Email {
+            get {
+                return this.EmailField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EmailField, value) != true)) {
+                    this.EmailField = value;
+                    this.RaisePropertyChanged("Email");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Message {
+            get {
+                return this.MessageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MessageField, value) != true)) {
+                    this.MessageField = value;
+                    this.RaisePropertyChanged("Message");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Phone {
+            get {
+                return this.PhoneField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PhoneField, value) != true)) {
+                    this.PhoneField = value;
+                    this.RaisePropertyChanged("Phone");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Postcode {
+            get {
+                return this.PostcodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PostcodeField, value) != true)) {
+                    this.PostcodeField = value;
+                    this.RaisePropertyChanged("Postcode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool isFreePPT {
+            get {
+                return this.isFreePPTField;
+            }
+            set {
+                if ((this.isFreePPTField.Equals(value) != true)) {
+                    this.isFreePPTField = value;
+                    this.RaisePropertyChanged("isFreePPT");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> isVerified {
+            get {
+                return this.isVerifiedField;
+            }
+            set {
+                if ((this.isVerifiedField.Equals(value) != true)) {
+                    this.isVerifiedField = value;
+                    this.RaisePropertyChanged("isVerified");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string key {
+            get {
+                return this.keyField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.keyField, value) != true)) {
+                    this.keyField = value;
+                    this.RaisePropertyChanged("key");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="CMSServiceReference.ICMS_Service")]
     public interface ICMS_Service {
@@ -124,6 +345,18 @@ namespace CMSMvcApplication.CMSServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/Authenticate", ReplyAction="http://tempuri.org/ICMS_Service/AuthenticateResponse")]
         bool Authenticate(string Password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/addContact", ReplyAction="http://tempuri.org/ICMS_Service/addContactResponse")]
+        int addContact(CMSMvcApplication.CMSServiceReference.Contact contact);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/getContact", ReplyAction="http://tempuri.org/ICMS_Service/getContactResponse")]
+        CMSMvcApplication.CMSServiceReference.Contact[] getContact();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/updateContact", ReplyAction="http://tempuri.org/ICMS_Service/updateContactResponse")]
+        int updateContact(CMSMvcApplication.CMSServiceReference.Contact contact);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/deleteContact", ReplyAction="http://tempuri.org/ICMS_Service/deleteContactResponse")]
+        int deleteContact(int id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -171,6 +404,22 @@ namespace CMSMvcApplication.CMSServiceReference {
         
         public bool Authenticate(string Password) {
             return base.Channel.Authenticate(Password);
+        }
+        
+        public int addContact(CMSMvcApplication.CMSServiceReference.Contact contact) {
+            return base.Channel.addContact(contact);
+        }
+        
+        public CMSMvcApplication.CMSServiceReference.Contact[] getContact() {
+            return base.Channel.getContact();
+        }
+        
+        public int updateContact(CMSMvcApplication.CMSServiceReference.Contact contact) {
+            return base.Channel.updateContact(contact);
+        }
+        
+        public int deleteContact(int id) {
+            return base.Channel.deleteContact(id);
         }
     }
 }

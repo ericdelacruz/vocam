@@ -9,7 +9,7 @@ namespace CMSMvcApplication.Controllers
     public class PagesController : Controller
     {
         private CMSServiceReference.CMS_ServiceClient cmsService = new CMSServiceReference.CMS_ServiceClient();
-        
+        private PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
         //
         // GET: /Pages/
 
@@ -23,17 +23,41 @@ namespace CMSMvcApplication.Controllers
         protected override void Dispose(bool disposing)
         {
             cmsService.Close();
+            portalClient.Close();
             base.Dispose(disposing);
         }
         //
         //GET: /Pages/Home
-        public ActionResult EditHome()
+        public ActionResult EditHome(string region)
         {
             if (Session["Username"] == null)
                 return RedirectToAction("login", "Home");
+            if (region == null)
+                region = "au";
+            var Selected_region = initRegion(region);
             var HomeContent = from homeContent in cmsService.getContent("Home", string.Empty)
+                              join r in Selected_region on homeContent.RegionId equals r.Id                          
                               select homeContent;
             return View(HomeContent);
+        }
+
+        private IEnumerable<PortalServiceReference.Region> initRegion(string region)
+        {
+            
+            var regionList = portalClient.getRegion();
+            ViewBag.RegionList = regionList.Select(r => new SelectListItem()
+            {
+                Text = r.RegionName,
+                Value = r.RegionName,
+                Selected = r.RegionName.ToLower() == region.ToLower()
+            });
+
+            var Selected_region = regionList.Where(r => r.RegionName.ToLower() == region.ToLower());
+            if (Selected_region.Count() > 0)
+            {
+                Session["Region"] = Selected_region.First();
+            }
+            return Selected_region;
         }
         [HttpPost]
         public ActionResult EditHome(FormCollection collection)
@@ -82,7 +106,8 @@ namespace CMSMvcApplication.Controllers
                 PageCode = "Home",
                 SectionName = sectionName,
                 Value = strValue.Replace("\n","<br/>").Trim(),
-                Type = strType
+                Type = strType,
+                RegionId = (Session["Region"] as PortalServiceReference.Region).Id
             });
         }
 
@@ -91,20 +116,32 @@ namespace CMSMvcApplication.Controllers
        
         //
         //GET /Pages/Contact
-        public ActionResult Contact()
+        public ActionResult Contact(string region)
         {
-            return View();
+            if (region == null)
+                region = "au";
+            var Selected_region = initRegion(region);
+            var phoneNoList = from content in cmsService.getContent("Contact","PhoneNo")
+                              join r in Selected_region on content.RegionId equals r.Id
+                              select content;
+            var phoneno = phoneNoList.First().Value != null?phoneNoList.First().Value:"";
+            return View(phoneno);
         }
         [HttpPost]
         public ActionResult Contact(FormCollection collection)
         {
+            
             return View();
         }
         //
         //GET: /Pages/EditLearnMore
-        public ActionResult EditLearnMore()
+        public ActionResult EditLearnMore(string region)
         {
+            if (region == null)
+                region = "au";
+            var Selected_region = initRegion(region);
             var LearnContent = from content in cmsService.getContent("Learn",string.Empty)
+                               join r in Selected_region on content.RegionId equals r.Id
                                select content;
             return View(LearnContent);
         }
@@ -124,7 +161,9 @@ namespace CMSMvcApplication.Controllers
                 PageCode = "learn",
                 SectionName = sectionName,
                 Value = strValue.Replace("\n", "<br/>"),
-                Type = strType
+                Type = strType,
+                RegionId = (Session["Region"] as PortalServiceReference.Region).Id
+                
             });
         }
     }

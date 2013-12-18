@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="PortalService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:50615/PortalService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:50615/PortalService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:50615/PortalService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SODAwcfService.Models" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IPortalService_getCustomer_InputMessage">
+    <wsdl:part name="parameters" element="tns:getCustomer" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_getCustomer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getCustomerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_getByDate_InputMessage">
+    <wsdl:part name="parameters" element="tns:getByDate" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_getByDate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getByDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_getBySaleCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:getBySaleCode" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_getBySaleCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getBySaleCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_addCustomer_InputMessage">
+    <wsdl:part name="parameters" element="tns:addCustomer" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_addCustomer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:addCustomerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_updateCustomer_InputMessage">
+    <wsdl:part name="parameters" element="tns:updateCustomer" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_updateCustomer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:updateCustomerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_deleteCustomer_InputMessage">
+    <wsdl:part name="parameters" element="tns:deleteCustomer" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_deleteCustomer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:deleteCustomerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_getSalePerson_InputMessage">
+    <wsdl:part name="parameters" element="tns:getSalePerson" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_getSalePerson_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getSalePersonResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_addSalesPerson_InputMessage">
+    <wsdl:part name="parameters" element="tns:addSalesPerson" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_addSalesPerson_OutputMessage">
+    <wsdl:part name="parameters" element="tns:addSalesPersonResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_updateSalesPerson_InputMessage">
+    <wsdl:part name="parameters" element="tns:updateSalesPerson" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_updateSalesPerson_OutputMessage">
+    <wsdl:part name="parameters" element="tns:updateSalesPersonResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_deleteSalePerson_InputMessage">
+    <wsdl:part name="parameters" element="tns:deleteSalePerson" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_deleteSalePerson_OutputMessage">
+    <wsdl:part name="parameters" element="tns:deleteSalePersonResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_getSaleCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:getSaleCode" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_getSaleCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getSaleCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_addSalesCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:addSalesCode" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_addSalesCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:addSalesCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_updateSalsCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:updateSalsCode" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_updateSalsCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:updateSalsCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_deleteSalesCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:deleteSalesCode" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_deleteSalesCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:deleteSalesCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_getPrice_InputMessage">
+    <wsdl:part name="parameters" element="tns:getPrice" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_getPrice_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getPriceResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_addPrice_InputMessage">
+    <wsdl:part name="parameters" element="tns:addPrice" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_addPrice_OutputMessage">
+    <wsdl:part name="parameters" element="tns:addPriceResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_updatePrice_InputMessage">
+    <wsdl:part name="parameters" element="tns:updatePrice" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_updatePrice_OutputMessage">
+    <wsdl:part name="parameters" element="tns:updatePriceResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_deletePrice_InputMessage">
+    <wsdl:part name="parameters" element="tns:deletePrice" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_deletePrice_OutputMessage">
+    <wsdl:part name="parameters" element="tns:deletePriceResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_getRegion_InputMessage">
+    <wsdl:part name="parameters" element="tns:getRegion" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_getRegion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getRegionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_addRegion_InputMessage">
+    <wsdl:part name="parameters" element="tns:addRegion" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_addRegion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:addRegionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_updateRegion_InputMessage">
+    <wsdl:part name="parameters" element="tns:updateRegion" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_updateRegion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:updateRegionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_deleteRegion_InputMessage">
+    <wsdl:part name="parameters" element="tns:deleteRegion" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_deleteRegion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:deleteRegionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_getLicenseConsumption_InputMessage">
+    <wsdl:part name="parameters" element="tns:getLicenseConsumption" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_getLicenseConsumption_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getLicenseConsumptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_addLicenseConsumption_InputMessage">
+    <wsdl:part name="parameters" element="tns:addLicenseConsumption" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_addLicenseConsumption_OutputMessage">
+    <wsdl:part name="parameters" element="tns:addLicenseConsumptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_updateLicenseConsumption_InputMessage">
+    <wsdl:part name="parameters" element="tns:updateLicenseConsumption" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_updateLicenseConsumption_OutputMessage">
+    <wsdl:part name="parameters" element="tns:updateLicenseConsumptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_delteLicenseConsumption_InputMessage">
+    <wsdl:part name="parameters" element="tns:delteLicenseConsumption" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_delteLicenseConsumption_OutputMessage">
+    <wsdl:part name="parameters" element="tns:delteLicenseConsumptionResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IPortalService">
+    <wsdl:operation name="getCustomer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/getCustomer" message="tns:IPortalService_getCustomer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/getCustomerResponse" message="tns:IPortalService_getCustomer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getByDate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/getByDate" message="tns:IPortalService_getByDate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/getByDateResponse" message="tns:IPortalService_getByDate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getBySaleCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/getBySaleCode" message="tns:IPortalService_getBySaleCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/getBySaleCodeResponse" message="tns:IPortalService_getBySaleCode_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="addCustomer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/addCustomer" message="tns:IPortalService_addCustomer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/addCustomerResponse" message="tns:IPortalService_addCustomer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="updateCustomer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/updateCustomer" message="tns:IPortalService_updateCustomer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/updateCustomerResponse" message="tns:IPortalService_updateCustomer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteCustomer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/deleteCustomer" message="tns:IPortalService_deleteCustomer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/deleteCustomerResponse" message="tns:IPortalService_deleteCustomer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getSalePerson">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/getSalePerson" message="tns:IPortalService_getSalePerson_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/getSalePersonResponse" message="tns:IPortalService_getSalePerson_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="addSalesPerson">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/addSalesPerson" message="tns:IPortalService_addSalesPerson_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/addSalesPersonResponse" message="tns:IPortalService_addSalesPerson_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="updateSalesPerson">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/updateSalesPerson" message="tns:IPortalService_updateSalesPerson_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/updateSalesPersonResponse" message="tns:IPortalService_updateSalesPerson_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteSalePerson">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/deleteSalePerson" message="tns:IPortalService_deleteSalePerson_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/deleteSalePersonResponse" message="tns:IPortalService_deleteSalePerson_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getSaleCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/getSaleCode" message="tns:IPortalService_getSaleCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/getSaleCodeResponse" message="tns:IPortalService_getSaleCode_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="addSalesCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/addSalesCode" message="tns:IPortalService_addSalesCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/addSalesCodeResponse" message="tns:IPortalService_addSalesCode_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="updateSalsCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/updateSalsCode" message="tns:IPortalService_updateSalsCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/updateSalsCodeResponse" message="tns:IPortalService_updateSalsCode_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteSalesCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/deleteSalesCode" message="tns:IPortalService_deleteSalesCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/deleteSalesCodeResponse" message="tns:IPortalService_deleteSalesCode_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getPrice">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/getPrice" message="tns:IPortalService_getPrice_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/getPriceResponse" message="tns:IPortalService_getPrice_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="addPrice">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/addPrice" message="tns:IPortalService_addPrice_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/addPriceResponse" message="tns:IPortalService_addPrice_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="updatePrice">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/updatePrice" message="tns:IPortalService_updatePrice_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/updatePriceResponse" message="tns:IPortalService_updatePrice_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="deletePrice">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/deletePrice" message="tns:IPortalService_deletePrice_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/deletePriceResponse" message="tns:IPortalService_deletePrice_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getRegion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/getRegion" message="tns:IPortalService_getRegion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/getRegionResponse" message="tns:IPortalService_getRegion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="addRegion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/addRegion" message="tns:IPortalService_addRegion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/addRegionResponse" message="tns:IPortalService_addRegion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="updateRegion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/updateRegion" message="tns:IPortalService_updateRegion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/updateRegionResponse" message="tns:IPortalService_updateRegion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteRegion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/deleteRegion" message="tns:IPortalService_deleteRegion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/deleteRegionResponse" message="tns:IPortalService_deleteRegion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getLicenseConsumption">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/getLicenseConsumption" message="tns:IPortalService_getLicenseConsumption_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/getLicenseConsumptionResponse" message="tns:IPortalService_getLicenseConsumption_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="addLicenseConsumption">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/addLicenseConsumption" message="tns:IPortalService_addLicenseConsumption_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/addLicenseConsumptionResponse" message="tns:IPortalService_addLicenseConsumption_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="updateLicenseConsumption">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/updateLicenseConsumption" message="tns:IPortalService_updateLicenseConsumption_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/updateLicenseConsumptionResponse" message="tns:IPortalService_updateLicenseConsumption_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="delteLicenseConsumption">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/delteLicenseConsumption" message="tns:IPortalService_delteLicenseConsumption_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/delteLicenseConsumptionResponse" message="tns:IPortalService_delteLicenseConsumption_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IPortalService" type="tns:IPortalService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getCustomer">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/getCustomer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getByDate">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/getByDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getBySaleCode">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/getBySaleCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addCustomer">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/addCustomer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateCustomer">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/updateCustomer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteCustomer">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/deleteCustomer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSalePerson">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/getSalePerson" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addSalesPerson">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/addSalesPerson" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateSalesPerson">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/updateSalesPerson" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteSalePerson">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/deleteSalePerson" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSaleCode">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/getSaleCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addSalesCode">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/addSalesCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateSalsCode">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/updateSalsCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteSalesCode">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/deleteSalesCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPrice">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/getPrice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addPrice">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/addPrice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updatePrice">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/updatePrice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deletePrice">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/deletePrice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRegion">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/getRegion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addRegion">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/addRegion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateRegion">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/updateRegion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteRegion">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/deleteRegion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getLicenseConsumption">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/getLicenseConsumption" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addLicenseConsumption">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/addLicenseConsumption" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateLicenseConsumption">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/updateLicenseConsumption" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="delteLicenseConsumption">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/delteLicenseConsumption" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PortalService">
+    <wsdl:port name="BasicHttpBinding_IPortalService" binding="tns:BasicHttpBinding_IPortalService">
+      <soap:address location="http://localhost:50615/PortalService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

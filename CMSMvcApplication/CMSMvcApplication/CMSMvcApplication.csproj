@@ -157,6 +157,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\PortalServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\Title.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -336,10 +341,38 @@
     <None Include="Service References\CatListingServiceReference\CatListingService.xsd" />
     <None Include="Service References\CatListingServiceReference\CatListingService1.xsd" />
     <None Include="Service References\CatListingServiceReference\CatListingService2.xsd" />
+    <Content Include="Service References\CMSServiceReference\CMSMvcApplication.CMSServiceReference.Contact.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <None Include="Service References\CMSServiceReference\CMS_Service.disco" />
     <None Include="Service References\CMSServiceReference\configuration91.svcinfo" />
     <None Include="Service References\CMSServiceReference\configuration.svcinfo" />
     <None Include="Service References\CMSServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\PortalServiceReference\CMSMvcApplication.PortalServiceReference.Customer.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PortalServiceReference\CMSMvcApplication.PortalServiceReference.LicenseConsumption.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PortalServiceReference\CMSMvcApplication.PortalServiceReference.Price.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PortalServiceReference\CMSMvcApplication.PortalServiceReference.Region.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PortalServiceReference\CMSMvcApplication.PortalServiceReference.SalesCode.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PortalServiceReference\CMSMvcApplication.PortalServiceReference.SalesPerson.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\PortalServiceReference\PortalService.disco" />
+    <None Include="Service References\PortalServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\PortalServiceReference\configuration.svcinfo" />
+    <None Include="Service References\PortalServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -386,6 +419,10 @@
     <Content Include="Views\home\EditProfile.cshtml" />
     <Content Include="Views\titles\error.cshtml" />
     <Content Include="Views\home\login.cshtml" />
+    <None Include="Service References\PortalServiceReference\PortalService.wsdl" />
+    <None Include="Service References\PortalServiceReference\PortalService.xsd" />
+    <None Include="Service References\PortalServiceReference\PortalService1.xsd" />
+    <None Include="Service References\PortalServiceReference\PortalService2.xsd" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -401,6 +438,7 @@
     <WCFMetadataStorage Include="Service References\AccountServiceReference\" />
     <WCFMetadataStorage Include="Service References\CatListingServiceReference\" />
     <WCFMetadataStorage Include="Service References\CMSServiceReference\" />
+    <WCFMetadataStorage Include="Service References\PortalServiceReference\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

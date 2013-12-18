@@ -3,6 +3,7 @@
   <xs:complexType name="ContentDef">
     <xs:sequence>
       <xs:element minOccurs="0" name="PageCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegionId" type="xs:int" />
       <xs:element minOccurs="0" name="SectionName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Value" nillable="true" type="xs:string" />
@@ -15,4 +16,26 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfContentDef" nillable="true" type="tns:ArrayOfContentDef" />
+  <xs:complexType name="Contact">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Company" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DateLinkEx" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Phone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Postcode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="isFreePPT" type="xs:boolean" />
+      <xs:element minOccurs="0" name="isVerified" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="key" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Contact" nillable="true" type="tns:Contact" />
+  <xs:complexType name="ArrayOfContact">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Contact" nillable="true" type="tns:Contact" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfContact" nillable="true" type="tns:ArrayOfContact" />
 </xs:schema>
