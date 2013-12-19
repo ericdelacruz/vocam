@@ -526,7 +526,8 @@ namespace SODAPortalMvcApplication.Controllers
             if(portalClient.getRegion().Select(r => r).Where(r => r.RegionName == collection["RegionName"]).Count() ==0)
             portalClient.addRegion(new PortalServiceReference.Region(){
                  RegionName = collection["RegionName"],
-                  Currency = collection["currency"]
+                  Currency = collection["currency"],
+                 WebsiteUrl = collection["siteUrl"]
             });
             else
             {
@@ -555,7 +556,8 @@ namespace SODAPortalMvcApplication.Controllers
             {
                 Id = id,
                 RegionName = collection["RegionName"],
-                Currency = collection["currency"]
+                Currency = collection["currency"],
+                WebsiteUrl = collection["siteUrl"]
             });
             else
             {

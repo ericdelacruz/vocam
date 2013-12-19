@@ -84,7 +84,9 @@ namespace SODAPortalMvcApplication.Controllers
                          Email = model.Email,
                          FirstName = model.FirtName,
                          LastName = model.LastName,
-                         Country = collection["country"]
+                         Country = collection["country"],
+                          CompanyUrl = model.CompanyUrl
+                          
                                                      
                     });
 

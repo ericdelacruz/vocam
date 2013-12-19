@@ -37,11 +37,11 @@ namespace SODAMvcApplication.Controllers
 
               var filterByRegion = from content in lContentDef
                                    join region in portalClient.getRegion() on content.RegionId equals region.Id
-                                   where region.RegionName == Region
+                                   where region.RegionName.ToLower() == Region.ToLower()
                                    select content;
-            
-              
-                 
+
+              var contact = cmsServiceClient.getContent(CONTACT,"PhoneNo").First().Value;
+              Session.Add("PhoneNo", contact);   
             return View(filterByRegion);
         }
 
@@ -132,7 +132,7 @@ namespace SODAMvcApplication.Controllers
 
             var filterByRegion = from content in lContentDef
                                  join region in portalClient.getRegion() on content.RegionId equals region.Id
-                                 where region.RegionName == Region
+                                 where region.RegionName.ToLower() == Region
                                  select content;
 
             return View(filterByRegion);

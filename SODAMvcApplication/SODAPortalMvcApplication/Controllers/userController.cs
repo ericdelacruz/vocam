@@ -294,7 +294,7 @@ namespace SODAPortalMvcApplication.Controllers
             if (Session["Username"] != null)
             {
                 var userAcnt = from accnt in AccountClient.getAccount(Session["Username"].ToString())
-                               select new ViewModel.UserModel() { Email = accnt.Email, Company = accnt.Company, Password = accnt.PASSWORD, Contact = accnt.ContactNo, FirtName = accnt.FirstName, LastName = accnt.LastName };
+                               select new ViewModel.UserModel() { Email = accnt.Email, Company = accnt.Company, Password = accnt.PASSWORD, Contact = accnt.ContactNo, FirtName = accnt.FirstName, LastName = accnt.LastName, CompanyUrl = accnt.CompanyUrl };
 
                 var customer = from cust in portalClient.getCustomer()
                                join accnt in AccountClient.getAccount(Session["Username"].ToString()) on cust.UserId equals accnt.Id
@@ -322,7 +322,7 @@ namespace SODAPortalMvcApplication.Controllers
                 accnt.LastName = user.LastName;
                 accnt.Company = user.Company;
                 accnt.ContactNo = user.Contact;
-
+                accnt.CompanyUrl = user.CompanyUrl;
                 AccountClient.updateAccount(accnt);
                 Session["CustomerData"] = getCustomerData(user.Email);
                 return RedirectToAction("profile");

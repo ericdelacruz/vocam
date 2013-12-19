@@ -43,6 +43,7 @@ namespace SODAMvcApplication.Controllers
                 {
                     int daysleft = 0;
                     int consumed = 0;
+                    var CompanyWebsite = account.getAccount(username).First().CompanyUrl;
                     var maxActiveLicenses = customer.Sum(c => c.Licenses);
 
                     var LicenseConsumption = portalClient.getLicenseConsumption().Where(lc => lc.UserId == customer.First().UserId);
@@ -50,11 +51,11 @@ namespace SODAMvcApplication.Controllers
                         consumed = LicenseConsumption.First().Consumed;
                     if (customer.First().DateSubscriptionEnd.HasValue)
                         daysleft = ((TimeSpan)(customer.First().DateSubscriptionEnd.Value - DateTime.Now)).Days;
-                    return View(new Users() { authorized = true,daysleft=daysleft, shownews = true,PCLicenses=maxActiveLicenses, PCLicenseConsumed = consumed });
+                    return View(new Users() { authorized = true,daysleft=daysleft, shownews = true,PCLicenses=maxActiveLicenses, PCLicenseConsumed = consumed,CompanyWebsite=CompanyWebsite });
                 }
                 else
                 {
-                    return View(new Users() { authorized = false, daysleft = 0, shownews = true, PCLicenses = 0, PCLicenseConsumed = 0 });
+                    return View(new Users() { authorized = false, daysleft = 0, shownews = true, PCLicenses = 0, PCLicenseConsumed = 0, CompanyWebsite = "" });
                 }
             }
             else
