@@ -18,14 +18,14 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:50615/PortalService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:50620/PortalService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="PortalService.xsd" MetadataType="Schema" ID="713dfd95-5a1b-4d90-bdc3-d8d2e56c11ee" SourceId="1" SourceUrl="http://localhost:50615/PortalService.svc?xsd=xsd1" />
-    <MetadataFile FileName="PortalService1.xsd" MetadataType="Schema" ID="6ada37b7-d76e-46c4-a700-312d5ba3d2eb" SourceId="1" SourceUrl="http://localhost:50615/PortalService.svc?xsd=xsd2" />
-    <MetadataFile FileName="PortalService.disco" MetadataType="Disco" ID="f14fe777-5506-4992-bfdf-ed14fd8ca638" SourceId="1" SourceUrl="http://localhost:50615/PortalService.svc?disco" />
-    <MetadataFile FileName="PortalService.wsdl" MetadataType="Wsdl" ID="a11a6b2f-aaaf-4a38-8aad-7caf9d6cc519" SourceId="1" SourceUrl="http://localhost:50615/PortalService.svc?wsdl" />
-    <MetadataFile FileName="PortalService2.xsd" MetadataType="Schema" ID="a87f1685-5048-461f-83e2-04a6fdb9a349" SourceId="1" SourceUrl="http://localhost:50615/PortalService.svc?xsd=xsd0" />
+    <MetadataFile FileName="PortalService1.disco" MetadataType="Disco" ID="c415b535-16d7-403b-b14a-10beca2e8628" SourceId="1" SourceUrl="http://localhost:50620/PortalService.svc?disco" />
+    <MetadataFile FileName="PortalService3.xsd" MetadataType="Schema" ID="da0949fc-3157-4d3b-b942-a17bb3047241" SourceId="1" SourceUrl="http://localhost:50620/PortalService.svc?xsd=xsd2" />
+    <MetadataFile FileName="PortalService31.xsd" MetadataType="Schema" ID="e6e23dc1-3346-44d6-98a9-79c3bb8d2627" SourceId="1" SourceUrl="http://localhost:50620/PortalService.svc?xsd=xsd1" />
+    <MetadataFile FileName="PortalService32.xsd" MetadataType="Schema" ID="d0fe16d8-35fd-45d2-b306-159b72a47e73" SourceId="1" SourceUrl="http://localhost:50620/PortalService.svc?xsd=xsd0" />
+    <MetadataFile FileName="PortalService1.wsdl" MetadataType="Wsdl" ID="13f84896-a7ac-4f24-8560-27e62a2512b1" SourceId="1" SourceUrl="http://localhost:50620/PortalService.svc?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

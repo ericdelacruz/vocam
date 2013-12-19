@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="UIennXBea67XQJGrKepbqCqc/HM=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="s+XO27UvkFQHHuqAKO24rnjTJ8g=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="BasicHttpBinding_IPortalService">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="BasicHttpBinding_IPortalService" contract="PortalServiceReference.IPortalService" bindingType="basicHttpBinding" address="http://localhost:50615/PortalService.svc" bindingConfiguration="BasicHttpBinding_IPortalService">
+    <endpoint name="BasicHttpBinding_IPortalService" contract="PortalServiceReference.IPortalService" bindingType="basicHttpBinding" address="http://localhost:50620/PortalService.svc" bindingConfiguration="BasicHttpBinding_IPortalService">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://localhost:50615/PortalService.svc</serializedValue>
+          <serializedValue>http://localhost:50620/PortalService.svc</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

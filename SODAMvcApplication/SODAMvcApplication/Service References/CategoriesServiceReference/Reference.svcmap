@@ -18,14 +18,14 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:50615/CatListingService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:50620/CatListingService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="CatListingService.xsd" MetadataType="Schema" ID="bd1e3bac-0824-4f69-88ca-6a67f2a1f3ae" SourceId="1" SourceUrl="http://localhost:50615/CatListingService.svc?xsd=xsd0" />
-    <MetadataFile FileName="CatListingService.wsdl" MetadataType="Wsdl" ID="9b1cb8ac-7c53-44b5-9735-53b582d75565" SourceId="1" SourceUrl="http://localhost:50615/CatListingService.svc?wsdl" />
-    <MetadataFile FileName="CatListingService.disco" MetadataType="Disco" ID="7596af27-04e2-4c30-adcf-5093fb1c3d7e" SourceId="1" SourceUrl="http://localhost:50615/CatListingService.svc?disco" />
-    <MetadataFile FileName="CatListingService2.xsd" MetadataType="Schema" ID="fd803b62-54bc-47f3-a3fa-0c9bebee7971" SourceId="1" SourceUrl="http://localhost:50615/CatListingService.svc?xsd=xsd2" />
-    <MetadataFile FileName="CatListingService3.xsd" MetadataType="Schema" ID="da00f536-e48a-4d38-a73a-46fb6e70040b" SourceId="1" SourceUrl="http://localhost:50615/CatListingService.svc?xsd=xsd1" />
+    <MetadataFile FileName="CatListingService1.wsdl" MetadataType="Wsdl" ID="d5069d87-0b04-480e-b837-d72ae477d15a" SourceId="1" SourceUrl="http://localhost:50620/CatListingService.svc?wsdl" />
+    <MetadataFile FileName="CatListingService1.xsd" MetadataType="Schema" ID="bd36932a-1801-4cbd-9618-6d8b4c0c6bdd" SourceId="1" SourceUrl="http://localhost:50620/CatListingService.svc?xsd=xsd1" />
+    <MetadataFile FileName="CatListingService11.xsd" MetadataType="Schema" ID="d78d2be5-adc6-4823-9d6c-7e579c96276e" SourceId="1" SourceUrl="http://localhost:50620/CatListingService.svc?xsd=xsd0" />
+    <MetadataFile FileName="CatListingService12.xsd" MetadataType="Schema" ID="ff400e6b-9276-4d93-b348-8d4816b292d5" SourceId="1" SourceUrl="http://localhost:50620/CatListingService.svc?xsd=xsd2" />
+    <MetadataFile FileName="CatListingService1.disco" MetadataType="Disco" ID="44936dd1-3e1f-451e-9f1d-c7d028411fde" SourceId="1" SourceUrl="http://localhost:50620/CatListingService.svc?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

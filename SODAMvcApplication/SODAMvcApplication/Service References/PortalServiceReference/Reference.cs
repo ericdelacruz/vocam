@@ -563,6 +563,9 @@ namespace SODAMvcApplication.PortalServiceReference {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string RegionNameField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string WebsiteUrlField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -608,6 +611,19 @@ namespace SODAMvcApplication.PortalServiceReference {
                 if ((object.ReferenceEquals(this.RegionNameField, value) != true)) {
                     this.RegionNameField = value;
                     this.RaisePropertyChanged("RegionName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string WebsiteUrl {
+            get {
+                return this.WebsiteUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.WebsiteUrlField, value) != true)) {
+                    this.WebsiteUrlField = value;
+                    this.RaisePropertyChanged("WebsiteUrl");
                 }
             }
         }

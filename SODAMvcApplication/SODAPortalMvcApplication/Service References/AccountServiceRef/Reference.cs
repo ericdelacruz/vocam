@@ -35,6 +35,9 @@ namespace SODAPortalMvcApplication.AccountServiceRef {
         private string CompanyField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CompanyUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ContactNoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -131,6 +134,19 @@ namespace SODAPortalMvcApplication.AccountServiceRef {
                 if ((object.ReferenceEquals(this.CompanyField, value) != true)) {
                     this.CompanyField = value;
                     this.RaisePropertyChanged("Company");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompanyUrl {
+            get {
+                return this.CompanyUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompanyUrlField, value) != true)) {
+                    this.CompanyUrlField = value;
+                    this.RaisePropertyChanged("CompanyUrl");
                 }
             }
         }

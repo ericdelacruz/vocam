@@ -563,6 +563,9 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string RegionNameField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string WebsiteUrlField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -608,6 +611,112 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
                 if ((object.ReferenceEquals(this.RegionNameField, value) != true)) {
                     this.RegionNameField = value;
                     this.RaisePropertyChanged("RegionName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string WebsiteUrl {
+            get {
+                return this.WebsiteUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.WebsiteUrlField, value) != true)) {
+                    this.WebsiteUrlField = value;
+                    this.RaisePropertyChanged("WebsiteUrl");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="LicenseConsumption", Namespace="http://schemas.datacontract.org/2004/07/SODAwcfService.Models")]
+    [System.SerializableAttribute()]
+    public partial class LicenseConsumption : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ConsumedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime DateUpdatedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long UserIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Consumed {
+            get {
+                return this.ConsumedField;
+            }
+            set {
+                if ((this.ConsumedField.Equals(value) != true)) {
+                    this.ConsumedField = value;
+                    this.RaisePropertyChanged("Consumed");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime DateUpdated {
+            get {
+                return this.DateUpdatedField;
+            }
+            set {
+                if ((this.DateUpdatedField.Equals(value) != true)) {
+                    this.DateUpdatedField = value;
+                    this.RaisePropertyChanged("DateUpdated");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long UserId {
+            get {
+                return this.UserIdField;
+            }
+            set {
+                if ((this.UserIdField.Equals(value) != true)) {
+                    this.UserIdField = value;
+                    this.RaisePropertyChanged("UserId");
                 }
             }
         }
@@ -757,6 +866,30 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/deleteRegion", ReplyAction="http://tempuri.org/IPortalService/deleteRegionResponse")]
         System.Threading.Tasks.Task<int> deleteRegionAsync(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/getLicenseConsumption", ReplyAction="http://tempuri.org/IPortalService/getLicenseConsumptionResponse")]
+        SODAPortalMvcApplication.PortalServiceReference.LicenseConsumption[] getLicenseConsumption();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/getLicenseConsumption", ReplyAction="http://tempuri.org/IPortalService/getLicenseConsumptionResponse")]
+        System.Threading.Tasks.Task<SODAPortalMvcApplication.PortalServiceReference.LicenseConsumption[]> getLicenseConsumptionAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/addLicenseConsumption", ReplyAction="http://tempuri.org/IPortalService/addLicenseConsumptionResponse")]
+        int addLicenseConsumption(SODAPortalMvcApplication.PortalServiceReference.LicenseConsumption license);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/addLicenseConsumption", ReplyAction="http://tempuri.org/IPortalService/addLicenseConsumptionResponse")]
+        System.Threading.Tasks.Task<int> addLicenseConsumptionAsync(SODAPortalMvcApplication.PortalServiceReference.LicenseConsumption license);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/updateLicenseConsumption", ReplyAction="http://tempuri.org/IPortalService/updateLicenseConsumptionResponse")]
+        int updateLicenseConsumption(SODAPortalMvcApplication.PortalServiceReference.LicenseConsumption license);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/updateLicenseConsumption", ReplyAction="http://tempuri.org/IPortalService/updateLicenseConsumptionResponse")]
+        System.Threading.Tasks.Task<int> updateLicenseConsumptionAsync(SODAPortalMvcApplication.PortalServiceReference.LicenseConsumption license);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/delteLicenseConsumption", ReplyAction="http://tempuri.org/IPortalService/delteLicenseConsumptionResponse")]
+        int delteLicenseConsumption(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/delteLicenseConsumption", ReplyAction="http://tempuri.org/IPortalService/delteLicenseConsumptionResponse")]
+        System.Threading.Tasks.Task<int> delteLicenseConsumptionAsync(int id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -960,6 +1093,38 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         
         public System.Threading.Tasks.Task<int> deleteRegionAsync(int id) {
             return base.Channel.deleteRegionAsync(id);
+        }
+        
+        public SODAPortalMvcApplication.PortalServiceReference.LicenseConsumption[] getLicenseConsumption() {
+            return base.Channel.getLicenseConsumption();
+        }
+        
+        public System.Threading.Tasks.Task<SODAPortalMvcApplication.PortalServiceReference.LicenseConsumption[]> getLicenseConsumptionAsync() {
+            return base.Channel.getLicenseConsumptionAsync();
+        }
+        
+        public int addLicenseConsumption(SODAPortalMvcApplication.PortalServiceReference.LicenseConsumption license) {
+            return base.Channel.addLicenseConsumption(license);
+        }
+        
+        public System.Threading.Tasks.Task<int> addLicenseConsumptionAsync(SODAPortalMvcApplication.PortalServiceReference.LicenseConsumption license) {
+            return base.Channel.addLicenseConsumptionAsync(license);
+        }
+        
+        public int updateLicenseConsumption(SODAPortalMvcApplication.PortalServiceReference.LicenseConsumption license) {
+            return base.Channel.updateLicenseConsumption(license);
+        }
+        
+        public System.Threading.Tasks.Task<int> updateLicenseConsumptionAsync(SODAPortalMvcApplication.PortalServiceReference.LicenseConsumption license) {
+            return base.Channel.updateLicenseConsumptionAsync(license);
+        }
+        
+        public int delteLicenseConsumption(int id) {
+            return base.Channel.delteLicenseConsumption(id);
+        }
+        
+        public System.Threading.Tasks.Task<int> delteLicenseConsumptionAsync(int id) {
+            return base.Channel.delteLicenseConsumptionAsync(id);
         }
     }
 }
