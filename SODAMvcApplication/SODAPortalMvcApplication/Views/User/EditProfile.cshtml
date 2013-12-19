@@ -21,6 +21,8 @@
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @readonly="" })
             <label>Company</label>
             @Html.TextBoxFor(m => m.Company, new { @class = "form-control" })
+            <label>Company Website</label>
+            @Html.TextBoxFor(m => m.CompanyWebsite, new { @class = "form-control" })
             <label>Contact No</label>
             @Html.TextBoxFor(m=>m.Contact, new{@class="form-control"})
             @Html.HiddenFor(m=>m.Password)

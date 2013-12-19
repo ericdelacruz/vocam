@@ -23,6 +23,9 @@
     <label>Company Name</label>
     @Html.TextBoxFor(m => m.Company, new { placeholder = "Company Name", @class = "form-control",  })
     
+    <label>Company Website</label>
+    @Html.TextBoxFor(m => m.CompanyWebsite, new { placeholder = "Company Website", @class = "form-control",  })
+    
     <label>Password</label>
     @Html.PasswordFor(m => m.Password, new { placeholder = "Password", @class = "form-control", required = "" })
     
