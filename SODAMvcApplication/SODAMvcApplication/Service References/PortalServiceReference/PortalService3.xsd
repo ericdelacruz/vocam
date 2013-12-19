@@ -81,7 +81,23 @@
       <xs:element minOccurs="0" name="Currency" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="RegionName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WebsiteUrl" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Region" nillable="true" type="tns:Region" />
+  <xs:complexType name="ArrayOfLicenseConsumption">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LicenseConsumption" nillable="true" type="tns:LicenseConsumption" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLicenseConsumption" nillable="true" type="tns:ArrayOfLicenseConsumption" />
+  <xs:complexType name="LicenseConsumption">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Consumed" type="xs:int" />
+      <xs:element minOccurs="0" name="DateUpdated" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="UserId" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LicenseConsumption" nillable="true" type="tns:LicenseConsumption" />
 </xs:schema>
