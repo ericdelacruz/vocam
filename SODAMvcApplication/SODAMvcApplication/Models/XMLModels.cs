@@ -16,6 +16,8 @@ namespace SODAMvcApplication.Models.XML
        
 
         public int PCLicenseConsumed { get; set; }
+
+        public string CompanyWebsite { get; set; }
     }
    
 }
