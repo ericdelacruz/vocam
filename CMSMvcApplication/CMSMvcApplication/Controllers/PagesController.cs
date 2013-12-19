@@ -17,7 +17,7 @@ namespace CMSMvcApplication.Controllers
         {
             if (Session["Username"] == null)
                 return RedirectToAction("login", "Home");
-
+            ViewBag.defaultRegion = portalClient.getRegion().Where(r => r.RegionName.ToLower() == "au").First();
             return View();
         }
         protected override void Dispose(bool disposing)
@@ -30,6 +30,7 @@ namespace CMSMvcApplication.Controllers
         //GET: /Pages/Home
         public ActionResult EditHome(string region)
         {
+            //id is region name
             if (Session["Username"] == null)
                 return RedirectToAction("login", "Home");
             if (region == null)
@@ -116,7 +117,7 @@ namespace CMSMvcApplication.Controllers
        
         //
         //GET /Pages/Contact
-        public ActionResult Contact(string region)
+        public ActionResult editcontact(string region)
         {
             if (region == null)
                 region = "au";
@@ -124,14 +125,25 @@ namespace CMSMvcApplication.Controllers
             var phoneNoList = from content in cmsService.getContent("Contact","PhoneNo")
                               join r in Selected_region on content.RegionId equals r.Id
                               select content;
-            var phoneno = phoneNoList.First().Value != null?phoneNoList.First().Value:"";
-            return View(phoneno);
-        }
-        [HttpPost]
-        public ActionResult Contact(FormCollection collection)
-        {
+            ViewBag.phoneno = phoneNoList.Count() >0 ? phoneNoList.First().Value : "";
             
             return View();
+        }
+        [HttpPost]
+        public ActionResult editcontact(string region,FormCollection collection)
+        {
+            string phoneno = collection["PhoneNo"];
+            //update phone no
+            cmsService.UpdateContent(new CMSServiceReference.ContentDef()
+            {
+                PageCode = "Contact",
+                SectionName = "PhoneNo",
+                Value = phoneno,
+                Type = "text",
+                RegionId = (Session["Region"] as PortalServiceReference.Region).Id
+
+            });
+            return RedirectToAction("index");
         }
         //
         //GET: /Pages/EditLearnMore

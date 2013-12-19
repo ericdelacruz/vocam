@@ -9,7 +9,7 @@ namespace CMSMvcApplication.Controllers
     public class TitlesController : Controller
     {
         private CatListingServiceReference.CatListingServiceClient catClient = new CatListingServiceReference.CatListingServiceClient();
-
+        private PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
         protected override IAsyncResult BeginExecute(System.Web.Routing.RequestContext requestContext, AsyncCallback callback, object state)
         {
             
@@ -27,6 +27,7 @@ namespace CMSMvcApplication.Controllers
         protected override void Dispose(bool disposing)
         {
             catClient.Close();
+            portalClient.Close();
             base.Dispose(disposing);
         }
         //
@@ -37,6 +38,8 @@ namespace CMSMvcApplication.Controllers
             if (Session["Username"] == null)
                 return RedirectToAction("login", "Home");
             var catTitleList = getTitles("", "");
+            ViewBag.RegionList = portalClient.getRegion();
+
             return View(catTitleList);
         }
 
@@ -108,6 +111,10 @@ namespace CMSMvcApplication.Controllers
             if (Session["Username"] == null)
                 return RedirectToAction("login", "Home");
             ViewBag.catList = catClient.get_Categories();
+            ViewBag.regionList = portalClient.getRegion().Select(r=> new SelectListItem(){
+                 Value = r.Id.ToString(),
+                 Text = r.RegionName,
+                 Selected = false});
 
             return View();
         }
@@ -258,7 +265,7 @@ namespace CMSMvcApplication.Controllers
             if (title.Count() == 0)
                 return Redirect("Titles");
             
-                //ViewBag.CatList = catClient.get_Categories();
+                
                 var CAList = catClient.getCatAssign().Where(ca=>ca.SpecID == id);
                var excludeIds = new HashSet<long>(CAList.Select(ca=>ca.CategoryId));
                 ViewBag.CatList = catClient.get_Categories().Where(cat => !excludeIds.Contains(cat.CategoryId));
@@ -267,6 +274,11 @@ namespace CMSMvcApplication.Controllers
                 ViewBag.CAList = from CA in CAList
                                  join cat in catClient.get_Categories() on CA.CategoryId equals cat.CategoryId
                                  select cat;
+
+                ViewBag.regionList = portalClient.getRegion().Select(r=> new SelectListItem(){
+                 Value = r.Id.ToString(),
+                 Text = r.RegionName,
+                 Selected = r.Id == title.First().RegionId});
                 return View(title.First());
             
         }
@@ -280,17 +292,7 @@ namespace CMSMvcApplication.Controllers
             DateTime dateQuestion = new DateTime();
 
             DateTime.TryParse(collection["datefrom"], out dateQuestion);
-            //string errorMsg = "";
-            //if (hasErrorInTitles(collection, out errorMsg))
-            //{
-            //    ModelState.AddModelError("", errorMsg);
-            //    var title = catClient.get().Select(t => t).Where(t => t.Id == id);
-            //    ViewBag.CatList = catClient.get_Categories();
-            //    ViewBag.TopicList = catClient.getTopics().Select(t => t).Where(t => t.SpecId == id);
-            //    ViewBag.ChapterList = catClient.getChapter().Select(c => c).Where(c => c.SpecID == id);
-
-            //    return View(collection);
-            //}
+         
 
             try
             {
@@ -346,35 +348,7 @@ namespace CMSMvcApplication.Controllers
                 }
                 addTopics(collection,title);
                 addChapters(collection, title);
-                //if (!string.IsNullOrEmpty(collection["topicName"]))
-                //{
-
-                //    catClient.addTopic(title.Id, collection["topicName"]);
-                //    if (!string.IsNullOrEmpty(collection["topicName[]"]))
-
-                //        foreach (string topic in collection["topicName[]"].Split(','))
-                //        {
-                //            if(!string.IsNullOrEmpty(topic))
-                //            catClient.addTopic(title.Id, topic);
-                //        }
-                //}
-
-                //if (!string.IsNullOrEmpty(collection["chapterName[]"]))
-                //{
-                    
-
-                //    if (!string.IsNullOrEmpty(collection["chapterName[]"]))
-                //    {
-                //        string[] chapterNameCollection = collection["chapterName[]"].Split(',');
-                //        string[] chapterTimeCollection = collection["chapterTime[]"].Split(',');
-                //        for (int i = 0; i < chapterNameCollection.Count(); i++)
-                //        {
-                //            if(!string.IsNullOrEmpty(chapterNameCollection[i]))
-                //            catClient.addChapter(title.Id, chapterNameCollection[i], TimeSpan.FromMilliseconds(double.Parse(chapterTimeCollection[i])));
-                //        }
-                //    }
-                //}
-               
+                
 
 
                 return RedirectToAction("Index");
@@ -406,6 +380,11 @@ namespace CMSMvcApplication.Controllers
                 {
                     catClient.deleteTopic(topic.Id);
                 }
+
+                var catAssign = catClient.getCatAssign().Where(ca => ca.SpecID == id);
+                foreach (var ca in catAssign)
+                catClient.deleteCatAssign(ca.Id);
+
                 catClient.delete_Specific(id);
                 return RedirectToAction("Index");
             }
