@@ -357,27 +357,41 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <None Include="Service References\AccountServiceRef\AccountService.disco" />
+    <None Include="Service References\AccountServiceRef\AccountService1.wsdl" />
+    <None Include="Service References\AccountServiceRef\AccountService3.xsd" />
+    <None Include="Service References\AccountServiceRef\AccountService31.xsd" />
+    <None Include="Service References\AccountServiceRef\AccountService32.xsd" />
     <None Include="Service References\AccountServiceRef\configuration91.svcinfo" />
     <None Include="Service References\AccountServiceRef\configuration.svcinfo" />
     <None Include="Service References\AccountServiceRef\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\PortalServiceReference\PortalService.disco" />
+    <None Include="Service References\AccountServiceRef\AccountService1.disco" />
+    <Content Include="Service References\AccountServiceRef\SODAPortalMvcApplication.AccountServiceRef.ResetPassword1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <None Include="Service References\PortalServiceReference\configuration91.svcinfo" />
     <None Include="Service References\PortalServiceReference\configuration.svcinfo" />
+    <None Include="Service References\PortalServiceReference\PortalService1.wsdl" />
+    <None Include="Service References\PortalServiceReference\PortalService3.xsd" />
+    <None Include="Service References\PortalServiceReference\PortalService31.xsd" />
+    <None Include="Service References\PortalServiceReference\PortalService32.xsd" />
     <None Include="Service References\PortalServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\SODAPayPalSerRef\SODAPaypalService.disco" />
+    <None Include="Service References\PortalServiceReference\PortalService1.disco" />
+    <Content Include="Service References\PortalServiceReference\SODAPortalMvcApplication.PortalServiceReference.LicenseConsumption.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <None Include="Service References\SODAPayPalSerRef\configuration91.svcinfo" />
     <None Include="Service References\SODAPayPalSerRef\configuration.svcinfo" />
     <None Include="Service References\SODAPayPalSerRef\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\SODAPayPalSerRef\SODAPaypalService1.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -439,20 +453,12 @@
     <Content Include="Views\Admin\addsalescode.cshtml" />
     <Content Include="Views\Admin\editsalescode.cshtml" />
     <Content Include="Views\Admin\salescode.cshtml" />
-    <None Include="Service References\AccountServiceRef\AccountService.wsdl" />
-    <None Include="Service References\AccountServiceRef\AccountService.xsd" />
-    <None Include="Service References\AccountServiceRef\AccountService1.xsd" />
-    <None Include="Service References\AccountServiceRef\AccountService2.xsd" />
     <Content Include="Service References\AccountServiceRef\SODAPortalMvcApplication.AccountServiceRef.Account.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <Content Include="Views\User\indexpurchase.cshtml" />
     <Content Include="Views\User\paymentstatus.cshtml" />
     <Content Include="Views\User\termsinit.cshtml" />
-    <None Include="Service References\PortalServiceReference\PortalService.wsdl" />
-    <None Include="Service References\PortalServiceReference\PortalService.xsd" />
-    <None Include="Service References\PortalServiceReference\PortalService1.xsd" />
-    <None Include="Service References\PortalServiceReference\PortalService2.xsd" />
     <Content Include="Service References\PortalServiceReference\SODAPortalMvcApplication.PortalServiceReference.Customer.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -474,11 +480,6 @@
     <Content Include="Views\Admin\addMarketer.cshtml" />
     <Content Include="Views\Admin\editMarketer.cshtml" />
     <Content Include="Views\Admin\marketer.cshtml" />
-    <None Include="Service References\SODAPayPalSerRef\SODAPaypalService.wsdl" />
-    <None Include="Service References\SODAPayPalSerRef\SODAPaypalService.xsd" />
-    <None Include="Service References\SODAPayPalSerRef\SODAPaypalService2.xsd" />
-    <None Include="Service References\SODAPayPalSerRef\SODAPaypalService3.xsd" />
-    <None Include="Service References\SODAPayPalSerRef\SODAPaypalService4.xsd" />
     <Content Include="Service References\SODAPayPalSerRef\SODAPortalMvcApplication.SODAPayPalSerRef.RecuringProfileDetails.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -488,6 +489,11 @@
     <Content Include="Views\Home\forgotPassword.cshtml" />
     <Content Include="Views\Home\resetpassword.cshtml" />
     <Content Include="Views\Home\forgotpasswordemail.cshtml" />
+    <None Include="Service References\SODAPayPalSerRef\SODAPaypalService1.wsdl" />
+    <None Include="Service References\SODAPayPalSerRef\SODAPaypalService1.xsd" />
+    <None Include="Service References\SODAPayPalSerRef\SODAPaypalService11.xsd" />
+    <None Include="Service References\SODAPayPalSerRef\SODAPaypalService12.xsd" />
+    <None Include="Service References\SODAPayPalSerRef\SODAPaypalService13.xsd" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

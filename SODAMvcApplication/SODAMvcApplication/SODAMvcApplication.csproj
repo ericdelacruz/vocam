@@ -347,27 +347,27 @@
     <Content Include="Content\download\WHSE-AUS-PPS.pps" />
     <None Include="Properties\PublishProfiles\Daddy Main.pubxml" />
     <None Include="Properties\PublishProfiles\Pakaged Main.pubxml" />
-    <None Include="Service References\AccountServiceReference\AccountService.wsdl" />
-    <None Include="Service References\AccountServiceReference\AccountService.xsd" />
-    <None Include="Service References\AccountServiceReference\AccountService1.xsd" />
-    <None Include="Service References\AccountServiceReference\AccountService2.xsd" />
     <Content Include="RecaptchaNet.ReadMe.txt" />
     <Content Include="Scripts\jquery.colorbox.js" />
     <Content Include="Scripts\jquery.form.min.js" />
+    <None Include="Service References\AccountServiceReference\AccountService1.disco" />
     <Content Include="Service References\AccountServiceReference\SODAMvcApplication.AccountServiceReference.Account.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
-    <None Include="Service References\CategoriesServiceReference\CatListingService.wsdl" />
-    <None Include="Service References\CategoriesServiceReference\CatListingService.xsd" />
-    <None Include="Service References\CategoriesServiceReference\CatListingService2.xsd" />
-    <None Include="Service References\CategoriesServiceReference\CatListingService3.xsd" />
-    <None Include="Service References\AccountServiceReference\AccountService.disco" />
+    <None Include="Service References\AccountServiceReference\AccountService1.wsdl" />
+    <None Include="Service References\AccountServiceReference\AccountService3.xsd" />
+    <None Include="Service References\AccountServiceReference\AccountService31.xsd" />
+    <None Include="Service References\AccountServiceReference\AccountService32.xsd" />
+    <Content Include="Service References\AccountServiceReference\SODAMvcApplication.AccountServiceReference.ResetPassword.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <None Include="Service References\AccountServiceReference\configuration91.svcinfo" />
     <None Include="Service References\AccountServiceReference\configuration.svcinfo" />
     <None Include="Service References\AccountServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\CategoriesServiceReference\CatListingService1.disco" />
     <Content Include="Service References\CategoriesServiceReference\SODAMvcApplication.CategoriesServiceReference.Category.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -383,14 +383,20 @@
     <Content Include="Service References\CategoriesServiceReference\SODAMvcApplication.CategoriesServiceReference.CategoryAssignment.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
-    <None Include="Service References\CMSServiceReference\CMS_Service.disco" />
+    <None Include="Service References\CategoriesServiceReference\CatListingService1.wsdl" />
+    <None Include="Service References\CategoriesServiceReference\CatListingService1.xsd" />
+    <None Include="Service References\CategoriesServiceReference\CatListingService11.xsd" />
+    <None Include="Service References\CategoriesServiceReference\CatListingService12.xsd" />
+    <None Include="Service References\CMSServiceReference\CMS_Service1.wsdl" />
+    <None Include="Service References\CMSServiceReference\CMS_Service1.xsd" />
+    <None Include="Service References\CMSServiceReference\CMS_Service11.xsd" />
+    <None Include="Service References\CMSServiceReference\CMS_Service12.xsd" />
     <None Include="Service References\CMSServiceReference\configuration91.svcinfo" />
     <None Include="Service References\CMSServiceReference\configuration.svcinfo" />
     <None Include="Service References\CMSServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\CategoriesServiceReference\CatListingService.disco" />
     <None Include="Service References\CategoriesServiceReference\configuration91.svcinfo" />
     <None Include="Service References\CategoriesServiceReference\configuration.svcinfo" />
     <None Include="Service References\CategoriesServiceReference\Reference.svcmap">
@@ -401,16 +407,21 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery.backstretch.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <None Include="Service References\CMSServiceReference\CMS_Service1.disco" />
     <Content Include="Service References\CMSServiceReference\SODAMvcApplication.CMSServiceReference.Contact.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
-    <None Include="Service References\PortalServiceReference\PortalService.disco" />
     <None Include="Service References\PortalServiceReference\configuration91.svcinfo" />
     <None Include="Service References\PortalServiceReference\configuration.svcinfo" />
+    <None Include="Service References\PortalServiceReference\PortalService1.wsdl" />
+    <None Include="Service References\PortalServiceReference\PortalService3.xsd" />
+    <None Include="Service References\PortalServiceReference\PortalService31.xsd" />
+    <None Include="Service References\PortalServiceReference\PortalService32.xsd" />
     <None Include="Service References\PortalServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\PortalServiceReference\PortalService1.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -423,10 +434,6 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <None Include="Service References\CMSServiceReference\CMS_Service.wsdl" />
-    <None Include="Service References\CMSServiceReference\CMS_Service.xsd" />
-    <None Include="Service References\CMSServiceReference\CMS_Service2.xsd" />
-    <None Include="Service References\CMSServiceReference\CMS_Service3.xsd" />
     <Content Include="Views\home\index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -439,10 +446,6 @@
     <Content Include="Views\categories\browse.cshtml" />
     <Content Include="Views\categories\details.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <None Include="Service References\PortalServiceReference\PortalService.wsdl" />
-    <None Include="Service References\PortalServiceReference\PortalService.xsd" />
-    <None Include="Service References\PortalServiceReference\PortalService1.xsd" />
-    <None Include="Service References\PortalServiceReference\PortalService2.xsd" />
     <Content Include="Service References\PortalServiceReference\SODAMvcApplication.PortalServiceReference.Customer.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -511,9 +514,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51219</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:51219/</IISUrl>
-          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://localhost:51219/</IISAppRootUrl>
+          <IISUrl>http://localhost:51299/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
