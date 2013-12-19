@@ -5,6 +5,7 @@
     var TopicList = ViewBag.TopicList as IEnumerable<CMSMvcApplication.CatListingServiceReference.Topic>;
     var ChapterList = ViewBag.ChapterList as IEnumerable<CMSMvcApplication.CatListingServiceReference.Chapter>;
     var CAList = ViewBag.CAList as IEnumerable<CMSMvcApplication.CatListingServiceReference.Category>;
+    var regionList = ViewBag.regionList as IEnumerable<SelectListItem>;
    
 }
 
@@ -36,7 +37,7 @@
        @Html.ValidationSummary()
         
         <label>Region: </label><br />
-        <select id="" class="form-control" name="titleRegion" style="width: 300px !important; margin-bottom:10px; ">
+        @*<select id="" class="form-control" name="titleRegion" style="width: 300px !important; margin-bottom:10px; ">
             @if(Model.RegionId == 27)
             {
                 <option value="12">Australia</option>
@@ -47,7 +48,8 @@
                 <option value="12" selected>Australia</option>
                 <option value="27">GB</option>
             }
-        </select>
+        </select>*@
+        @Html.DropDownList("titleRegion", regionList, new { @class = "form-control", style = "width: 300px !important; margin-bottom:10px;" })
         <br />
         <label>Title*</label>
         <input type="text" class="form-control" value="@Model.Title" autofocus="" name="Title">

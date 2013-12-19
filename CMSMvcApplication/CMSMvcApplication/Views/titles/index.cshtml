@@ -1,8 +1,10 @@
 ﻿@model IEnumerable<CMSMvcApplication.ViewModels.Title>
 @{
     ViewBag.Title = "Index";
-    var webpageUrl = System.Configuration.ConfigurationManager.AppSettings["webpageURL"].ToString() == "" ? "http://localhost:51219" :
-                                          System.Configuration.ConfigurationManager.AppSettings["webpageURL"].ToString();
+    //var webpageUrl = System.Configuration.ConfigurationManager.AppSettings["webpageURL"].ToString() == "" ? "http://localhost:51219" :
+    //                                      System.Configuration.ConfigurationManager.AppSettings["webpageURL"].ToString();
+    
+    var regionList =  ViewBag.RegionList as IEnumerable<CMSMvcApplication.PortalServiceReference.Region>;
 }
 
 <h1 class="margin15">Titles <span><a href="@Url.Action("create")"><img src="/Content/images/cms/addNew.gif"></a></span></h1>
@@ -26,6 +28,7 @@
                    
                 {
                    
+                    var webpageUrl = regionList.Where(r=>r.Id == title.Specific.RegionId).First().WebsiteUrl;
                     <tr>
                         <td width="415" style="padding:5px;"> &nbsp; @title.Specific.Title</td>
                         <td width="100"><a href=@Url.Action("edit",new{id=title.Specific.Id})><img src="/Content/images/cms/edit.png"></a></td>

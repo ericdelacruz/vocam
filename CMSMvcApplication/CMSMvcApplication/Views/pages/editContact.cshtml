@@ -1,7 +1,8 @@
-﻿@model string
+﻿
 @{
     ViewBag.Title = "Contact";
     var regionList = ViewBag.RegionList as IEnumerable<SelectListItem>;
+    var phoneno = ViewBag.phoneno as string;
 }
 
 <h1 class="margin15">Edit Contact Page</h1>
@@ -16,10 +17,10 @@
             <option value="12">Australia</option>
             <option value="27">GB</option>
         </select>*@
-        @Html.DropDownList("region", regionList, new { @class = "form-control", style = "width: 300px !important; margin-bottom:10px;", onchange = "document.location.href = '/pages/edithome/' + this.options[this.selectedIndex].value;" })
+        @Html.DropDownList("region", regionList, new { @class = "form-control", style = "width: 300px !important; margin-bottom:10px;", onchange = "document.location.href = '/pages/editcontact/?region=' + this.options[this.selectedIndex].value;" })
         <br />
         <label>Phone Number</label>
-        <input type="text" class="form-control" placeholder="" name="Title" value="@Model" autofocus="">
+        <input type="text" class="form-control" placeholder="" name="PhoneNo" value="@phoneno" autofocus="">
         <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">UPDATE</button>
     }
 </div>

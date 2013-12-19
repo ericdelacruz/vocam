@@ -1,7 +1,8 @@
 ﻿@{
     ViewBag.Title = "Index";
-    var webpageUrl = System.Configuration.ConfigurationManager.AppSettings["webpageURL"].ToString() == "" ? "http://localhost:51219" :
-                                          System.Configuration.ConfigurationManager.AppSettings["webpageURL"].ToString();
+    //var webpageUrl = System.Configuration.ConfigurationManager.AppSettings["webpageURL"].ToString() == "" ? "http://localhost:51219" :
+    //                                      System.Configuration.ConfigurationManager.AppSettings["webpageURL"].ToString();
+    var webpageUrl = ViewBag.defaultRegion as CMSMvcApplication.PortalServiceReference.Region;
 }
 
 <h1 class="margin15">Pages</h1>
@@ -19,17 +20,17 @@
         <tr>
             <td width="415"> &nbsp; Home</td>
             <td width="100"><a href="@Url.Action("edithome", new {region="au" })"> <img src="/Content/images/cms/edit.png"></a></td>
-            <td width="100"><a href="@webpageUrl" target="_blank"><img src="/Content/images/cms/view.png"></a></td> @*todo: edit link to point to homepage link to Home*@
+            <td width="100"><a href="@webpageUrl.WebsiteUrl" target="_blank"><img src="/Content/images/cms/view.png"></a></td> @*todo: edit link to point to homepage link to Home*@
         </tr>
         <tr>
             <td width="415"> &nbsp; Contact</td>
-            <td width="100"><a href=@Url.Action("editContact")><img src="/Content/images/cms/edit.png"></a></td>
-            <td width="100"><img src="/Content/images/cms/view.png"></td>
+            <td width="100"><a href=@Url.Action("editContact", new { region = "au" })><img src="/Content/images/cms/edit.png"></a></td>
+            <td width="100"><a href="@webpageUrl.WebsiteUrl/home/contact"<img src="/Content/images/cms/view.png"></a></td>
         </tr>
         <tr>
             <td width="415"> &nbsp; Learn More</td>
-            <td width="100"><a href=@Url.Action("editlearnmore")><img src="/Content/images/cms/edit.png"></a></td>
-            <td width="100"><a href="@webpageUrl/home/learnmore" target="_blank"><img src="/Content/images/cms/view.png"></a></td>
+            <td width="100"><a href=@Url.Action("editlearnmore", new { region = "au" })><img src="/Content/images/cms/edit.png"></a></td>
+            <td width="100"><a href="@webpageUrl.WebsiteUrl/home/learnmore" target="_blank"><img src="/Content/images/cms/view.png"></a></td>
         </tr>
 
 
