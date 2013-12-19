@@ -53,7 +53,7 @@ namespace SODAwcfService
                 throw new FaultException("UserName already existing", new FaultCode("UserExists"));
             else
                 return AccountsTableAdapter.Insert(account.USERNAME, EncDec.EncryptData(account.PASSWORD), account.FirstName, account.LastName, account.Role, account.Status, account.Email, account.Address,
-                                                      account.City, account.Country,account.Gender.ToString(), account.ContactNo, account.Company, account.DateLogin, account.Birthdate, account.EmailVerified); 
+                                                      account.City, account.Country,account.Gender.ToString(), account.ContactNo, account.Company, account.DateLogin, account.Birthdate, account.EmailVerified,account.CompanyUrl); 
             
             //return AccountsTableAdapter.InsertAccount(account.USERNAME, EncDec.EncryptData(account.PASSWORD), account.FirstName, account.LastName, account.Role, account.Status, account.Email, account.Address,
             //    account.City, account.Country, account.Gender.ToString(), account.ContactNo, account.Company, account.DateLogin,account.Birthdate);
@@ -70,7 +70,7 @@ namespace SODAwcfService
             //                                          );
 
             return AccountsTableAdapter.UpdateAccount(account.FirstName, account.LastName, account.Role, account.Status, account.Email, account.Address,
-                account.City, account.Country, account.Gender.ToString(), account.ContactNo, account.Company, account.DateLogin, account.Birthdate, account.EmailVerified, account.USERNAME);
+                account.City, account.Country, account.Gender.ToString(), account.ContactNo, account.Company, account.DateLogin, account.Birthdate, account.EmailVerified, account.USERNAME,account.CompanyUrl);
         }
         /// <summary>
         /// Get Account record
@@ -113,7 +113,8 @@ namespace SODAwcfService
                     DateLogin = row["DateLogin"].ToString() == "" ? DateTime.Parse("1/1/1753 12:00:00 AM") : (DateTime)row["DateLogin"],
                     Id = (long) row["Id"],
                     Birthdate = row["Birthdate"].ToString()=="" ? DateTime.Parse("1/1/1753 12:00:00 AM"): (DateTime)row["Birthdate"],
-                    EmailVerified =(bool) row["EmailVerify"]
+                    EmailVerified =(bool) row["EmailVerify"],
+                    CompanyUrl = row["CompanyUrl"].ToString()
                 });
             }
             return listAccounts;
