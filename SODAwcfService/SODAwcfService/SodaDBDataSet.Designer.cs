@@ -994,6 +994,8 @@ namespace SODAwcfService {
             
             private global::System.Data.DataColumn columnEmailVerify;
             
+            private global::System.Data.DataColumn columnCompanyUrl;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public AccountsDataTable() {
@@ -1165,6 +1167,14 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn CompanyUrlColumn {
+                get {
+                    return this.columnCompanyUrl;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1216,7 +1226,8 @@ namespace SODAwcfService {
                         string Company, 
                         System.DateTime DateLogin, 
                         System.DateTime Birthdate, 
-                        bool EmailVerify) {
+                        bool EmailVerify, 
+                        string CompanyUrl) {
                 AccountsRow rowAccountsRow = ((AccountsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -1235,7 +1246,8 @@ namespace SODAwcfService {
                         Company,
                         DateLogin,
                         Birthdate,
-                        EmailVerify};
+                        EmailVerify,
+                        CompanyUrl};
                 rowAccountsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowAccountsRow);
                 return rowAccountsRow;
@@ -1282,6 +1294,7 @@ namespace SODAwcfService {
                 this.columnDateLogin = base.Columns["DateLogin"];
                 this.columnBirthdate = base.Columns["Birthdate"];
                 this.columnEmailVerify = base.Columns["EmailVerify"];
+                this.columnCompanyUrl = base.Columns["CompanyUrl"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1321,6 +1334,8 @@ namespace SODAwcfService {
                 base.Columns.Add(this.columnBirthdate);
                 this.columnEmailVerify = new global::System.Data.DataColumn("EmailVerify", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnEmailVerify);
+                this.columnCompanyUrl = new global::System.Data.DataColumn("CompanyUrl", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCompanyUrl);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -1348,6 +1363,7 @@ namespace SODAwcfService {
                 this.columnContactNo.MaxLength = 20;
                 this.columnCompany.MaxLength = 50;
                 this.columnEmailVerify.AllowDBNull = false;
+                this.columnCompanyUrl.MaxLength = 100;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4739,6 +4755,22 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string CompanyUrl {
+                get {
+                    if (this.IsCompanyUrlNull()) {
+                        return string.Empty;
+                    }
+                    else {
+                        return ((string)(this[this.tableAccounts.CompanyUrlColumn]));
+                    }
+                }
+                set {
+                    this[this.tableAccounts.CompanyUrlColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsAddressNull() {
                 return this.IsNull(this.tableAccounts.AddressColumn);
             }
@@ -4831,6 +4863,18 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetBirthdateNull() {
                 this[this.tableAccounts.BirthdateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsCompanyUrlNull() {
+                return this.IsNull(this.tableAccounts.CompanyUrlColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetCompanyUrlNull() {
+                this[this.tableAccounts.CompanyUrlColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7155,6 +7199,7 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("DateLogin", "DateLogin");
             tableMapping.ColumnMappings.Add("Birthdate", "Birthdate");
             tableMapping.ColumnMappings.Add("EmailVerify", "EmailVerify");
+            tableMapping.ColumnMappings.Add("CompanyUrl", "CompanyUrl");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -7163,7 +7208,7 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Accounts] ([USERNAME], [PASSWORD], [FirstName], [LastName], [Role], [Status], [Email], [Address], [City], [Country], [Gender], [ContactNo], [Company], [DateLogin], [Birthdate], [EmailVerify]) VALUES (@USERNAME, @PASSWORD, @FirstName, @LastName, @Role, @Status, @Email, @Address, @City, @Country, @Gender, @ContactNo, @Company, @DateLogin, @Birthdate, @EmailVerify)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Accounts] ([USERNAME], [PASSWORD], [FirstName], [LastName], [Role], [Status], [Email], [Address], [City], [Country], [Gender], [ContactNo], [Company], [DateLogin], [Birthdate], [EmailVerify], [CompanyUrl]) VALUES (@USERNAME, @PASSWORD, @FirstName, @LastName, @Role, @Status, @Email, @Address, @City, @Country, @Gender, @ContactNo, @Company, @DateLogin, @Birthdate, @EmailVerify, @CompanyUrl)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@USERNAME", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "USERNAME", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PASSWORD", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PASSWORD", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -7181,9 +7226,10 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DateLogin", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DateLogin", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Birthdate", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Birthdate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@EmailVerify", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EmailVerify", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CompanyUrl", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CompanyUrl", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [Accounts] SET [USERNAME] = @USERNAME, [PASSWORD] = @PASSWORD, [FirstName] = @FirstName, [LastName] = @LastName, [Role] = @Role, [Status] = @Status, [Email] = @Email, [Address] = @Address, [City] = @City, [Country] = @Country, [Gender] = @Gender, [ContactNo] = @ContactNo, [Company] = @Company, [DateLogin] = @DateLogin, [Birthdate] = @Birthdate, [EmailVerify] = @EmailVerify WHERE (([Id] = @Original_Id))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [Accounts] SET [USERNAME] = @USERNAME, [PASSWORD] = @PASSWORD, [FirstName] = @FirstName, [LastName] = @LastName, [Role] = @Role, [Status] = @Status, [Email] = @Email, [Address] = @Address, [City] = @City, [Country] = @Country, [Gender] = @Gender, [ContactNo] = @ContactNo, [Company] = @Company, [DateLogin] = @DateLogin, [Birthdate] = @Birthdate, [EmailVerify] = @EmailVerify, [CompanyUrl] = @CompanyUrl WHERE (([Id] = @Original_Id))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@USERNAME", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "USERNAME", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PASSWORD", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PASSWORD", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -7201,6 +7247,7 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DateLogin", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DateLogin", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Birthdate", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Birthdate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@EmailVerify", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EmailVerify", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CompanyUrl", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CompanyUrl", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
@@ -7271,6 +7318,7 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
             this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Birthdate", global::System.Data.SqlDbType.Date, 3, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@EmailVerify", global::System.Data.SqlDbType.Bit, 1, global::System.Data.ParameterDirection.Input, 1, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@USERNAME", global::System.Data.SqlDbType.VarChar, 30, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CompanyUrl", global::System.Data.SqlDbType.VarChar, 100, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[5] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[5].Connection = this.Connection;
             this._commandCollection[5].CommandText = "dbo.UpdateAccountPassword";
@@ -7418,7 +7466,8 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
                     string Company, 
                     global::System.Nullable<global::System.DateTime> DateLogin, 
                     global::System.Nullable<global::System.DateTime> Birthdate, 
-                    bool EmailVerify) {
+                    bool EmailVerify, 
+                    string CompanyUrl) {
             if ((USERNAME == null)) {
                 throw new global::System.ArgumentNullException("USERNAME");
             }
@@ -7500,6 +7549,12 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
                 this.Adapter.InsertCommand.Parameters[14].Value = global::System.DBNull.Value;
             }
             this.Adapter.InsertCommand.Parameters[15].Value = ((bool)(EmailVerify));
+            if ((CompanyUrl == null)) {
+                this.Adapter.InsertCommand.Parameters[16].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[16].Value = ((string)(CompanyUrl));
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -7537,6 +7592,7 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
                     global::System.Nullable<global::System.DateTime> DateLogin, 
                     global::System.Nullable<global::System.DateTime> Birthdate, 
                     bool EmailVerify, 
+                    string CompanyUrl, 
                     long Original_Id) {
             if ((USERNAME == null)) {
                 throw new global::System.ArgumentNullException("USERNAME");
@@ -7619,7 +7675,13 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
                 this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
             }
             this.Adapter.UpdateCommand.Parameters[15].Value = ((bool)(EmailVerify));
-            this.Adapter.UpdateCommand.Parameters[16].Value = ((long)(Original_Id));
+            if ((CompanyUrl == null)) {
+                this.Adapter.UpdateCommand.Parameters[16].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((string)(CompanyUrl));
+            }
+            this.Adapter.UpdateCommand.Parameters[17].Value = ((long)(Original_Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -7782,7 +7844,23 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
-        public virtual int UpdateAccount(string FirstName, string LastName, global::System.Nullable<int> Role, global::System.Nullable<short> Status, string Email, string Address, string City, string Country, string Gender, string ContactNo, string Company, global::System.Nullable<global::System.DateTime> DateLogIn, global::System.Nullable<global::System.DateTime> Birthdate, global::System.Nullable<bool> EmailVerify, string USERNAME) {
+        public virtual int UpdateAccount(
+                    string FirstName, 
+                    string LastName, 
+                    global::System.Nullable<int> Role, 
+                    global::System.Nullable<short> Status, 
+                    string Email, 
+                    string Address, 
+                    string City, 
+                    string Country, 
+                    string Gender, 
+                    string ContactNo, 
+                    string Company, 
+                    global::System.Nullable<global::System.DateTime> DateLogIn, 
+                    global::System.Nullable<global::System.DateTime> Birthdate, 
+                    global::System.Nullable<bool> EmailVerify, 
+                    string USERNAME, 
+                    string CompanyUrl) {
             global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[4];
             if ((FirstName == null)) {
                 command.Parameters[1].Value = global::System.DBNull.Value;
@@ -7873,6 +7951,12 @@ namespace SODAwcfService.SodaDBDataSetTableAdapters {
             }
             else {
                 command.Parameters[15].Value = ((string)(USERNAME));
+            }
+            if ((CompanyUrl == null)) {
+                command.Parameters[16].Value = global::System.DBNull.Value;
+            }
+            else {
+                command.Parameters[16].Value = ((string)(CompanyUrl));
             }
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
