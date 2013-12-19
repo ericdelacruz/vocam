@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var contact = Session["PhoneNo"] as string;
+}
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -36,8 +39,15 @@
             <div class="col-md-2"><a href="@Url.Action("index","home")"><img class="logo" src="~/Content/images/safetyOnDemand-logo.jpg" alt="Safety On Demand"></a></div>
             <div class="col-md-10">
                 <div class="headerRight">
-                    <div class="call"><span class="calltxt">CALL</span> 03 9809 7777</div>
-                    <div class="socialBtns clearfix">
+                @if(contact != null)
+                {     
+                    <div class="call"><span class="calltxt">CALL</span>@contact</div>
+                }
+                else
+                {
+                     <div class="call"><span class="calltxt">CALL</span> 03 9809 7777</div>
+                }
+                  <div class="socialBtns clearfix">
 
                         @*<ul>
                             <li><a class="socialTwitter" href="#">twitter</a></li>

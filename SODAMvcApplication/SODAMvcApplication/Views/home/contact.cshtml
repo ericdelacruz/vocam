@@ -4,6 +4,7 @@
     ViewBag.Description = "";
     ViewBag.Keywords = "";
     ViewBag.CurPage = "Contact";
+    var phoneNo = Session["PhoneNo"] as string;
 }
 @using Recaptcha.Web.Mvc;
 <div class="commonSection commonSection2" >
@@ -12,10 +13,20 @@
 
         <div class="marginCommon contactFormCont border">
             <div class="contentHeading videoHead headCommonh1">
-                Contact Safety-TV. Email or Call   <span class="fontColor">
-                    03 8877 7100
-                </span>
-                <p>Please fill in your details and one of our sales consultants will be in touch as soon as possible.</p>
+                Contact Safety-TV. Email or Call   
+                @if(phoneNo != null)
+                { 
+                    <span class="fontColor">
+                       @phoneNo
+                    </span>
+                }
+                else
+                {
+                    <span class="fontColor">
+                        03 8877 7100
+                    </span>
+                }
+                    <p>Please fill in your details and one of our sales consultants will be in touch as soon as possible.</p>
             </div>
             @if (TempData["MsgSent"] != null)
 {
