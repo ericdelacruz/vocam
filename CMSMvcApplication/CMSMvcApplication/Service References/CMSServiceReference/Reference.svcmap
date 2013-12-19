@@ -18,14 +18,14 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:50615/CMS_Service.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:50620/CMS_Service.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="CMS_Service.disco" MetadataType="Disco" ID="d5c9f277-e0a5-4f6c-a59b-bf7644b775f1" SourceId="1" SourceUrl="http://localhost:50615/CMS_Service.svc?disco" />
-    <MetadataFile FileName="CMS_Service.wsdl" MetadataType="Wsdl" ID="5369939e-2cee-414d-805e-db11c930294a" SourceId="1" SourceUrl="http://localhost:50615/CMS_Service.svc?wsdl" />
-    <MetadataFile FileName="CMS_Service.xsd" MetadataType="Schema" ID="3da10b9f-b62d-4862-b291-ef995456a234" SourceId="1" SourceUrl="http://localhost:50615/CMS_Service.svc?xsd=xsd1" />
-    <MetadataFile FileName="CMS_Service1.xsd" MetadataType="Schema" ID="6045d898-d5ce-4a04-9b36-390555073e01" SourceId="1" SourceUrl="http://localhost:50615/CMS_Service.svc?xsd=xsd0" />
-    <MetadataFile FileName="CMS_Service2.xsd" MetadataType="Schema" ID="74fa2ece-96c3-42ba-a0bf-bf980897cf6b" SourceId="1" SourceUrl="http://localhost:50615/CMS_Service.svc?xsd=xsd2" />
+    <MetadataFile FileName="CMS_Service1.wsdl" MetadataType="Wsdl" ID="b5bd1ad3-c423-41d8-b167-e10ffc7ca4b3" SourceId="1" SourceUrl="http://localhost:50620/CMS_Service.svc?wsdl" />
+    <MetadataFile FileName="CMS_Service1.disco" MetadataType="Disco" ID="a3e37858-2b98-47e9-a397-b2157b30949a" SourceId="1" SourceUrl="http://localhost:50620/CMS_Service.svc?disco" />
+    <MetadataFile FileName="CMS_Service3.xsd" MetadataType="Schema" ID="7fe3a797-987d-4d09-91bd-68c8e0aa516a" SourceId="1" SourceUrl="http://localhost:50620/CMS_Service.svc?xsd=xsd2" />
+    <MetadataFile FileName="CMS_Service31.xsd" MetadataType="Schema" ID="5a620aa0-a102-4fe9-891a-77643457af0a" SourceId="1" SourceUrl="http://localhost:50620/CMS_Service.svc?xsd=xsd1" />
+    <MetadataFile FileName="CMS_Service32.xsd" MetadataType="Schema" ID="465862c5-a06b-44bf-ad37-625f526aae4f" SourceId="1" SourceUrl="http://localhost:50620/CMS_Service.svc?xsd=xsd0" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

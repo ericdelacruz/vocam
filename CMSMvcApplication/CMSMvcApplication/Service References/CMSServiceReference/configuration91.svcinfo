@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="pEUqjwA105Wzt5uMU2A888riD2o=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="5E6P72IJ5dalJZ2iTPawQ1mTGFo=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="BasicHttpBinding_ICMS_Service">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="BasicHttpBinding_ICMS_Service" contract="CMSServiceReference.ICMS_Service" bindingType="basicHttpBinding" address="http://localhost:50615/CMS_Service.svc" bindingConfiguration="BasicHttpBinding_ICMS_Service">
+    <endpoint name="BasicHttpBinding_ICMS_Service" contract="CMSServiceReference.ICMS_Service" bindingType="basicHttpBinding" address="http://localhost:50620/CMS_Service.svc" bindingConfiguration="BasicHttpBinding_ICMS_Service">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://localhost:50615/CMS_Service.svc</serializedValue>
+          <serializedValue>http://localhost:50620/CMS_Service.svc</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

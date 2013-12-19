@@ -35,6 +35,9 @@ namespace CMSMvcApplication.AccountServiceReference {
         private string CompanyField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CompanyUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ContactNoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -45,6 +48,9 @@ namespace CMSMvcApplication.AccountServiceReference {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string EmailField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EmailVerifiedField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FirstNameField;
@@ -133,6 +139,19 @@ namespace CMSMvcApplication.AccountServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompanyUrl {
+            get {
+                return this.CompanyUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompanyUrlField, value) != true)) {
+                    this.CompanyUrlField = value;
+                    this.RaisePropertyChanged("CompanyUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string ContactNo {
             get {
                 return this.ContactNoField;
@@ -180,6 +199,19 @@ namespace CMSMvcApplication.AccountServiceReference {
                 if ((object.ReferenceEquals(this.EmailField, value) != true)) {
                     this.EmailField = value;
                     this.RaisePropertyChanged("Email");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EmailVerified {
+            get {
+                return this.EmailVerifiedField;
+            }
+            set {
+                if ((this.EmailVerifiedField.Equals(value) != true)) {
+                    this.EmailVerifiedField = value;
+                    this.RaisePropertyChanged("EmailVerified");
                 }
             }
         }
@@ -298,6 +330,131 @@ namespace CMSMvcApplication.AccountServiceReference {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ResetPassword", Namespace="http://schemas.datacontract.org/2004/07/SODAwcfService.Models")]
+    [System.SerializableAttribute()]
+    public partial class ResetPassword : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long UserIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime dateExField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime dateSentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool isVerifiedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string keyField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long UserId {
+            get {
+                return this.UserIdField;
+            }
+            set {
+                if ((this.UserIdField.Equals(value) != true)) {
+                    this.UserIdField = value;
+                    this.RaisePropertyChanged("UserId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime dateEx {
+            get {
+                return this.dateExField;
+            }
+            set {
+                if ((this.dateExField.Equals(value) != true)) {
+                    this.dateExField = value;
+                    this.RaisePropertyChanged("dateEx");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime dateSent {
+            get {
+                return this.dateSentField;
+            }
+            set {
+                if ((this.dateSentField.Equals(value) != true)) {
+                    this.dateSentField = value;
+                    this.RaisePropertyChanged("dateSent");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool isVerified {
+            get {
+                return this.isVerifiedField;
+            }
+            set {
+                if ((this.isVerifiedField.Equals(value) != true)) {
+                    this.isVerifiedField = value;
+                    this.RaisePropertyChanged("isVerified");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string key {
+            get {
+                return this.keyField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.keyField, value) != true)) {
+                    this.keyField = value;
+                    this.RaisePropertyChanged("key");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="AccountServiceReference.IAccountService")]
     public interface IAccountService {
@@ -320,14 +477,26 @@ namespace CMSMvcApplication.AccountServiceReference {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/isUserNameExists", ReplyAction="http://tempuri.org/IAccountService/isUserNameExistsResponse")]
         bool isUserNameExists(string UserName);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/sendEmailForPassword", ReplyAction="http://tempuri.org/IAccountService/sendEmailForPasswordResponse")]
-        bool sendEmailForPassword(CMSMvcApplication.AccountServiceReference.Account account);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/addResetPassword", ReplyAction="http://tempuri.org/IAccountService/addResetPasswordResponse")]
+        int addResetPassword(string key, System.DateTime dateSent, System.DateTime dateEx, long UserId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/getRestPassword", ReplyAction="http://tempuri.org/IAccountService/getRestPasswordResponse")]
+        CMSMvcApplication.AccountServiceReference.ResetPassword[] getRestPassword();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/updateResetPassword", ReplyAction="http://tempuri.org/IAccountService/updateResetPasswordResponse")]
+        int updateResetPassword(CMSMvcApplication.AccountServiceReference.ResetPassword resetPass);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/deleteResetPassword", ReplyAction="http://tempuri.org/IAccountService/deleteResetPasswordResponse")]
+        int deleteResetPassword(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/Authenticate", ReplyAction="http://tempuri.org/IAccountService/AuthenticateResponse")]
         bool Authenticate(string Password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/LogOff", ReplyAction="http://tempuri.org/IAccountService/LogOffResponse")]
         void LogOff(string UserName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/updatePassword", ReplyAction="http://tempuri.org/IAccountService/updatePasswordResponse")]
+        bool updatePassword(long userID, string orig_pass, string new_pass);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -381,8 +550,20 @@ namespace CMSMvcApplication.AccountServiceReference {
             return base.Channel.isUserNameExists(UserName);
         }
         
-        public bool sendEmailForPassword(CMSMvcApplication.AccountServiceReference.Account account) {
-            return base.Channel.sendEmailForPassword(account);
+        public int addResetPassword(string key, System.DateTime dateSent, System.DateTime dateEx, long UserId) {
+            return base.Channel.addResetPassword(key, dateSent, dateEx, UserId);
+        }
+        
+        public CMSMvcApplication.AccountServiceReference.ResetPassword[] getRestPassword() {
+            return base.Channel.getRestPassword();
+        }
+        
+        public int updateResetPassword(CMSMvcApplication.AccountServiceReference.ResetPassword resetPass) {
+            return base.Channel.updateResetPassword(resetPass);
+        }
+        
+        public int deleteResetPassword(int id) {
+            return base.Channel.deleteResetPassword(id);
         }
         
         public bool Authenticate(string Password) {
@@ -391,6 +572,10 @@ namespace CMSMvcApplication.AccountServiceReference {
         
         public void LogOff(string UserName) {
             base.Channel.LogOff(UserName);
+        }
+        
+        public bool updatePassword(long userID, string orig_pass, string new_pass) {
+            return base.Channel.updatePassword(userID, orig_pass, new_pass);
         }
     }
 }
