@@ -298,21 +298,24 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\_references.js" />
-    <None Include="Service References\AccountServiceReference\AccountService.wsdl" />
-    <None Include="Service References\AccountServiceReference\AccountService.xsd" />
-    <None Include="Service References\AccountServiceReference\AccountService1.xsd" />
-    <None Include="Service References\AccountServiceReference\AccountService2.xsd" />
+    <None Include="Service References\AccountServiceReference\AccountService1.disco" />
     <Content Include="Service References\AccountServiceReference\CMSMvcApplication.AccountServiceReference.Account.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
-    <None Include="Service References\CatListingServiceReference\CatListingService.disco" />
-    <None Include="Service References\AccountServiceReference\AccountService.disco" />
+    <None Include="Service References\AccountServiceReference\AccountService1.wsdl" />
+    <None Include="Service References\AccountServiceReference\AccountService3.xsd" />
+    <None Include="Service References\AccountServiceReference\AccountService31.xsd" />
+    <None Include="Service References\AccountServiceReference\AccountService32.xsd" />
+    <Content Include="Service References\AccountServiceReference\CMSMvcApplication.AccountServiceReference.ResetPassword.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <None Include="Service References\AccountServiceReference\configuration91.svcinfo" />
     <None Include="Service References\AccountServiceReference\configuration.svcinfo" />
     <None Include="Service References\AccountServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\CatListingServiceReference\CatListingService1.disco" />
     <Content Include="Service References\CatListingServiceReference\CMSMvcApplication.CatListingServiceReference.Category.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -328,6 +331,10 @@
     <Content Include="Service References\CatListingServiceReference\CMSMvcApplication.CatListingServiceReference.CategoryAssignment.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <None Include="Service References\CatListingServiceReference\CatListingService1.wsdl" />
+    <None Include="Service References\CatListingServiceReference\CatListingService3.xsd" />
+    <None Include="Service References\CatListingServiceReference\CatListingService31.xsd" />
+    <None Include="Service References\CatListingServiceReference\CatListingService32.xsd" />
     <None Include="Service References\CatListingServiceReference\configuration91.svcinfo" />
     <None Include="Service References\CatListingServiceReference\configuration.svcinfo" />
     <None Include="Service References\CatListingServiceReference\Reference.svcmap">
@@ -337,20 +344,20 @@
     <Content Include="Service References\CMSServiceReference\CMSMvcApplication.CMSServiceReference.ContentDef.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
-    <None Include="Service References\CatListingServiceReference\CatListingService.wsdl" />
-    <None Include="Service References\CatListingServiceReference\CatListingService.xsd" />
-    <None Include="Service References\CatListingServiceReference\CatListingService1.xsd" />
-    <None Include="Service References\CatListingServiceReference\CatListingService2.xsd" />
     <Content Include="Service References\CMSServiceReference\CMSMvcApplication.CMSServiceReference.Contact.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
-    <None Include="Service References\CMSServiceReference\CMS_Service.disco" />
+    <None Include="Service References\CMSServiceReference\CMS_Service1.wsdl" />
+    <None Include="Service References\CMSServiceReference\CMS_Service3.xsd" />
+    <None Include="Service References\CMSServiceReference\CMS_Service31.xsd" />
+    <None Include="Service References\CMSServiceReference\CMS_Service32.xsd" />
     <None Include="Service References\CMSServiceReference\configuration91.svcinfo" />
     <None Include="Service References\CMSServiceReference\configuration.svcinfo" />
     <None Include="Service References\CMSServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\CMSServiceReference\CMS_Service1.disco" />
     <Content Include="Service References\PortalServiceReference\CMSMvcApplication.PortalServiceReference.Customer.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -387,10 +394,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <None Include="Service References\CMSServiceReference\CMS_Service.wsdl" />
-    <None Include="Service References\CMSServiceReference\CMS_Service.xsd" />
-    <None Include="Service References\CMSServiceReference\CMS_Service1.xsd" />
-    <None Include="Service References\CMSServiceReference\CMS_Service2.xsd" />
     <Content Include="Views\home\index.cshtml">
       <BrowseToURL>~/home/index</BrowseToURL>
     </Content>
