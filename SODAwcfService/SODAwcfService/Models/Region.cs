@@ -11,5 +11,7 @@ namespace SODAwcfService.Models
         public string RegionName { get; set; }
 
         public string Currency { get; set; }
+
+        public string WebsiteUrl { get; set; }
     }
 }

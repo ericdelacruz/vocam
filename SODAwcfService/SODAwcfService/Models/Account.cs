@@ -44,5 +44,7 @@ namespace SODAwcfService.Models
 
         [DataMember]
         public bool EmailVerified { get; set; }
+        [DataMember]
+        public string CompanyUrl { get; set; }
     }
 }
