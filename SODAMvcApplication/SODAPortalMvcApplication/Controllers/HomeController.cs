@@ -192,7 +192,7 @@ namespace SODAPortalMvcApplication.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Error! Account doesn't exist.");
+                    ModelState.AddModelError("", "Error! Account does not exist.");
                     return View();
                 }
             }
@@ -239,7 +239,7 @@ namespace SODAPortalMvcApplication.Controllers
               }
               else
               {
-                  ModelState.AddModelError("", "Password doesnot match please try again");
+                  ModelState.AddModelError("", "Password does not match! Please try again.");
                   return View();
               }
         }
