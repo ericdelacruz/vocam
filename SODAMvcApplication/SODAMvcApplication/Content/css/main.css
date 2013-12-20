@@ -202,7 +202,7 @@ header {
 
 /* Media Queries - Tablet Portrait (768px - 980px) */
 @media only screen and (min-width:768px) and (max-width:980px){
-	.arrowActive {top:28px !important;}
+	.arrowActive {top:32px !important;}
 	.thumbPost {margin:3%;}
 	.moreLBtn {float: left;}
 	.leftJt img {padding-left:10% !important;}
