@@ -192,7 +192,7 @@ namespace SODAPortalMvcApplication.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Error account doesn't exists");
+                    ModelState.AddModelError("", "Error! Account doesn't exist.");
                     return View();
                 }
             }
