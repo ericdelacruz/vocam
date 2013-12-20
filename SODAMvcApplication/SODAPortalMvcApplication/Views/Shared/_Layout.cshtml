@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var RequestUrl = Request.Url.Host;
+    var mainSiteUrl = RequestUrl.Contains("portal") ? RequestUrl.Replace("portal", "www") : "http://localhost:51299/";
+}
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -23,7 +27,8 @@
     <![endif]-->
     <header>
         <div class="container row">
-            <div class="col-md-2"><a target="_blank" href="http://sac-iis.com/"><img class="logo" src="~/Content/images/safetyOnDemand-logo.jpg" alt="Safety On Demand"></a></div>
+            @*<div class="col-md-2"><a target="_blank" href="http://sac-iis.com/"><img class="logo" src="~/Content/images/safetyOnDemand-logo.jpg" alt="Safety On Demand"></a></div>*@
+            <div class="col-md-2"><a target="_blank" href="@mainSiteUrl"><img class="logo" src="~/Content/images/safetyOnDemand-logo.jpg" alt="Safety On Demand"></a></div>
             <div class="headerRight fr col-md-10">
                 <div class="call"><span class="calltxt">CALL</span> 03 9809 7777</div>
                 
@@ -41,7 +46,7 @@
 
 
     <footer>
-        <div class="whitespace container row">
+        @*<div class="whitespace container row">
             <div class="col-md-2"><a target="_blank" href="http://sac-iis.com/"><img src="/Content/images/safetyOnDemand-logoFooter.jpg" alt="Safety On Demand"></a></div>
             <div align="right" class="ftrLinks col-md-10">
                 <div class="clearfix">
@@ -50,6 +55,21 @@
                         <li><a target="_blank" href="http://www.sac-iis.com/home/contact">CONTACT</a></li>
                         <li><a target="_blank" href="http://www.sac-iis.com/home/sitemap">SITEMAP</a></li>
                         <li><a target="_blank" href="http://www.sac-iis.com/home/legals">LEGALS</a></li>
+                    </ul>
+                </div>
+                <div class="clearfix"><span>Copyright &copy; 2013</span></div>
+            </div>
+        </div>*@
+
+        <div class="whitespace container row">
+            <div class="col-md-2"><a target="_blank" href="http://sac-iis.com/"><img src="/Content/images/safetyOnDemand-logoFooter.jpg" alt="Safety On Demand"></a></div>
+            <div align="right" class="ftrLinks col-md-10">
+                <div class="clearfix">
+                    <ul>
+                        <li><a target="_blank" href="@mainSiteUrl">HOME</a></li>
+                        <li><a target="_blank" href="@mainSiteUrl/home/contact">CONTACT</a></li>
+                        <li><a target="_blank" href="@mainSiteUrl/home/sitemap">SITEMAP</a></li>
+                        <li><a target="_blank" href="@mainSiteUrl/home/legals">LEGALS</a></li>
                     </ul>
                 </div>
                 <div class="clearfix"><span>Copyright &copy; 2013</span></div>

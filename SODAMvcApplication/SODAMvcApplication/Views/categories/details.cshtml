@@ -8,6 +8,7 @@
 
     var related = ViewBag.Related as IEnumerable<SODAMvcApplication.CategoriesServiceReference.Specific>;
     var selCat = ViewBag.SelCategory as SODAMvcApplication.CategoriesServiceReference.Category;
+    var portalUrl = Session["PortalUrl"] as string;
     ViewBag.CurPage = "Category";
 }
 
@@ -16,7 +17,7 @@
         <div class="margin15" id="catName">Category &nbsp; <span class="glyphicon glyphicon-play"></span>&nbsp; <span id="active2">@selCat.CategoryName</span></div>
         <div class="row">
             <h1 class="col-md-8" id="titleName" style="margin-bottom:10px;">@Model.Title</h1>
-            <a href="http://portal.sac-iis.com/" class="purchaseBtn fr col-md-4">Purchase</a>
+            <a href="@portalUrl" class="purchaseBtn fr col-md-4">Purchase</a>
         </div>
 
         <div align="center" class="videoArea">
@@ -62,7 +63,9 @@
 
 
             <div class="purchBrowse clearfix">
-                <a href="http://portal.sac-iis.com/" class="purchaseBtn2 fl">Purchase</a>
+                @*<a href="http://portal.sac-iis.com/" class="purchaseBtn2 fl">Purchase</a>*@
+                <a href="@portalUrl" class="purchaseBtn2 fl">Purchase</a>
+                
                 <a href="@Url.Action("index","categories")" class="browseCatBtn fr">Browse Category</a>
             </div>
         </div>

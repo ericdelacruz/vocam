@@ -40,7 +40,8 @@ namespace SODAMvcApplication.Controllers
                                    where region.RegionName.ToLower() == Region.ToLower()
                                    select content;
 
-              var contact = cmsServiceClient.getContent(CONTACT,"PhoneNo").First().Value;
+              var contact = cmsServiceClient.getContent(CONTACT,"PhoneNo").Where(cms=>cms.RegionId == filterByRegion.First().RegionId).First().Value;
+              Session.Add("PortalUrl", filterByRegion.Where(c => c.SectionName == "PortalUrl").First().Value);
               Session.Add("PhoneNo", contact);   
             return View(filterByRegion);
         }

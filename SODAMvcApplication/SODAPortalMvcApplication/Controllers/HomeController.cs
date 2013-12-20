@@ -10,9 +10,8 @@ namespace SODAPortalMvcApplication.Controllers
     public class HomeController : Controller
     {
         private AccountServiceRef.AccountServiceClient accountClient = new AccountServiceRef.AccountServiceClient();
-        private static string CMSURL = System.Configuration.ConfigurationManager.AppSettings["CMSURL"].ToString() == ""? "http://localhost:56146/":
-                                       System.Configuration.ConfigurationManager.AppSettings["CMSURL"].ToString();
         
+     
         public ActionResult Index()
         {
            
@@ -29,6 +28,7 @@ namespace SODAPortalMvcApplication.Controllers
         public ActionResult Index(FormCollection collection)
         {
 
+            string cmsurl = Request.Url.Host.Replace("portal","cms");
             if (accountClient.AuthenticateUser(collection["Username"], collection["Password"].Split(',')[0]))
             {
                 Session.Add("Username", collection["Username"]);
@@ -37,7 +37,7 @@ namespace SODAPortalMvcApplication.Controllers
                 {
                     case 0: return RedirectToAction("Index", "Admin");
 
-                    case 1: return Redirect(string.Format(CMSURL, collection["Username"]));
+                    case 1: return Redirect(string.Format(cmsurl, collection["Username"]));
 
                     case 2:
                         if (account.EmailVerified)

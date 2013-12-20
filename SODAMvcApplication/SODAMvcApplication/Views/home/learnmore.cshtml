@@ -16,6 +16,7 @@
     ViewBag.Description = "";
     ViewBag.Keywords = "";
     ViewBag.CurPage = "LearnMore";
+    var portalUrl = Session["PortalUrl"] as string;
 }
 
     <div class="commonSection">
@@ -42,9 +43,9 @@
                 </div>
             </div>
             <div align="right" class="col-md-6 fr marginCommon">
-                <a class="purchaseNowbigBtn" href="http://portal.sac-iis.com/">PURCHASE NOW</a>
+                <a class="purchaseNowbigBtn" href="@portalUrl">PURCHASE NOW</a>
 
-                <a href="http://portal.sac-iis.com/"><img src=@getVal("LearnMore_IMG_href","href") alt="Browse Categories"></a>
+                <a href="@portalUrl"><img src=@getVal("LearnMore_IMG_href","href") alt="Browse Categories"></a>
                 <p><br><br><br></p>
             </div>
         </div>
