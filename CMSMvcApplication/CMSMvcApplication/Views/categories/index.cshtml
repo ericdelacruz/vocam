@@ -1,8 +1,9 @@
 ﻿@model IEnumerable<CMSMvcApplication.CatListingServiceReference.Category>
 @{
     ViewBag.Title = "Index";
-    var webpageUrl = System.Configuration.ConfigurationManager.AppSettings["webpageURL"].ToString() == "" ? "http://localhost:51219" :
-                                          System.Configuration.ConfigurationManager.AppSettings["webpageURL"].ToString();
+    //var webpageUrl = System.Configuration.ConfigurationManager.AppSettings["webpageURL"].ToString() == "" ? "http://localhost:51219" :
+    //                                      System.Configuration.ConfigurationManager.AppSettings["webpageURL"].ToString();
+    var webpageUrl = ViewBag.defaultRegion as CMSMvcApplication.PortalServiceReference.Region;
 }
 
 <h1 class="margin15">Categories <span><a href="@Url.Action("create")"><img src="/Content/images/cms/addNew.gif"></a></span></h1>
@@ -22,11 +23,12 @@
             <tbody>
                 @foreach (var cat in Model)
                 {
-                    <tr>
+                   
+                     <tr>
                         <td width="415">&nbsp; @cat.CategoryName</td>
                         <td width="100"><a href=@Url.Action("edit",new{id=cat.CategoryId})><img src="~/Content/images/cms/edit.png"></a></td>
                         <td width="100"><a onclick="return confirm('Are you sure you want to delete the item?');" href=@Url.Action("delete",new{id=cat.CategoryId})><img src="/Content/images/cms/delete.png"></a></td>
-                        <td width="100"> <a target="_blank" href="@webpageUrl/categories/browse/@cat.CategoryName.ToLower().Replace(" ","-")"><img src="/Content/images/cms/view.png"> </a></td>
+                        <td width="100"> <a target="_blank" href="@webpageUrl.WebsiteUrl/categories/browse/@cat.CategoryName.ToLower().Replace(" ","-")"><img src="/Content/images/cms/view.png"> </a></td>
                     </tr>
                 }
 

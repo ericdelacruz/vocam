@@ -16,18 +16,12 @@ namespace CMSMvcApplication.Controllers
         public ActionResult Index()
         {
             
-            //AccountServiceReference.Account account;
-            //if (!string.IsNullOrEmpty(user) && (account = accountClient.getAccount(user).First()).Status == 1 && account.Role == 0)
-            //{
-            //    Session.Add("Username", user);
-            //    return View();
-            //}
-            //else
-            //    return Redirect(portalURL);
             if (Session["Username"] != null)
                 return View();
             else
                 return RedirectToAction("login");
+
+           
         }
         public ActionResult login()
         {

@@ -9,7 +9,7 @@ namespace CMSMvcApplication.Controllers
     public class CategoriesController : Controller
     {
         CatListingServiceReference.CatListingServiceClient catListingClient = new CatListingServiceReference.CatListingServiceClient();
-        
+        PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
         //
         // GET: /Categories/
 
@@ -20,7 +20,7 @@ namespace CMSMvcApplication.Controllers
             var catList = from cat in catListingClient.get_Categories()
                           where cat.CategoryId != 1
                           select cat;
-            
+            ViewBag.defaultRegion = portalClient.getRegion().Where(r => r.RegionName.ToLower() == "au").First();
             return View(catList);
         }
 
@@ -37,6 +37,7 @@ namespace CMSMvcApplication.Controllers
         protected override void Dispose(bool disposing)
         {
             catListingClient.Close();
+            portalClient.Close();
             base.Dispose(disposing);
         }
         public ActionResult Create()
