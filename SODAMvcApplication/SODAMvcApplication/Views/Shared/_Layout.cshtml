@@ -1,6 +1,7 @@
 ﻿@{
     var contact = Session["PhoneNo"] as string;
-    var portalUrl = Session["PortalUrl"] as string;
+    //var portalUrl = Session["PortalUrl"] as string;
+    var portalUrl = Request.Url.Host.Replace("www", "portal");
 }
 <!DOCTYPE html>
 

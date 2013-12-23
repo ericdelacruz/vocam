@@ -12,7 +12,8 @@ namespace SODAMvcApplication.Controllers
         CategoriesServiceReference.CatListingServiceClient categoriesServiceClient = new CategoriesServiceReference.CatListingServiceClient();
         PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
         //private int RegionId = int.Parse(ConfigurationManager.AppSettings["RegionId"].ToString());
-        private string Region = ConfigurationManager.AppSettings["Region"].ToString();
+        //private string Region = ConfigurationManager.AppSettings["Region"].ToString();
+        private string defaultRegion = "au";
         private string password = "myS0D@P@ssw0rd";
         //
         // GET: /Categories/
@@ -64,15 +65,30 @@ namespace SODAMvcApplication.Controllers
                 //error page
             }
 
-            var listSpecByCat = from ca in categoriesServiceClient.getCatAssign()
-                                join spec in categoriesServiceClient.get() on ca.SpecID equals spec.Id
-                                join r in portalClient.getRegion() on spec.RegionId equals r.Id
-                                where ca.CategoryId == lCatID && r.RegionName.ToLower() == Region.ToLower()
-                                select spec;
+            var listSpecByCat = getTitlesByCategoryID(lCatID);
            
             ViewBag.SelCategory = categoriesServiceClient.get_Category(lCatID).First();
             Session.Add("CatID", lCatID.ToString());
             return View(listSpecByCat);
+        }
+
+        private IEnumerable<CategoriesServiceReference.Specific> getTitlesByCategoryID(long lCatID)
+        {
+            var listSpecByCat = from ca in categoriesServiceClient.getCatAssign()
+                                join spec in categoriesServiceClient.get() on ca.SpecID equals spec.Id
+                                join r in portalClient.getRegion() on spec.RegionId equals r.Id
+                                where ca.CategoryId == lCatID && r.WebsiteUrl.ToLower() == Request.Url.Host.ToLower()
+                                select spec;
+            if(listSpecByCat.Count() > 0)
+            return listSpecByCat;
+            else
+            {
+                return from ca in categoriesServiceClient.getCatAssign()
+                       join spec in categoriesServiceClient.get() on ca.SpecID equals spec.Id
+                       join r in portalClient.getRegion() on spec.RegionId equals r.Id
+                       where ca.CategoryId == lCatID && r.RegionName == defaultRegion
+                       select spec;
+            }
         }
 
         private long getCategoryId(string strCatName)
@@ -124,11 +140,8 @@ namespace SODAMvcApplication.Controllers
                                         join s in categoriesServiceClient.get() on ca.SpecID equals s.Id
                                         where ca.CategoryId == lCatId && s.Id != spec.First().Id
                                         select s;
-
-                    ViewBag.Related = from titleCat in listSpecByCat
-                                      join region in portalClient.getRegion() on titleCat.RegionId equals region.Id
-                                      where region.RegionName.ToLower() == Region.ToLower()
-                                      select titleCat;
+                    var related = getRelatedTitles(listSpecByCat);
+                    ViewBag.Related = related;
  
             }
             catch(Exception ex)
@@ -136,6 +149,20 @@ namespace SODAMvcApplication.Controllers
                 //
             }
             return View(spec.First());
+        }
+
+        private IEnumerable<CategoriesServiceReference.Specific> getRelatedTitles(IEnumerable<CategoriesServiceReference.Specific> listSpecByCat)
+        {
+            var related = from titleCat in listSpecByCat
+                          join region in portalClient.getRegion() on titleCat.RegionId equals region.Id
+                          where region.WebsiteUrl.ToLower() == Request.Url.Host.ToLower()
+                          select titleCat;
+
+
+            return related.Count() > 0 ? related : from titleCat in listSpecByCat
+                                                   join region in portalClient.getRegion() on titleCat.RegionId equals region.Id
+                                                   where region.RegionName.ToLower() == defaultRegion.ToLower()
+                                                   select titleCat; 
         }
 
          

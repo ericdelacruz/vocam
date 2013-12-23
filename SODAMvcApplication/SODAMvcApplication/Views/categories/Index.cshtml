@@ -4,6 +4,7 @@
     ViewBag.Description = ""; 
     ViewBag.Keywords = "";
     ViewBag.CurPage = "Category";
+    var portalUrl = Request.Url.Host.Replace("www", "portal");
 }
 
 <div class="categorySection">
@@ -47,7 +48,7 @@
                  <p>Safety-TV’s online videos and e-learning courses allow you to schedule and monitor training across your entire organisation. You’ll be able to easily train and then assess your employees' knowledge, as well as gain unlimited access to individual trainee and group results and their complete training history.</p>
                 <p>&nbsp;</p>
                 @*<a class="purchaseBtn" href="http://portal.sac-iis.com/">Purchase</a>*@
-                <a class="purchaseBtn" href="http://portal.safetyondemand.com.au/">Purchase</a>
+                <a class="purchaseBtn" href="@portalUrl">Purchase</a>
             </div>
         </div>
     </div>
