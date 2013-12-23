@@ -33,7 +33,7 @@
                         <td width="415" style="padding:5px;"> &nbsp; @title.Specific.Title</td>
                         <td width="100"><a href=@Url.Action("edit",new{id=title.Specific.Id})><img src="/Content/images/cms/edit.png"></a></td>
                         <td width="100"><a onclick="return confirm('Are you sure you want to delete the item?');" href=@Url.Action("delete",new{id=title.Specific.Id})><img src="/Content/images/cms/delete.png"></a></td>
-                        <td width="100"><a target="_blank" href="@webpageUrl/categories/details/@title.Specific.Title.ToLower().Replace(" ","-")"><img src="/Content/images/cms/view.png"></a></td>
+                        <td width="100"><a target="_blank" href="http://@webpageUrl/categories/details/@title.Specific.Title.ToLower().Replace(" ","-")"><img src="/Content/images/cms/view.png"></a></td>
                       
                   
                     </tr>

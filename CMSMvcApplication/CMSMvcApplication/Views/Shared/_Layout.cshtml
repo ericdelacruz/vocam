@@ -1,7 +1,7 @@
 ﻿@{
     var catlist = new List<int>();
     var RequestUrl = Request.Url.Host;
-    var mainSiteUrl = RequestUrl.Contains("cms") ? RequestUrl.Replace("cms", "www") : "http://localhost:51299/";
+    var mainSiteUrl = RequestUrl.Contains("cms") ? "http://" + RequestUrl.Replace("cms", "www") : "http://localhost:51299/";
     
 }
 <!DOCTYPE html>
