@@ -20,7 +20,8 @@ namespace SODAMvcApplication.Controllers
         private CMSServiceReference.CMS_ServiceClient cmsServiceClient = new CMSServiceReference.CMS_ServiceClient();
         private CategoriesServiceReference.CatListingServiceClient catListingSerivceClient = new CategoriesServiceReference.CatListingServiceClient();
         private PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
-        private string Region = ConfigurationManager.AppSettings["Region"].ToString();
+        //private string Region = "au";
+        private string defaultRegion = "au";
         private string password = "myS0D@P@ssw0rd";
 
         private const string HOME = "Home";
@@ -32,18 +33,33 @@ namespace SODAMvcApplication.Controllers
         {
 
           
-            
+             
               var  lContentDef = cmsServiceClient.getContent(HOME, string.Empty);
 
-              var filterByRegion = from content in lContentDef
-                                   join region in portalClient.getRegion() on content.RegionId equals region.Id
-                                   where region.RegionName.ToLower() == Region.ToLower()
-                                   select content;
-
+              var filterByRegion = getContents(lContentDef);
+              
               var contact = cmsServiceClient.getContent(CONTACT,"PhoneNo").Where(cms=>cms.RegionId == filterByRegion.First().RegionId).First().Value;
               Session.Add("PortalUrl", filterByRegion.Where(c => c.SectionName == "PortalUrl").First().Value);
               Session.Add("PhoneNo", contact);   
+             
             return View(filterByRegion);
+        }
+
+        private IEnumerable<CMSServiceReference.ContentDef> getContents(CMSServiceReference.ContentDef[] lContentDef)
+        {
+            var filterByRegion = from content in lContentDef
+                                 join region in portalClient.getRegion() on content.RegionId equals region.Id
+                                 where region.WebsiteUrl == Request.Url.Host
+                                 select content;
+            if(filterByRegion.Count() > 0)
+            return filterByRegion;
+            else
+            {
+                return from content in lContentDef
+                       join region in portalClient.getRegion() on content.RegionId equals region.Id
+                       where region.RegionName == defaultRegion
+                       select content;
+            }
         }
 
         protected override void Dispose(bool disposing)
@@ -64,7 +80,17 @@ namespace SODAMvcApplication.Controllers
         //GET: /ContactFreePpt/
         public ActionResult contactfreeppt()
         {
+            var freeppt = from fppt in cmsServiceClient.getFreePPT()
+                          join region in portalClient.getRegion() on fppt.RegionId equals region.Id
+                          where region.WebsiteUrl == Request.Url.Host
+                          select fppt;
+            ViewBag.pptList = freeppt.Select(fppt => new SelectListItem()
+            {
+                Text = fppt.DisplayText,
+                Value = fppt.PPTType,
+                Selected = false
 
+            });
             return View();
         }
 
@@ -91,12 +117,29 @@ namespace SODAMvcApplication.Controllers
         }
         private List<string> getTitlesUnderCat(long catid)
         {
+            var catTitles = getCatTitles(catid);
+           
+
+            return catTitles.Count() > 0 ? catTitles.ToList() : null;
+        }
+
+        private IEnumerable<string> getCatTitles(long catid)
+        {
             var catTitles = from ca in catListingSerivceClient.getCatAssign()
                             join title in catListingSerivceClient.get() on ca.SpecID equals title.Id
-                            join region in portalClient.getRegion() on title.RegionId equals region.Id 
-                            where ca.CategoryId == catid && region.RegionName == Region
+                            join region in portalClient.getRegion() on title.RegionId equals region.Id
+                            where ca.CategoryId == catid && region.WebsiteUrl == Request.Url.Host
                             select title.Title;
-            return catTitles.Count() > 0 ? catTitles.ToList() : null;
+            if(catTitles.Count() >0)
+            return catTitles;
+            else
+            {
+                return from ca in catListingSerivceClient.getCatAssign()
+                            join title in catListingSerivceClient.get() on ca.SpecID equals title.Id
+                            join region in portalClient.getRegion() on title.RegionId equals region.Id
+                            where ca.CategoryId == catid && region.RegionName == defaultRegion
+                            select title.Title;
+            }
         }
 
         
@@ -131,10 +174,7 @@ namespace SODAMvcApplication.Controllers
 
             var lContentDef = cmsServiceClient.getContent(LEARN, string.Empty);
 
-            var filterByRegion = from content in lContentDef
-                                 join region in portalClient.getRegion() on content.RegionId equals region.Id
-                                 where region.RegionName.ToLower() == Region
-                                 select content;
+            var filterByRegion = getContents(lContentDef);
 
             return View(filterByRegion);
         }
@@ -201,27 +241,49 @@ namespace SODAMvcApplication.Controllers
             int i = 0;
             if(contact.Count() >0 && (contact.First().DateLinkEx.Value - DateTime.Now).Hours < 1)
             {
-                switch(selected)
-                {
-                    case "industrial": i = 0;
-                        break;
-                    case "office": i = 1; 
-                        break;
-                    case "warehouse": i=2;
-                        break;
-                    default: return RedirectToAction("index");
+                //switch(selected)
+                //{
+                //    case "industrial": i = 0;
+                //        break;
+                //    case "office": i = 1; 
+                //        break;
+                //    case "warehouse": i=2;
+                //        break;
+                //    default: return RedirectToAction("index");
 
-                }
-                return View(i);
+                //}
+                //return View(i);
+                ViewBag.selected = selected;
+                return View();
             }
             return RedirectToAction("index");
         }
 
-        public FileStreamResult StreamFileFromDisk(int index)
+        //public FileStreamResult StreamFileFromDisk(int index)
+        //{
+        //    string path = AppDomain.CurrentDomain.BaseDirectory + "Content/download/";
+        //    string filename = filenames[index];
+        //    return File(new System.IO.FileStream(path + filename, System.IO.FileMode.Open),"application/vnd.ms-powerpoint", filename);
+        //}
+        public FileStreamResult StreamFileFromDisk(string selected)
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + "Content/download/";
-            string filename = filenames[index];
-            return File(new System.IO.FileStream(path + filename, System.IO.FileMode.Open),"application/vnd.ms-powerpoint", filename);
+            var freeppt = from fppt in cmsServiceClient.getFreePPT()
+                          join region in portalClient.getRegion() on fppt.RegionId equals region.Id
+                          where region.WebsiteUrl == Request.Url.Host && fppt.PPTType == selected
+                          select fppt;
+            string filename = "";
+            if(freeppt.Count() > 0)
+            {
+                filename = freeppt.First().FileName;
+            }
+            else
+            {
+                //error
+                //return RedirectToAction("index");
+            }
+            //string filename = ;
+            return File(new System.IO.FileStream(path + filename, System.IO.FileMode.Open), "application/vnd.ms-powerpoint", filename);
         }
 
     }

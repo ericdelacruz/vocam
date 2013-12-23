@@ -10,16 +10,22 @@ namespace SODAPortalMvcApplication.Controllers
     public class HomeController : Controller
     {
         private AccountServiceRef.AccountServiceClient accountClient = new AccountServiceRef.AccountServiceClient();
-        
+        private PortalServiceReference.PortalServiceClient portaClient = new PortalServiceReference.PortalServiceClient();
+        private CMSServiceReference.CMS_ServiceClient cmsClient = new CMSServiceReference.CMS_ServiceClient();
      
         public ActionResult Index()
         {
-           
+            int RegionId = portaClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal","www")).First().Id;
+
+            string PhoneNo = cmsClient.getContent("Contact", "PhoneNo").Where(c => c.RegionId == RegionId).First().Value;
+            Session.Add("PhoneNo", PhoneNo);
             return View();
         }
         protected override void Dispose(bool disposing)
         {
             accountClient.Close();
+            portaClient.Close();
+            cmsClient.Close();
             base.Dispose(disposing);
         }
         [HttpPost]
@@ -28,7 +34,7 @@ namespace SODAPortalMvcApplication.Controllers
         public ActionResult Index(FormCollection collection)
         {
 
-            string cmsurl = Request.Url.Host.Replace("portal","cms");
+            string cmsurl = "http://"+Request.Url.Host.Replace("portal","cms");
             if (accountClient.AuthenticateUser(collection["Username"], collection["Password"].Split(',')[0]))
             {
                 Session.Add("Username", collection["Username"]);
@@ -37,7 +43,7 @@ namespace SODAPortalMvcApplication.Controllers
                 {
                     case 0: return RedirectToAction("Index", "Admin");
 
-                    case 1: return Redirect(string.Format(cmsurl, collection["Username"]));
+                    case 1: return Redirect(cmsurl);
 
                     case 2:
                         if (account.EmailVerified)
