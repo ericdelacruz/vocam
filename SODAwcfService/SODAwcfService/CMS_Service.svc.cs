@@ -15,6 +15,7 @@ namespace SODAwcfService
 
         private SodaDBDataSetTableAdapters.ContentDefTableAdapter CMSTableAdapter;
         private SodaDBDataSetTableAdapters.ContactTableAdapter contactTableAdapter;
+        private SodaDBDataSetTableAdapters.FreePPTFileNamesTableAdapter freePPTAdapter;
         //todo place encrypted string here
         private string asdasd = EncDec.EncryptData("myS0D@P@ssw0rd");
         private static bool Allowed = true;//set this to false if prod
@@ -32,6 +33,7 @@ namespace SODAwcfService
             
             CMSTableAdapter = new SodaDBDataSetTableAdapters.ContentDefTableAdapter();
             contactTableAdapter = new SodaDBDataSetTableAdapters.ContactTableAdapter();
+            freePPTAdapter = new SodaDBDataSetTableAdapters.FreePPTFileNamesTableAdapter();
         }
 
         public bool Authenticate(string Password)
@@ -149,6 +151,38 @@ namespace SODAwcfService
             if (!Allowed)
                 throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
             return contactTableAdapter.Delete(id);
+        }
+
+        public int addfreePPT(Models.FreePPT freeppt)
+        {
+            if (!Allowed)
+                throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
+            return freePPTAdapter.Insert(freeppt.FileName, freeppt.PPTType, freeppt.RegionId,freeppt.DisplayText);
+        }
+        public IEnumerable<Models.FreePPT> getFreePPT()
+        {
+            if (!Allowed)
+                throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
+            return freePPTAdapter.GetData().Select(fppt => new Models.FreePPT()
+            {
+                Id = fppt.Id,
+                RegionId = fppt.RegionId,
+                FileName = fppt.FileName,
+                PPTType = fppt.PPTType,
+                 DisplayText = fppt.DisplayText
+            });
+        }
+        public int updateFreePPT(Models.FreePPT freeppt)
+        {
+            if (!Allowed)
+                throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
+            return freePPTAdapter.Update(freeppt.FileName, freeppt.PPTType, freeppt.RegionId, freeppt.DisplayText, freeppt.Id);
+        }
+        public int deleteFreePPT(int id)
+        {
+            if (!Allowed)
+                throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
+            return freePPTAdapter.Delete(id);
         }
     }
 }

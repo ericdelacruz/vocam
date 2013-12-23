@@ -39,5 +39,15 @@ namespace SODAwcfService
         int updateContact(Models.Contact contact);
         [OperationContract]
         int deleteContact(int id);
+
+        [OperationContract]
+        int addfreePPT(Models.FreePPT freeppt);
+        [OperationContract]
+        IEnumerable<Models.FreePPT> getFreePPT();
+        [OperationContract]
+        int updateFreePPT(Models.FreePPT freeppt);
+        [OperationContract]
+        int deleteFreePPT(int id);
+
     }
 }
