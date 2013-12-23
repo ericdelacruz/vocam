@@ -61,6 +61,30 @@
   <wsdl:message name="ICMS_Service_deleteContact_OutputMessage">
     <wsdl:part name="parameters" element="tns:deleteContactResponse" />
   </wsdl:message>
+  <wsdl:message name="ICMS_Service_addfreePPT_InputMessage">
+    <wsdl:part name="parameters" element="tns:addfreePPT" />
+  </wsdl:message>
+  <wsdl:message name="ICMS_Service_addfreePPT_OutputMessage">
+    <wsdl:part name="parameters" element="tns:addfreePPTResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICMS_Service_getFreePPT_InputMessage">
+    <wsdl:part name="parameters" element="tns:getFreePPT" />
+  </wsdl:message>
+  <wsdl:message name="ICMS_Service_getFreePPT_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getFreePPTResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICMS_Service_updateFreePPT_InputMessage">
+    <wsdl:part name="parameters" element="tns:updateFreePPT" />
+  </wsdl:message>
+  <wsdl:message name="ICMS_Service_updateFreePPT_OutputMessage">
+    <wsdl:part name="parameters" element="tns:updateFreePPTResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICMS_Service_deleteFreePPT_InputMessage">
+    <wsdl:part name="parameters" element="tns:deleteFreePPT" />
+  </wsdl:message>
+  <wsdl:message name="ICMS_Service_deleteFreePPT_OutputMessage">
+    <wsdl:part name="parameters" element="tns:deleteFreePPTResponse" />
+  </wsdl:message>
   <wsdl:portType name="ICMS_Service">
     <wsdl:operation name="addContent">
       <wsdl:input wsaw:Action="http://tempuri.org/ICMS_Service/addContent" message="tns:ICMS_Service_addContent_InputMessage" />
@@ -97,6 +121,22 @@
     <wsdl:operation name="deleteContact">
       <wsdl:input wsaw:Action="http://tempuri.org/ICMS_Service/deleteContact" message="tns:ICMS_Service_deleteContact_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICMS_Service/deleteContactResponse" message="tns:ICMS_Service_deleteContact_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="addfreePPT">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICMS_Service/addfreePPT" message="tns:ICMS_Service_addfreePPT_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICMS_Service/addfreePPTResponse" message="tns:ICMS_Service_addfreePPT_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getFreePPT">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICMS_Service/getFreePPT" message="tns:ICMS_Service_getFreePPT_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICMS_Service/getFreePPTResponse" message="tns:ICMS_Service_getFreePPT_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="updateFreePPT">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICMS_Service/updateFreePPT" message="tns:ICMS_Service_updateFreePPT_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICMS_Service/updateFreePPTResponse" message="tns:ICMS_Service_updateFreePPT_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteFreePPT">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICMS_Service/deleteFreePPT" message="tns:ICMS_Service_deleteFreePPT_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICMS_Service/deleteFreePPTResponse" message="tns:ICMS_Service_deleteFreePPT_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ICMS_Service" type="tns:ICMS_Service">
@@ -175,6 +215,42 @@
     </wsdl:operation>
     <wsdl:operation name="deleteContact">
       <soap:operation soapAction="http://tempuri.org/ICMS_Service/deleteContact" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addfreePPT">
+      <soap:operation soapAction="http://tempuri.org/ICMS_Service/addfreePPT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getFreePPT">
+      <soap:operation soapAction="http://tempuri.org/ICMS_Service/getFreePPT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateFreePPT">
+      <soap:operation soapAction="http://tempuri.org/ICMS_Service/updateFreePPT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteFreePPT">
+      <soap:operation soapAction="http://tempuri.org/ICMS_Service/deleteFreePPT" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

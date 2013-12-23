@@ -38,4 +38,20 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfContact" nillable="true" type="tns:ArrayOfContact" />
+  <xs:complexType name="FreePPT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DisplayText" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FileName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="PPTType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegionId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FreePPT" nillable="true" type="tns:FreePPT" />
+  <xs:complexType name="ArrayOfFreePPT">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FreePPT" nillable="true" type="tns:FreePPT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFreePPT" nillable="true" type="tns:ArrayOfFreePPT" />
 </xs:schema>

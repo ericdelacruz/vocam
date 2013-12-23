@@ -327,6 +327,115 @@ namespace CMSMvcApplication.CMSServiceReference {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="FreePPT", Namespace="http://schemas.datacontract.org/2004/07/SODAwcfService.Models")]
+    [System.SerializableAttribute()]
+    public partial class FreePPT : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DisplayTextField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FileNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PPTTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int RegionIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DisplayText {
+            get {
+                return this.DisplayTextField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DisplayTextField, value) != true)) {
+                    this.DisplayTextField = value;
+                    this.RaisePropertyChanged("DisplayText");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FileName {
+            get {
+                return this.FileNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FileNameField, value) != true)) {
+                    this.FileNameField = value;
+                    this.RaisePropertyChanged("FileName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PPTType {
+            get {
+                return this.PPTTypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PPTTypeField, value) != true)) {
+                    this.PPTTypeField = value;
+                    this.RaisePropertyChanged("PPTType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int RegionId {
+            get {
+                return this.RegionIdField;
+            }
+            set {
+                if ((this.RegionIdField.Equals(value) != true)) {
+                    this.RegionIdField = value;
+                    this.RaisePropertyChanged("RegionId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="CMSServiceReference.ICMS_Service")]
     public interface ICMS_Service {
@@ -357,6 +466,18 @@ namespace CMSMvcApplication.CMSServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/deleteContact", ReplyAction="http://tempuri.org/ICMS_Service/deleteContactResponse")]
         int deleteContact(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/addfreePPT", ReplyAction="http://tempuri.org/ICMS_Service/addfreePPTResponse")]
+        int addfreePPT(CMSMvcApplication.CMSServiceReference.FreePPT freeppt);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/getFreePPT", ReplyAction="http://tempuri.org/ICMS_Service/getFreePPTResponse")]
+        CMSMvcApplication.CMSServiceReference.FreePPT[] getFreePPT();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/updateFreePPT", ReplyAction="http://tempuri.org/ICMS_Service/updateFreePPTResponse")]
+        int updateFreePPT(CMSMvcApplication.CMSServiceReference.FreePPT freeppt);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/deleteFreePPT", ReplyAction="http://tempuri.org/ICMS_Service/deleteFreePPTResponse")]
+        int deleteFreePPT(int id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -420,6 +541,22 @@ namespace CMSMvcApplication.CMSServiceReference {
         
         public int deleteContact(int id) {
             return base.Channel.deleteContact(id);
+        }
+        
+        public int addfreePPT(CMSMvcApplication.CMSServiceReference.FreePPT freeppt) {
+            return base.Channel.addfreePPT(freeppt);
+        }
+        
+        public CMSMvcApplication.CMSServiceReference.FreePPT[] getFreePPT() {
+            return base.Channel.getFreePPT();
+        }
+        
+        public int updateFreePPT(CMSMvcApplication.CMSServiceReference.FreePPT freeppt) {
+            return base.Channel.updateFreePPT(freeppt);
+        }
+        
+        public int deleteFreePPT(int id) {
+            return base.Channel.deleteFreePPT(id);
         }
     }
 }
