@@ -114,6 +114,7 @@
     </Compile>
     <Compile Include="Isoda.cs" />
     <Compile Include="Models\CategoryAssignment.cs" />
+    <Compile Include="Models\FreePPT.cs" />
     <Compile Include="Models\LicenseConsumption.cs" />
     <Compile Include="Models\PayPalModel.cs" />
     <Compile Include="Models\PayPalTrans.cs" />
