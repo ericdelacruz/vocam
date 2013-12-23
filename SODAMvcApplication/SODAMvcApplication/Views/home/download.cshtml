@@ -1,7 +1,6 @@
-﻿@model int
+﻿
 @{
     ViewBag.Title = "download";
-    var filenames = new string[]{ "USO-AUS-PPS.pps", "USW-AUS-PPS.pps", "WHSE-AUS-PPS.pps" };
 }
-<p>Click @Html.ActionLink("here", "StreamFileFromDisk", new { index = Model })</p>
+<p>Click @Html.ActionLink("here", "StreamFileFromDisk", new { selected = ViewBag.selected as string }) to download</p>
 

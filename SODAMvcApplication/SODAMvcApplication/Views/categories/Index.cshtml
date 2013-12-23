@@ -4,7 +4,7 @@
     ViewBag.Description = ""; 
     ViewBag.Keywords = "";
     ViewBag.CurPage = "Category";
-    var portalUrl = Request.Url.Host.Replace("www", "portal");
+    var portalUrl = "http://portal." + Request.Url.Host;
 }
 
 <div class="categorySection">

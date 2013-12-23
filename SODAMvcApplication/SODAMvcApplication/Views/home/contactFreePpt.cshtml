@@ -57,6 +57,8 @@
         </style>
 
     }
+    
+    var pptList = ViewBag.pptList as IEnumerable<SelectListItem>;
 }
 
 
@@ -92,16 +94,17 @@
     <br>
 
     <label>Select Powerpoint</label>
-    <select style="width:305px;" class="form-control" id="" name="selectppt">
+    @*<select style="width:305px;" class="form-control" id="" name="selectppt">
         <option value="industrial">Industrial Induction Powerpoint</option>
         <option value="office">Office Induction Powerpoint</option>
         <option value="warehouse">Warehouse Induction Powerpoint</option>
 
-    </select>
-
-    @*<div align="center"><img style="border-width:0px;" src="http://www.safety-tv.com//VerificationCode.ashx" id=""></div>
-        <label>Verification code*</label>*@
-    @*@Html.Recaptcha()*@
+    </select>*@
+    if(pptList != null)
+    {
+        @Html.DropDownList("selectppt", pptList, new { @class = "form-control", style = "width:305px;" })
+    }
+  
 
     @*<div align="center">@Html.Recaptcha(theme: Recaptcha.Web.RecaptchaTheme.Clean)</div>*@
     <div align="center">@Html.Captcha("Refresh", "Enter Code", 5, "Is required field.", true)</div>

@@ -1,6 +1,7 @@
 ﻿@{
     var RequestUrl = Request.Url.Host;
-    var mainSiteUrl = RequestUrl.Contains("portal") ? RequestUrl.Replace("portal", "www") : "http://localhost:51299/";
+    var mainSiteUrl = RequestUrl.Contains("portal") ? "http://" + RequestUrl.Replace("portal", "www") : "http://localhost:51299/";
+    var PhoneNo = Session["PhoneNo"] as string;
 }
 <!DOCTYPE html>
 
@@ -30,8 +31,14 @@
             @*<div class="col-md-2"><a target="_blank" href="http://sac-iis.com/"><img class="logo" src="~/Content/images/safetyOnDemand-logo.jpg" alt="Safety On Demand"></a></div>*@
             <div class="col-md-2"><a target="_blank" href="@mainSiteUrl"><img class="logo" src="~/Content/images/safetyOnDemand-logo.jpg" alt="Safety On Demand"></a></div>
             <div class="headerRight fr col-md-10">
-                <div class="call"><span class="calltxt">CALL</span> 03 9809 7777</div>
-                
+            @if(PhoneNo != null)
+            {
+                <div class="call"><span class="calltxt">CALL</span> @PhoneNo</div>
+            }
+           else
+            { 
+                 <div class="call"><span class="calltxt">CALL</span> 03 9809 7777</div>
+            } 
             </div> <!-- end of headerRight-->
         </div>
     </header>

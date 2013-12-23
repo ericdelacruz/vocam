@@ -16,7 +16,7 @@
     ViewBag.Description = "";
     ViewBag.Keywords = "";
     ViewBag.CurPage = "LearnMore";
-    var portalUrl = Session["PortalUrl"] as string;
+    var portalUrl = "http://" + Request.Url.Host.Replace("www", "portal");
 }
 
     <div class="commonSection">
