@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SODAMvcApplication.CMSServiceReference {
+namespace SODAPortalMvcApplication.CMSServiceReference {
     using System.Runtime.Serialization;
     using System;
     
@@ -441,52 +441,91 @@ namespace SODAMvcApplication.CMSServiceReference {
     public interface ICMS_Service {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/addContent", ReplyAction="http://tempuri.org/ICMS_Service/addContentResponse")]
-        int addContent(SODAMvcApplication.CMSServiceReference.ContentDef contentdef);
+        int addContent(SODAPortalMvcApplication.CMSServiceReference.ContentDef contentdef);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/addContent", ReplyAction="http://tempuri.org/ICMS_Service/addContentResponse")]
+        System.Threading.Tasks.Task<int> addContentAsync(SODAPortalMvcApplication.CMSServiceReference.ContentDef contentdef);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/UpdateContent", ReplyAction="http://tempuri.org/ICMS_Service/UpdateContentResponse")]
-        int UpdateContent(SODAMvcApplication.CMSServiceReference.ContentDef contentdef);
+        int UpdateContent(SODAPortalMvcApplication.CMSServiceReference.ContentDef contentdef);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/UpdateContent", ReplyAction="http://tempuri.org/ICMS_Service/UpdateContentResponse")]
+        System.Threading.Tasks.Task<int> UpdateContentAsync(SODAPortalMvcApplication.CMSServiceReference.ContentDef contentdef);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/getContent", ReplyAction="http://tempuri.org/ICMS_Service/getContentResponse")]
-        SODAMvcApplication.CMSServiceReference.ContentDef[] getContent(string PageCode, string sectionName);
+        SODAPortalMvcApplication.CMSServiceReference.ContentDef[] getContent(string PageCode, string sectionName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/getContent", ReplyAction="http://tempuri.org/ICMS_Service/getContentResponse")]
+        System.Threading.Tasks.Task<SODAPortalMvcApplication.CMSServiceReference.ContentDef[]> getContentAsync(string PageCode, string sectionName);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/deleteContent", ReplyAction="http://tempuri.org/ICMS_Service/deleteContentResponse")]
         int deleteContent(string PageCode, string sectionName);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/deleteContent", ReplyAction="http://tempuri.org/ICMS_Service/deleteContentResponse")]
+        System.Threading.Tasks.Task<int> deleteContentAsync(string PageCode, string sectionName);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/Authenticate", ReplyAction="http://tempuri.org/ICMS_Service/AuthenticateResponse")]
         bool Authenticate(string Password);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/Authenticate", ReplyAction="http://tempuri.org/ICMS_Service/AuthenticateResponse")]
+        System.Threading.Tasks.Task<bool> AuthenticateAsync(string Password);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/addContact", ReplyAction="http://tempuri.org/ICMS_Service/addContactResponse")]
-        int addContact(SODAMvcApplication.CMSServiceReference.Contact contact);
+        int addContact(SODAPortalMvcApplication.CMSServiceReference.Contact contact);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/addContact", ReplyAction="http://tempuri.org/ICMS_Service/addContactResponse")]
+        System.Threading.Tasks.Task<int> addContactAsync(SODAPortalMvcApplication.CMSServiceReference.Contact contact);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/getContact", ReplyAction="http://tempuri.org/ICMS_Service/getContactResponse")]
-        SODAMvcApplication.CMSServiceReference.Contact[] getContact();
+        SODAPortalMvcApplication.CMSServiceReference.Contact[] getContact();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/getContact", ReplyAction="http://tempuri.org/ICMS_Service/getContactResponse")]
+        System.Threading.Tasks.Task<SODAPortalMvcApplication.CMSServiceReference.Contact[]> getContactAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/updateContact", ReplyAction="http://tempuri.org/ICMS_Service/updateContactResponse")]
-        int updateContact(SODAMvcApplication.CMSServiceReference.Contact contact);
+        int updateContact(SODAPortalMvcApplication.CMSServiceReference.Contact contact);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/updateContact", ReplyAction="http://tempuri.org/ICMS_Service/updateContactResponse")]
+        System.Threading.Tasks.Task<int> updateContactAsync(SODAPortalMvcApplication.CMSServiceReference.Contact contact);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/deleteContact", ReplyAction="http://tempuri.org/ICMS_Service/deleteContactResponse")]
         int deleteContact(int id);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/deleteContact", ReplyAction="http://tempuri.org/ICMS_Service/deleteContactResponse")]
+        System.Threading.Tasks.Task<int> deleteContactAsync(int id);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/addfreePPT", ReplyAction="http://tempuri.org/ICMS_Service/addfreePPTResponse")]
-        int addfreePPT(SODAMvcApplication.CMSServiceReference.FreePPT freeppt);
+        int addfreePPT(SODAPortalMvcApplication.CMSServiceReference.FreePPT freeppt);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/addfreePPT", ReplyAction="http://tempuri.org/ICMS_Service/addfreePPTResponse")]
+        System.Threading.Tasks.Task<int> addfreePPTAsync(SODAPortalMvcApplication.CMSServiceReference.FreePPT freeppt);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/getFreePPT", ReplyAction="http://tempuri.org/ICMS_Service/getFreePPTResponse")]
-        SODAMvcApplication.CMSServiceReference.FreePPT[] getFreePPT();
+        SODAPortalMvcApplication.CMSServiceReference.FreePPT[] getFreePPT();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/getFreePPT", ReplyAction="http://tempuri.org/ICMS_Service/getFreePPTResponse")]
+        System.Threading.Tasks.Task<SODAPortalMvcApplication.CMSServiceReference.FreePPT[]> getFreePPTAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/updateFreePPT", ReplyAction="http://tempuri.org/ICMS_Service/updateFreePPTResponse")]
-        int updateFreePPT(SODAMvcApplication.CMSServiceReference.FreePPT freeppt);
+        int updateFreePPT(SODAPortalMvcApplication.CMSServiceReference.FreePPT freeppt);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/updateFreePPT", ReplyAction="http://tempuri.org/ICMS_Service/updateFreePPTResponse")]
+        System.Threading.Tasks.Task<int> updateFreePPTAsync(SODAPortalMvcApplication.CMSServiceReference.FreePPT freeppt);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/deleteFreePPT", ReplyAction="http://tempuri.org/ICMS_Service/deleteFreePPTResponse")]
         int deleteFreePPT(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICMS_Service/deleteFreePPT", ReplyAction="http://tempuri.org/ICMS_Service/deleteFreePPTResponse")]
+        System.Threading.Tasks.Task<int> deleteFreePPTAsync(int id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface ICMS_ServiceChannel : SODAMvcApplication.CMSServiceReference.ICMS_Service, System.ServiceModel.IClientChannel {
+    public interface ICMS_ServiceChannel : SODAPortalMvcApplication.CMSServiceReference.ICMS_Service, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class CMS_ServiceClient : System.ServiceModel.ClientBase<SODAMvcApplication.CMSServiceReference.ICMS_Service>, SODAMvcApplication.CMSServiceReference.ICMS_Service {
+    public partial class CMS_ServiceClient : System.ServiceModel.ClientBase<SODAPortalMvcApplication.CMSServiceReference.ICMS_Service>, SODAPortalMvcApplication.CMSServiceReference.ICMS_Service {
         
         public CMS_ServiceClient() {
         }
@@ -507,56 +546,108 @@ namespace SODAMvcApplication.CMSServiceReference {
                 base(binding, remoteAddress) {
         }
         
-        public int addContent(SODAMvcApplication.CMSServiceReference.ContentDef contentdef) {
+        public int addContent(SODAPortalMvcApplication.CMSServiceReference.ContentDef contentdef) {
             return base.Channel.addContent(contentdef);
         }
         
-        public int UpdateContent(SODAMvcApplication.CMSServiceReference.ContentDef contentdef) {
+        public System.Threading.Tasks.Task<int> addContentAsync(SODAPortalMvcApplication.CMSServiceReference.ContentDef contentdef) {
+            return base.Channel.addContentAsync(contentdef);
+        }
+        
+        public int UpdateContent(SODAPortalMvcApplication.CMSServiceReference.ContentDef contentdef) {
             return base.Channel.UpdateContent(contentdef);
         }
         
-        public SODAMvcApplication.CMSServiceReference.ContentDef[] getContent(string PageCode, string sectionName) {
+        public System.Threading.Tasks.Task<int> UpdateContentAsync(SODAPortalMvcApplication.CMSServiceReference.ContentDef contentdef) {
+            return base.Channel.UpdateContentAsync(contentdef);
+        }
+        
+        public SODAPortalMvcApplication.CMSServiceReference.ContentDef[] getContent(string PageCode, string sectionName) {
             return base.Channel.getContent(PageCode, sectionName);
+        }
+        
+        public System.Threading.Tasks.Task<SODAPortalMvcApplication.CMSServiceReference.ContentDef[]> getContentAsync(string PageCode, string sectionName) {
+            return base.Channel.getContentAsync(PageCode, sectionName);
         }
         
         public int deleteContent(string PageCode, string sectionName) {
             return base.Channel.deleteContent(PageCode, sectionName);
         }
         
+        public System.Threading.Tasks.Task<int> deleteContentAsync(string PageCode, string sectionName) {
+            return base.Channel.deleteContentAsync(PageCode, sectionName);
+        }
+        
         public bool Authenticate(string Password) {
             return base.Channel.Authenticate(Password);
         }
         
-        public int addContact(SODAMvcApplication.CMSServiceReference.Contact contact) {
+        public System.Threading.Tasks.Task<bool> AuthenticateAsync(string Password) {
+            return base.Channel.AuthenticateAsync(Password);
+        }
+        
+        public int addContact(SODAPortalMvcApplication.CMSServiceReference.Contact contact) {
             return base.Channel.addContact(contact);
         }
         
-        public SODAMvcApplication.CMSServiceReference.Contact[] getContact() {
+        public System.Threading.Tasks.Task<int> addContactAsync(SODAPortalMvcApplication.CMSServiceReference.Contact contact) {
+            return base.Channel.addContactAsync(contact);
+        }
+        
+        public SODAPortalMvcApplication.CMSServiceReference.Contact[] getContact() {
             return base.Channel.getContact();
         }
         
-        public int updateContact(SODAMvcApplication.CMSServiceReference.Contact contact) {
+        public System.Threading.Tasks.Task<SODAPortalMvcApplication.CMSServiceReference.Contact[]> getContactAsync() {
+            return base.Channel.getContactAsync();
+        }
+        
+        public int updateContact(SODAPortalMvcApplication.CMSServiceReference.Contact contact) {
             return base.Channel.updateContact(contact);
+        }
+        
+        public System.Threading.Tasks.Task<int> updateContactAsync(SODAPortalMvcApplication.CMSServiceReference.Contact contact) {
+            return base.Channel.updateContactAsync(contact);
         }
         
         public int deleteContact(int id) {
             return base.Channel.deleteContact(id);
         }
         
-        public int addfreePPT(SODAMvcApplication.CMSServiceReference.FreePPT freeppt) {
+        public System.Threading.Tasks.Task<int> deleteContactAsync(int id) {
+            return base.Channel.deleteContactAsync(id);
+        }
+        
+        public int addfreePPT(SODAPortalMvcApplication.CMSServiceReference.FreePPT freeppt) {
             return base.Channel.addfreePPT(freeppt);
         }
         
-        public SODAMvcApplication.CMSServiceReference.FreePPT[] getFreePPT() {
+        public System.Threading.Tasks.Task<int> addfreePPTAsync(SODAPortalMvcApplication.CMSServiceReference.FreePPT freeppt) {
+            return base.Channel.addfreePPTAsync(freeppt);
+        }
+        
+        public SODAPortalMvcApplication.CMSServiceReference.FreePPT[] getFreePPT() {
             return base.Channel.getFreePPT();
         }
         
-        public int updateFreePPT(SODAMvcApplication.CMSServiceReference.FreePPT freeppt) {
+        public System.Threading.Tasks.Task<SODAPortalMvcApplication.CMSServiceReference.FreePPT[]> getFreePPTAsync() {
+            return base.Channel.getFreePPTAsync();
+        }
+        
+        public int updateFreePPT(SODAPortalMvcApplication.CMSServiceReference.FreePPT freeppt) {
             return base.Channel.updateFreePPT(freeppt);
+        }
+        
+        public System.Threading.Tasks.Task<int> updateFreePPTAsync(SODAPortalMvcApplication.CMSServiceReference.FreePPT freeppt) {
+            return base.Channel.updateFreePPTAsync(freeppt);
         }
         
         public int deleteFreePPT(int id) {
             return base.Channel.deleteFreePPT(id);
+        }
+        
+        public System.Threading.Tasks.Task<int> deleteFreePPTAsync(int id) {
+            return base.Channel.deleteFreePPTAsync(id);
         }
     }
 }
