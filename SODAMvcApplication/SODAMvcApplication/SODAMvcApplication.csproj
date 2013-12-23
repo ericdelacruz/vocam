@@ -138,14 +138,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\drmController.cs" />
     <Compile Include="Controllers\EmailHelper.cs" />
     <Compile Include="Controllers\ExceptionUtil.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\SalesController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\xmlController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -409,6 +406,9 @@
     <Content Include="Scripts\respond.min.js" />
     <None Include="Service References\CMSServiceReference\CMS_Service1.disco" />
     <Content Include="Service References\CMSServiceReference\SODAMvcApplication.CMSServiceReference.Contact.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\CMSServiceReference\SODAMvcApplication.CMSServiceReference.FreePPT.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <None Include="Service References\PortalServiceReference\configuration91.svcinfo" />

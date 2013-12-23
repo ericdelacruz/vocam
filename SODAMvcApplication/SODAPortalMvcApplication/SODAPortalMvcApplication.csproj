@@ -210,6 +210,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\CMSServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\PortalServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -371,6 +376,19 @@
     <Content Include="Service References\AccountServiceRef\SODAPortalMvcApplication.AccountServiceRef.ResetPassword1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <None Include="Service References\CMSServiceReference\CMS_Service.wsdl" />
+    <None Include="Service References\CMSServiceReference\CMS_Service.xsd" />
+    <None Include="Service References\CMSServiceReference\CMS_Service1.xsd" />
+    <None Include="Service References\CMSServiceReference\CMS_Service2.xsd" />
+    <Content Include="Service References\CMSServiceReference\SODAPortalMvcApplication.CMSServiceReference.Contact.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\CMSServiceReference\SODAPortalMvcApplication.CMSServiceReference.ContentDef.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\CMSServiceReference\SODAPortalMvcApplication.CMSServiceReference.FreePPT.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <None Include="Service References\PortalServiceReference\configuration91.svcinfo" />
     <None Include="Service References\PortalServiceReference\configuration.svcinfo" />
     <None Include="Service References\PortalServiceReference\PortalService1.wsdl" />
@@ -382,6 +400,13 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Service References\PortalServiceReference\PortalService1.disco" />
+    <None Include="Service References\CMSServiceReference\CMS_Service.disco" />
+    <None Include="Service References\CMSServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\CMSServiceReference\configuration.svcinfo" />
+    <None Include="Service References\CMSServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Service References\PortalServiceReference\SODAPortalMvcApplication.PortalServiceReference.LicenseConsumption.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -507,6 +532,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\AccountServiceRef\" />
+    <WCFMetadataStorage Include="Service References\CMSServiceReference\" />
     <WCFMetadataStorage Include="Service References\PortalServiceReference\" />
     <WCFMetadataStorage Include="Service References\SODAPayPalSerRef\" />
   </ItemGroup>
