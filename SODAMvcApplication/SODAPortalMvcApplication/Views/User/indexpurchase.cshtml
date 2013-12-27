@@ -21,7 +21,9 @@
                 @using(@Html.BeginForm("verify","user"))
                 { 
                  
-                    <img src="/Content/images/portal/step1.jpg" alt="Step 1: Enter Your Sales Code"><br /><br />
+                    <img src="/Content/images/portal/step1.jpg" alt="Step 1: Enter Your Sales Code"><br />
+                    <h4>If Sales Code not available, proceed to Step 2.</h4>
+                    <br />
                     <label>Sales Code: </label><input type="text" name="salesCode" required class="form-control" value="" style="margin-right:5px;">
                     <button type="submit" class="btn btn-default fl">Verify</button>
                     
