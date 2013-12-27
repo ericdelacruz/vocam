@@ -14,8 +14,12 @@
         { 
             <div class="portalCont margin15">
                 <div class="noteBox clearfix">
-                    <div class="fl noteImg"><img src="~/Content/images/portal/check.png" alt="success"></div>
-                    <div class="fl noteTxt"><span>Payment Successful!</span><br />Please click button below to proceed to homepage.</div>
+                    <div class="clearfix">
+                        <div class="fl noteImg"><img src="~/Content/images/portal/check.png" alt="success"></div>
+                        <div class="fl noteTxt"><span>Payment Successful!</span><br />Please click button below to proceed to homepage.</div>
+                    </div>
+                    <div><hr class="border shadow" style="border-top: 1px solid #F1E797" /></div>
+                    <div class="clearfix" align="center" style="font-size:14px;"><strong>We've just created your account!</strong> An email will be sent to you for your login details.</div>
                 </div>
 
 
@@ -25,6 +29,8 @@
                     @using(@Html.BeginForm("index","user", FormMethod.Get))
                     {
                         <button  class="btn btn-lg btn-primary btn-block" style="max-width:40%;"> Return to Home Page</button>
+                    
+                       
                     }                
                  @*</form>*@
                 </div>
