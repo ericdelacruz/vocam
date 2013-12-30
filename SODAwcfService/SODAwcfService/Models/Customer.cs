@@ -11,7 +11,7 @@ namespace SODAwcfService.Models
         public Nullable<System.DateTime> DatePurchase { get; set; }
         public Nullable<System.DateTime> DateSubscriptionEnd { get; set; }
         public long UserId { get; set; }
-        public long SalesCodeId { get; set; }
+        public long? SalesCodeId { get; set; }
 
         public short RecurringType { get; set; }
 

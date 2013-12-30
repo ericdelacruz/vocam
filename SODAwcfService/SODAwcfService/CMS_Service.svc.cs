@@ -16,6 +16,7 @@ namespace SODAwcfService
         private SodaDBDataSetTableAdapters.ContentDefTableAdapter CMSTableAdapter;
         private SodaDBDataSetTableAdapters.ContactTableAdapter contactTableAdapter;
         private SodaDBDataSetTableAdapters.FreePPTFileNamesTableAdapter freePPTAdapter;
+        private SodaDBDataSetTableAdapters.RegionTableAdapter regionAdapter;
         //todo place encrypted string here
         private string asdasd = EncDec.EncryptData("myS0D@P@ssw0rd");
         private static bool Allowed = true;//set this to false if prod
@@ -34,6 +35,7 @@ namespace SODAwcfService
             CMSTableAdapter = new SodaDBDataSetTableAdapters.ContentDefTableAdapter();
             contactTableAdapter = new SodaDBDataSetTableAdapters.ContactTableAdapter();
             freePPTAdapter = new SodaDBDataSetTableAdapters.FreePPTFileNamesTableAdapter();
+            regionAdapter = new SodaDBDataSetTableAdapters.RegionTableAdapter();
         }
 
         public bool Authenticate(string Password)
@@ -183,6 +185,20 @@ namespace SODAwcfService
             if (!Allowed)
                 throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
             return freePPTAdapter.Delete(id);
+        }
+
+
+        public IEnumerable<Models.Region> getRegions()
+        {
+            if (!Allowed)
+                throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
+            return regionAdapter.GetData().Select(r => new Models.Region()
+            {
+                Id = r.Id,
+                RegionName = r.RegionName,
+                Currency = r.Currency,
+                WebsiteUrl = r.WebsiteUrl
+            });
         }
     }
 }

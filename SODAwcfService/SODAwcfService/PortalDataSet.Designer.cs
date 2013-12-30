@@ -821,7 +821,6 @@ namespace SODAwcfService {
                 this.columnId.ReadOnly = true;
                 this.columnId.Unique = true;
                 this.columnUserId.AllowDBNull = false;
-                this.columnSalesCodeId.AllowDBNull = false;
                 this.columnRecuringType.AllowDBNull = false;
                 this.columnLicencses.AllowDBNull = false;
             }
@@ -3334,7 +3333,12 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public long SalesCodeId {
                 get {
-                    return ((long)(this[this.tableCustomer.SalesCodeIdColumn]));
+                    if (this.IsSalesCodeIdNull()) {
+                        return -1;
+                    }
+                    else {
+                        return ((long)(this[this.tableCustomer.SalesCodeIdColumn]));
+                    }
                 }
                 set {
                     this[this.tableCustomer.SalesCodeIdColumn] = value;
@@ -3439,6 +3443,18 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetDateSubscriptionEndNull() {
                 this[this.tableCustomer.DateSubscriptionEndColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsSalesCodeIdNull() {
+                return this.IsNull(this.tableCustomer.SalesCodeIdColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetSalesCodeIdNull() {
+                this[this.tableCustomer.SalesCodeIdColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4831,9 +4847,14 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(long UserId, long SalesCodeId, global::System.Nullable<global::System.DateTime> DatePurchase, global::System.Nullable<global::System.DateTime> DateSubscriptionEnd, short RecuringType, int Licencses, global::System.Nullable<global::System.DateTime> DateUpdated, global::System.Nullable<long> PPId) {
+        public virtual int Insert(long UserId, global::System.Nullable<long> SalesCodeId, global::System.Nullable<global::System.DateTime> DatePurchase, global::System.Nullable<global::System.DateTime> DateSubscriptionEnd, short RecuringType, int Licencses, global::System.Nullable<global::System.DateTime> DateUpdated, global::System.Nullable<long> PPId) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((long)(UserId));
-            this.Adapter.InsertCommand.Parameters[1].Value = ((long)(SalesCodeId));
+            if ((SalesCodeId.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((long)(SalesCodeId.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
             if ((DatePurchase.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[2].Value = ((System.DateTime)(DatePurchase.Value));
             }
@@ -4880,9 +4901,14 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(long UserId, long SalesCodeId, global::System.Nullable<global::System.DateTime> DatePurchase, global::System.Nullable<global::System.DateTime> DateSubscriptionEnd, short RecuringType, int Licencses, global::System.Nullable<global::System.DateTime> DateUpdated, global::System.Nullable<long> PPId, long Original_Id) {
+        public virtual int Update(long UserId, global::System.Nullable<long> SalesCodeId, global::System.Nullable<global::System.DateTime> DatePurchase, global::System.Nullable<global::System.DateTime> DateSubscriptionEnd, short RecuringType, int Licencses, global::System.Nullable<global::System.DateTime> DateUpdated, global::System.Nullable<long> PPId, long Original_Id) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((long)(UserId));
-            this.Adapter.UpdateCommand.Parameters[1].Value = ((long)(SalesCodeId));
+            if ((SalesCodeId.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((long)(SalesCodeId.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
             if ((DatePurchase.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[2].Value = ((System.DateTime)(DatePurchase.Value));
             }

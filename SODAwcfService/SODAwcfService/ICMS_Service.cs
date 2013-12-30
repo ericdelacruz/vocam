@@ -49,5 +49,8 @@ namespace SODAwcfService
         [OperationContract]
         int deleteFreePPT(int id);
 
+        [OperationContract]
+        IEnumerable<Models.Region> getRegions();
+
     }
 }
