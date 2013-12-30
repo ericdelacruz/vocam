@@ -19,7 +19,7 @@ namespace SODAMvcApplication.Controllers
         // GET: /Home/
         private CMSServiceReference.CMS_ServiceClient cmsServiceClient = new CMSServiceReference.CMS_ServiceClient();
         private CategoriesServiceReference.CatListingServiceClient catListingSerivceClient = new CategoriesServiceReference.CatListingServiceClient();
-        private PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
+        //private PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
         //private string Region = "au";
         private string defaultRegion = "au";
         private string password = "myS0D@P@ssw0rd";
@@ -27,7 +27,7 @@ namespace SODAMvcApplication.Controllers
         private const string HOME = "Home";
         private const string CONTACT = "Contact";
         private const string LEARN = "Learn";
-        private string[] filenames = { "USO-AUS-PPS.pps", "USW-AUS-PPS.pps", "WHSE-AUS-PPS.pps" };
+        //private string[] filenames = { "USO-AUS-PPS.pps", "USW-AUS-PPS.pps", "WHSE-AUS-PPS.pps" };
         
         public ActionResult Index()
         {
@@ -39,6 +39,7 @@ namespace SODAMvcApplication.Controllers
               var filterByRegion = getContents(lContentDef);
               
               var contact = cmsServiceClient.getContent(CONTACT,"PhoneNo").Where(cms=>cms.RegionId == filterByRegion.First().RegionId).First().Value;
+
               Session.Add("PortalUrl", filterByRegion.Where(c => c.SectionName == "PortalUrl").First().Value);
               Session.Add("PhoneNo", contact);   
              
@@ -48,7 +49,7 @@ namespace SODAMvcApplication.Controllers
         private IEnumerable<CMSServiceReference.ContentDef> getContents(CMSServiceReference.ContentDef[] lContentDef)
         {
             var filterByRegion = from content in lContentDef
-                                 join region in portalClient.getRegion() on content.RegionId equals region.Id
+                                 join region in cmsServiceClient.getRegions() on content.RegionId equals region.Id
                                  where region.WebsiteUrl == Request.Url.Host
                                  select content;
             if(filterByRegion.Count() > 0)
@@ -56,7 +57,7 @@ namespace SODAMvcApplication.Controllers
             else
             {
                 return from content in lContentDef
-                       join region in portalClient.getRegion() on content.RegionId equals region.Id
+                       join region in cmsServiceClient.getRegions() on content.RegionId equals region.Id
                        where region.RegionName == defaultRegion
                        select content;
             }
@@ -66,7 +67,7 @@ namespace SODAMvcApplication.Controllers
         {
            cmsServiceClient.Close();
            catListingSerivceClient.Close();
-            portalClient.Close();
+           
             base.Dispose(disposing);
         }
         //
@@ -81,7 +82,7 @@ namespace SODAMvcApplication.Controllers
         public ActionResult contactfreeppt()
         {
             var freeppt = from fppt in cmsServiceClient.getFreePPT()
-                          join region in portalClient.getRegion() on fppt.RegionId equals region.Id
+                          join region in cmsServiceClient.getRegions() on fppt.RegionId equals region.Id
                           where region.WebsiteUrl == Request.Url.Host
                           select fppt;
             ViewBag.pptList = freeppt.Select(fppt => new SelectListItem()
@@ -127,7 +128,7 @@ namespace SODAMvcApplication.Controllers
         {
             var catTitles = from ca in catListingSerivceClient.getCatAssign()
                             join title in catListingSerivceClient.get() on ca.SpecID equals title.Id
-                            join region in portalClient.getRegion() on title.RegionId equals region.Id
+                            join region in cmsServiceClient.getRegions() on title.RegionId equals region.Id
                             where ca.CategoryId == catid && region.WebsiteUrl == Request.Url.Host
                             select title.Title;
             if(catTitles.Count() >0)
@@ -136,7 +137,7 @@ namespace SODAMvcApplication.Controllers
             {
                 return from ca in catListingSerivceClient.getCatAssign()
                             join title in catListingSerivceClient.get() on ca.SpecID equals title.Id
-                            join region in portalClient.getRegion() on title.RegionId equals region.Id
+                            join region in cmsServiceClient.getRegions() on title.RegionId equals region.Id
                             where ca.CategoryId == catid && region.RegionName == defaultRegion
                             select title.Title;
             }
@@ -188,25 +189,11 @@ namespace SODAMvcApplication.Controllers
         {
             return View();
         }
-        //public async Task<ActionResult> contactFreeppt(CMSServiceReference.Contact contact,FormCollection collection)
-        //{
+        
         [HttpPost]
         public ActionResult contactFreeppt(CMSServiceReference.Contact contact, FormCollection collection)
         {
-            //RecaptchaVerificationHelper recaptchaHelper = this.ge;
-            //if (String.IsNullOrEmpty(recaptchaHelper.Response))
-            //{
-            //    ModelState.AddModelError("", "Captcha answer cannot be empty.");
-            //    return View(contact);
-            //}
-           
-            //RecaptchaVerificationResult recaptchaResult = recaptchaHelper.VerifyRecaptchaResponse();
-
-            //if (recaptchaResult != RecaptchaVerificationResult.Success)
-            //{
-            //    ModelState.AddModelError("", "Incorrect captcha answer.");
-            //    return View(contact);
-            //}
+            
             if (!this.IsCaptchaValid("Captcha is not valid"))
             {
                 ModelState.AddModelError("", "Incorrect captcha answer.");
@@ -241,35 +228,19 @@ namespace SODAMvcApplication.Controllers
             int i = 0;
             if(contact.Count() >0 && (contact.First().DateLinkEx.Value - DateTime.Now).Hours < 1)
             {
-                //switch(selected)
-                //{
-                //    case "industrial": i = 0;
-                //        break;
-                //    case "office": i = 1; 
-                //        break;
-                //    case "warehouse": i=2;
-                //        break;
-                //    default: return RedirectToAction("index");
-
-                //}
-                //return View(i);
+              
                 ViewBag.selected = selected;
                 return View();
             }
             return RedirectToAction("index");
         }
 
-        //public FileStreamResult StreamFileFromDisk(int index)
-        //{
-        //    string path = AppDomain.CurrentDomain.BaseDirectory + "Content/download/";
-        //    string filename = filenames[index];
-        //    return File(new System.IO.FileStream(path + filename, System.IO.FileMode.Open),"application/vnd.ms-powerpoint", filename);
-        //}
+       
         public FileStreamResult StreamFileFromDisk(string selected)
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + "Content/download/";
             var freeppt = from fppt in cmsServiceClient.getFreePPT()
-                          join region in portalClient.getRegion() on fppt.RegionId equals region.Id
+                          join region in cmsServiceClient.getRegions() on fppt.RegionId equals region.Id
                           where region.WebsiteUrl == Request.Url.Host && fppt.PPTType == selected
                           select fppt;
             string filename = "";

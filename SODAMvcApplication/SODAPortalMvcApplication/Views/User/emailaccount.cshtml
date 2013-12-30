@@ -1,0 +1,13 @@
+﻿@model SODAPortalMvcApplication.ViewModel.UserModel
+@{
+    ViewBag.Title = "emailaccount";
+    Response.ContentType = "text/plain";
+    Layout = null;
+    var CustomerName = ViewData["CustomerName"].ToString();
+    var username = Session["Username"].ToString();
+}
+Hi @Model.FirtName @Model.LastName,
+   Please login using the ff:
+       Username: @Model.Email
+       Password: saftytv
+

@@ -85,6 +85,12 @@
   <wsdl:message name="ICMS_Service_deleteFreePPT_OutputMessage">
     <wsdl:part name="parameters" element="tns:deleteFreePPTResponse" />
   </wsdl:message>
+  <wsdl:message name="ICMS_Service_getRegions_InputMessage">
+    <wsdl:part name="parameters" element="tns:getRegions" />
+  </wsdl:message>
+  <wsdl:message name="ICMS_Service_getRegions_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getRegionsResponse" />
+  </wsdl:message>
   <wsdl:portType name="ICMS_Service">
     <wsdl:operation name="addContent">
       <wsdl:input wsaw:Action="http://tempuri.org/ICMS_Service/addContent" message="tns:ICMS_Service_addContent_InputMessage" />
@@ -137,6 +143,10 @@
     <wsdl:operation name="deleteFreePPT">
       <wsdl:input wsaw:Action="http://tempuri.org/ICMS_Service/deleteFreePPT" message="tns:ICMS_Service_deleteFreePPT_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICMS_Service/deleteFreePPTResponse" message="tns:ICMS_Service_deleteFreePPT_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getRegions">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICMS_Service/getRegions" message="tns:ICMS_Service_getRegions_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICMS_Service/getRegionsResponse" message="tns:ICMS_Service_getRegions_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ICMS_Service" type="tns:ICMS_Service">
@@ -251,6 +261,15 @@
     </wsdl:operation>
     <wsdl:operation name="deleteFreePPT">
       <soap:operation soapAction="http://tempuri.org/ICMS_Service/deleteFreePPT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRegions">
+      <soap:operation soapAction="http://tempuri.org/ICMS_Service/getRegions" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

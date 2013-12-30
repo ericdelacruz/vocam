@@ -181,4 +181,16 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="getRegions">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getRegionsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/SODAwcfService.Models" minOccurs="0" name="getRegionsResult" nillable="true" type="q10:ArrayOfRegion" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

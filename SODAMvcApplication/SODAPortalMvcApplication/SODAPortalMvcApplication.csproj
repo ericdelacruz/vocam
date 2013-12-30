@@ -512,7 +512,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <Content Include="Views\Home\forgotPassword.cshtml" />
-    <Content Include="Views\Home\resetpassword.cshtml" />
+    <Content Include="Views\User\resetpassword.cshtml" />
     <Content Include="Views\Home\forgotpasswordemail.cshtml" />
     <None Include="Service References\SODAPayPalSerRef\SODAPaypalService1.wsdl" />
     <None Include="Service References\SODAPayPalSerRef\SODAPaypalService1.xsd" />
@@ -520,6 +520,8 @@
     <None Include="Service References\SODAPayPalSerRef\SODAPaypalService12.xsd" />
     <None Include="Service References\SODAPayPalSerRef\SODAPaypalService13.xsd" />
     <Content Include="Views\User\changePassword.cshtml" />
+    <Content Include="Views\User\emailaccount.cshtml" />
+    <Content Include="Views\Home\purchaseDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

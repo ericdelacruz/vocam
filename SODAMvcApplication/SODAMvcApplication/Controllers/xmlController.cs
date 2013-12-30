@@ -51,16 +51,16 @@ namespace SODAMvcApplication.Controllers
                         consumed = LicenseConsumption.First().Consumed;
                     if (customer.First().DateSubscriptionEnd.HasValue)
                         daysleft = ((TimeSpan)(customer.First().DateSubscriptionEnd.Value - DateTime.Now)).Days;
-                    return View(new Users() { authorized = true,daysleft=daysleft, shownews = true,PCLicenses=maxActiveLicenses, PCLicenseConsumed = consumed,CompanyWebsite=CompanyWebsite });
+                    return View(new Users() { authorized = true,daysleft=daysleft, shownews = false,PCLicenses=maxActiveLicenses, PCLicenseConsumed = consumed,CompanyWebsite=CompanyWebsite });
                 }
                 else
                 {
-                    return View(new Users() { authorized = false, daysleft = 0, shownews = true, PCLicenses = 0, PCLicenseConsumed = 0, CompanyWebsite = "" });
+                    return View(new Users() { authorized = false, daysleft = 0, shownews = false, PCLicenses = 0, PCLicenseConsumed = 0, CompanyWebsite = "" });
                 }
             }
             else
             {
-                return View(new Users() { authorized = false, daysleft = 0, shownews = true, PCLicenses = 0, PCLicenseConsumed = 0 });
+                return View(new Users() { authorized = false, daysleft = 0, shownews = false, PCLicenses = 0, PCLicenseConsumed = 0 });
             }
         }
         public ActionResult channels()

@@ -147,6 +147,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ControllerHelpers.cs" />
     <Compile Include="Models\drmModel.cs" />
     <Compile Include="Models\SiteMapModel.cs" />
     <Compile Include="Models\XMLModels.cs" />
@@ -342,6 +343,7 @@
     <Content Include="Content\download\USO-AUS-PPS.pps" />
     <Content Include="Content\download\USW-AUS-PPS.pps" />
     <Content Include="Content\download\WHSE-AUS-PPS.pps" />
+    <None Include="Properties\PublishProfiles\Daddy alter.pubxml" />
     <None Include="Properties\PublishProfiles\Daddy Main.pubxml" />
     <None Include="Properties\PublishProfiles\Pakaged Main.pubxml" />
     <Content Include="RecaptchaNet.ReadMe.txt" />
@@ -409,6 +411,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <Content Include="Service References\CMSServiceReference\SODAMvcApplication.CMSServiceReference.FreePPT.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\CMSServiceReference\SODAMvcApplication.CMSServiceReference.Region.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <None Include="Service References\PortalServiceReference\configuration91.svcinfo" />

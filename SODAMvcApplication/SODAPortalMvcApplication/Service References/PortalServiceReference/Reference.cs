@@ -44,7 +44,7 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         private short RecurringTypeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private long SalesCodeIdField;
+        private System.Nullable<long> SalesCodeIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private long UserIdField;
@@ -151,7 +151,7 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public long SalesCodeId {
+        public System.Nullable<long> SalesCodeId {
             get {
                 return this.SalesCodeIdField;
             }

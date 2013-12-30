@@ -108,7 +108,50 @@ namespace SODAPortalMvcApplication.Controllers
             }
             return View(model);
         }
+        public ActionResult purchaseDetails()
+        {
+            return View();
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult purchaseDetails(ViewModel.UserModel model, FormCollection collection)
+        {
+            model.Password = "safetytv";
+            model.ConfirmPassword = "safetytv";
+            
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    accountClient.addAccount(new AccountServiceRef.Account()
+                    {
+                        USERNAME = model.Email,
+                        PASSWORD = model.Password,
+                        Role = 3,
+                        Status = 1,
+                        Company = model.Company,
+                        ContactNo = model.Contact,
+                        Email = model.Email,
+                        FirstName = model.FirtName,
+                        LastName = model.LastName,
+                        Country = collection["country"],
+                        CompanyUrl = model.CompanyUrl
 
+
+                    });
+
+                    
+                    TempData["EmailSent"] = true;
+                    Session.Add("Username", model.Email);
+                    return RedirectToAction("Index", "indexpurchase");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Error");
+                }
+            }
+            return View(model);
+        }
         private void sendEmailVerification(ViewModel.UserModel model)
         {
 
@@ -266,5 +309,6 @@ namespace SODAPortalMvcApplication.Controllers
                 default:return "";
             }
         }
+
     }
 }

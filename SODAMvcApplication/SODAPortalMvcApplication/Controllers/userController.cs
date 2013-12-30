@@ -25,7 +25,7 @@ namespace SODAPortalMvcApplication.Controllers
                 //{
                     var customer = getCustomerData(username);
 
-                    //if (customer.First().customer.DatePurchase != null || customer.First().customer.DatePurchase.Value.Year == 1901)//default value from dataset
+                    
                     //First time user 
                     if (customer.Count() == 0)
                     {
@@ -73,18 +73,7 @@ namespace SODAPortalMvcApplication.Controllers
                         return View(customer);
                     //}
                 }
-                //else
-                //{
-                //    var customer = getCustomerData(username);
-
-                //    var verifyModel = getVerifyViewModel(customer.Last().salesCode.Sales_Code);
-                //    if (verifyModel.Count() > 0)
-                //        Session.Add("SalesCode", verifyModel.First());
-                //    else
-                //        Session["SalesCode"] = null;
-                //    Session["CustomerData"] = customer;
-                //    return View(customer);
-                //}
+               
             }
            
         }
@@ -92,24 +81,7 @@ namespace SODAPortalMvcApplication.Controllers
         [HttpPost]
         public ActionResult index(FormCollection collection)
         {
-            //if (collection["verify"] != null)
-            //{
-            //    string salescode = collection["SalesCode"];
-            //    string username = Session["Username"] != null ? Session["Username"].ToString() : null;
-            //    var salescodeList = getVerifyViewModel(salescode);
-
-            //    if (salescodeList.Count() > 0)
-            //    {
-            //      Session["SalesCode"] = salescodeList.First();
-            //    }
-            //    else
-            //    {
-            //        ModelState.AddModelError("", "Sales Code: " + collection["SalesCode"] + "doesn't exists");
-            //    }
-            //    var customer = getCustomerData(username);
-            //    return View(customer);
-            //    //return reverify(collection);
-            //} 
+            
             if(collection["subscription"] == null)
             {
                 ModelState.AddModelError("", "Please select subscrption");
@@ -146,7 +118,7 @@ namespace SODAPortalMvcApplication.Controllers
         {
             var customer = from cust in portalClient.getCustomer()
                            join user in AccountClient.getAccount(username) on cust.UserId equals user.Id
-                           join salescode in portalClient.getSaleCode() on cust.SalesCodeId equals salescode.Id
+                           join salescode in portalClient.getSaleCode() on cust.SalesCodeId.Value equals salescode.Id
                            join sp in portalClient.getSalePerson() on cust.SalesCodeId equals sp.SalesCodeId
                            join p in portalClient.getPrice() on sp.RegionId equals p.RegionId
                            join PPT in paypalClient.getPayPalTrans() on cust.PPId equals PPT.Id
@@ -278,7 +250,23 @@ namespace SODAPortalMvcApplication.Controllers
             ViewBag.paymentSuccess = Session["Username"] != null && stat == "success";
             if (stat != "success" && Session["CustomerData"] != null)
                 Session.Remove("CustomerData");
+            else
+            {
+                var accnt = AccountClient.getAccount(Session["Username"].ToString());
+                if(accnt.Count() >0)
+                {
+                    emailaccount(accnt.First());
+                }
+            }
             return View();
+        }
+
+        private void emailaccount(AccountServiceRef.Account account)
+        {
+            var CustomerName = account.FirstName + " " + account.LastName;
+            ViewData.Add("CustomerName", CustomerName);
+            string body = EmailHelper.ToHtml("emailaccount", ViewData, this.ControllerContext);
+            EmailHelper.SendEmail("test@sac-iis.com", Session["Username"].ToString(), "Account Details", body);
         }
       
         public ActionResult profile()
@@ -339,26 +327,6 @@ namespace SODAPortalMvcApplication.Controllers
                 
 
                 var salesPersonCodePrice = Session["SalesCode"] as ViewModel.VerifyModel;
-
-                //customer.account = accnt.First();
-                //customer.salesPerson = salesPersonCodePrice.saleperson;
-                //customer.salesCode = salesPersonCodePrice.salescode;
-                //customer.price = salesPersonCodePrice.price;
-                
-               // Session.Add("CustomerData", customer);
-
-                //string itemname = "SODA Subscription";
-                //string itemDesc = string.Concat("Soda Subscription payment for ", customer.account.FirstName + " " + customer.account.LastName);
-                //string itemURL = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("checkout");
-                //string cancelURl = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("cancel");
-                //string confirmURL = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("confirm");
-                //decimal price = customer.price.FirstMonthFree ? customer.price.PriceAmt * 5 : customer.price.PriceAmt * 6;
-
-                //if ((customer.salesCode.Discount) > 0)
-                //{
-                //    price = price - (customer.salesCode.Discount * price);
-                //}
-
                 string redirectURL = paypalClient.checkoutModel(initCheckoutModel());
                 //string redirectURL = PaypalHelper.checkout(price, Moolah.PayPal.CurrencyCodeType.AUD, itemname, itemDesc, itemURL, cancelURl, confirmURL);
 
@@ -512,5 +480,7 @@ namespace SODAPortalMvcApplication.Controllers
             string filename = "Sample Pictures.zip";
             return File(new System.IO.FileStream(path + filename, System.IO.FileMode.Open), "application/zip","TestFileDownload");
         }
+
+       
     }
 }
