@@ -37,33 +37,7 @@ namespace SODAPortalMvcApplication.Controllers
             portalClient.Close();
             base.Dispose(disposing);
         }
-        //[HttpPost]
-        //public ActionResult index(FormCollection collection)
-        //{
-        //    DateTime start = DateTime.Parse(collection["datefrom"]);
-        //    DateTime? end = new Nullable<DateTime>();
-        //    if (collection["dateto"] != "")
-        //        end = DateTime.Parse(collection["dateto"]);
-
-        //    if (end.HasValue)
-        //    {
-        //        var reportlist = from customer in portalClient.getCustomer()
-        //                         join accnt in account.getAccount("") on customer.UserId equals accnt.Id
-        //                         where customer.DatePurchase >= start && customer.DatePurchase < end
-        //                         select new ViewModel.ReportViewModel() { account = accnt, customer = customer };
-        //        return View(reportlist);
-        //    }
-        //    else
-        //    {
-        //        var reportlist = from customer in portalClient.getCustomer()
-        //                         join accnt in account.getAccount("") on customer.UserId equals accnt.Id
-        //                         where customer.DatePurchase == start
-        //                         select new ViewModel.ReportViewModel() { account = accnt, customer = customer };
-        //        return View(reportlist);
-        //    }
-
-        //    return View();
-        //}
+        
         [HttpPost]
         public ActionResult index(FormCollection collection)
         {

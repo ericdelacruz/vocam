@@ -79,6 +79,7 @@
   <xs:complexType name="Region">
     <xs:sequence>
       <xs:element minOccurs="0" name="Currency" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DefaultSalesCodeId" type="xs:long" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="RegionName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="WebsiteUrl" nillable="true" type="xs:string" />

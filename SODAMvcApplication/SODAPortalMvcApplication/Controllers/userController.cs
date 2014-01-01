@@ -14,6 +14,7 @@ namespace SODAPortalMvcApplication.Controllers
         //
         // GET: /user/
         private static string BILLING_AGREEMENT_FORMAT = "You will be bill every {0} month/s";
+
         public ActionResult Index()
         {
             string username = Session["Username"] != null? Session["Username"].ToString():null;
@@ -125,7 +126,25 @@ namespace SODAPortalMvcApplication.Controllers
                            join r in portalClient.getRegion() on p.RegionId equals r.Id
                            where PPT.Active == true
                            select new ViewModel.CustomerModel() { account = user, customer = cust, salesCode = salescode, salesPerson = sp, price = p, paypal = PPT, rejoin = r };
+            //if(customer.Count() > 0)
             return customer;
+            //else default
+            //else
+            //{
+            //    int RegionId = portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal","www")).First().Id;
+            //    customer = from cust in portalClient.getCustomer()
+            //               join user in AccountClient.getAccount(username) on cust.UserId equals user.Id
+            //               join salescode in portalClient.getSaleCode() on cust.SalesCodeId.Value equals salescode.Id
+                         
+            //               join r in portalClient.getRegion() on salescode.Id equals r.DefaultSalesCodeId
+                           
+            //               join PPT in paypalClient.getPayPalTrans() on cust.PPId equals PPT.Id
+            //               join p in portalClient.getPrice() on RegionId equals p.RegionId
+            //               where PPT.Active == true && r.Id == RegionId
+            //               select new ViewModel.CustomerModel() { account = user, customer = cust, salesCode = salescode, paypal = PPT, rejoin = r,price = p };
+            //    return customer;
+
+            //}
         }
         public ActionResult indexpurchase(string salescode)
         {
@@ -145,7 +164,30 @@ namespace SODAPortalMvcApplication.Controllers
                 else
                     Session["SalesCode"] = null;
             }
+            else
+            {
+                var salescodeList = getDefaultVerifyViewModel();
+            }
             return View();
+        }
+
+        private IEnumerable<ViewModel.VerifyModel> getDefaultVerifyViewModel()
+        {
+            int RegionId = portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www")).First().Id;
+            var salescodeList = from r in portalClient.getRegion()
+                            join sc in portalClient.getSaleCode() on r.DefaultSalesCodeId equals sc.Id
+                            join p in portalClient.getPrice() on r.Id equals p.RegionId
+                            where r.Id == RegionId
+                            select new ViewModel.VerifyModel()
+                            {
+                                price = p,
+                                salescode = sc,
+                                region = r,
+                                discountedPrice_A = p.PriceAmt - (p.PriceAmt * sc.Discount),
+                                discountedPrice_B = p.PriceAmt_B - (p.PriceAmt_B * sc.Discount),
+                                discountedPrice_C = p.priceAmt_C - (p.priceAmt_C * sc.Discount),
+                            };
+            return salescodeList;
         }
         [HttpPost]
         public ActionResult indexpurchase(FormCollection collection)
@@ -221,16 +263,9 @@ namespace SODAPortalMvcApplication.Controllers
                                 discountedPrice_B = p.PriceAmt_B - (p.PriceAmt_B * sc.Discount),
                                 discountedPrice_C = p.priceAmt_C - (p.priceAmt_C * sc.Discount),
                                 };
-            //if(salescodeList.Count() > 0)
-            //{
-                
-            //    var Verify = salescodeList.First();
-            //    Verify.discountedPrice_A = Verify.price.PriceAmt - (Verify.price.PriceAmt * Verify.salescode.Discount);
-            //    Verify.discountedPrice_B = Verify.price.PriceAmt_B - (Verify.price.PriceAmt_B * Verify.salescode.Discount);
-            //    Verify.discountedPrice_C = Verify.price.priceAmt_C - (Verify.price.priceAmt_C * Verify.salescode.Discount);
-                
-            //}
+           
             return salescodeList;
+            
         }
 
         public ActionResult termsinit()

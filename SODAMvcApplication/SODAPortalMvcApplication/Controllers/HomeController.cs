@@ -19,6 +19,7 @@ namespace SODAPortalMvcApplication.Controllers
 
             string PhoneNo = cmsClient.getContent("Contact", "PhoneNo").Where(c => c.RegionId == RegionId).First().Value;
             Session.Add("PhoneNo", PhoneNo);
+             
             return View();
         }
         protected override void Dispose(bool disposing)
@@ -143,7 +144,7 @@ namespace SODAPortalMvcApplication.Controllers
                     
                     TempData["EmailSent"] = true;
                     Session.Add("Username", model.Email);
-                    return RedirectToAction("Index", "indexpurchase");
+                    return RedirectToAction("indexpurchase", "user");
                 }
                 catch (Exception ex)
                 {
