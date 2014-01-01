@@ -202,7 +202,8 @@ namespace SODAwcfService
                     RegionName = region.RegionName,
                     Id = region.Id,
                      Currency = region.Currency,
-                     WebsiteUrl = region.WebsiteUrl
+                     WebsiteUrl = region.WebsiteUrl,
+                     DefaultSalesCodeId = region.DefaultSalesCodeId
                 });
             }
             return regionlist;
@@ -210,12 +211,12 @@ namespace SODAwcfService
 
         public int addRegion(Models.Region region)
         {
-            return regionTableAdapter.Insert(region.RegionName,region.Currency,region.WebsiteUrl);
+            return regionTableAdapter.Insert(region.RegionName,region.Currency,region.WebsiteUrl,region.DefaultSalesCodeId);
         }
 
         public int updateRegion(Models.Region region)
         {
-            return regionTableAdapter.Update(region.RegionName,region.Currency, region.WebsiteUrl ,region.Id);
+            return regionTableAdapter.Update(region.RegionName,region.Currency, region.WebsiteUrl,region.DefaultSalesCodeId,region.Id);
         }
 
         public int deleteRegion(int id)
