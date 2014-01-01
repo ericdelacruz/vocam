@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0fed0a1acb42411b974afe8cb7465057" Name="Diagram1">
+        <EntityTypeShape EntityType="adminSodaModel.Account" Width="1.5" PointX="5.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="adminSodaModel.Category" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="adminSodaModel.Contact" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="adminSodaModel.Customer" Width="1.5" PointX="8" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="adminSodaModel.LogsTable" Width="1.5" PointX="2.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="adminSodaModel.Page" Width="1.5" PointX="7.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="adminSodaModel.PriceTable" Width="1.5" PointX="8" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="adminSodaModel.Region" Width="1.5" PointX="5.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="adminSodaModel.SalesCode" Width="1.5" PointX="5.75" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="adminSodaModel.SalesPerson" Width="1.5" PointX="8" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="adminSodaModel.Specific" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="adminSodaModel.ContentDef" Width="1.5" PointX="10" PointY="7.125" IsExpanded="true" />
+        <AssociationConnector Association="adminSodaModel.FK_Customer_ToAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="adminSodaModel.FK_SalesPerson_ToAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="adminSodaModel.FK_Table_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="adminSodaModel.FK_ContentDef_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="adminSodaModel.FK_PriceTable_ToRegion" ManuallyRouted="false" />
+        <AssociationConnector Association="adminSodaModel.FK_SalesPerson_ToRegion" ManuallyRouted="false" />
+        <AssociationConnector Association="adminSodaModel.FK_SalesPersonTable_ToSalesCode" ManuallyRouted="false" />
+        <AssociationConnector Association="adminSodaModel.Related" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

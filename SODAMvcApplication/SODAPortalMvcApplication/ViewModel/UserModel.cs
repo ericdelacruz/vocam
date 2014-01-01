@@ -19,13 +19,13 @@ namespace SODAPortalMvcApplication.ViewModel
         public string Contact { get; set; }
         public string Company { get; set; }
 
-        [Required]
+        //[Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [Compare("Password", ErrorMessage = "The new password and confirmation password do not match.")]
+        //[Display(Name = "Confirm new password")]
+        //[Compare("Password", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         public string CompanyUrl { get; set; }

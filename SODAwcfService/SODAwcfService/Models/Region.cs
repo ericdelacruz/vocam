@@ -13,5 +13,7 @@ namespace SODAwcfService.Models
         public string Currency { get; set; }
 
         public string WebsiteUrl { get; set; }
+
+        public long DefaultSalesCodeId { get; set; }
     }
 }

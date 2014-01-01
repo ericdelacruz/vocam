@@ -1,0 +1,816 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="adminSodaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Accounts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USERNAME" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Role" Type="int" Nullable="false" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="200" />
+          <Property Name="City" Type="varchar" MaxLength="30" />
+          <Property Name="Country" Type="varchar" MaxLength="30" />
+          <Property Name="Gender" Type="char" MaxLength="1" />
+          <Property Name="ContactNo" Type="varchar" MaxLength="20" />
+          <Property Name="Company" Type="varchar" MaxLength="50" />
+          <Property Name="DateLogin" Type="datetime" />
+          <Property Name="Birthdate" Type="date" />
+          <Property Name="EmailVerify" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="IMG_URL" Type="varchar" MaxLength="300" />
+          <Property Name="Metatags" Type="varchar" MaxLength="200" />
+          <Property Name="bg_img" Type="varchar" MaxLength="300" />
+          <Property Name="banner_img" Type="varchar" MaxLength="300" />
+          <Property Name="Overview" Type="varchar" MaxLength="200" />
+          <Property Name="Meta_Desc" Type="varchar" MaxLength="500" />
+          <Property Name="PageTitle" Type="varchar" MaxLength="70" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="Company" Type="varchar" MaxLength="100" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Postcode" Type="varchar" MaxLength="20" />
+          <Property Name="Message" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'adminSoda.dbo.ContentDef' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ContentDef">
+          <Key>
+            <PropertyRef Name="PageCode" />
+            <PropertyRef Name="SectionName" />
+            <PropertyRef Name="Type" />
+          </Key>
+          <Property Name="PageCode" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="SectionName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Value" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="Sales_Code" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="DatePurchase" Type="date" Nullable="false" />
+          <Property Name="DateSubscriptionEnd" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LogsTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Action" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="DateLog" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pages">
+          <Key>
+            <PropertyRef Name="PageCode" />
+          </Key>
+          <Property Name="PageCode" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PriceTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="FirstMonthFree" Type="bit" Nullable="false" />
+          <Property Name="RegionId" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegionName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'adminSoda.dbo.Related' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Related">
+          <Key>
+            <PropertyRef Name="BaseID" />
+            <PropertyRef Name="RefID" />
+          </Key>
+          <Property Name="BaseID" Type="bigint" Nullable="false" />
+          <Property Name="RefID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SalesCode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SalesPersonID" Type="int" />
+          <Property Name="Sales_Code" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Discount" Type="numeric" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="DateCreated" Type="date" Nullable="false" />
+          <Property Name="DateEnd" Type="date" />
+        </EntityType>
+        <EntityType Name="SalesPerson">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="SalesCodeId" Type="bigint" Nullable="false" />
+          <Property Name="RegionId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Specific">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryID" Type="bigint" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="VideoURL" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ImageURL" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Metatags" Type="varchar" MaxLength="200" />
+          <Property Name="bg_img" Type="varchar" MaxLength="200" />
+          <Property Name="TitleCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Overview" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="PageTitle" Type="varchar" MaxLength="500" />
+          <Property Name="Meta_Desc" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <Association Name="FK_ContentDef_ToTable">
+          <End Role="Pages" Type="Self.Pages" Multiplicity="1" />
+          <End Role="ContentDef" Type="Self.ContentDef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pages">
+              <PropertyRef Name="PageCode" />
+            </Principal>
+            <Dependent Role="ContentDef">
+              <PropertyRef Name="PageCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_ToAccount">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_LogsTable_ToAccount' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_LogsTable_ToAccount" />-->
+        <Association Name="FK_PriceTable_ToRegion">
+          <End Role="Region" Type="Self.Region" Multiplicity="1" />
+          <End Role="PriceTable" Type="Self.PriceTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PriceTable">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rel_toSpec_1">
+          <End Role="Specific" Type="Self.Specific" Multiplicity="1" />
+          <End Role="Related" Type="Self.Related" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specific">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Related">
+              <PropertyRef Name="RefID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rel_ToSpec_2">
+          <End Role="Specific" Type="Self.Specific" Multiplicity="1" />
+          <End Role="Related" Type="Self.Related" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specific">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Related">
+              <PropertyRef Name="BaseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesPerson_ToAccount">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="SalesPerson" Type="Self.SalesPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SalesPerson">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesPerson_ToRegion">
+          <End Role="Region" Type="Self.Region" Multiplicity="1" />
+          <End Role="SalesPerson" Type="Self.SalesPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SalesPerson">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesPersonTable_ToSalesCode">
+          <End Role="SalesCode" Type="Self.SalesCode" Multiplicity="1" />
+          <End Role="SalesPerson" Type="Self.SalesPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SalesCode">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SalesPerson">
+              <PropertyRef Name="SalesCodeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_ToTable">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Specific" Type="Self.Specific" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Specific">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="adminSodaModelStoreContainer">
+          <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LogsTable" EntityType="Self.LogsTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pages" EntityType="Self.Pages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PriceTable" EntityType="Self.PriceTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Region" EntityType="Self.Region" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SalesCode" EntityType="Self.SalesCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SalesPerson" EntityType="Self.SalesPerson" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Specific" EntityType="Self.Specific" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContentDef" EntityType="Self.ContentDef" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ContentDef].[PageCode] AS [PageCode], 
+    [ContentDef].[SectionName] AS [SectionName], 
+    [ContentDef].[Type] AS [Type], 
+    [ContentDef].[Value] AS [Value]
+    FROM [dbo].[ContentDef] AS [ContentDef]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Related" EntityType="Self.Related" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Related].[BaseID] AS [BaseID], 
+    [Related].[RefID] AS [RefID]
+    FROM [dbo].[Related] AS [Related]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_ContentDef_ToTable" Association="Self.FK_ContentDef_ToTable">
+            <End Role="Pages" EntitySet="Pages" />
+            <End Role="ContentDef" EntitySet="ContentDef" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_ToAccount" Association="Self.FK_Customer_ToAccount">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PriceTable_ToRegion" Association="Self.FK_PriceTable_ToRegion">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="PriceTable" EntitySet="PriceTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rel_toSpec_1" Association="Self.FK_Rel_toSpec_1">
+            <End Role="Specific" EntitySet="Specific" />
+            <End Role="Related" EntitySet="Related" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rel_ToSpec_2" Association="Self.FK_Rel_ToSpec_2">
+            <End Role="Specific" EntitySet="Specific" />
+            <End Role="Related" EntitySet="Related" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesPerson_ToAccount" Association="Self.FK_SalesPerson_ToAccount">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="SalesPerson" EntitySet="SalesPerson" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesPerson_ToRegion" Association="Self.FK_SalesPerson_ToRegion">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="SalesPerson" EntitySet="SalesPerson" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesPersonTable_ToSalesCode" Association="Self.FK_SalesPersonTable_ToSalesCode">
+            <End Role="SalesCode" EntitySet="SalesCode" />
+            <End Role="SalesPerson" EntitySet="SalesPerson" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_ToTable" Association="Self.FK_Table_ToTable">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Specific" EntitySet="Specific" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="adminSodaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USERNAME" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Role" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int16" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="ContactNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Company" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateLogin" Type="DateTime" Precision="3" />
+          <Property Name="Birthdate" Type="DateTime" Precision="0" />
+          <Property Name="EmailVerify" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK_Customer_ToAccount" FromRole="Accounts" ToRole="Customer" />
+          <NavigationProperty Name="SalesPersons" Relationship="Self.FK_SalesPerson_ToAccount" FromRole="Accounts" ToRole="SalesPerson" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IMG_URL" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Metatags" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="bg_img" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="banner_img" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Overview" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Meta_Desc" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="PageTitle" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Specifics" Relationship="Self.FK_Table_ToTable" FromRole="Category" ToRole="Specific" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Company" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Postcode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Message" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="Sales_Code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DatePurchase" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DateSubscriptionEnd" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_Customer_ToAccount" FromRole="Customer" ToRole="Accounts" />
+        </EntityType>
+        <EntityType Name="LogsTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Action" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateLog" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Page">
+          <Key>
+            <PropertyRef Name="PageCode" />
+          </Key>
+          <Property Name="PageCode" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ContentDefs" Relationship="Self.FK_ContentDef_ToTable" FromRole="Pages" ToRole="ContentDef" />
+        </EntityType>
+        <EntityType Name="PriceTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="FirstMonthFree" Type="Boolean" Nullable="false" />
+          <Property Name="RegionId" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Region" Relationship="Self.FK_PriceTable_ToRegion" FromRole="PriceTable" ToRole="Region" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegionName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PriceTables" Relationship="Self.FK_PriceTable_ToRegion" FromRole="Region" ToRole="PriceTable" />
+          <NavigationProperty Name="SalesPersons" Relationship="Self.FK_SalesPerson_ToRegion" FromRole="Region" ToRole="SalesPerson" />
+        </EntityType>
+        <EntityType Name="SalesCode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalesPersonID" Type="Int32" />
+          <Property Name="Sales_Code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Discount" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DateEnd" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="SalesPersons" Relationship="Self.FK_SalesPersonTable_ToSalesCode" FromRole="SalesCode" ToRole="SalesPerson" />
+        </EntityType>
+        <EntityType Name="SalesPerson">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="SalesCodeId" Type="Int64" Nullable="false" />
+          <Property Name="RegionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_SalesPerson_ToAccount" FromRole="SalesPerson" ToRole="Accounts" />
+          <NavigationProperty Name="Region" Relationship="Self.FK_SalesPerson_ToRegion" FromRole="SalesPerson" ToRole="Region" />
+          <NavigationProperty Name="SalesCode" Relationship="Self.FK_SalesPersonTable_ToSalesCode" FromRole="SalesPerson" ToRole="SalesCode" />
+        </EntityType>
+        <EntityType Name="Specific">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryID" Type="Int64" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VideoURL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ImageURL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Metatags" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="bg_img" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="TitleCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Overview" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PageTitle" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Meta_Desc" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_Table_ToTable" FromRole="Specific" ToRole="Category" />
+          <NavigationProperty Name="Specific1" Relationship="Self.Related" FromRole="Specific" ToRole="Specific1" />
+          <NavigationProperty Name="Specifics" Relationship="Self.Related" FromRole="Specific1" ToRole="Specific" />
+        </EntityType>
+        <EntityType Name="ContentDef">
+          <Key>
+            <PropertyRef Name="PageCode" />
+            <PropertyRef Name="SectionName" />
+            <PropertyRef Name="Type" />
+          </Key>
+          <Property Name="PageCode" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SectionName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Page" Relationship="Self.FK_ContentDef_ToTable" FromRole="ContentDef" ToRole="Pages" />
+        </EntityType>
+        <Association Name="FK_Customer_ToAccount">
+          <End Role="Accounts" Type="Self.Account" Multiplicity="1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesPerson_ToAccount">
+          <End Role="Accounts" Type="Self.Account" Multiplicity="1" />
+          <End Role="SalesPerson" Type="Self.SalesPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SalesPerson">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_ToTable">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Specific" Type="Self.Specific" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Specific">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContentDef_ToTable">
+          <End Role="Pages" Type="Self.Page" Multiplicity="1" />
+          <End Role="ContentDef" Type="Self.ContentDef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pages">
+              <PropertyRef Name="PageCode" />
+            </Principal>
+            <Dependent Role="ContentDef">
+              <PropertyRef Name="PageCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PriceTable_ToRegion">
+          <End Role="Region" Type="Self.Region" Multiplicity="1" />
+          <End Role="PriceTable" Type="Self.PriceTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PriceTable">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesPerson_ToRegion">
+          <End Role="Region" Type="Self.Region" Multiplicity="1" />
+          <End Role="SalesPerson" Type="Self.SalesPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SalesPerson">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesPersonTable_ToSalesCode">
+          <End Role="SalesCode" Type="Self.SalesCode" Multiplicity="1" />
+          <End Role="SalesPerson" Type="Self.SalesPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SalesCode">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SalesPerson">
+              <PropertyRef Name="SalesCodeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Related">
+          <End Role="Specific" Type="Self.Specific" Multiplicity="*" />
+          <End Role="Specific1" Type="Self.Specific" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="adminSodaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="Self.Account" />
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Contacts" EntityType="Self.Contact" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="LogsTables" EntityType="Self.LogsTable" />
+          <EntitySet Name="Pages" EntityType="Self.Page" />
+          <EntitySet Name="PriceTables" EntityType="Self.PriceTable" />
+          <EntitySet Name="Regions" EntityType="Self.Region" />
+          <EntitySet Name="SalesCodes" EntityType="Self.SalesCode" />
+          <EntitySet Name="SalesPersons" EntityType="Self.SalesPerson" />
+          <EntitySet Name="Specifics" EntityType="Self.Specific" />
+          <EntitySet Name="ContentDefs" EntityType="Self.ContentDef" />
+          <AssociationSet Name="FK_Customer_ToAccount" Association="Self.FK_Customer_ToAccount">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesPerson_ToAccount" Association="Self.FK_SalesPerson_ToAccount">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="SalesPerson" EntitySet="SalesPersons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_ToTable" Association="Self.FK_Table_ToTable">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Specific" EntitySet="Specifics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContentDef_ToTable" Association="Self.FK_ContentDef_ToTable">
+            <End Role="Pages" EntitySet="Pages" />
+            <End Role="ContentDef" EntitySet="ContentDefs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PriceTable_ToRegion" Association="Self.FK_PriceTable_ToRegion">
+            <End Role="Region" EntitySet="Regions" />
+            <End Role="PriceTable" EntitySet="PriceTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesPerson_ToRegion" Association="Self.FK_SalesPerson_ToRegion">
+            <End Role="Region" EntitySet="Regions" />
+            <End Role="SalesPerson" EntitySet="SalesPersons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesPersonTable_ToSalesCode" Association="Self.FK_SalesPersonTable_ToSalesCode">
+            <End Role="SalesCode" EntitySet="SalesCodes" />
+            <End Role="SalesPerson" EntitySet="SalesPersons" />
+          </AssociationSet>
+          <AssociationSet Name="Related" Association="Self.Related">
+            <End Role="Specific" EntitySet="Specifics" />
+            <End Role="Specific1" EntitySet="Specifics" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="adminSodaModelStoreContainer" CdmEntityContainer="adminSodaEntities">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="adminSodaModel.Account">
+              <MappingFragment StoreEntitySet="Accounts">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="DateLogin" ColumnName="DateLogin" />
+                <ScalarProperty Name="Birthdate" ColumnName="Birthdate" />
+                <ScalarProperty Name="EmailVerify" ColumnName="EmailVerify" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="adminSodaModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IMG_URL" ColumnName="IMG_URL" />
+                <ScalarProperty Name="Metatags" ColumnName="Metatags" />
+                <ScalarProperty Name="bg_img" ColumnName="bg_img" />
+                <ScalarProperty Name="banner_img" ColumnName="banner_img" />
+                <ScalarProperty Name="Overview" ColumnName="Overview" />
+                <ScalarProperty Name="Meta_Desc" ColumnName="Meta_Desc" />
+                <ScalarProperty Name="PageTitle" ColumnName="PageTitle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contacts">
+            <EntityTypeMapping TypeName="adminSodaModel.Contact">
+              <MappingFragment StoreEntitySet="Contact">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Postcode" ColumnName="Postcode" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="adminSodaModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Sales_Code" ColumnName="Sales_Code" />
+                <ScalarProperty Name="DatePurchase" ColumnName="DatePurchase" />
+                <ScalarProperty Name="DateSubscriptionEnd" ColumnName="DateSubscriptionEnd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LogsTables">
+            <EntityTypeMapping TypeName="adminSodaModel.LogsTable">
+              <MappingFragment StoreEntitySet="LogsTable">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="DateLog" ColumnName="DateLog" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pages">
+            <EntityTypeMapping TypeName="adminSodaModel.Page">
+              <MappingFragment StoreEntitySet="Pages">
+                <ScalarProperty Name="PageCode" ColumnName="PageCode" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PriceTables">
+            <EntityTypeMapping TypeName="adminSodaModel.PriceTable">
+              <MappingFragment StoreEntitySet="PriceTable">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="FirstMonthFree" ColumnName="FirstMonthFree" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Regions">
+            <EntityTypeMapping TypeName="adminSodaModel.Region">
+              <MappingFragment StoreEntitySet="Region">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalesCodes">
+            <EntityTypeMapping TypeName="adminSodaModel.SalesCode">
+              <MappingFragment StoreEntitySet="SalesCode">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SalesPersonID" ColumnName="SalesPersonID" />
+                <ScalarProperty Name="Sales_Code" ColumnName="Sales_Code" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalesPersons">
+            <EntityTypeMapping TypeName="adminSodaModel.SalesPerson">
+              <MappingFragment StoreEntitySet="SalesPerson">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="SalesCodeId" ColumnName="SalesCodeId" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Specifics">
+            <EntityTypeMapping TypeName="adminSodaModel.Specific">
+              <MappingFragment StoreEntitySet="Specific">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="VideoURL" ColumnName="VideoURL" />
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+                <ScalarProperty Name="Metatags" ColumnName="Metatags" />
+                <ScalarProperty Name="bg_img" ColumnName="bg_img" />
+                <ScalarProperty Name="TitleCode" ColumnName="TitleCode" />
+                <ScalarProperty Name="Overview" ColumnName="Overview" />
+                <ScalarProperty Name="PageTitle" ColumnName="PageTitle" />
+                <ScalarProperty Name="Meta_Desc" ColumnName="Meta_Desc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContentDefs">
+            <EntityTypeMapping TypeName="adminSodaModel.ContentDef">
+              <MappingFragment StoreEntitySet="ContentDef">
+                <ScalarProperty Name="PageCode" ColumnName="PageCode" />
+                <ScalarProperty Name="SectionName" ColumnName="SectionName" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Related" TypeName="adminSodaModel.Related" StoreEntitySet="Related">
+            <EndProperty Name="Specific">
+              <ScalarProperty Name="Id" ColumnName="RefID" />
+            </EndProperty>
+            <EndProperty Name="Specific1">
+              <ScalarProperty Name="Id" ColumnName="BaseID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
