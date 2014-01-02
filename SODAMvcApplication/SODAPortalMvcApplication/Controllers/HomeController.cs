@@ -47,8 +47,12 @@ namespace SODAPortalMvcApplication.Controllers
                     case 1: return Redirect(cmsurl);
 
                     case 2:
-                        if (account.EmailVerified)
+                        if (account.EmailVerified && EncDec.DecryptString(account.PASSWORD) != "safetytv")
                         return RedirectToAction("Index", "Sales");
+                        else if (EncDec.DecryptString(account.PASSWORD) == "safetytv")
+                        {
+                            return RedirectToAction("changepassword", new { returnurl=@Url.Action("index","sales") });
+                        }
                         else
                         {
                             Session["Username"] = null;
@@ -56,9 +60,12 @@ namespace SODAPortalMvcApplication.Controllers
                             return View(collection);
                         }
                     case 3:
-                        
+                        if (EncDec.DecryptString(account.PASSWORD) != "safetytv")
                         return RedirectToAction("Index", "User");
-                       
+                        else
+                        {
+                            return RedirectToAction("changepassword", new { returnurl = @Url.Action("index", "user") });
+                        }
 
                 }
             }
@@ -124,7 +131,9 @@ namespace SODAPortalMvcApplication.Controllers
             {
                 try
                 {
-                    accountClient.addAccount(new AccountServiceRef.Account()
+                    
+                    //New account will be added upon successful payment. Check paymentstatus method under user controller
+                    Session.Add("NewAccount", new AccountServiceRef.Account()
                     {
                         USERNAME = model.Email,
                         PASSWORD = model.Password,
@@ -140,8 +149,6 @@ namespace SODAPortalMvcApplication.Controllers
 
 
                     });
-
-                    
                     TempData["EmailSent"] = true;
                     Session.Add("Username", model.Email);
                     return RedirectToAction("indexpurchase", "user");
@@ -311,5 +318,32 @@ namespace SODAPortalMvcApplication.Controllers
             }
         }
 
+        public ActionResult changePassword(string returnurl)
+        {
+            TempData["ReturnUrl"] = returnurl;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult changePassword(ViewModel.changePasswordModel changePasswordModel)
+        {
+             if(Session["Username"] != null)
+             {
+                 var account = accountClient.getAccount(Session["Username"].ToString()).First();
+                 if (ModelState.IsValid)
+                 {
+                     accountClient.updatePassword(account.Id, account.PASSWORD, changePasswordModel.Password);
+                     return Redirect(TempData["ReturnUrl"].ToString());
+                 }
+                 else
+                 {
+                     return View(changePasswordModel);
+                 }
+             }
+             else
+             {
+                 return RedirectToAction("Index");
+             }
+        }
     }
 }

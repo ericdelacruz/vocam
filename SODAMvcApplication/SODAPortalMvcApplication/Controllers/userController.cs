@@ -68,8 +68,11 @@ namespace SODAPortalMvcApplication.Controllers
                             var verifyModel = getVerifyViewModel(customer.Last().salesCode.Sales_Code);
                             if (verifyModel.Count() > 0)
                                 Session.Add("SalesCode", verifyModel.First());
-                            else
-                                Session["SalesCode"] = null;
+                            else //set to default sales code
+                            {
+                                verifyModel = getDefaultVerifyViewModel();
+                                Session.Add("SalesCode", verifyModel.First());
+                            }
                         }
                         return View(customer);
                     //}
@@ -126,48 +129,43 @@ namespace SODAPortalMvcApplication.Controllers
                            join r in portalClient.getRegion() on p.RegionId equals r.Id
                            where PPT.Active == true
                            select new ViewModel.CustomerModel() { account = user, customer = cust, salesCode = salescode, salesPerson = sp, price = p, paypal = PPT, rejoin = r };
-            //if(customer.Count() > 0)
+            if(customer.Count() > 0)
             return customer;
             //else default
-            //else
-            //{
-            //    int RegionId = portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal","www")).First().Id;
-            //    customer = from cust in portalClient.getCustomer()
-            //               join user in AccountClient.getAccount(username) on cust.UserId equals user.Id
-            //               join salescode in portalClient.getSaleCode() on cust.SalesCodeId.Value equals salescode.Id
+            else
+            {
+                int RegionId = portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal","www")).First().Id;
+                customer = from cust in portalClient.getCustomer()
+                           join user in AccountClient.getAccount(username) on cust.UserId equals user.Id
+                           join salescode in portalClient.getSaleCode() on cust.SalesCodeId.Value equals salescode.Id
                          
-            //               join r in portalClient.getRegion() on salescode.Id equals r.DefaultSalesCodeId
+                           join r in portalClient.getRegion() on salescode.Id equals r.DefaultSalesCodeId
                            
-            //               join PPT in paypalClient.getPayPalTrans() on cust.PPId equals PPT.Id
-            //               join p in portalClient.getPrice() on RegionId equals p.RegionId
-            //               where PPT.Active == true && r.Id == RegionId
-            //               select new ViewModel.CustomerModel() { account = user, customer = cust, salesCode = salescode, paypal = PPT, rejoin = r,price = p };
-            //    return customer;
+                           join PPT in paypalClient.getPayPalTrans() on cust.PPId equals PPT.Id
+                           join p in portalClient.getPrice() on RegionId equals p.RegionId
+                           where PPT.Active == true && r.Id == RegionId
+                           select new ViewModel.CustomerModel() { account = user, customer = cust, salesCode = salescode, paypal = PPT, rejoin = r,price = p };
+                return customer;
 
-            //}
+            }
         }
         public ActionResult indexpurchase(string salescode)
         {
             if (Session["Username"] == null)
                 return RedirectToAction("index", "home");
 
-            if(salescode != null)
-            {
+           
                 
-                var salescodeList = getVerifyViewModel(salescode);
+            var salescodeList =salescode != null? getVerifyViewModel(salescode): getDefaultVerifyViewModel();
+          
 
-                if (salescodeList.Count() > 0)
-                {
-                 
-                    Session.Add("SalesCode", salescodeList.First());
-                }
-                else
-                    Session["SalesCode"] = null;
+            if (salescodeList.Count() > 0)
+            {
+
+                Session.Add("SalesCode", salescodeList.First());
             }
             else
-            {
-                var salescodeList = getDefaultVerifyViewModel();
-            }
+                Session["SalesCode"] = null;
             return View();
         }
 
@@ -290,6 +288,8 @@ namespace SODAPortalMvcApplication.Controllers
                 var accnt = AccountClient.getAccount(Session["Username"].ToString());
                 if(accnt.Count() >0)
                 {
+                    var new_account = Session["NewAccount"] as AccountServiceRef.Account;
+                    AccountClient.addAccount(new_account);
                     emailaccount(accnt.First());
                 }
             }
@@ -300,6 +300,7 @@ namespace SODAPortalMvcApplication.Controllers
         {
             var CustomerName = account.FirstName + " " + account.LastName;
             ViewData.Add("CustomerName", CustomerName);
+            
             string body = EmailHelper.ToHtml("emailaccount", ViewData, this.ControllerContext);
             EmailHelper.SendEmail("test@sac-iis.com", Session["Username"].ToString(), "Account Details", body);
         }
@@ -432,7 +433,8 @@ namespace SODAPortalMvcApplication.Controllers
                 {
                     UserId = accnt.First().Id,
                     DatePurchase = new Nullable<DateTime>(DateTime.Now),
-                    DateSubscriptionEnd = new Nullable<DateTime>(DateTime.Now.AddMonths(6)),
+                    //DateSubscriptionEnd = new Nullable<DateTime>(DateTime.Now.AddMonths(6)),
+                    DateSubscriptionEnd = getDateSubscriptionEnd(VerfiyModel.selectedSubscription,VerfiyModel.price.FirstMonthFree),
                     SalesCodeId = VerfiyModel.salescode.Id,
                      DateUpdated = DateTime.Now,
                      Licenses = VerfiyModel.qty,
@@ -442,6 +444,16 @@ namespace SODAPortalMvcApplication.Controllers
 
                 return RedirectToAction("paymentstatus",new{stat="success"});
             
+        }
+
+        private DateTime? getDateSubscriptionEnd(int RecurringType, bool FirstMonthFree)
+        {
+            switch(RecurringType)
+            {
+                case 1: return FirstMonthFree?DateTime.Now.AddMonths(2):DateTime.Now.AddMonths(1);
+                case 2: return FirstMonthFree?DateTime.Now.AddMonths(4):DateTime.Now.AddMonths(3);
+                default: return FirstMonthFree?DateTime.Now.AddMonths(7): DateTime.Now.AddMonths(6);
+            }
         }
 
         private SODAPayPalSerRef.PayPalConfirmModel initConfirmModel(ViewModel.VerifyModel VerfiyModel, long userid, string token, string payerid)

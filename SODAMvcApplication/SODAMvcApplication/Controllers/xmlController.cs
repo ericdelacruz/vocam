@@ -26,7 +26,7 @@ namespace SODAMvcApplication.Controllers
         {
             return View();
         }
-         
+          
         public ActionResult validate(string username, string password)
         {
             if(!string.IsNullOrEmpty(username.Trim()) && !string.IsNullOrEmpty(password.Trim()) && account.AuthenticateUser(username,password))
@@ -60,7 +60,7 @@ namespace SODAMvcApplication.Controllers
             }
             else
             {
-                return View(new Users() { authorized = false, daysleft = 0, shownews = false, PCLicenses = 0, PCLicenseConsumed = 0 });
+                return View(new Users() { authorized = false, daysleft = 0, shownews = false, PCLicenses = 0, PCLicenseConsumed = 0, CompanyWebsite = "" });
             }
         }
         public ActionResult channels()

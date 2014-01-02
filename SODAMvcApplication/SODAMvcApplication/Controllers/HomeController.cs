@@ -28,16 +28,28 @@ namespace SODAMvcApplication.Controllers
         private const string CONTACT = "Contact";
         private const string LEARN = "Learn";
         //private string[] filenames = { "USO-AUS-PPS.pps", "USW-AUS-PPS.pps", "WHSE-AUS-PPS.pps" };
-        
+        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
+        {
+            
+            base.Initialize(requestContext);
+        }
         public ActionResult Index()
         {
 
-          
-             
+
+            if (!Request.Url.Host.Contains("www.") && Request.Url.Host != "localhost")
+                return Redirect("http://www." + Request.Url.Host);
+            else if (Request.Url.Host == "www.sac-iis.com" || Request.Url.Host == "sac-iis.com")
+            {
+                var websiteUrl = cmsServiceClient.getRegions().Where(r => r.Id == 12).First().WebsiteUrl;
+                return Redirect("http://" + websiteUrl);
+            }
+
               var  lContentDef = cmsServiceClient.getContent(HOME, string.Empty);
 
               var filterByRegion = getContents(lContentDef);
               
+               
               var contact = cmsServiceClient.getContent(CONTACT,"PhoneNo").Where(cms=>cms.RegionId == filterByRegion.First().RegionId).First().Value;
 
               Session.Add("PortalUrl", filterByRegion.Where(c => c.SectionName == "PortalUrl").First().Value);
@@ -156,8 +168,14 @@ namespace SODAMvcApplication.Controllers
         [HttpPost]
         public ActionResult contact(CMSServiceReference.Contact contact)
         {
+            if (!this.IsCaptchaValid("Captcha is not valid"))
+            {
+                ModelState.AddModelError("", "Incorrect captcha answer.");
+                return View(contact);
+            }
             contact.isFreePPT = false;
             cmsServiceClient.addContact(contact);
+            EmailHelper.SendEmail(contact.Email, "SODA Customer Inquiry", "Message sent. A customer representative will contact you shortly.");
             TempData["MsgSent"] = true;
             return RedirectToAction("contact");
             //return View();
@@ -208,7 +226,7 @@ namespace SODAMvcApplication.Controllers
             contact.DateLinkEx = dateAdded;
             cmsServiceClient.addContact(contact);
             
-            EmailHelper.SendEmail("test@yahoo.com", contact.Email, "TEST", createDownloadPPTLink(key,selected));
+            EmailHelper.SendEmail(contact.Email, "SODA:Free Powerpoint download", createDownloadPPTLink(key,selected));
             return RedirectToAction("Replyfreeppt");
            
         }
@@ -225,7 +243,7 @@ namespace SODAMvcApplication.Controllers
                 cmsServiceClient.Open();
             }
             var contact = cmsServiceClient.getContact().Where(c => c.key == key);
-            int i = 0;
+           
             if(contact.Count() >0 && (contact.First().DateLinkEx.Value - DateTime.Now).Hours < 1)
             {
               
