@@ -18,13 +18,16 @@ namespace SODAMvcApplication.Controllers
             //int port = ConfigurationManager.AppSettings["Emailport"] != "" ? int.Parse(ConfigurationManager.AppSettings["Emailport"]) : 80;
 
             MailMessage msg = new MailMessage(from, to, subject, body);
-           
+            //MailMessage msg = new MailMessage();
+            //msg.To.Add(to);
+            //msg.Body = body;
+            //msg.Subject = subject;
             //SmtpClient smtp = port == 0 ? new SmtpClient(host) : new SmtpClient(host, port);
             SmtpClient smtp = new SmtpClient();
-            string username = "test@sac-iis.com";
-            string password = "P@ssw0rd12345";
+            //string username = "test@sac-iis.com";
+            //string password = "P@ssw0rd12345";
 
-            smtp.Credentials = new NetworkCredential(username, password);
+            //smtp.Credentials = new NetworkCredential(username, password);
             //smtp.Credentials = new NetworkCredential();
             //smtp.EnableSsl = true;
             //smtp.UseDefaultCredentials = false;
@@ -48,6 +51,37 @@ namespace SODAMvcApplication.Controllers
 
         }
 
+        public static void SendEmail(string to, string subject, string body)
+        {
+            
+
+
+            MailMessage msg = new MailMessage();
+            msg.To.Add(to);
+            msg.Body = body;
+            msg.Subject = subject;
+            
+            SmtpClient smtp = new SmtpClient();
+          
+
+            try
+            {
+                smtp.Send(msg);
+            }
+            catch (Exception exp)
+            {
+                //SmtpClient smtp_alter = new SmtpClient();
+
+                //throw (exp);
+            }
+            finally
+            {
+                msg.Dispose();
+                smtp.Dispose();
+            }
+
+
+        }
         public static string GetMd5Hash(string input)
         {
             using (MD5 md5Hash = MD5.Create())
