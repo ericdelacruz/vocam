@@ -1,0 +1,11 @@
+﻿@{
+    Layout = null;
+    Response.ContentType = "text/plain";
+    var Customer = ViewData["Customer"] as SODAMvcApplication.CMSServiceReference.Contact;
+}
+Customer Name: @Customer.Name
+Company:@Customer.Company
+Email:@Customer.Email
+Phone:@Customer.Phone
+Postal Code:@Customer.Postcode
+

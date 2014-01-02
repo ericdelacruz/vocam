@@ -1,23 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using System.Web.Mvc;
 
 namespace SODAMvcApplication.Controllers
 {
     public static class EmailHelper
     {
-        public static void SendEmail(string from, string to, string subject, string body)
+        public static void SendEmail(string from, string to, string subject, string body, string ReplyTo)
         {
             //string host = ConfigurationManager.AppSettings["EmailHost"] != "" ? ConfigurationManager.AppSettings["EmailHost"] : "smtpout.asia.secureserver.net";
             //int port = ConfigurationManager.AppSettings["Emailport"] != "" ? int.Parse(ConfigurationManager.AppSettings["Emailport"]) : 80;
 
             MailMessage msg = new MailMessage(from, to, subject, body);
+
+            if (!string.IsNullOrEmpty(ReplyTo))
+                msg.ReplyToList.Add(ReplyTo);
             //MailMessage msg = new MailMessage();
             //msg.To.Add(to);
             //msg.Body = body;
@@ -50,8 +55,37 @@ namespace SODAMvcApplication.Controllers
 
 
         }
+        public static void SendEmail(MailAddress from, MailAddress to, string subject, string body,bool isHTML, string ReplyTo,string password)
+        {
+            
+            MailMessage msg = new MailMessage(from, to);
+            msg.Subject = subject;
+            msg.Body = body;
+            msg.IsBodyHtml = isHTML;
 
-        public static void SendEmail(string to, string subject, string body)
+            if (!string.IsNullOrEmpty(ReplyTo))
+                msg.ReplyToList.Add(ReplyTo);
+          
+            SmtpClient smtp = new SmtpClient();
+            smtp.Credentials = new NetworkCredential(from.Address, password);
+
+            try
+            {
+                smtp.Send(msg);
+            }
+            catch (Exception exp)
+            {
+                //SmtpClient smtp_alter = new SmtpClient();
+
+                //throw (exp);
+            }
+            finally
+            {
+                msg.Dispose();
+                smtp.Dispose();
+            }
+        }
+        public static void SendEmail(string to, string subject, string body, string ReplyTo)
         {
             
 
@@ -60,9 +94,10 @@ namespace SODAMvcApplication.Controllers
             msg.To.Add(to);
             msg.Body = body;
             msg.Subject = subject;
-            
+            if (!string.IsNullOrEmpty(ReplyTo))
+                msg.ReplyToList.Add(ReplyTo);
             SmtpClient smtp = new SmtpClient();
-          
+           
 
             try
             {
@@ -81,6 +116,20 @@ namespace SODAMvcApplication.Controllers
             }
 
 
+        }
+        public static string ToHtml(string viewToRender, ViewDataDictionary viewData, ControllerContext controllerContext)
+        {
+            var result = ViewEngines.Engines.FindView(controllerContext, viewToRender, null);
+
+            StringWriter output;
+            using (output = new StringWriter())
+            {
+                var viewContext = new ViewContext(controllerContext, result.View, viewData, controllerContext.Controller.TempData, output);
+                result.View.Render(viewContext, output);
+                result.ViewEngine.ReleaseView(controllerContext, result.View);
+            }
+
+            return output.ToString();
         }
         public static string GetMd5Hash(string input)
         {
