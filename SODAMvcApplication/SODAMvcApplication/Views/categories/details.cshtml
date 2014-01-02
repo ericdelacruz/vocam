@@ -9,7 +9,7 @@
     var related = ViewBag.Related as IEnumerable<SODAMvcApplication.CategoriesServiceReference.Specific>;
     var selCat = ViewBag.SelCategory as SODAMvcApplication.CategoriesServiceReference.Category;
     //var portalUrl = Session["PortalUrl"] as string;
-    var portalUrl = "http://" + Request.Url.Host.Replace("www", "portal");
+    var portalUrl = "http://" + Request.Url.Host.Replace("www", "portal") + "/home/purchasedetails";
     ViewBag.CurPage = "Category";
 }
 
