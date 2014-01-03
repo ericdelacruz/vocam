@@ -175,9 +175,10 @@ namespace CMSMvcApplication.Controllers
                         catClient.addCatAssign(title.Id, long.Parse(strNum));
                     }
                 }
-                addTopics(collection, title);
-
-                addChapters(collection, title);
+                //addTopics(collection, title);
+                addTopics(Request.Form.GetValues("topicName[]"), title);
+                //addChapters(collection, title);
+                addChapters(Request.Form.GetValues("chapterName[]"), Request.Form.GetValues("chapterTime[]"), title);
                 return RedirectToAction("Index");
             }
             catch(Exception ex)
@@ -190,39 +191,65 @@ namespace CMSMvcApplication.Controllers
             
         }
 
-        private void addChapters(FormCollection collection, CatListingServiceReference.Specific title)
+        private void addChapters(string[] chapterNames,string[] chaterTimes, CatListingServiceReference.Specific title)
         {
-            if (!string.IsNullOrEmpty(collection["chapterName[]"]))
+            if(chapterNames != null && chapterNames.Count() >0)
             {
-                //catClient.addChapter(title.Id,collection["chapterName"],TimeSpan.FromMilliseconds(double.Parse(collection["chapterTime"])));
-
-                if (!string.IsNullOrEmpty(collection["chapterName[]"]))
+                for(int i =0; i< chapterNames.Count();i++)
                 {
-                    string[] chapterNameCollection = collection["chapterName[]"].Split(',');
-                    string[] chapterTimeCollection = collection["chapterTime[]"].Split(',');
-                    for (int i = 0; i < chapterNameCollection.Count(); i++)
+                    if(chapterNames[i].Trim() != "")  
+                    catClient.addChapter(title.Id,chapterNames[i],TimeSpan.FromMilliseconds(double.Parse(chaterTimes[i])));
+                }
+            }
+        }
+
+        private void addTopics(string[] topics, CatListingServiceReference.Specific title)
+        {
+            if(topics != null && topics.Count() > 0)
+            {
+                foreach(string topic in topics)
+                {
+                    if(topic.Trim() != "")
                     {
-                        if (chapterTimeCollection[i].Trim() != "")
-                        catClient.addChapter(title.Id, chapterNameCollection[i], TimeSpan.FromMilliseconds(double.Parse(chapterTimeCollection[i])));
+                        catClient.addTopic(title.Id, topic);
                     }
                 }
             }
         }
 
-        private void addTopics(FormCollection collection, CatListingServiceReference.Specific title)
-        {
-            if (!string.IsNullOrEmpty(collection["topicName[]"]))
-            {
+        //private void addChapters(FormCollection collection, CatListingServiceReference.Specific title)
+        //{
+        //    if (!string.IsNullOrEmpty(collection["chapterName[]"]))
+        //    {
+        //        //catClient.addChapter(title.Id,collection["chapterName"],TimeSpan.FromMilliseconds(double.Parse(collection["chapterTime"])));
 
-                //catClient.addTopic(title.Id, collection["topicName"]);
-                if (!string.IsNullOrEmpty(collection["topicName[]"]))
-                    foreach (string topic in collection["topicName[]"].Split(','))
-                    {
-                        if(topic != "")
-                        catClient.addTopic(title.Id, topic);
-                    }
-            }
-        }
+        //        if (!string.IsNullOrEmpty(collection["chapterName[]"]))
+        //        {
+        //            string[] chapterNameCollection = collection["chapterName[]"].Split(',');
+        //            string[] chapterTimeCollection = collection["chapterTime[]"].Split(',');
+        //            for (int i = 0; i < chapterNameCollection.Count(); i++)
+        //            {
+        //                if (chapterTimeCollection[i].Trim() != "")
+        //                catClient.addChapter(title.Id, chapterNameCollection[i], TimeSpan.FromMilliseconds(double.Parse(chapterTimeCollection[i])));
+        //            }
+        //        }
+        //    }
+        //}
+
+        //private void addTopics(FormCollection collection, CatListingServiceReference.Specific title)
+        //{
+        //    if (!string.IsNullOrEmpty(collection["topicName[]"]))
+        //    {
+
+        //        //catClient.addTopic(title.Id, collection["topicName"]);
+        //        if (!string.IsNullOrEmpty(collection["topicName[]"]))
+        //            foreach (string topic in collection["topicName[]"].Split(','))
+        //            {
+        //                if(topic != "")
+        //                catClient.addTopic(title.Id, topic);
+        //            }
+        //    }
+        //}
 
         private bool hasErrorInTitles(FormCollection collection, out string errorMsg)
         {
@@ -346,8 +373,9 @@ namespace CMSMvcApplication.Controllers
                         catClient.addCatAssign(title.Id, long.Parse(strNum));
                     }
                 }
-                addTopics(collection,title);
-                addChapters(collection, title);
+                addTopics(Request.Form.GetValues("topicName[]"), title);
+                //addChapters(collection, title);
+                addChapters(Request.Form.GetValues("chapterName[]"), Request.Form.GetValues("chapterTime[]"), title);
                 
 
 
