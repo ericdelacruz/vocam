@@ -3,7 +3,7 @@
 
 @{
     ViewBag.Title = !string.IsNullOrEmpty(Model.PageTitle) ? Model.PageTitle : "Details";
-    ViewBag.Description = Model.Description;
+    ViewBag.Description = Model.MetaDesc;
     ViewBag.Keywords = Model.Metatags;
 
     var related = ViewBag.Related as IEnumerable<SODAMvcApplication.CategoriesServiceReference.Specific>;
@@ -50,11 +50,11 @@
                     {
                         var spec = related.ElementAt(i-1);
                         <div class="catThumb2">
-                            <a href=@Url.Action("Details", new { id  = spec.Title.Trim().Replace(" ", "-").ToLower() })>
+                            <a href=@Url.Action("Details", new { id  = spec.Title.Trim().Replace(" ","-").Replace("---","-").ToLower() })>
 
                                 <img alt=@spec.Title src=@HttpUtility.UrlPathEncode(@spec.ImageURL)>
                                 <h3 style="width:210px;">@spec.Title</h3>
-                            </a>
+                                                    </a>
                         </div>
                     }
                 </div>@*end catThumbWrapper clearfix*@
