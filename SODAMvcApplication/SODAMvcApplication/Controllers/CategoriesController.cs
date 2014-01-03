@@ -13,7 +13,7 @@ namespace SODAMvcApplication.Controllers
         PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
         //private int RegionId = int.Parse(ConfigurationManager.AppSettings["RegionId"].ToString());
         //private string Region = ConfigurationManager.AppSettings["Region"].ToString();
-        private string defaultRegion = "au";
+        private string defaultRegion = "AU";
         private string password = "myS0D@P@ssw0rd";
         //
         // GET: /Categories/
@@ -110,13 +110,28 @@ namespace SODAMvcApplication.Controllers
         public ActionResult Details(string id,string catid)
         {
             
-
+            
             if (!categoriesServiceClient.Authenticate(password))
             {
                 //error page
             }
-            //var spec = categoriesServiceClient.getSpecificByID(id).First();
-            var spec = categoriesServiceClient.get().Select(s => s).Where(s => s.Title.ToLower().Replace("-"," ") == id.Replace("-", " ").ToLower());
+            
+            
+            //var spec = categoriesServiceClient.get().Select(s => s).Where(s => s.Title.ToLower().Replace("-"," ") == id.Replace("-", " ").ToLower());
+            //var spec = categoriesServiceClient.get().Select(s => s).Where(s => s.Title.Trim().Replace(" ", "-").Replace("---", "-").ToLower() == id);
+            var spec = from title in categoriesServiceClient.get()
+                       join r in portalClient.getRegion() on title.RegionId equals r.Id
+                       where r.WebsiteUrl == Request.Url.Host && title.Title.Trim().Replace(" ", "-").Replace("---", "-").ToLower() == id
+                       select title;
+
+            //default if localhost for debugging purposes
+            if(Request.Url.Host == "localhost" && spec.Count() ==0)
+            {
+                spec = from title in categoriesServiceClient.get()
+                       join r in portalClient.getRegion() on title.RegionId equals r.Id
+                       where r.RegionName == defaultRegion && title.Title.Trim().Replace(" ", "-").Replace("---", "-").ToLower() == id
+                       select title;
+            }
             long lCatId = 0;
             if (catid == null)
             {
