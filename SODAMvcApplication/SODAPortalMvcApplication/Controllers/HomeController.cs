@@ -234,16 +234,25 @@ namespace SODAPortalMvcApplication.Controllers
             {
                 if(accountClient.getAccount(collection["Username"]).Count() > 0)
                 {
-                    long userid = accountClient.getAccount(collection["Username"]).First().Id;
-                    DateTime dateSent = DateTime.Now;
-                    DateTime dateEx = dateSent.AddDays(1);
+                    //long userid = accountClient.getAccount(collection["Username"]).First().Id;
+                    //DateTime dateSent = DateTime.Now;
+                    //DateTime dateEx = dateSent.AddDays(1);
                     
-                    string key = EmailHelper.GetMd5Hash(collection["Username"] + ";" + dateSent.ToString());
-                    accountClient.addResetPassword(key, dateSent, dateEx, userid);
-                    ViewData.Add("resetlink", Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("resetpassword", new { code = key }));
-                    string body = EmailHelper.ToHtml("forgotpasswordemail",ViewData, this.ControllerContext);
-                    EmailHelper.SendEmail("test@sec-iis.com", collection["Username"], "Reset password", body);
-                    TempData["ResetPassSent"] = true;
+                    //string key = EmailHelper.GetMd5Hash(collection["Username"] + ";" + dateSent.ToString());
+                    //accountClient.addResetPassword(key, dateSent, dateEx, userid);
+                    //ViewData.Add("resetlink", Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("resetpassword", new { code = key }));
+                    //string body = EmailHelper.ToHtml("forgotpasswordemail",ViewData, this.ControllerContext);
+                    //EmailHelper.SendEmail("test@sec-iis.com", collection["Username"], "Reset password", body);
+                    //TempData["ResetPassSent"] = true;
+                    var accnt = accountClient.getAccount(collection["Username"]).First();
+                     
+                         string body = "Hi " + accnt.FirstName + " " + accnt.LastName +". Your password is " + EncDec.DecryptString(accnt.PASSWORD);
+                         EmailHelper.SendEmail("test@sec-iis.com", collection["Username"], "Forgot password", body);
+                         TempData["ResetPassSent"] = true;
+                     
+                        
+                     
+
                     return View();
 
                 }

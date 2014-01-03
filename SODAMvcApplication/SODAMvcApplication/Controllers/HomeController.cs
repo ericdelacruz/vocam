@@ -66,7 +66,7 @@ namespace SODAMvcApplication.Controllers
                                  select content;
             if(filterByRegion.Count() > 0)
             return filterByRegion;
-            else
+            else//for testing purpose only
             {
                 return from content in lContentDef
                        join region in cmsServiceClient.getRegions() on content.RegionId equals region.Id

@@ -25,7 +25,7 @@ namespace SODAPortalMvcApplication.Controllers
                 //if (Session["CustomerData"] == null)
                 //{
                     var customer = getCustomerData(username);
-
+                    
                     
                     //First time user 
                     if (customer.Count() == 0)
@@ -36,11 +36,16 @@ namespace SODAPortalMvcApplication.Controllers
                     else
                     {
 
+                        if (Request.Url.Host != customer.First().rejoin.WebsiteUrl.Replace("www", "portal"))
+                        {
+                            
+                            return Redirect("http://" + customer.First().rejoin.WebsiteUrl.Replace("www", "portal") +Url.Action("Index","user"));
+                        }
 
                         Session.Add("CustomerData", customer);
                         foreach(var cust in customer)
                         {
-                            if (cust.customer.DateSubscriptionEnd.Value.Month >= DateTime.Now.Month)
+                            if (cust.customer.DateSubscriptionEnd.Value.Month <= DateTime.Now.Month)
                             {
                                 if(isPayPalRecurActive(cust.paypal.ECTransID))
                                 {
@@ -134,7 +139,7 @@ namespace SODAPortalMvcApplication.Controllers
             //else default
             else
             {
-                int RegionId = portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal","www")).First().Id;
+                //int RegionId = portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal","www")).First().Id;
                 customer = from cust in portalClient.getCustomer()
                            join user in AccountClient.getAccount(username) on cust.UserId equals user.Id
                            join salescode in portalClient.getSaleCode() on cust.SalesCodeId.Value equals salescode.Id
@@ -142,8 +147,8 @@ namespace SODAPortalMvcApplication.Controllers
                            join r in portalClient.getRegion() on salescode.Id equals r.DefaultSalesCodeId
                            
                            join PPT in paypalClient.getPayPalTrans() on cust.PPId equals PPT.Id
-                           join p in portalClient.getPrice() on RegionId equals p.RegionId
-                           where PPT.Active == true && r.Id == RegionId
+                           join p in portalClient.getPrice() on r.Id equals p.RegionId
+                           where PPT.Active == true 
                            select new ViewModel.CustomerModel() { account = user, customer = cust, salesCode = salescode, paypal = PPT, rejoin = r,price = p };
                 return customer;
 
@@ -272,31 +277,36 @@ namespace SODAPortalMvcApplication.Controllers
                 return RedirectToAction("index", "home");
             else
             {
-                var account = AccountClient.getAccount(Session["Username"].ToString()).Select(a => a).First();
-                return View(account);
+                
+                var account =Session["NewAccount"] == null? AccountClient.getAccount(Session["Username"].ToString()).Select(a => a).First():Session["NewAccount"] as AccountServiceRef.Account;
+
+                    return View(account);
+                
             }
             
         }
 
         public ActionResult paymentstatus(string stat)
         {
-            ViewBag.paymentSuccess = Session["Username"] != null && stat == "success";
+            ViewBag.paymentSuccess = (Session["Username"] != null || Session["NewAccount"] != null) && stat == "success";
             if (stat != "success" && Session["CustomerData"] != null)
                 Session.Remove("CustomerData");
-            else
+            else//Success
             {
-                var accnt = AccountClient.getAccount(Session["Username"].ToString());
-                if(accnt.Count() >0)
+                if(Session["NewAccount"] != null)
                 {
-                    var new_account = Session["NewAccount"] as AccountServiceRef.Account;
-                    AccountClient.addAccount(new_account);
-                    emailaccount(accnt.First());
+                    var new_accnt = Session["NewAccount"] as AccountServiceRef.Account;
+                    
+                   
+                    emailCustomer(new_accnt);
+                    Session.Remove("NewAccount");
+                    //Session.Add("Username", new_accnt.USERNAME);
                 }
             }
             return View();
         }
 
-        private void emailaccount(AccountServiceRef.Account account)
+        private void emailCustomer(AccountServiceRef.Account account)
         {
             var CustomerName = account.FirstName + " " + account.LastName;
             ViewData.Add("CustomerName", CustomerName);
@@ -425,10 +435,15 @@ namespace SODAPortalMvcApplication.Controllers
             
            
             var VerfiyModel = Session["SalesCode"] as ViewModel.VerifyModel;
-            var accnt = from account in AccountClient.getAccount(Session["Username"].ToString())
+            if(Session["NewAccount"] != null)
+            {
+                var new_accnt = Session["NewAccount"] as AccountServiceRef.Account;
+                AccountClient.addAccount(new_accnt);
+            }
+             var accnt = from account in AccountClient.getAccount(Session["Username"].ToString())
                         select account;
                 
-                string result = paypalClient.confirmationModel(initConfirmModel(VerfiyModel, accnt.First().Id, token, payerid));
+            string result = paypalClient.confirmationModel(initConfirmModel(VerfiyModel, accnt.First().Id, token, payerid));
                 portalClient.addCustomer(new PortalServiceReference.Customer()
                 {
                     UserId = accnt.First().Id,
