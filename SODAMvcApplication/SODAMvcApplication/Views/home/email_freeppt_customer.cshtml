@@ -1,0 +1,20 @@
+﻿@{
+    Layout = null;
+    Response.ContentType = "text/plain";
+    var Customer = ViewData["Contact"] as SODAMvcApplication.CMSServiceReference.Contact;
+    var key = ViewData["key"] as string;
+    var selected = ViewData["selected"] as string;
+    var url = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("download", new { key = key, selected = selected });
+    //var dlLink = ViewData["DLink"] as string;
+}
+Hi @Customer.Name
+
+Thank you for visiting @Request.Url.Host
+
+You can download the selected Powerpoint presentation using the link below.
+
+Please copy the following link and then paste it into your Web browser:
+
+ @Html.Raw(url)
+Regards,
+@Request.Url.Host

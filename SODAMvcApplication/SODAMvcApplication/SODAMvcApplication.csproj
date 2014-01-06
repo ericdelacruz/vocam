@@ -480,6 +480,7 @@
     <Content Include="Views\home\sitemap.cshtml" />
     <Content Include="Views\home\reply.cshtml" />
     <Content Include="Views\home\email_FreePPT_details.cshtml" />
+    <Content Include="Views\home\email_freeppt_customer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -68,6 +68,7 @@
 @using (@Html.BeginForm("contactFreeppt", "home", FormMethod.Post, new { @class = "contactFormPop" }))
 {
 
+    @Html.ValidationSummary(false);
     <label>Name*</label>
     @Html.TextBoxFor(m => m.Name, new { @class = "form-control", style = "width:300px;", required = "" })
     @*<input type="text" style="width:300px;" class="form-control" name="name" required>*@

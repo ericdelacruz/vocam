@@ -230,9 +230,45 @@ namespace SODAMvcApplication.Controllers
             if (!this.IsCaptchaValid("Captcha is not valid"))
             {
                 ModelState.AddModelError("", "Incorrect captcha answer.");
-                  return View(contact);
+                  //return View(contact);
             }
-            
+
+            if (cmsServiceClient.getContact().Where(c => c.Email.Trim() == contact.Email.Trim()).Count() ==0)
+            {
+                sendDownloadLinkToCustomer(contact, collection);
+
+                sendCustomerDetailsToSales(contact, "SODA:Free PPT Customer Details");
+                return RedirectToAction("Replyfreeppt");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Email already exists!");
+               // return View(contact);
+            }
+
+            var freeppt = from fppt in cmsServiceClient.getFreePPT()
+                          join region in cmsServiceClient.getRegions() on fppt.RegionId equals region.Id
+                          where region.WebsiteUrl == Request.Url.Host
+                          select fppt;
+            if (freeppt.Count() == 0 && Request.Url.Host == "localhost")
+            {
+                freeppt = from fppt in cmsServiceClient.getFreePPT()
+                          join region in cmsServiceClient.getRegions() on fppt.RegionId equals region.Id
+                          where region.RegionName == defaultRegion
+                          select fppt;
+            }
+            ViewBag.pptList = freeppt.Select(fppt => new SelectListItem()
+            {
+                Text = fppt.DisplayText,
+                Value = fppt.PPTType,
+                Selected = false
+
+            });
+            return View(contact);
+        }
+
+        private void sendDownloadLinkToCustomer(CMSServiceReference.Contact contact, FormCollection collection)
+        {
             contact.isFreePPT = true;
             DateTime dateAdded = DateTime.Now;
             contact.isVerified = false;
@@ -243,23 +279,25 @@ namespace SODAMvcApplication.Controllers
             cmsServiceClient.addContact(contact);
             string from = "no_reply_test" + Request.Url.Host.Replace("www.", "@");
             string Replyto = "sales_test" + Request.Url.Host.Replace("www.", "@");
-            //string from = "no_reply_test@sac-iis.com";
-            //string Replyto = "sales_test@sac-iis.com";
-            EmailHelper.SendEmail(new System.Net.Mail.MailAddress(from, "Safety On Demand"), new System.Net.Mail.MailAddress(contact.Email), "SODA:Free Powerpoint download Link", createDownloadPPTLink(key, selected), false, Replyto,"P@ssw0rd12345");
+            ViewData.Add("Contact", contact);
+            //ViewData.Add("DLink", createDownloadPPTLink(key, selected));
+            ViewData.Add("key", key);
+            ViewData.Add("selected", collection["selectppt"]);
+            string body = EmailHelper.ToHtml("email_freeppt_customer", ViewData, this.ControllerContext);
+            EmailHelper.SendEmail(new System.Net.Mail.MailAddress(from, "Safety On Demand"), new System.Net.Mail.MailAddress(contact.Email), "SODA:Free Powerpoint download Link", body, false, Replyto,"P@ssw0rd12345");
             //EmailHelper.SendEmail(contact.Email, "SODA:Free Powerpoint download", createDownloadPPTLink(key,selected),null);
-
-            sendCustomerDetailsToSales(contact,"SODA:Free PPT Customer Details");
-            return RedirectToAction("Replyfreeppt");
-           
         }
-
+        public ActionResult email_freeppt_customer()
+        {
+            return View();
+        }
         private void sendCustomerDetailsToSales(CMSServiceReference.Contact contact,string subject)
         {
             string from = "no_reply_test" + Request.Url.Host.Replace("www.", "@");
             string to = "sales_test" + Request.Url.Host.Replace("www.", "@");
             //string from = "no_reply_test@sac-iis.com";
             //string to = "sales_test@sac-iis.com";
-            ViewData.Add("Contact", contact);
+            //ViewData.Add("Contact", contact);
             string body = EmailHelper.ToHtml("email_freeppt_details", ViewData, this.ControllerContext);
             //string subject = "SODA:Free PPT Customer Details";
             EmailHelper.SendEmail(new System.Net.Mail.MailAddress(from, "Safety On Demand"), new System.Net.Mail.MailAddress(to), subject, body, false, null,"P@ssw0rd12345");
@@ -279,6 +317,8 @@ namespace SODAMvcApplication.Controllers
             {
                 cmsServiceClient.Open();
             }
+
+            
             var contact = cmsServiceClient.getContact().Where(c => c.key == key);
             
             if(contact.Count() >0 && (contact.First().DateLinkEx.Value - DateTime.Now).Hours < 1 && contact.First().isVerified == false)
@@ -289,6 +329,7 @@ namespace SODAMvcApplication.Controllers
                 var orig_contact = contact.First();
                 orig_contact.isVerified = true;
                 cmsServiceClient.updateContact(orig_contact);
+                
                 return View();
             }
             return RedirectToAction("index");

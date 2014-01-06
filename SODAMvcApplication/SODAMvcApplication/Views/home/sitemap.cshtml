@@ -20,7 +20,7 @@
     {
         foreach (var title in cat.Titles)
         {
-                                <p style="margin-left:40px;"> - <a href="@Url.Action("Details", "categories", new { id = title.Trim().Replace(" ", "-").Replace("---", "-").ToLower(), catid = cat.CatId })">@title</a></p>
+                                <p style="margin-left:40px;"> - <a href="@Url.Action("Details", "categories", new { id = title.Trim().Replace(": ", "-").Replace(" ", "-").Replace("---", "-").ToLower(), cat = cat.CatName.Trim().Replace(" ", "-").ToLower() })">@title</a></p>
                             }
                         }
                     }

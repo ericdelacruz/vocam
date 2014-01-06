@@ -107,7 +107,9 @@ namespace SODAMvcApplication.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ActionResult Details(string id,string catid)
+        ///
+        
+        public ActionResult Details(string id,string cat)
         {
             
             
@@ -121,7 +123,7 @@ namespace SODAMvcApplication.Controllers
             //var spec = categoriesServiceClient.get().Select(s => s).Where(s => s.Title.Trim().Replace(" ", "-").Replace("---", "-").ToLower() == id);
             var spec = from title in categoriesServiceClient.get()
                        join r in portalClient.getRegion() on title.RegionId equals r.Id
-                       where r.WebsiteUrl == Request.Url.Host && title.Title.Trim().Replace(" ", "-").Replace("---", "-").ToLower() == id
+                       where r.WebsiteUrl == Request.Url.Host && title.Title.Trim().Replace(": ", "-").Replace(" ", "-").Replace("---", "-").ToLower() == id
                        select title;
 
             //default if localhost for debugging purposes
@@ -129,11 +131,15 @@ namespace SODAMvcApplication.Controllers
             {
                 spec = from title in categoriesServiceClient.get()
                        join r in portalClient.getRegion() on title.RegionId equals r.Id
-                       where r.RegionName == defaultRegion && title.Title.Trim().Replace(" ", "-").Replace("---", "-").ToLower() == id
+                       where r.RegionName == defaultRegion && title.Title.Trim().Replace(": ", "-").Replace(" ", "-").Replace("---", "-").ToLower() == id
                        select title;
             }
-            long lCatId = 0;
-            if (catid == null)
+
+            string strCatName = HttpUtility.HtmlEncode(cat);
+
+
+            long lCatId = getCategoryId(strCatName);
+            if (cat == null)
             {
                 if(Session["CatID"] != null)
                 long.TryParse(Session["CatID"].ToString(), out lCatId);
@@ -143,8 +149,9 @@ namespace SODAMvcApplication.Controllers
                     lCatId = ca.Count() > 0 ? ca.First().CategoryId : 1;//else no_cat
                 }
             }
-            else
-                long.TryParse(catid, out lCatId);
+            //else
+            //    long.TryParse(cat, out lCatId);
+
             ViewBag.SelCategory = categoriesServiceClient.get_Category(lCatId).First();
             
             try

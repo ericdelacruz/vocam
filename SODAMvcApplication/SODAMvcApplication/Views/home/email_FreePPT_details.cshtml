@@ -2,7 +2,7 @@
     Layout = null;
     Response.ContentType = "text/plain";
     var Customer = ViewData["Contact"] as SODAMvcApplication.CMSServiceReference.Contact;
-    var msg = !string.IsNullOrEmpty(Customer.Message.Trim()) ? @Customer.Message : "N/A";
+    var msg = !string.IsNullOrEmpty(Customer.Message) ? @Customer.Message : "N/A";
 }
 Customer Name: @Customer.Name
 Company:@Customer.Company

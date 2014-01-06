@@ -249,11 +249,11 @@ namespace SODAPortalMvcApplication.Controllers
                          string body = "Hi " + accnt.FirstName + " " + accnt.LastName +". Your password is " + EncDec.DecryptString(accnt.PASSWORD);
                          EmailHelper.SendEmail("test@sec-iis.com", collection["Username"], "Forgot password", body);
                          TempData["ResetPassSent"] = true;
-                     
-                        
-                     
 
-                    return View();
+
+
+                         return RedirectToAction("Index");
+                    //return View();
 
                 }
                 else
