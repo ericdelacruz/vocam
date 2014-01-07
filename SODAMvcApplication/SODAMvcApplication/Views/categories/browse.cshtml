@@ -10,47 +10,47 @@
     ViewBag.CurPage = "Category";
 }
 
-<div class="listingSection" style="background:#ffffff url(@selCategory.BG_IMG) top center no-repeat;">
-    <div class="container">
-        <div class="content border">
-            <div class="listingHeadBg border clearfix" style="background: url(@selCategory.Banner_IMG) right center no-repeat #f8f8f8;">
-                <h1>@selCategory.CategoryName</h1>
-                <p>@selCategory.Overview</p>@*todo: put overview here*@
-            </div>
-            <div class="contentBody transparentBg border clearfix">
-                @{int i = 1;}
-                @while (i <= Model.Count())
-                {
+<div class="listingSection" style="background:#ffffff url(@selCategory.BG_IMG) no-repeat top center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; min-height:780px;">
+        <div class="container">
+            <div class="content border">
+                <div class="listingHeadBg border clearfix" style="background: url(@selCategory.Banner_IMG) right center no-repeat #f8f8f8;">
+                    <h1>@selCategory.CategoryName</h1>
+                    <p>@selCategory.Overview</p>@*todo: put overview here*@
+                </div>
+                <div class="contentBody transparentBg border clearfix">
+                    @{int i = 1;}
+                    @while (i <= Model.Count())
+                    {
 
-                    <div class="catThumbWrapper clearfix">
-                        @for (int j = 0; j < 4 && i <= Model.Count(); j++, i++)
-                        {
-                            var spec = Model.ElementAt(i - 1);
-                            <div class="catThumb listThumbBg">
-                                <a href=@Url.Action("Details", new { id = spec.Title.Trim().Replace(": ", "-").Replace(" ", "-").Replace("---", "-").ToLower() })>
-                                    <img alt="@spec.Title" src=@HttpUtility.UrlPathEncode(@spec.ImageURL)>
-                                    <h2 style="width:210px;">@spec.Title</h2>
-                                </a>
-                            </div> @*end catThumb listThumbBg*@
-                        }
-
-
-
-                    </div> @*end catThumbWrapper clearfix*@
-
-                }
-
-                <!-- end of catThumbWrapper-->
-
-                <p>&nbsp;</p>
-                <p>
-                    @selCategory.Description
-                </p>
-                <p>&nbsp;</p>
+                        <div class="catThumbWrapper clearfix">
+                            @for (int j = 0; j < 4 && i <= Model.Count(); j++, i++)
+                            {
+                                var spec = Model.ElementAt(i - 1);
+                                <div class="catThumb listThumbBg">
+                                    <a href=@Url.Action("Details", new { id = spec.Title.Trim().Replace(": ", "-").Replace(" ", "-").Replace("---", "-").ToLower() })>
+                                        <img alt="@spec.Title" src=@HttpUtility.UrlPathEncode(@spec.ImageURL)>
+                                        <h2 style="width:210px;">@spec.Title</h2>
+                                    </a>
+                                </div> @*end catThumb listThumbBg*@
+                            }
 
 
+
+                        </div> @*end catThumbWrapper clearfix*@
+
+                    }
+
+                    <!-- end of catThumbWrapper-->
+
+                    <p>&nbsp;</p>
+                    <p>
+                        @selCategory.Description
+                    </p>
+                    <p>&nbsp;</p>
+
+
+                </div>
             </div>
         </div>
-    </div>
 
-</div>
+    </div>

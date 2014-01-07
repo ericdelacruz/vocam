@@ -471,9 +471,13 @@ footer {
 
 
 /* Category Page CSS */
-.categorySection {background:#ffffff url(../images/categoriesBg.jpg) top center no-repeat;
+.categorySection {background:url(../images/categoriesBg.jpg) no-repeat top center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 	width:100%;
-	height: 100%;}
+	height: 100%; }
  .content {
  	border: 1px solid #e7e7e7;
  	margin: 70px 0 60px 0;
@@ -681,10 +685,26 @@ footer {
 
 
 /*Common Page CSS*/
-.commonSection {background: url(../images/commonBg.jpg) top center no-repeat;
+.commonSection {background: url(../images/commonBg.jpg) no-repeat top center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 	background-color: #ffffff;
 	width:100%;
+	min-height:920px ; }
+
+.contactSection {background: url(../images/contactBg.jpg) no-repeat top center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+	background-color: #ffffff;
+	width:100%;
+	background-size: cover;
 	min-height:920px ;}
+
+
 .marginCommon {margin-top:80px !important; }
 .leftCont {
 	background-color: #ffffff;
