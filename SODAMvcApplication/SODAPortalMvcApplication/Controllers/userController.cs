@@ -45,7 +45,7 @@ namespace SODAPortalMvcApplication.Controllers
                         Session.Add("CustomerData", customer);
                         foreach(var cust in customer)
                         {
-                            if (cust.customer.DateSubscriptionEnd.Value.Month <= DateTime.Now.Month)
+                            if (getRemainingDays(cust.customer) == 0)
                             {
                                 if(isPayPalRecurActive(cust.paypal.ECTransID))
                                 {
@@ -85,6 +85,11 @@ namespace SODAPortalMvcApplication.Controllers
                
             }
            
+        }
+        private double getRemainingDays(PortalServiceReference.Customer c)
+        {
+            //set to 0 if less days is less than 0
+            return (c.DateSubscriptionEnd.Value - DateTime.Now).TotalDays > 0 ? (c.DateSubscriptionEnd.Value - DateTime.Now).TotalDays : 0;
         }
         //Verify SC
         [HttpPost]
@@ -134,22 +139,26 @@ namespace SODAPortalMvcApplication.Controllers
                            join r in portalClient.getRegion() on p.RegionId equals r.Id
                            where PPT.Active == true
                            select new ViewModel.CustomerModel() { account = user, customer = cust, salesCode = salescode, salesPerson = sp, price = p, paypal = PPT, rejoin = r };
-            if(customer.Count() > 0)
-            return customer;
-            //else default
+            if (customer.Count() > 0)
+            {
+                if (TempData["DefaultSalesCode"] != null)
+                    TempData.Remove("DefaultSalesCode");
+                return customer;
+            }//else default
             else
             {
+                TempData["DefaultSalesCode"] = true;
                 //int RegionId = portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal","www")).First().Id;
                 customer = from cust in portalClient.getCustomer()
                            join user in AccountClient.getAccount(username) on cust.UserId equals user.Id
                            join salescode in portalClient.getSaleCode() on cust.SalesCodeId.Value equals salescode.Id
-                         
+
                            join r in portalClient.getRegion() on salescode.Id equals r.DefaultSalesCodeId
-                           
+
                            join PPT in paypalClient.getPayPalTrans() on cust.PPId equals PPT.Id
                            join p in portalClient.getPrice() on r.Id equals p.RegionId
-                           where PPT.Active == true 
-                           select new ViewModel.CustomerModel() { account = user, customer = cust, salesCode = salescode, paypal = PPT, rejoin = r,price = p };
+                           where PPT.Active == true
+                           select new ViewModel.CustomerModel() { account = user, customer = cust, salesCode = salescode, paypal = PPT, rejoin = r, price = p };
                 return customer;
 
             }
@@ -161,22 +170,25 @@ namespace SODAPortalMvcApplication.Controllers
 
            
                 
-            var salescodeList =salescode != null? getVerifyViewModel(salescode): getDefaultVerifyViewModel();
-          
+            //var salescodeList =salescode != null? getVerifyViewModel(salescode): getDefaultVerifyViewModel();
+            
 
-            if (salescodeList.Count() > 0)
-            {
+            //if (salescodeList.Count() > 0)
+            //{
 
-                Session.Add("SalesCode", salescodeList.First());
-            }
-            else
-                Session["SalesCode"] = null;
+            //    Session.Add("SalesCode", salescodeList.First());
+            //}
+            //else
+            //    Session["SalesCode"] = null;
+
+            if (Session["SalesCode"] == null)
+                Session.Add("SalesCode", getDefaultVerifyViewModel().First());
             return View();
         }
 
         private IEnumerable<ViewModel.VerifyModel> getDefaultVerifyViewModel()
         {
-            int RegionId = portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www")).First().Id;
+            int RegionId = getRegionId();
             var salescodeList = from r in portalClient.getRegion()
                             join sc in portalClient.getSaleCode() on r.DefaultSalesCodeId equals sc.Id
                             join p in portalClient.getPrice() on r.Id equals p.RegionId
@@ -190,7 +202,14 @@ namespace SODAPortalMvcApplication.Controllers
                                 discountedPrice_B = p.PriceAmt_B - (p.PriceAmt_B * sc.Discount),
                                 discountedPrice_C = p.priceAmt_C - (p.priceAmt_C * sc.Discount),
                             };
+            TempData["DefaultSalesCode"] = true;
             return salescodeList;
+        }
+
+        private int getRegionId()
+        {
+            //int RegionId = portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www")).First().Id;
+            return portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www")).Count() > 0? portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www")).First().Id:12;
         }
         [HttpPost]
         public ActionResult indexpurchase(FormCollection collection)

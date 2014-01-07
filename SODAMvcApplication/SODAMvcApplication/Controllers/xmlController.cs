@@ -65,7 +65,7 @@ namespace SODAMvcApplication.Controllers
         }
         public ActionResult channels()
         {
-            var channels = catClient.get_Categories();
+            var channels = catClient.get_Categories().Where(c=> c.CategoryId != 1);
             return View(channels);
         }
 

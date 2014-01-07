@@ -29,7 +29,7 @@ namespace SODAMvcApplication.Controllers
              }
 
              var listCategories = from cat in categoriesServiceClient.get_Categories()
-                                  where cat.CategoryId != 1
+                                  where cat.CategoryId != 1 && cat.CategoryName.Trim() != "My Favorites"
                                   orderby ConvertGrade(cat.CategoryId)
                                   select cat;
              return View(listCategories);
@@ -78,6 +78,7 @@ namespace SODAMvcApplication.Controllers
                                 join spec in categoriesServiceClient.get() on ca.SpecID equals spec.Id
                                 join r in portalClient.getRegion() on spec.RegionId equals r.Id
                                 where ca.CategoryId == lCatID && r.WebsiteUrl.ToLower() == Request.Url.Host.ToLower()
+                                orderby spec.Title
                                 select spec;
             if(listSpecByCat.Count() > 0)
             return listSpecByCat;
@@ -87,6 +88,7 @@ namespace SODAMvcApplication.Controllers
                        join spec in categoriesServiceClient.get() on ca.SpecID equals spec.Id
                        join r in portalClient.getRegion() on spec.RegionId equals r.Id
                        where ca.CategoryId == lCatID && r.RegionName == defaultRegion
+                       orderby spec.Title
                        select spec;
             }
         }

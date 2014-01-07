@@ -148,6 +148,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ControllerHelpers.cs" />
+    <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\drmModel.cs" />
     <Compile Include="Models\SiteMapModel.cs" />
     <Compile Include="Models\XMLModels.cs" />

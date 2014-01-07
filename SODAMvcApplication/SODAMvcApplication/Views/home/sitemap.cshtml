@@ -18,7 +18,7 @@
                     <p style="margin-left:20px;"><a href="@Url.Action("Browse", "categories", new { cat = cat.CatName.Trim().Replace(" ", "-").ToLower() })">@cat.CatName </a></p>
     if (cat.Titles != null)
     {
-        foreach (var title in cat.Titles)
+        foreach (var title in cat.Titles.OrderBy(t=>t.ToString()))
         {
                                 <p style="margin-left:40px;"> - <a href="@Url.Action("Details", "categories", new { id = title.Trim().Replace(": ", "-").Replace(" ", "-").Replace("---", "-").ToLower(), cat = cat.CatName.Trim().Replace(" ", "-").ToLower() })">@title</a></p>
                             }

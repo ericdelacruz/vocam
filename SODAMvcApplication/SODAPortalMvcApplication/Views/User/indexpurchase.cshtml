@@ -36,9 +36,11 @@
             { 
               
                <p>&nbsp;</p>
-               <div style="text-align:center; font-size:14px;" class="alert alert-success"><strong>@SalesCode.salescode.Sales_Code</strong>: Sales Code Verified!</div>
+                if(TempData["DefaultSalesCode"] == null)
+                { 
+                    <div style="text-align:center; font-size:14px;" class="alert alert-success"><strong>@SalesCode.salescode.Sales_Code</strong>: Sales Code Verified!</div>
+                }
                
-                 
                 var culture = SODAPortalMvcApplication.ViewModel.VerifyModel.getCultureInfo((SODAPortalMvcApplication.ViewModel.VerifyModel.Currency)(Enum.Parse(typeof(SODAPortalMvcApplication.ViewModel.VerifyModel.Currency),SalesCode.region.Currency)));
              
                         
@@ -57,7 +59,7 @@
                             <div class="col-sm-4 border2 shadow">
                                 <div class="monthSub">1 MONTH</div>
                                 <div class="priceSub">@SalesCode.discountedPrice_A.ToString("C",culture)</div>
-                                <div class="radioBg"><input type="radio" name="subscription" value="1"></div>
+                                <div class="radioBg"><input type="radio" name="subscription" value="1" checked=""></div>
                             </div>
 
                             <div class="col-sm-4 border2 shadow">

@@ -15,12 +15,25 @@ namespace SODAPortalMvcApplication.Controllers
      
         public ActionResult Index()
         {
-            int RegionId = portaClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal","www")).First().Id;
-
-            string PhoneNo = cmsClient.getContent("Contact", "PhoneNo").Where(c => c.RegionId == RegionId).First().Value;
+            string PhoneNo = getPhoneNum();
             Session.Add("PhoneNo", PhoneNo);
              
             return View();
+        }
+
+        private string getPhoneNum()
+        {
+            try
+            {
+                int RegionId = portaClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www")).First().Id;
+
+                string PhoneNo = cmsClient.getContent("Contact", "PhoneNo").Where(c => c.RegionId == RegionId).First().Value;
+                return PhoneNo;
+            }
+            catch
+            {
+                return "";
+            }
         }
         protected override void Dispose(bool disposing)
         {
@@ -131,27 +144,34 @@ namespace SODAPortalMvcApplication.Controllers
             {
                 try
                 {
-                    
-                    //New account will be added upon successful payment. Check paymentstatus method under user controller
-                    Session.Add("NewAccount", new AccountServiceRef.Account()
+
+                    if (!accountClient.isUserNameExists(model.Email.ToLower()))
+                    {//New account will be added upon successful payment. Check paymentstatus method under user controller
+                        Session.Add("NewAccount", new AccountServiceRef.Account()
+                        {
+                            USERNAME = model.Email,
+                            PASSWORD = model.Password,
+                            Role = 3,
+                            Status = 1,
+                            Company = model.Company,
+                            ContactNo = model.Contact,
+                            Email = model.Email,
+                            FirstName = model.FirtName,
+                            LastName = model.LastName,
+                            Country = collection["country"],
+                            CompanyUrl = model.CompanyUrl
+
+
+                        });
+                        TempData["EmailSent"] = true;
+                        Session.Add("Username", model.Email);
+                        return RedirectToAction("indexpurchase", "user");
+                    }
+                    else
                     {
-                        USERNAME = model.Email,
-                        PASSWORD = model.Password,
-                        Role = 3,
-                        Status = 1,
-                        Company = model.Company,
-                        ContactNo = model.Contact,
-                        Email = model.Email,
-                        FirstName = model.FirtName,
-                        LastName = model.LastName,
-                        Country = collection["country"],
-                        CompanyUrl = model.CompanyUrl
-
-
-                    });
-                    TempData["EmailSent"] = true;
-                    Session.Add("Username", model.Email);
-                    return RedirectToAction("indexpurchase", "user");
+                        ModelState.AddModelError("", "Email address already exists. Please use a different email address.");
+                    }
+                        
                 }
                 catch (Exception ex)
                 {

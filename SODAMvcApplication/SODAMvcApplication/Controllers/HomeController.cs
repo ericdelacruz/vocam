@@ -10,6 +10,8 @@ using CaptchaMvc.Attributes;
 using CaptchaMvc.HtmlHelpers;
 using CaptchaMvc.Interface;
 using System.Configuration;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace SODAMvcApplication.Controllers
 {
@@ -119,7 +121,7 @@ namespace SODAMvcApplication.Controllers
         public ActionResult Sitemap()
         {
             var sitemapData = from cat in catListingSerivceClient.get_Categories()
-                              where cat.CategoryId > 1
+                              where cat.CategoryId > 1 && cat.CategoryName.Trim() != "My Favorites"
                               orderby ConvertGrade(cat.CategoryId)
                               select new Models.SiteMapModel()
                               {
@@ -180,6 +182,11 @@ namespace SODAMvcApplication.Controllers
                 ModelState.AddModelError("", "Incorrect captcha answer.");
                 return View(contact);
             }
+
+            //TypeDescriptor.AddProviderTransparent(new AssociatedMetadataTypeTypeDescriptionProvider(typeof(CMSServiceReference.Contact), typeof(CMSServiceReference.ContactMD)), typeof(CMSServiceReference.Contact));
+            //var context = new System.ComponentModel.DataAnnotations.ValidationContext(contact, null, null);
+            //var results = new List<ValidationResult>();
+            //var isValid = Validator.TryValidateObject(contact,context,results);
             contact.isFreePPT = false;
             cmsServiceClient.addContact(contact);
             //EmailHelper.SendEmail(contact.Email, "SODA Customer Inquiry", "Message sent. A customer representative will contact you shortly.");
@@ -297,7 +304,8 @@ namespace SODAMvcApplication.Controllers
             string to = "sales_test" + Request.Url.Host.Replace("www.", "@");
             //string from = "no_reply_test@sac-iis.com";
             //string to = "sales_test@sac-iis.com";
-            //ViewData.Add("Contact", contact);
+            if(ViewData["Contact"] == null)
+            ViewData.Add("Contact", contact);
             string body = EmailHelper.ToHtml("email_freeppt_details", ViewData, this.ControllerContext);
             //string subject = "SODA:Free PPT Customer Details";
             EmailHelper.SendEmail(new System.Net.Mail.MailAddress(from, "Safety On Demand"), new System.Net.Mail.MailAddress(to), subject, body, false, null,"P@ssw0rd12345");
