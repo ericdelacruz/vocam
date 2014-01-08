@@ -2,5 +2,14 @@
 @{
     ViewBag.Title = "download";
 }
-<p>Click @Html.ActionLink("here", "StreamFileFromDisk", new { selected = ViewBag.selected as string }) to download</p>
 
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">PPT Title name</h3>
+    </div>
+    <div class="panel-body">
+        <p><strong>Please note:</strong> This link is good for one download only. If you navigate away from or refresh this page the link will become invalid.</p>
+        <div><img src="~/Content/images/downloadppt.jpg" alt="Download Powerpoint" /> <span style="">Click @Html.ActionLink("here", "StreamFileFromDisk", new { selected = ViewBag.selected as string }) to download</span></div>
+    </div>
+</div>

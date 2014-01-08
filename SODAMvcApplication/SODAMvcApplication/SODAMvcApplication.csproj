@@ -211,6 +211,7 @@
     <Content Include="Content\images\default\sprite_prev.png" />
     <Content Include="Content\images\default\sprite_x.png" />
     <Content Include="Content\images\default\sprite_y.png" />
+    <Content Include="Content\images\downloadppt.jpg" />
     <Content Include="Content\images\footerBg.jpg" />
     <Content Include="Content\images\homeBgMob.jpg" />
     <Content Include="Content\images\home\freePowerPointBtn.png" />
