@@ -1,15 +1,28 @@
-﻿
-@{
-    ViewBag.Title = "download";
+﻿@{
+    ViewBag.Title = "Safety On Demand - Download Powerpoint";
 }
 
+<div><p>&nbsp;</p></div>
+<div class="container row">
+    <div class="panel panel-primary">
+        <div class="panel-heading" style="padding:10px;">
+            <h2 class="panel-title">PPT Title name</h2>
 
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h3 class="panel-title">PPT Title name</h3>
-    </div>
-    <div class="panel-body">
-        <p><strong>Please note:</strong> This link is good for one download only. If you navigate away from or refresh this page the link will become invalid.</p>
-        <div><img src="~/Content/images/downloadppt.jpg" alt="Download Powerpoint" /> <span style="">Click @Html.ActionLink("here", "StreamFileFromDisk", new { selected = ViewBag.selected as string }) to download</span></div>
+        </div>
+        <div class="panel-body" style="width:80%; margin-left:5%;">
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <h4><strong>Please note:</strong> This link is good for one download only. If you navigate away from or refresh this page, the link will become invalid.</h4>
+            <p>&nbsp;</p>
+            <div><img src="/Content/images/downloadppt.jpg" alt="Download Powerpoint"> &nbsp; &nbsp; <span style="font-size:18px; font-weight:bold;"><a href="/home/StreamFileFromDisk?selected=industrial">Click here to download</a></span></div>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+        </div>
     </div>
 </div>
+<div><p>&nbsp;</p></div>
+
+
+
+
+
