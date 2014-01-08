@@ -47,6 +47,7 @@
             <div class="formInput">
                 @using (@Html.BeginForm("contact", "Home", FormMethod.Post))
                 {
+                    @Html.ValidationSummary();
                     <label>Name*</label><br />@Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Name", required = "" })
                     <label>Company*</label>@Html.TextBoxFor(m => m.Company, new { @class = "form-control", placeholder = "Company", required = "" })
                     <label>Phone*</label>@Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "Phone", required = "" })

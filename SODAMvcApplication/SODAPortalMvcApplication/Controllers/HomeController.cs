@@ -265,10 +265,16 @@ namespace SODAPortalMvcApplication.Controllers
                     //EmailHelper.SendEmail("test@sec-iis.com", collection["Username"], "Reset password", body);
                     //TempData["ResetPassSent"] = true;
                     var accnt = accountClient.getAccount(collection["Username"]).First();
-                     
-                         string body = "Hi " + accnt.FirstName + " " + accnt.LastName +". Your password is " + EncDec.DecryptString(accnt.PASSWORD);
-                         EmailHelper.SendEmail("test@sec-iis.com", collection["Username"], "Forgot password", body);
-                         TempData["ResetPassSent"] = true;
+                    string portalurl = "http://" + Request.Url.Host;
+                         //string body = "Hi " + accnt.FirstName + " " + accnt.LastName +". Your password is " + EncDec.DecryptString(accnt.PASSWORD);
+                    //string body = "Hi " + accnt.FirstName + " " + accnt.LastName + "," + "\n" + "\n" + "Your password is " + 
+                    //              EncDec.DecryptString(accnt.PASSWORD) + "\n" + "\n" + "Copy and paste the site URL for the login page" + "\n" +
+                    //              portalurl + "Regards," + "\n" + "SafetyOnDemand.com";
+                    ViewData.Add("CustomerName", accnt.FirstName + " " + accnt.LastName);
+                    ViewData.Add("Password", EncDec.DecryptString(accnt.PASSWORD));
+                    string body = EmailHelper.ToHtml("emailforgotpassword", ViewData, this.ControllerContext);     
+                    EmailHelper.SendEmail("test@sec-iis.com", collection["Username"], "Forgot password", body);
+                    TempData["ResetPassSent"] = true;
 
 
 
@@ -289,7 +295,10 @@ namespace SODAPortalMvcApplication.Controllers
                
             }
         }
-
+        public ActionResult emailforgotpassword()
+        {
+            return View();
+        }
         public ActionResult resetpassword(string code)
         {
             var resetpass = accountClient.getRestPassword().Where(rp => rp.key == code);

@@ -522,6 +522,7 @@
     <Content Include="Views\Home\changePassword.cshtml" />
     <Content Include="Views\User\emailaccount.cshtml" />
     <Content Include="Views\Home\purchaseDetails.cshtml" />
+    <Content Include="Views\Home\emailforgotpassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

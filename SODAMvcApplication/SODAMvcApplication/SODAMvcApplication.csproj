@@ -143,6 +143,7 @@
     <Compile Include="Controllers\EmailHelper.cs" />
     <Compile Include="Controllers\ExceptionUtil.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RegExHelper.cs" />
     <Compile Include="Controllers\xmlController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
