@@ -7,14 +7,14 @@
     var url = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("download", new { key = key, selected = selected });
     //var dlLink = ViewData["DLink"] as string;
 }
-Hi @Customer.Name
+Hi @Customer.Name, <br />
 
-Thank you for visiting @Request.Url.Host
-
+Thank you for visiting @Request.Url.Host .
+<br />
 You can download the selected Powerpoint presentation using the link below.
-
+<br />
 Please copy the following link and then paste it into your Web browser:
 
- @Html.Raw(url)
+ @Html.Raw(url) <br /><br />
 Regards,
 @Request.Url.Host
