@@ -60,9 +60,9 @@ namespace SODAPortalMvcApplication.Controllers
                     case 1: return Redirect(cmsurl);
 
                     case 2:
-                        if (account.EmailVerified && EncDec.DecryptString(account.PASSWORD) != "safetytv")
+                        if (account.EmailVerified && EncDec.DecryptString(account.PASSWORD) != "safety")
                         return RedirectToAction("Index", "Sales");
-                        else if (EncDec.DecryptString(account.PASSWORD) == "safetytv")
+                        else if (EncDec.DecryptString(account.PASSWORD) == "safety")
                         {
                             return RedirectToAction("changepassword", new { returnurl=@Url.Action("index","sales") });
                         }
@@ -73,7 +73,7 @@ namespace SODAPortalMvcApplication.Controllers
                             return View(collection);
                         }
                     case 3:
-                        if (EncDec.DecryptString(account.PASSWORD) != "safetytv")
+                        if (EncDec.DecryptString(account.PASSWORD) != "safety")
                         return RedirectToAction("Index", "User");
                         else
                         {
@@ -137,8 +137,8 @@ namespace SODAPortalMvcApplication.Controllers
         [AllowAnonymous]
         public ActionResult purchaseDetails(ViewModel.UserModel model, FormCollection collection)
         {
-            model.Password = "safetytv";
-            model.ConfirmPassword = "safetytv";
+            model.Password = "safety";
+            model.ConfirmPassword = "safety";
             
             if (ModelState.IsValid)
             {
@@ -273,13 +273,13 @@ namespace SODAPortalMvcApplication.Controllers
                     ViewData.Add("CustomerName", accnt.FirstName + " " + accnt.LastName);
                     ViewData.Add("Password", EncDec.DecryptString(accnt.PASSWORD));
                     string body = EmailHelper.ToHtml("emailforgotpassword", ViewData, this.ControllerContext);     
-                    EmailHelper.SendEmail("test@sec-iis.com", collection["Username"], "Forgot password", body);
+                    EmailHelper.SendEmail("test@sac-iis.com", collection["Username"], "Forgot password", body);
                     TempData["ResetPassSent"] = true;
 
 
 
-                         return RedirectToAction("Index");
-                    //return View();
+                      
+                    return View();
 
                 }
                 else
