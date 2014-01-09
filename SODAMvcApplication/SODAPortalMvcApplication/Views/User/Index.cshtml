@@ -25,30 +25,32 @@
                         <td>CANCEL SUBSCRIPTION</td>
                     @foreach(var customer in Model)
                     {
-                       string displayFormat = "{0} License/s : {1:0.00} initial for {2} month/s plus {1:0.00} recurring every {3} month/s";
+                       //string displayFormat = "{0} License/s : {1:0.00} initial for {2} month/s plus {1:0.00} recurring every {3} month/s";
+                        string displayFormat = "{0} License/s : {1} initial for {2} month/s plus {1} recurring every {3} month/s";
                         var culture = SODAPortalMvcApplication.ViewModel.VerifyModel.getCultureInfo((SODAPortalMvcApplication.ViewModel.VerifyModel.Currency)Enum.Parse(typeof(SODAPortalMvcApplication.ViewModel.VerifyModel.Currency),SalesCode.region.Currency));
-                        var pricepaid = customer.paypal.TotalAmt / customer.customer.Licenses; 
+                        //var pricepaid = customer.paypal.TotalAmt / customer.customer.Licenses; 
+                        var pricepaid = customer.paypal.TotalAmt; 
                          switch(customer.customer.RecurringType)
                        {
                            case 1:
                               
                             <tr>
                                 @*<td>@string.Format(displayFormat,customer.customer.Licenses,customer.price.PriceAmt.ToString(culture),customer.price.FirstMonthFree?2:1,1) </td>*@
-                                <td>@string.Format(displayFormat, customer.customer.Licenses, pricepaid.ToString(culture), customer.price.FirstMonthFree ? 2 : 1, 1) </td>
+                                <td>@string.Format(displayFormat, customer.customer.Licenses, pricepaid.ToString("C",culture), customer.price.FirstMonthFree ? 2 : 1, 1) </td>
                                  <td align="center"><a href=@Url.Action("unsubscribe", new {transid = customer.paypal.ECTransID })><button style="width:100px; margin-left:20%;" type="submit" class="fl btn btn-sm btn-primary" onclick="return confirm('Are you sure you want to delete the item?');">Cancel</button></a></td>
                             </tr>
                                break;
                            case 2: 
                              <tr>
                                 @*<td>@string.Format(displayFormat,customer.customer.Licenses,customer.price.PriceAmt_B.ToString(culture),customer.price.FirstMonthFree?4:3,3) </td>*@
-                                 <td>@string.Format(displayFormat, customer.customer.Licenses, pricepaid, customer.price.FirstMonthFree ? 4 : 3, 3) </td>
+                                 <td>@string.Format(displayFormat, customer.customer.Licenses, pricepaid.ToString("C", culture), customer.price.FirstMonthFree ? 4 : 3, 3) </td>
                                 <td align="center"><a href=@Url.Action("unsubscribe", new {transid = customer.paypal.ECTransID })><button style="width:100px; margin-left:20%;" type="submit" class="fl btn btn-sm btn-primary" onclick="return confirm('Are you sure you want to delete the item?');">Cancel</button></a></td>
                             </tr>
                                break;
                            case 3: 
                             <tr>
                                 @*<td>@string.Format(displayFormat,customer.customer.Licenses,customer.price.priceAmt_C.ToString(culture),customer.price.FirstMonthFree?7:6,6) </td>*@
-                                <td>@string.Format(displayFormat, customer.customer.Licenses, pricepaid, customer.price.FirstMonthFree ? 7 : 6, 6) </td>
+                                <td>@string.Format(displayFormat, customer.customer.Licenses, pricepaid.ToString("C", culture), customer.price.FirstMonthFree ? 7 : 6, 6) </td>
                                 <td align="center"><a href=@Url.Action("unsubscribe", new {transid = customer.paypal.ECTransID })><button style="width:100px; margin-left:20%;" type="submit" class="fl btn btn-sm btn-primary" onclick="return confirm('Are you sure you want to delete the item?');">Cancel</button></a></td>
                             </tr>
                                break;

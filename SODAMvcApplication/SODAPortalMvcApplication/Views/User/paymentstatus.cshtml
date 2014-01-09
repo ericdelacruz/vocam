@@ -20,7 +20,7 @@
                         <div class="fl noteTxt"><span>Payment Successful!</span><br />Please click button below to proceed to homepage.</div>
                     </div>
                     <div><hr class="border shadow" style="border-top: 1px solid #F1E797" /></div>
-                    @if(Session["NewAccount"] != null)
+                    @if(ViewBag.isNewAccount != null)
                     { 
                         <div class="clearfix" align="center" style="font-size:14px;"><strong>We've just created your account!</strong> An email will be sent to you for your login details.</div>
                     }
@@ -30,7 +30,7 @@
                 <div align="center">
                     <br> <br />
                     @*<form action="user/index.html">*@
-                    @using(@Html.BeginForm("index","user", FormMethod.Get))
+                    @using (@Html.BeginForm("index", "user", FormMethod.Get))
                     {
                         <button  class="btn btn-lg btn-primary btn-block" style="max-width:40%;"> Return to Home Page</button>
                     

@@ -526,13 +526,21 @@ namespace SODAPortalMvcApplication.Controllers
                                   select region;
             //test
             if(existing_Region.Count() == 0)
-            portalClient.updateRegion(new PortalServiceReference.Region()
             {
-                Id = id,
-                RegionName = collection["RegionName"],
-                Currency = collection["currency"],
-                WebsiteUrl = collection["siteUrl"]
-            });
+                var orig_Region = portalClient.getRegion().Where(r => r.Id == id).First();
+                    
+                    orig_Region.RegionName = collection["RegionName"];
+                    orig_Region.Currency = collection["currency"];
+                    orig_Region.WebsiteUrl = collection["siteUrl"];
+                    portalClient.updateRegion(orig_Region);
+                //portalClient.updateRegion(new PortalServiceReference.Region()
+                //{
+                //    Id = id,
+                //    RegionName = collection["RegionName"],
+                //    Currency = collection["currency"],
+                //    WebsiteUrl = collection["siteUrl"]
+                //});
+            }
             else
             {
                 ModelState.AddModelError("", "Region Name already exists");

@@ -120,29 +120,34 @@ namespace SODAMvcApplication.Controllers
         public ActionResult contactFreeppt(CMSServiceReference.Contact contact, FormCollection collection)
         {
 
+            bool isValid = true;
             if (!this.IsCaptchaValid("Captcha is not valid"))
             {
                 ModelState.AddModelError("", "Incorrect captcha answer.");
-                return View(contact);
+                //return View(contact);
+                isValid = false;
             }
             //validate input
             if (!RegExHelper.IsValidEmail(contact.Email))
             {
                 ModelState.AddModelError("", "Please enter a valid email.");
-                return (View(contact));
+                //return (View(contact));
+                isValid = false;
             }
             else if (!RegExHelper.IsValidPhone(contact.Phone))
             {
                 ModelState.AddModelError("", "Please enter a valid Phone Number");
-                return (View(contact));
+               // return (View(contact));
+                isValid = false;
             }
             else if (!RegExHelper.isValidPostal(contact.Postcode))
             {
                 ModelState.AddModelError("", "Please enter a valid Postal Code");
-                return (View(contact));
+                //return (View(contact));
+                isValid = false;
             }
 
-            if (cmsServiceClient.getContact().Where(c => c.Email.Trim() == contact.Email.Trim()).Count() == 0)
+            if (cmsServiceClient.getContact().Where(c => c.Email.Trim() == contact.Email.Trim()).Count() == 0 && isValid)
             {
                 sendDownloadLinkToCustomer(contact, collection);
 
@@ -151,7 +156,7 @@ namespace SODAMvcApplication.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "Email already exists!");
+                ModelState.AddModelError("", "Email already exists! Sorry you can only download once.");
                 // return View(contact);
             }
 
@@ -170,7 +175,7 @@ namespace SODAMvcApplication.Controllers
             {
                 Text = fppt.DisplayText,
                 Value = fppt.PPTType,
-                Selected = false
+                Selected = collection["selectppt"] == fppt.PPTType
 
             });
             return View(contact);

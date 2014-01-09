@@ -118,6 +118,7 @@ namespace SODAPortalMvcApplication.Controllers
             portalClient.Close();
             AccountClient.Close();
             paypalClient.Close();
+            
             base.Dispose(disposing);
         }
         private bool isPayPalRecurActive(long userid)
@@ -319,6 +320,8 @@ namespace SODAPortalMvcApplication.Controllers
                    
                     emailCustomer(new_accnt);
                     Session.Remove("NewAccount");
+                    ViewBag.isNewAccount = true;
+                    //TempData["NewAccount"] = true;
                     //Session.Add("Username", new_accnt.USERNAME);
                 }
             }
@@ -339,7 +342,7 @@ namespace SODAPortalMvcApplication.Controllers
             if (Session["Username"] == null)
                 return RedirectToAction("index", "home");
             var cust = Session["CustomerData"] as IEnumerable<ViewModel.CustomerModel>;
-            return View(cust.Last());
+            return View(cust.OrderByDescending(c=>c.customer.DateSubscriptionEnd).First());
         }
         
         public ActionResult editProfile()
