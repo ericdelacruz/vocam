@@ -205,6 +205,7 @@
     <Content Include="Content\images\categoriesBg.jpg" />
     <Content Include="Content\images\categories\freepowerpoint-2.jpg" />
     <Content Include="Content\images\commonBg.jpg" />
+    <Content Include="Content\images\contactBg.jpg" />
     <Content Include="Content\images\default\default_thumb.png" />
     <Content Include="Content\images\default\loader.gif" />
     <Content Include="Content\images\default\sprite.png" />
