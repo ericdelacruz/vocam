@@ -250,7 +250,7 @@ header {
 /* Media Queries - Phone (550px)*/
 @media screen and (max-width: 550px) {
     .jumbotron {
-	background:url('../images/homeBgMob.jpg') center no-repeat !important;
+	background:url('../images/home/bannerbghome.jpg') center repeat-x !important;
  	}
 
 
@@ -322,13 +322,24 @@ header {
 
 
 /*HOME Page CSS*/
-.jumbotron {
-	/*background:url(../images/home/topBanner.jpg) center no-repeat;*/
+
+.jumbotronWrap {
+	background:url('../images/home/bannerbghome.jpg') center repeat-x !important;
 	width: 100%; 
 	height: 525px; 
 	padding:0 auto;
 	margin-bottom: 60px;
  	}
+
+
+
+.jumbotron {
+	/*background:url('../images/home/topBanner.jpg') center no-repeat !important;*/
+	width: 100%; 
+	height: 100%; 
+	
+ 	}
+
 
 .banner {
 	padding-top: 4%;

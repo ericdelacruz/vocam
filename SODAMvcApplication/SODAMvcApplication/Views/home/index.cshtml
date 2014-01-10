@@ -18,64 +18,66 @@
 
     
 }
-<div class="jumbotron clearfix" style="background: url( @MvcHtmlString.Create(@getVal("header_banner_bg_IMG", "href"))) center no-repeat; ">
+<div class="jumbotronWrap">
+    <div class="jumbotron clearfix" style="background: url( @MvcHtmlString.Create(@getVal("header_banner_bg_IMG", "href"))) center no-repeat; ">
 
-    <div class="container">
-        <div class="banner fl">
-            <h1> @MvcHtmlString.Create(@getVal("header_banner_Title", "text"))</h1>@*header_banner_Title*@
-            <h2 id="header_banner_txt">@MvcHtmlString.Create(@getVal("header_banner_txt", "text"))</h2> @*header_banner_txt*@
+        <div class="container">
+            <div class="banner fl">
+                <h1> @MvcHtmlString.Create(@getVal("header_banner_Title", "text"))</h1>@*header_banner_Title*@
+                <h2 id="header_banner_txt">@MvcHtmlString.Create(@getVal("header_banner_txt", "text"))</h2> @*header_banner_txt*@
 
-            <a id="iframe" class="freePowerPointBtn fl" href="@Url.Action("contactfreeppt")" rel=" freepowerpoint">Free Powerpoint</a>@*previewNowBtn_href *@
-            <div id="freePpt" class="hide" style="width:100%; height:500px; padding:2%; padding-top:30px;">
+                <a id="iframe" class="freePowerPointBtn fl" href="@Url.Action("contactfreeppt")" rel=" freepowerpoint">Free Powerpoint</a>@*previewNowBtn_href *@
+                <div id="freePpt" class="hide" style="width:100%; height:500px; padding:2%; padding-top:30px;">
 
-                @Html.Partial("contactFreePPT", new SODAMvcApplication.CMSServiceReference.Contact())
-              
+                    @Html.Partial("contactFreePPT", new SODAMvcApplication.CMSServiceReference.Contact())
+
+
+                </div>
 
             </div>
-         
         </div>
     </div>
 </div>
 
-<div class="container">
-    <div class="whitespace row">
-        <div class="thumbPost col-md-4">
-            <a href=@getVal("thumbPost_thum_href", "href")><img class="thumbPic" src=@HttpUtility.UrlPathEncode(@getVal("thumbPost_thum_Pic_href", "href")) alt=@MvcHtmlString.Create(@getVal("thumbPost_thum_Title", "text"))></a> @*thumbPost_thum_Pic_href*@
-            <h3>@MvcHtmlString.Create(@getVal("thumbPost_thum_Title", "text"))</h3>@*thumbPost_thum_Title*@
-            <p>@MvcHtmlString.Create(@getVal("thumbPost_thum_details", "text"))</p>
-            @*thumbPost_thum_details*@
-            <a class="moreLBtn fr" href=@getVal("thumbPost_thum_href", "href")>MORE</a>
+        <div class="container">
+            <div class="whitespace row">
+                <div class="thumbPost col-md-4">
+                    <a href=@getVal("thumbPost_thum_href", "href")><img class="thumbPic" src=@HttpUtility.UrlPathEncode(@getVal("thumbPost_thum_Pic_href", "href")) alt=@MvcHtmlString.Create(@getVal("thumbPost_thum_Title", "text"))></a> @*thumbPost_thum_Pic_href*@
+                    <h3>@MvcHtmlString.Create(@getVal("thumbPost_thum_Title", "text"))</h3>@*thumbPost_thum_Title*@
+                    <p>@MvcHtmlString.Create(@getVal("thumbPost_thum_details", "text"))</p>
+                    @*thumbPost_thum_details*@
+                    <a class="moreLBtn fr" href=@getVal("thumbPost_thum_href", "href")>MORE</a>
+                </div>
+                <div class="thumbPost col-md-4">
+                    <a href=@getVal("thumbPost_thum2_href", "href")><img class="thumbPic" src=@HttpUtility.UrlPathEncode(@getVal("thumbPost_thum2_Pic_href", "href")) alt=@MvcHtmlString.Create(@getVal("thumbPost_thum2_Title", "text"))></a>@*thumbPost_thum2_Pic_href*@
+                    <h3>@MvcHtmlString.Create(@getVal("thumbPost_thum2_Title", "text"))</h3>@*thumbPost_thum2_Title*@
+                    <p>@MvcHtmlString.Create(@getVal("thumbPost_thum2_Details", "text"))</p>
+                    @*thumbPost_thum2_Details*@
+                    <a class="moreLBtn fr" href=@getVal("thumbPost_thum2_href", "href")>MORE</a>@*thumbPost_thum2_href*@
+                </div>
+                <div class="thumbPost col-md-4">
+                    <a href=@getVal("thumbPost_thum3_href", "href")><img class="thumbPic" src=@HttpUtility.UrlPathEncode(@getVal("thumbPost_thum3_Pic_href", "href")) alt=@MvcHtmlString.Create(@getVal("thumbPost_thum3_Title", "text"))></a> @*thumbPost_thum3_Pic_href*@
+                    <h3>@MvcHtmlString.Create(@getVal("thumbPost_thum3_Title", "text"))</h3>@*thumbPost_thum3_Title*@
+                    <p>@MvcHtmlString.Create(@getVal("thumbPost_thum3_Details", "text"))</p>
+                    @*thumbPost_thum3_Details*@
+                    <a class="moreLBtn fr" href=@getVal("thumbPost_thum3_href", "href")>MORE</a>
+                </div>
+            </div>
         </div>
-        <div class="thumbPost col-md-4">
-            <a href=@getVal("thumbPost_thum2_href", "href")><img class="thumbPic" src=@HttpUtility.UrlPathEncode(@getVal("thumbPost_thum2_Pic_href", "href")) alt=@MvcHtmlString.Create(@getVal("thumbPost_thum2_Title", "text"))></a>@*thumbPost_thum2_Pic_href*@
-                <h3>@MvcHtmlString.Create(@getVal("thumbPost_thum2_Title", "text"))</h3>@*thumbPost_thum2_Title*@
-                <p>@MvcHtmlString.Create(@getVal("thumbPost_thum2_Details", "text"))</p>
-                @*thumbPost_thum2_Details*@
-                <a class="moreLBtn fr" href=@getVal("thumbPost_thum2_href", "href")>MORE</a>@*thumbPost_thum2_href*@
-</div>
-        <div class="thumbPost col-md-4">
-            <a href=@getVal("thumbPost_thum3_href", "href")><img class="thumbPic" src=@HttpUtility.UrlPathEncode(@getVal("thumbPost_thum3_Pic_href", "href")) alt=@MvcHtmlString.Create(@getVal("thumbPost_thum3_Title", "text"))></a> @*thumbPost_thum3_Pic_href*@
-                <h3>@MvcHtmlString.Create(@getVal("thumbPost_thum3_Title", "text"))</h3>@*thumbPost_thum3_Title*@
-                <p>@MvcHtmlString.Create(@getVal("thumbPost_thum3_Details", "text"))</p>
-                @*thumbPost_thum3_Details*@
-                <a class="moreLBtn fr" href=@getVal("thumbPost_thum3_href", "href")>MORE</a>
-</div>
-    </div>
-</div>
 
-<div class="jumbotron2">
-    <div class="container row">
-        <div class="leftJt fl col-md-4"><img src="~/Content/images/home/mac.png" alt="Macbook"></div>
-        <div class="rightJt col-md-7">
-            <h2>
-                @MvcHtmlString.Create(@getVal("footer_banner_Title","text"))
-            </h2>
-            <p>
-                @MvcHtmlString.Create(@getVal("footer_banner_Desc", "text"))
-            </p>
-           
-            
-            <a class="readMoreHomeBtn fr" href="@Url.Action("learnmore","home")">Read More</a>
+        <div class="jumbotron2">
+            <div class="container row">
+                <div class="leftJt fl col-md-4"><img src="~/Content/images/home/mac.png" alt="Macbook"></div>
+                <div class="rightJt col-md-7">
+                    <h2>
+                        @MvcHtmlString.Create(@getVal("footer_banner_Title", "text"))
+                    </h2>
+                    <p>
+                        @MvcHtmlString.Create(@getVal("footer_banner_Desc", "text"))
+                    </p>
+
+
+                    <a class="readMoreHomeBtn fr" href="@Url.Action("learnmore","home")">Read More</a>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
