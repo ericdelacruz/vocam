@@ -25,7 +25,7 @@ input {outline:none !important;}
 	margin-top:20px; 
 	margin-bottom:25px; }
 
-.displayInline h3 { margin-top: 40px !important; font-size:25px; }
+.displayInline h3 { margin-top: 40px !important; font-size:25px; font-family:'latobold;' }
 .displayInline label, .displayInline input, .displayInline button { float: left;}
 .displayInline input {width:50%;}
 .displayInline label {line-height: 34px; width:100px;}
@@ -134,7 +134,7 @@ ul.portalUserMenu li a:hover {
 
 .btnSubmit {width:30% !important;}
 
-.portalCont h2 {color:#f8981d; margin-bottom: 10px;}
+.portalCont h2 {color:#f8981d; margin-bottom: 10px; font-family:latobold;}
 
 /* portal-user: multiple licenses*/
     .col-sm-4{padding:0px;}
