@@ -94,6 +94,17 @@ namespace SODAwcfService
         [OperationContract]
         int delteLicenseConsumption(int id);
         #endregion
+
+        #region CustomerContract
+         [OperationContract]
+        int addCustomerContract(Models.CustomerContract contract);
+         [OperationContract]
+        int updateCustomerContract(Models.CustomerContract contract);
+         [OperationContract]
+        int deleteCustomerContract(long id);
+         [OperationContract]
+        IEnumerable<Models.CustomerContract> getCustomerContract();
+        #endregion
     }
 
 }

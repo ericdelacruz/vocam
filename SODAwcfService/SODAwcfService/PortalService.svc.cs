@@ -18,6 +18,7 @@ namespace SODAwcfService
         private PortalDataSetTableAdapters.SalesPersonTableAdapter salesPersonTableAdapter;
         private PortalDataSetTableAdapters.RegionTableAdapter regionTableAdapter;
         private PortalDataSetTableAdapters.LicenseConsumptionTableAdapter licenseAdapter;
+        private PortalDataSetTableAdapters.CustomerContractTableAdapter custContractAdapter;
         public PortalService()
         {
             customerTableAdapter = new PortalDataSetTableAdapters.CustomerTableAdapter();
@@ -27,6 +28,7 @@ namespace SODAwcfService
             salesPersonTableAdapter = new PortalDataSetTableAdapters.SalesPersonTableAdapter();
             regionTableAdapter = new PortalDataSetTableAdapters.RegionTableAdapter();
             licenseAdapter = new PortalDataSetTableAdapters.LicenseConsumptionTableAdapter();
+            custContractAdapter = new PortalDataSetTableAdapters.CustomerContractTableAdapter();
         }
        
         public IEnumerable<Models.Customer> getCustomer()
@@ -251,6 +253,27 @@ namespace SODAwcfService
         public int delteLicenseConsumption(int id)
         {
             return licenseAdapter.Delete(id);
+        }
+
+
+        public int addCustomerContract(Models.CustomerContract contract)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int updateCustomerContract(Models.CustomerContract contract)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int deleteCustomerContract(long id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Models.CustomerContract> getCustomerContract()
+        {
+            throw new NotImplementedException();
         }
     }
 }

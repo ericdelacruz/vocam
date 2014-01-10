@@ -78,6 +78,7 @@
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
@@ -100,6 +101,7 @@
     </None>
     <Content Include="soda.svc" />
     <Content Include="SODAPaypalService.svc" />
+    <Content Include="trainnow.asmx" />
     <Content Include="VideoplayerService.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -114,6 +116,7 @@
     </Compile>
     <Compile Include="Isoda.cs" />
     <Compile Include="Models\CategoryAssignment.cs" />
+    <Compile Include="Models\CustomerContractModel.cs" />
     <Compile Include="Models\FreePPT.cs" />
     <Compile Include="Models\LicenseConsumption.cs" />
     <Compile Include="Models\PayPalModel.cs" />
@@ -121,6 +124,10 @@
     <Compile Include="Models\ResetPassword.cs" />
     <Compile Include="soda.svc.cs">
       <DependentUpon>soda.svc</DependentUpon>
+    </Compile>
+    <Compile Include="trainnow.asmx.cs">
+      <DependentUpon>trainnow.asmx</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="XMLModel\Channel.cs" />
     <Compile Include="CMS_Service.svc.cs">
