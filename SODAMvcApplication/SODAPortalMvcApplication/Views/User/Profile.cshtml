@@ -9,14 +9,14 @@
 
 
     <div class="portalCont margin15">
-        <h2 class="margin15">My Profile <a class="editProfile" href="@Url.Action("EditProfile")">(edit profile)</a></h2>
-        <p><b>First Name:</b>@Html.DisplayFor(m=>m.account.FirstName)</p>
-        <p><b>Last Name:</b>@Html.DisplayFor(m=>m.account.LastName)</p>
-        <p><b>Email Address:</b> @Html.DisplayFor(m=>m.account.Email)</p>
-        <p><b>Company:</b> @Html.DisplayFor(m=>m.account.Company)</p>
-        <p><b>Company Website:</b> @Html.DisplayFor(m => m.account.CompanyUrl)</p>
-        <p><b>Contact No:</b> @Html.DisplayFor(m=>m.account.ContactNo)</p>
-        <p><b>Contract end date:</b>@string.Format("{0:MM/dd/yyyy}",Model.customer.DateSubscriptionEnd.Value)</p>
+        <h2 class="margin15">My Profile <a class="editProfile" href="@Url.Action("EditProfile")"> (edit profile)</a></h2>
+        <p><b>First Name: </b> @Html.DisplayFor(m=>m.account.FirstName)</p>
+        <p><b>Last Name: </b> @Html.DisplayFor(m=>m.account.LastName)</p>
+        <p><b>Email Address: </b> @Html.DisplayFor(m=>m.account.Email)</p>
+        <p><b>Company: </b> @Html.DisplayFor(m=>m.account.Company)</p>
+        <p><b>Company Website: </b> @Html.DisplayFor(m => m.account.CompanyUrl)</p>
+        <p><b>Contact No: </b> @Html.DisplayFor(m=>m.account.ContactNo)</p>
+        <p><b>Contract end date: </b>@string.Format("{0:MM/dd/yyyy}",Model.customer.DateSubscriptionEnd.Value)</p>
 
     </div>
-</div>v 
+</div>

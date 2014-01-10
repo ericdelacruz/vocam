@@ -51,7 +51,7 @@
                 using(@Html.BeginForm("indexpurchase","user", FormMethod.Post))
                 {
                     <img src="/Content/images/portal/step2.jpg" alt="Step 2: Choose Your Subscription">
-                    <h4 style="margin-top:15px !important;">Product Name</h4>
+                   
                         <p style="margin-right:10%;"><br />To subscribe, simply select your preferred payment interval for your recurring subscription from the list below.<br><br>
 A Safety On Demand Subscription allows you pay every 1 month, 3 month or 6 month intervals to suit your training budget needs. Please note a 6 month minimum sign up is required on all subscriptions, from then you can cancel at any time. Save money by purchasing a payment in 6 month interval subscription. <strong>Great value!</strong><br><br></p>
 
@@ -59,20 +59,32 @@ A Safety On Demand Subscription allows you pay every 1 month, 3 month or 6 month
                         <div class="row">
                             <div class="col-sm-4 border2 shadow">
                                 <div class="monthSub">1 MONTH</div>
-                                <div class="priceSub">@SalesCode.discountedPrice_A.ToString("C",culture)</div>
-                                <div class="radioBg"><input type="radio" name="subscription" value="1" checked=""></div>
+                                <div class="priceSub">@SalesCode.discountedPrice_A.ToString("C", culture)</div>
+                                <div class="radioBg">
+                                    <label>
+                                        <input type="radio" name="subscription" value="1" checked="">
+                                    </label>
+                                </div>
                             </div>
 
                             <div class="col-sm-4 border2 shadow">
                                 <div class="monthSub">3 MONTHS</div>
-                                <div class="priceSub">@SalesCode.discountedPrice_B.ToString("C",culture)</div>
-                                <div class="radioBg"><input type="radio" name="subscription" value="2"></div>
+                                <div class="priceSub">@SalesCode.discountedPrice_B.ToString("C", culture)</div>
+                                <div class="radioBg">
+                                    <label>
+                                        <input type="radio" name="subscription" value="2">
+                                    </label>
+                                </div>
                             </div>
 
                             <div class="col-sm-4 border2 shadow">
                                 <div class="monthSub">6 MONTHS</div>
                                 <div class="priceSub">@SalesCode.discountedPrice_C.ToString("C",culture)</div>
-                                <div class="radioBg"><input type="radio" name="subscription" value="3"></div>
+                                <div class="radioBg">
+                                    <label>
+                                        <input type="radio" name="subscription" value="3">
+                                    </label>
+                               </div>
                             </div>
                         </div>
                         <br> <br>   
@@ -93,6 +105,7 @@ A Safety On Demand Subscription allows you pay every 1 month, 3 month or 6 month
                 }
             }
         </div>
+        <br /><br />
     </div>
 
 </div>
