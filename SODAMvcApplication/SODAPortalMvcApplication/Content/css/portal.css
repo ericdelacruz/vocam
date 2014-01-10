@@ -143,7 +143,7 @@ ul.portalUserMenu li a:hover {
     .priceSub {background-color:#ffffff; text-align:center; font-size:35px; margin:0px; color:#003b85!important; padding:10px !important; font-weight: bold !important;  font-family: latobold;}
     .radioBg {background-color:#e0e6e8; text-align:center; font-size:30px; margin:0px; height:30px !important; width:100%; height:40px !important;}
         .radioBg label { display:block !important; height:100% !important; background-color:#E0E6E8 !important; width:100% !important; }
-        .radioBg input {width:100% !important; height:30px !important;}
+        .radioBg input {width:100% !important; margin: 10px !important;}
     .subDetails {font-size:12px; line-height:15px !important; color:#232323; font-family: Arial; font-weight:normal; text-align: center; padding:3% !important; width:80%; margin:0 auto; margin-bottom: 15px; }
     .currSubHead {font-weight: bold;}
     .currentSub td {padding:8px; font-size: 12px;}
