@@ -36,7 +36,7 @@ namespace SODAPortalMvcApplication.Controllers
                     else
                     {
 
-                        if (Request.Url.Host != customer.First().rejoin.WebsiteUrl.Replace("www", "portal"))
+                        if (Request.Url.Host != "localhost" && Request.Url.Host != customer.First().rejoin.WebsiteUrl.Replace("www", "portal"))
                         {
                             
                             return Redirect("http://" + customer.First().rejoin.WebsiteUrl.Replace("www", "portal") +Url.Action("Index","user"));
