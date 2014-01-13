@@ -163,6 +163,30 @@
   <wsdl:message name="IPortalService_delteLicenseConsumption_OutputMessage">
     <wsdl:part name="parameters" element="tns:delteLicenseConsumptionResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_addCustomerContract_InputMessage">
+    <wsdl:part name="parameters" element="tns:addCustomerContract" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_addCustomerContract_OutputMessage">
+    <wsdl:part name="parameters" element="tns:addCustomerContractResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_updateCustomerContract_InputMessage">
+    <wsdl:part name="parameters" element="tns:updateCustomerContract" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_updateCustomerContract_OutputMessage">
+    <wsdl:part name="parameters" element="tns:updateCustomerContractResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_deleteCustomerContract_InputMessage">
+    <wsdl:part name="parameters" element="tns:deleteCustomerContract" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_deleteCustomerContract_OutputMessage">
+    <wsdl:part name="parameters" element="tns:deleteCustomerContractResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_getCustomerContract_InputMessage">
+    <wsdl:part name="parameters" element="tns:getCustomerContract" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_getCustomerContract_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getCustomerContractResponse" />
+  </wsdl:message>
   <wsdl:portType name="IPortalService">
     <wsdl:operation name="getCustomer">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/getCustomer" message="tns:IPortalService_getCustomer_InputMessage" />
@@ -267,6 +291,22 @@
     <wsdl:operation name="delteLicenseConsumption">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/delteLicenseConsumption" message="tns:IPortalService_delteLicenseConsumption_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/delteLicenseConsumptionResponse" message="tns:IPortalService_delteLicenseConsumption_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="addCustomerContract">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/addCustomerContract" message="tns:IPortalService_addCustomerContract_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/addCustomerContractResponse" message="tns:IPortalService_addCustomerContract_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="updateCustomerContract">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/updateCustomerContract" message="tns:IPortalService_updateCustomerContract_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/updateCustomerContractResponse" message="tns:IPortalService_updateCustomerContract_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteCustomerContract">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/deleteCustomerContract" message="tns:IPortalService_deleteCustomerContract_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/deleteCustomerContractResponse" message="tns:IPortalService_deleteCustomerContract_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getCustomerContract">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/getCustomerContract" message="tns:IPortalService_getCustomerContract_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/getCustomerContractResponse" message="tns:IPortalService_getCustomerContract_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPortalService" type="tns:IPortalService">
@@ -498,6 +538,42 @@
     </wsdl:operation>
     <wsdl:operation name="delteLicenseConsumption">
       <soap:operation soapAction="http://tempuri.org/IPortalService/delteLicenseConsumption" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addCustomerContract">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/addCustomerContract" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateCustomerContract">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/updateCustomerContract" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteCustomerContract">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/deleteCustomerContract" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCustomerContract">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/getCustomerContract" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
