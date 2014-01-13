@@ -6,7 +6,7 @@
     var CustomerName = ViewData["CustomerName"].ToString();
     var username = Session["Username"].ToString();
 }
-<p>Hi @CustomerName,</p>
+@*<p>Hi @CustomerName,</p>
 <p>&nbsp;</p>
 <p>Please login using the ff:<br/><br />
        Username: @username <br />
@@ -16,5 +16,46 @@
 <p>
     Regards,<br />
     SafetyOnDemand.com
+</p>*@
+
+<p style="font-size:13px; font-family:Arial;">
+    Dear @CustomerName,<br /><br />
+
+    Congratulations and thank you for subscribing to Safety On Demand for PC and Laptop.<br /><br />
+
+    You have purchased <span style="font-weight:bold;">{N}</span> licence/s.<br /><br />
 </p>
 
+<p style="border:1px solid #000; padding:30px; font-weight:bold; font-family:Arial; font-size:14px;">
+
+    <span style="color:#ac1a00; font-size:16px">*** Important Information ***</span><br /><br />
+
+    Only users with administrator rights can install the Safety On Demand App on your computer.
+    Contact your IT department for assistance if required.<br /><br />
+
+    If you require another administrator-level user to install Safety On Demand App, please ensure that you log back in to your own user account before installing from discs and authenticating the videos.<br /><br />
+
+    Safety On Demand App will not run on a "roaming profile". If you use a roaming profile you will need to set up a dedicated non-roaming user account on your computer for the purpose of running Safety On Demand App.<br /><br />
+
+    The use of Safety On Demand App is governed by a user-specific licence. If you wish to make Safety On Demand App available to more than one user of a computer that has multiple user accounts, we strongly recommend that you create a dedicated account for the purpose of running Safety On Demand App. Alternatively you will require an additional licence for each user profile on that computer.
+</p>
+
+<p style="font-size:13px; font-family:Arial;">
+    <br />
+    To begin, please download the <span style="font-weight:bold;">Safety On Demand</span> App.<br /><br />
+
+    To download go to: http://portal.safetyondemand.{region}<br /><br />
+
+    Your username is: <span style="font-weight:bold;" @username</span><br />
+
+    Your password is: <span style="font-weight:bold;">safety</span><br /><br />
+
+    After you have downloaded and installed the Safety On Demand App, launch the application and login with your user name and new password.<br /><br />
+
+    Your subscription contract ends on: <span style="font-weight:bold;">{contract end date}</span><br /><br />
+
+    The Safety On Demand  technical support team will assist you with any queries and can be emailed at support@safetyondemand.{region{}<br /><br />
+
+    Sincerely, <br />
+    The Safety On Demand Team<br />
+</p>
