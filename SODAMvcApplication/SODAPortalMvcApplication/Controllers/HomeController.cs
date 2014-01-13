@@ -283,7 +283,9 @@ namespace SODAPortalMvcApplication.Controllers
                     ViewData.Add("CustomerName", accnt.FirstName + " " + accnt.LastName);
                     ViewData.Add("Password", EncDec.DecryptString(accnt.PASSWORD));
                     string body = EmailHelper.ToHtml("emailforgotpassword", ViewData, this.ControllerContext);     
-                    EmailHelper.SendEmail("test@sac-iis.com", collection["Username"], "Forgot password", body);
+                    //EmailHelper.SendEmail("test@sac-iis.com", collection["Username"], "Forgot password", body);
+                    string from = Request.Url.Host != "localhost" ? "no_reply_test" + Request.Url.Host.Replace("portal.", "@") : "test@sac-iis.com";
+                    EmailHelper.SendEmail(new System.Net.Mail.MailAddress(from, "Safety On Demand"), new System.Net.Mail.MailAddress(collection["Username"]), "Forgot Password", body, true,null);
                     TempData["ResetPassSent"] = true;
 
 

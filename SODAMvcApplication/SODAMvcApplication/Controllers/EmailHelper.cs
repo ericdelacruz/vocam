@@ -85,6 +85,36 @@ namespace SODAMvcApplication.Controllers
                 smtp.Dispose();
             }
         }
+        public static void SendEmail(MailAddress from, MailAddress to, string subject, string body, bool isHTML, string ReplyTo)
+        {
+
+            MailMessage msg = new MailMessage(from, to);
+            msg.Subject = subject;
+            msg.Body = body;
+            msg.IsBodyHtml = isHTML;
+
+            if (!string.IsNullOrEmpty(ReplyTo))
+                msg.ReplyToList.Add(ReplyTo);
+
+            SmtpClient smtp = new SmtpClient();
+            //smtp.Credentials = new NetworkCredential(from.Address, password);
+
+            try
+            {
+                smtp.Send(msg);
+            }
+            catch (Exception exp)
+            {
+                //SmtpClient smtp_alter = new SmtpClient();
+
+                //throw (exp);
+            }
+            finally
+            {
+                msg.Dispose();
+                smtp.Dispose();
+            }
+        }
         public static void SendEmail(string to, string subject, string body, string ReplyTo)
         {
             

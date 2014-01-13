@@ -111,7 +111,7 @@ namespace SODAPortalMvcApplication.Controllers
             {
                 var customer = getCustomerData(Session["Username"].ToString());
                 //ModelState.AddModelError("", "Invalid Quantity");
-                TempData["error"] = "Invalid Quantity";
+                TempData["errorQuantity"] = "Invalid Quantity";
                 if ((Session["SalesCode"] as ViewModel.VerifyModel).salescode.Sales_Code == getDefaultVerifyViewModel().First().salescode.Sales_Code)
                 {
                     TempData["DefaultSalesCode"] = true;
