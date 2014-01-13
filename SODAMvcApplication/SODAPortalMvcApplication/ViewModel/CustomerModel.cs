@@ -16,6 +16,8 @@ namespace SODAPortalMvcApplication.ViewModel
         public SODAPayPalSerRef.PayPalTrans paypal { get; set; }
 
         public PortalServiceReference.Region rejoin { get; set; }
+
+        public PortalServiceReference.CustomerContract contract { get; set; }
     }
 
     public class VerifyModel

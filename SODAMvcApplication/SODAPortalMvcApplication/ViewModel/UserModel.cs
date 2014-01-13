@@ -29,6 +29,8 @@ namespace SODAPortalMvcApplication.ViewModel
         public string ConfirmPassword { get; set; }
 
         public string CompanyUrl { get; set; }
+
+        public string Country { get; set; }
     }
 
     public class changePasswordModel
