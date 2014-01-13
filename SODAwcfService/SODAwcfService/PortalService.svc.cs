@@ -258,22 +258,28 @@ namespace SODAwcfService
 
         public int addCustomerContract(Models.CustomerContract contract)
         {
-            throw new NotImplementedException();
+            return custContractAdapter.Insert(contract.UserId, contract.DateStart, contract.DateEnd);
         }
 
         public int updateCustomerContract(Models.CustomerContract contract)
         {
-            throw new NotImplementedException();
+            return custContractAdapter.Update(contract.UserId, contract.DateStart, contract.DateEnd, contract.Id);
         }
 
         public int deleteCustomerContract(long id)
         {
-            throw new NotImplementedException();
+            return custContractAdapter.Delete(id);
         }
 
         public IEnumerable<Models.CustomerContract> getCustomerContract()
         {
-            throw new NotImplementedException();
+            return custContractAdapter.GetData().Select(contract => new Models.CustomerContract()
+            {
+                Id = contract.Id,
+                DateEnd = contract.DateEnd,
+                DateStart = contract.DateStart,
+                UserId = contract.UserId
+            });
         }
     }
 }
