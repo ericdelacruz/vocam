@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using SODAPortalMvcApplication.Models;
 using System.IO;
+using System.Text.RegularExpressions;
 namespace SODAPortalMvcApplication.Controllers
 {
     public class HomeController : Controller
@@ -139,7 +140,11 @@ namespace SODAPortalMvcApplication.Controllers
         {
             model.Password = "safety";
             model.ConfirmPassword = "safety";
-            
+            model.Country = collection["country"];
+            if(!IsValidEmail(model.Email))
+            {
+                ModelState.AddModelError("", "Invalid Email");
+            }
             if (ModelState.IsValid)
             {
                 try
@@ -158,7 +163,8 @@ namespace SODAPortalMvcApplication.Controllers
                             Email = model.Email,
                             FirstName = model.FirtName,
                             LastName = model.LastName,
-                            Country = collection["country"],
+                            //Country = collection["country"],
+                            Country = model.Country,
                             CompanyUrl = model.CompanyUrl
 
 
@@ -179,6 +185,10 @@ namespace SODAPortalMvcApplication.Controllers
                 }
             }
             return View(model);
+        }
+        private bool IsValidEmail(string strIn)
+        {
+            return Regex.IsMatch(strIn, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z");
         }
         private void sendEmailVerification(ViewModel.UserModel model)
         {
