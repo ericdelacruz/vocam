@@ -410,6 +410,9 @@
     <Content Include="Service References\PortalServiceReference\SODAPortalMvcApplication.PortalServiceReference.LicenseConsumption.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <Content Include="Service References\PortalServiceReference\SODAPortalMvcApplication.PortalServiceReference.CustomerContract.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <None Include="Service References\SODAPayPalSerRef\configuration91.svcinfo" />
     <None Include="Service References\SODAPayPalSerRef\configuration.svcinfo" />
     <None Include="Service References\SODAPayPalSerRef\Reference.svcmap">
