@@ -84,7 +84,7 @@
 
                 if(TempData["error"] != null)
                 {
-                    <p>@TempData["error"].ToString()</p>
+                    <p style="color: #DD1144 !important;">@TempData["error"].ToString()</p>
                 }
                 
                 if(TempData["DefaultSalesCode"] == null)
@@ -178,6 +178,10 @@ A Safety On Demand Subscription allows you pay every 1 month, 3 month or 6 month
                   
         }
        
+        @if(TempData["errorQuantity"] != null)
+        {
+        <p style="color: #DD1144 !important;">@TempData["errorQuantity"].ToString()</p>
+        }
     
         @if (isSCVerified.HasValue && Model.Count() == 0)
         {
