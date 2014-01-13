@@ -2,7 +2,7 @@
     ViewBag.Title = "indexpurchase";
     var SalesCode = Session["SalesCode"] as SODAPortalMvcApplication.ViewModel.VerifyModel;
     var username = Session["Username"].ToString().Substring(0, Session["Username"].ToString().IndexOf('@'));
-    
+    var culture = SODAPortalMvcApplication.ViewModel.VerifyModel.getCultureInfo((SODAPortalMvcApplication.ViewModel.VerifyModel.Currency)(Enum.Parse(typeof(SODAPortalMvcApplication.ViewModel.VerifyModel.Currency), SalesCode.region.Currency)));   
 }
 
 
@@ -32,25 +32,30 @@
 
           
 
-            @if(SalesCode != null)
-            { 
+           
               
                <p>&nbsp;</p>
-                if(TempData["DefaultSalesCode"] == null)
+                @if (TempData["DefaultSalesCode"] == null)
                 { 
                     <div style="text-align:center; font-size:14px;" class="alert alert-success"><strong>@SalesCode.salescode.Sales_Code</strong>: Sales Code Verified!</div>
                 }
-               
-                var culture = SODAPortalMvcApplication.ViewModel.VerifyModel.getCultureInfo((SODAPortalMvcApplication.ViewModel.VerifyModel.Currency)(Enum.Parse(typeof(SODAPortalMvcApplication.ViewModel.VerifyModel.Currency),SalesCode.region.Currency)));
+                else if (TempData["error"] != null)
+                {
+                    <p>&nbsp;</p>
+                    <div style="text-align:center; font-size:14px;" class="alert alert-danger clearfix">Sales Code Not Verified! Please try again.</div>
+                } 
+                
+            
              
                         
                @*<p>@DiscountedSubcriptionPrice for the first 6 months then @DiscountedPermonthPrice monthly recurring </p>*@
                
             <p>&nbsp;</p>
-                //using(@Html.BeginForm("termsinit","user"))
-                using(@Html.BeginForm("indexpurchase","user", FormMethod.Post))
+               
+                @using(@Html.BeginForm("indexpurchase","user", FormMethod.Post))
                 {
-                    <img src="/Content/images/portal/step2.jpg" alt="Step 2: Choose Your Subscription">
+                           
+                        <img src="/Content/images/portal/step2.jpg" alt="Step 2: Choose Your Subscription">
                    
                         <p style="margin-right:10%;"><br />To subscribe, simply select your preferred payment interval for your recurring subscription from the list below.<br><br>
 A Safety On Demand Subscription allows you pay every 1 month, 3 month or 6 month intervals to suit your training budget needs. Please note a 6 month minimum sign up is required on all subscriptions, from then you can cancel at any time. Save money by purchasing a payment in 6 month interval subscription. <strong>Great value!</strong><br><br></p>
@@ -91,19 +96,15 @@ A Safety On Demand Subscription allows you pay every 1 month, 3 month or 6 month
 
           
                         <br> 
+                    @Html.ValidationSummary()
                     <label>Quantity: </label><input type="text" name="quantity" class="form-control" placeholder="Enter number of licenses" required>  
                     <button type="submit" class="btn btn-lg btn-primary btn-block" style="width: 200px; float: right; margin-right: 5%;">Proceed  > > </button>
                 }
-            }
+            
 
-            else
-            {
-                if(TempData["error"] != null)
-                { 
-                    <p>&nbsp;</p>
-                    <div style="text-align:center; font-size:14px;" class="alert alert-danger clearfix">Sales Code Not Verified! Please try again.</div>
-                }
-            }
+           
+                
+            
         </div>
         <br /><br />
     </div>

@@ -22,7 +22,10 @@
                 <table class="currentSub" border="0" cellspacing="0" cellpadding="0" width="100%">
                     <tr class="currSubHead">
                         <td width="550" bgcolor="">DETAILS</td>
-                        <td>CANCEL SUBSCRIPTION</td>
+                        @if(Model.First().contract  != null && Model.First().contract.DateEnd >= DateTime.Now)
+                        {                                             
+                             <td>CANCEL SUBSCRIPTION</td>
+                        }
                     @foreach(var customer in Model)
                     {
                        //string displayFormat = "{0} License/s : {1:0.00} initial for {2} month/s plus {1:0.00} recurring every {3} month/s";
@@ -37,21 +40,30 @@
                             <tr>
                                 @*<td>@string.Format(displayFormat,customer.customer.Licenses,customer.price.PriceAmt.ToString(culture),customer.price.FirstMonthFree?2:1,1) </td>*@
                                 <td>@string.Format(displayFormat, customer.customer.Licenses, pricepaid.ToString("C",culture), customer.price.FirstMonthFree ? 2 : 1, 1) </td>
+                                @if(customer.contract != null &&  customer.contract.DateEnd >= DateTime.Now)
+                                { 
                                  <td align="center"><a href=@Url.Action("unsubscribe", new {transid = customer.paypal.ECTransID })><button style="width:100px; margin-left:20%;" type="submit" class="fl btn btn-sm btn-primary" onclick="return confirm('Are you sure you want to delete the item?');">Cancel</button></a></td>
+                                }
                             </tr>
                                break;
                            case 2: 
                              <tr>
                                 @*<td>@string.Format(displayFormat,customer.customer.Licenses,customer.price.PriceAmt_B.ToString(culture),customer.price.FirstMonthFree?4:3,3) </td>*@
                                  <td>@string.Format(displayFormat, customer.customer.Licenses, pricepaid.ToString("C", culture), customer.price.FirstMonthFree ? 4 : 3, 3) </td>
-                                <td align="center"><a href=@Url.Action("unsubscribe", new {transid = customer.paypal.ECTransID })><button style="width:100px; margin-left:20%;" type="submit" class="fl btn btn-sm btn-primary" onclick="return confirm('Are you sure you want to delete the item?');">Cancel</button></a></td>
+                                 @if (customer.contract != null && customer.contract.DateEnd >= DateTime.Now)
+                                 {
+                                   <td align="center"><a href=@Url.Action("unsubscribe", new {transid = customer.paypal.ECTransID })><button style="width:100px; margin-left:20%;" type="submit" class="fl btn btn-sm btn-primary" onclick="return confirm('Are you sure you want to delete the item?');">Cancel</button></a></td>
+                                 }
                             </tr>
                                break;
                            case 3: 
                             <tr>
                                 @*<td>@string.Format(displayFormat,customer.customer.Licenses,customer.price.priceAmt_C.ToString(culture),customer.price.FirstMonthFree?7:6,6) </td>*@
                                 <td>@string.Format(displayFormat, customer.customer.Licenses, pricepaid.ToString("C", culture), customer.price.FirstMonthFree ? 7 : 6, 6) </td>
-                                <td align="center"><a href=@Url.Action("unsubscribe", new {transid = customer.paypal.ECTransID })><button style="width:100px; margin-left:20%;" type="submit" class="fl btn btn-sm btn-primary" onclick="return confirm('Are you sure you want to delete the item?');">Cancel</button></a></td>
+                                @if (customer.contract != null && customer.contract.DateEnd >= DateTime.Now)
+                                {
+                                        <td align="center"><a href=@Url.Action("unsubscribe", new {transid = customer.paypal.ECTransID })><button style="width:100px; margin-left:20%;" type="submit" class="fl btn btn-sm btn-primary" onclick="return confirm('Are you sure you want to delete the item?');">Cancel</button></a></td>
+                                }
                             </tr>
                                break;
                        }
@@ -79,11 +91,13 @@
                 {                     
                     <label>Sales Code:</label><input type="text" value="@Model.Last().salesCode.Sales_Code" name="salesCode" class="form-control" style="margin-right:5px;" />
                     <button type="submit" class="btn btn-default fl">Verify</button>
+                    <div style="text-align:center; font-size:14px;" class="alert alert-success"><strong>@SalesCode.salescode.Sales_Code</strong>: Sales Code Verified!</div>
                 }
                 else
                 {
                     <label>Sales Code:</label><input type="text" name="salesCode" class="form-control" style="margin-right:5px;" />
                     <button type="submit" class="btn btn-default fl">Verify</button>
+               
                 }
         }
         <br /><br /><br /><br />
@@ -163,30 +177,7 @@ A Safety On Demand Subscription allows you pay every 1 month, 3 month or 6 month
                 }
                   
         }
-        @*@if (isSCVerified.HasValue && isSCVerified.Value)
-        {
-            <p>&nbsp;</p>
-            <p>&nbsp;</p>
-            <p align="left">@Model.price.PriceAmt</p>
-            if (Model.customer.DateSubscriptionEnd.Value.Month < DateTime.Now.Month - 1)
-            {
-
-                <a href=@Url.Action("unsubscribe")>Cancel subscripion</a>
-            }
-            else
-            {
-                <a href=@Url.Action("termsinit")><button style="width:200px; float:right; display:block;" type="submit" class="fl btn btn-lg btn-primary">Purchase</button></a>
-               
-            }
-        }
-        else 
-            if (isSCVerified.HasValue && !isSCVerified.Value)
-        {
-            <p>Sales code not verified. Please call Customer service</p>
-            <a href=@Url.Action("indexpurchase")>Buy now</a>
-        }
-        
-        <br /><br />*@
+       
     
         @if (isSCVerified.HasValue && Model.Count() == 0)
         {

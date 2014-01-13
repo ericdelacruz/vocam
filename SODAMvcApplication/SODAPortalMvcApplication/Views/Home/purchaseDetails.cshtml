@@ -14,7 +14,14 @@
     @Html.TextBoxFor(m => m.Email, new { placeholder = "Email Address", @class = "form-control", required = "" })
 
     <label>Country</label>
-    <select class="form-control bfh-countries" data-country="NONE" name="country"></select>
+     if(Model == null ||  string.IsNullOrEmpty(Model.Country))
+     { 
+        <select class="form-control bfh-countries" data-country="NONE" name="country"></select>
+    }
+    else
+     {
+        <select class="form-control bfh-countries" data-country="@Model.Country" name="country"></select>          
+     }
     <br>
 
     <label>Contact Number</label>
