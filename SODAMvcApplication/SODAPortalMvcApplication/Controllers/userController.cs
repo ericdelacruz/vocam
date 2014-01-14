@@ -70,20 +70,23 @@ namespace SODAPortalMvcApplication.Controllers
                         }
                         if (Session["SalesCode"] == null)
                         {
-                            var verifyModel = getVerifyViewModel(customer.Last().salesCode.Sales_Code);
-                            if (verifyModel.Count() > 0)
+                            //var verifyModel = getVerifyViewModel(customer.Last().salesCode.Sales_Code);
+                            //if (verifyModel.Count() > 0)
+                            //{
+                            //    Session.Add("SalesCode", verifyModel.First());
+                            //    TempData["DefaultSalesCode"] = null;
+                            //}
+                            //else //set to default sales code
                             {
-                                Session.Add("SalesCode", verifyModel.First());
-                                TempData["DefaultSalesCode"] = null;
-                            }
-                            else //set to default sales code
-                            {
-                                verifyModel = getDefaultVerifyViewModel();
+                                var verifyModel = getDefaultVerifyViewModel();
                                 Session.Add("SalesCode", verifyModel.First());
                                 TempData["DefaultSalesCode"] = true;
                             }
                         }
-
+                        else
+                        {
+                            TempData["DefaultSalesCode"] = null;
+                        }
                         return View(customer);
                     //}
                 }
@@ -280,15 +283,7 @@ namespace SODAPortalMvcApplication.Controllers
         [HttpPost]
         public ActionResult reverify(FormCollection collection)
         {
-            //var verifymodel = getVerifyViewModel(salescode);
-            //TempData["VerifiedSC"] = false;
-            //if (verifymodel.Count() > 0)
-            //{
-            //    TempData["VerifiedSC"] = true;
-            //    Session.Add("SalesCode", verifymodel.First());
-            //}
-           
-            //return RedirectToAction("index");
+            
             
             string salescode = collection["SalesCode"];
             var salescodeList = getVerifyViewModel(salescode);
@@ -392,7 +387,7 @@ namespace SODAPortalMvcApplication.Controllers
             string body = EmailHelper.ToHtml("emailaccount", ViewData, this.ControllerContext);
             //EmailHelper.SendEmail("test@sac-iis.com", Session["Username"].ToString(), "Account Details", body);
             string from = Request.Url.Host != "localhost" ? "no_reply_test" + Request.Url.Host.Replace("portal.", "@") : "test@sac-iis.com";
-            string subject = "Account Details";
+            string subject = "Your login details to Safety On Demand";
             EmailHelper.SendEmail(new System.Net.Mail.MailAddress(from, "Safety on Demand"), new System.Net.Mail.MailAddress(Session["Username"].ToString()), subject, body, true, null);
         }
       
