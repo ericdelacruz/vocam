@@ -1,10 +1,15 @@
 ﻿
 @{
     ViewBag.Title = "emailaccount";
-    Response.ContentType = "text/plain";
+    //Response.ContentType = "text/plain";
+    
     Layout = null;
     var CustomerName = ViewData["CustomerName"].ToString();
-    var username = Session["Username"].ToString();
+    var ContractEndDate = ViewData["ContractEndDate"] as Nullable<DateTime>;
+    var Qty = ViewData["Qty"] as Nullable<int>;
+    var username = ViewData["Username"].ToString();
+    var portalUrl = "http://" + Request.Url.Host;
+    var supportEmail = "support@" + Request.Url.Host;
 }
 @*<p>Hi @CustomerName,</p>
 <p>&nbsp;</p>
@@ -23,7 +28,7 @@
 
     Congratulations and thank you for subscribing to Safety On Demand for PC and Laptop.<br /><br />
 
-    You have purchased <span style="font-weight:bold;">{N}</span> licence/s.<br /><br />
+    You have purchased <span style="font-weight:bold;">@Qty</span> licence/s.<br /><br />
 </p>
 
 <p style="border:1px solid #000; padding:30px; font-weight:bold; font-family:Arial; font-size:14px;">
@@ -44,17 +49,17 @@
     <br />
     To begin, please download the <span style="font-weight:bold;">Safety On Demand</span> App.<br /><br />
 
-    To download go to: http://portal.safetyondemand.{region}<br /><br />
+    To download go to: @portalUrl<br /><br />
 
-    Your username is: <span style="font-weight:bold;" @username</span><br />
+    Your username is: <span style="font-weight:bold;">@username</span><br />
 
     Your password is: <span style="font-weight:bold;">safety</span><br /><br />
 
     After you have downloaded and installed the Safety On Demand App, launch the application and login with your user name and new password.<br /><br />
 
-    Your subscription contract ends on: <span style="font-weight:bold;">{contract end date}</span><br /><br />
+    Your subscription contract ends on: <span style="font-weight:bold;"> @string.Format("{0:dd-MM-yyyy}",ContractEndDate.Value)</span><br /><br />
 
-    The Safety On Demand  technical support team will assist you with any queries and can be emailed at support@safetyondemand.{region{}<br /><br />
+    The Safety On Demand  technical support team will assist you with any queries and can be emailed at @supportEmail<br /><br />
 
     Sincerely, <br />
     The Safety On Demand Team<br />

@@ -181,8 +181,9 @@ namespace SODAPortalMvcApplication.Controllers
 
                            join PPT in paypalClient.getPayPalTrans() on cust.PPId equals PPT.Id
                            join p in portalClient.getPrice() on r.Id equals p.RegionId
+                           join contract in portalClient.getCustomerContract() on user.Id equals contract.UserId
                            where PPT.Active == true
-                           select new ViewModel.CustomerModel() { account = user, customer = cust, salesCode = salescode, paypal = PPT, rejoin = r, price = p };
+                           select new ViewModel.CustomerModel() { account = user, customer = cust, salesCode = salescode, paypal = PPT, rejoin = r, price = p,contract = contract };
                 return customer;
 
             }
@@ -258,8 +259,8 @@ namespace SODAPortalMvcApplication.Controllers
             int  qty = 0;
             if(!int.TryParse(collection["quantity"],out qty))
             {
-                //ModelState.AddModelError("", "Invalid Quantity");
-                TempData["error"] = "Invalid Quantity";
+                ModelState.AddModelError("", "Invalid Quantity");
+                //TempData["error"] = "Invalid Quantity";
                 if ((Session["SalesCode"] as ViewModel.VerifyModel).salescode.Sales_Code == getDefaultVerifyViewModel().First().salescode.Sales_Code)
                 {
                     TempData["DefaultSalesCode"] = true;
@@ -379,10 +380,20 @@ namespace SODAPortalMvcApplication.Controllers
         private void emailCustomer(AccountServiceRef.Account account)
         {
             var CustomerName = account.FirstName + " " + account.LastName;
+            var ContractRecord = from contract in portalClient.getCustomerContract()
+                                 join accnt in AccountClient.getAccount(account.USERNAME) on contract.UserId equals accnt.Id
+                                 select contract;
+            var ContractEndDate = ContractRecord.First().DateEnd;
+            var VerfiyModel = Session["SalesCode"] as ViewModel.VerifyModel;
             ViewData.Add("CustomerName", CustomerName);
-            
+            ViewData.Add("ContractEndDate", ContractEndDate);
+            ViewData.Add("Qty", VerfiyModel.qty);
+            ViewData.Add("Username", Session["Username"].ToString());
             string body = EmailHelper.ToHtml("emailaccount", ViewData, this.ControllerContext);
-            EmailHelper.SendEmail("test@sac-iis.com", Session["Username"].ToString(), "Account Details", body);
+            //EmailHelper.SendEmail("test@sac-iis.com", Session["Username"].ToString(), "Account Details", body);
+            string from = Request.Url.Host != "localhost" ? "no_reply_test" + Request.Url.Host.Replace("portal.", "@") : "test@sac-iis.com";
+            string subject = "Account Details";
+            EmailHelper.SendEmail(new System.Net.Mail.MailAddress(from, "Safety on Demand"), new System.Net.Mail.MailAddress(Session["Username"].ToString()), subject, body, true, null);
         }
       
         public ActionResult profile()
