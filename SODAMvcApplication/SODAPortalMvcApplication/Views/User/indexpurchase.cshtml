@@ -18,12 +18,27 @@
             
            
             <div class="form-group">
+
+
+                <img src="/Content/images/portal/step1.jpg" alt="Step 1: Enter Your Sales Code"><br />
+                <h4>If Sales Code not available, proceed to Step 2.</h4>
+                <br />
+
+                @if (TempData["DefaultSalesCode"] == null)
+                {
+                    <div style="text-align:center; font-size:14px;" class="alert alert-success"><strong>@SalesCode.salescode.Sales_Code</strong>: Sales Code Verified!</div>
+                }
+                else if (TempData["error"] != null)
+                {
+                   
+                    <div style="text-align:center; font-size:14px;" class="alert alert-danger clearfix">Sales Code Not Verified! Please try again.</div>
+                }
+
+
                 @using(@Html.BeginForm("verify","user"))
                 { 
                  
-                    <img src="/Content/images/portal/step1.jpg" alt="Step 1: Enter Your Sales Code"><br />
-                    <h4>If Sales Code not available, proceed to Step 2.</h4>
-                    <br />
+                    
                     <label>Sales Code: </label><input type="text" name="salesCode" required class="form-control" value="" style="margin-right:5px;">
                     <button type="submit" class="btn btn-default fl">Verify</button>
                     
@@ -35,16 +50,7 @@
            
               
                <p>&nbsp;</p>
-                @if (TempData["DefaultSalesCode"] == null)
-                { 
-                    <div style="text-align:center; font-size:14px;" class="alert alert-success"><strong>@SalesCode.salescode.Sales_Code</strong>: Sales Code Verified!</div>
-                }
-                else if (TempData["error"] != null)
-                {
-                    <p>&nbsp;</p>
-                    <div style="text-align:center; font-size:14px;" class="alert alert-danger clearfix">Sales Code Not Verified! Please try again.</div>
-                } 
-                
+               
             
              
                         
