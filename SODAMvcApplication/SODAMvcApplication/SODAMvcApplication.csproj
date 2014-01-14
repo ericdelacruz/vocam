@@ -226,6 +226,8 @@
     <Content Include="Content\images\homeBgMob.jpg" />
     <Content Include="Content\images\home\bannerbghome.jpg" />
     <Content Include="Content\images\home\freePowerPointBtn.png" />
+    <Content Include="Content\images\home\freePowerPointBtnBottom.png" />
+    <Content Include="Content\images\home\freePowerPointBtnTop.png" />
     <Content Include="Content\images\home\mac.png" />
     <Content Include="Content\images\home\moreBtn.png" />
     <Content Include="Content\images\home\previewNowBtn.png" />
@@ -360,6 +362,7 @@
     <None Include="Properties\PublishProfiles\Daddy Main.pubxml" />
     <None Include="Properties\PublishProfiles\Pakaged Main.pubxml" />
     <Content Include="RecaptchaNet.ReadMe.txt" />
+    <Content Include="Scripts\bootstrap-dropdown.js" />
     <Content Include="Scripts\jquery.colorbox.js" />
     <Content Include="Scripts\jquery.form.min.js" />
     <None Include="Service References\AccountServiceReference\AccountService1.disco" />

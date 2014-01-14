@@ -50,6 +50,13 @@
 
 
 /*GLobal CSS*/
+
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
 body { 
 	background-color:#f4f4f4;
 	font-family: helveticaregular; 
@@ -178,6 +185,8 @@ header {
 .calltxt {color:#f48518; padding-right:14px;}
 
 
+
+
 .navbar2 { margin-bottom: 10px; clear: both;}
 .navbar2 li {
 	float:left; 
@@ -200,131 +209,11 @@ header {
 	padding-top:17px;
 	text-align: left; }
 
-/* Media Queries - Tablet Portrait (768px - 980px) */
-@media only screen and (min-width:768px) and (max-width:980px){
-	.arrowActive {top:32px !important;}
-	.thumbPost {margin:3%;}
-	.moreLBtn {float: left;}
-	.leftJt img {padding-left:10% !important;}
-}
-
-/* Media Queries - Tablet Portrait (768px) */
-@media only screen and (min-width: 320px) and (max-width: 1024px) and (orientation: portrait) {
-   .arrowActive{
-	    background: url(../images/arrowActive.png) no-repeat center top;
-	    width: 20%;
-	    height: 100% !important;
-	    position: absolute;
-	    bottom:-27px;
-        background-position: center;
-        left:40%;
-}
-	.headerRight {float:none !important;}
-	.navbar2 {float: none !important;}
-    .rightJt {
-        float: left !important;
-        color: #232323;
-        margin-left:10% !important;
-        padding:0px !important;
-        clear:both;
-        clear:none;
-    }
-    #logo { float:none !important; clear:both;
-        clear:none;
-    }
-
-    .banner h1 {font-size: 25px !important;}
-
-    .rightJt, .rightJt p {
-        color:#fefefe !important; 
-        margin:10% 0px;
-        clear:both;
-    }
-    footer {
-    clear:none !important;}
-
-
-}
-
-
-/* Media Queries - Phone (550px)*/
-@media screen and (max-width: 550px) {
-    .jumbotron {
-	background:url('../images/home/bannerbghome.jpg') center repeat-x !important;
- 	}
-
-
-    .banner h1 {
-        font: 28px open_sanssemibold !important;
-        padding-top:3% !important;
-    }
-
-    .thumbPic {width:85% !important;}
-    .moreLBtn {float: left; }
-
-    .leftJt img {display:none !important;}
-    .rightJt {margin-top:0px !important; margin-left:0px !important;}
-        .rightJt h2 {font-size:30px !important; }
-        .rightJt p {margin:1% 0 !important;}
-
-
-    .headerRight {
-        text-align: left;
-        padding-top: 25px;
-        clear: both !important;
-        margin: 0px !important;
-    }
-    .socialBtns {clear:both; width:100%; margin-top:15px;}
-        .socialBtns ul { padding-left: 0px;}
-    .menuNav {padding-left:0px; margin:20px 0px;}
-        .menuNav li {width:100% !important; position:inherit;}
-    .navbar2 li {margin:1px 0 0 0 !important; width: 100%; padding:0 !important;}
-    .navbar2 a {
-	    display:block; 
-	    list-style:none; 
-	    margin-top:5px;
-	    text-align:center;
-	    font-size:14px;
-        width:100%;
-        padding:8px 0px;
-        background-color:#efefef;
-        margin:0 !important;
-    }
-
-    .arrowActive {display:none;}
-    .thumbPost {margin-bottom:12%;}
-    .rightJt, .rightJt p {color:#fefefe !important;}
-    
-    .ftrLinks {
-        margin:5%0;
-	    text-align: center; 
-	    padding-top: 5px; 
-	    clear:none;
-	    text-transform: uppercase;
-	    color:#575757;  padding-left:0px; margin-left:0px;
-	}
-        .footNav {display:block; padding-left:0px; margin-left:0px;}
-        .footNav li {
-	        list-style-type: square;
-	        margin:5px auto !Important;
-	        padding:7px;
-	        display:block;
-            width:100%;
-	        font-size: 23px;
-	        color:#575757;
-            text-align:center;
-            background-color:#222222;
-        }     
-    #copyrightTxt {text-align:center;}
-
-}
-
-
 
 /*HOME Page CSS*/
 
 .jumbotronWrap {
-	background:url('../images/home/bannerbghome.jpg') center repeat-x !important;
+	background:url('../images/home/bannerbghome.jpg') center repeat-x;
 	width: 100%; 
 	height: 525px; 
 	padding:0 auto;
@@ -334,7 +223,7 @@ header {
 
 
 .jumbotron {
-	/*background:url('../images/home/topBanner.jpg') center no-repeat !important;*/
+	/*background:url('../images/home/topBanner.jpg') center no-repeat;*/
 	width: 100%; 
 	height: 100%; 
 	
@@ -344,7 +233,8 @@ header {
 .banner {
 	padding-top: 4%;
 	float:left;
-	color:#f9f9f9;}
+	color:#f9f9f9; 
+	width:45%;}
 
 .banner h1{	
 	font: 40px open_sanssemibold;
@@ -365,13 +255,17 @@ header {
 	display: block;
 	width: 235px;
 	height: 59px;
-	background: url('../images/home/freePowerPointBtn.png') bottom;
+	background: url('../images/home/freePowerPointBtn.png') bottom center no-repeat;
 	text-indent: -99999px;
 }
 .freePowerPointBtn:hover {
 	background-position: 0 0;
 	color:transparent;
 }
+
+
+
+
 
 .thumbPost {padding:10px;}
 
@@ -768,3 +662,137 @@ input, textarea {margin-bottom: 5px;}
  	background-color: #fafafa;
  	border-color: #dfdfdf !important;
  }
+
+
+@media (min-width: 601px) {
+	.nav {display: none !important;}
+	.nav-collapse, .nav-collapse.collapse {overflow: visible;}   
+	.navbar .btn-navbar {display: none;}  
+	#hideToggleNav {display: none;}
+}  
+
+@media screen and (max-width: 320px){
+.jumbotronWrap { background:url('../images/home/bannerbghome.jpg')center top!important; padding-top:12% !important; height: 100% !important; background-repeat: repeat; min-height: 525px !important; }
+
+}
+
+ /* when width is 600px below */
+ @media screen and (max-width: 600px){
+
+ 	.navbar2 {background-color:red;}
+        .jumbotronWrap { background:url('../images/home/bannerbghome.jpg') center top repeat-x; padding-top:10% !important;  }
+        .jumbotron { background-image: none !important; }
+        .banner { text-align: center !important; width:100% !important; min-height: 510px !important; padding-top: 0% !important; }
+            .banner h1 {font-size: 32px !important;}
+            .banner h2 {font-size: 20px !important; margin-bottom: 4% !important; } 
+         
+         	.freePowerPointBtn { width:100% !important; height: 59px; background: url('../images/home/freePowerPointBtnTop.png') bottom center no-repeat !important; }
+         	.freePowerPointBtn:hover { width: 400px; height: 59px; background: url('../images/home/freePowerPointBtnBottom.png') bottom center no-repeat !important; }
+         	.moreLBtn {float:right; margin: 4%;}
+
+        .thumbPost { border-bottom:1px dashed #aca7a7; margin:0 auto; text-align: center; margin-bottom:12%;}
+        .thumbPic {width:85% !important;}
+    .call {display:none;}
+    .call2 {float:right; font-size: 15px; font-family: latoregular;}
+    .leftJt img {display:none !important;}
+    .rightJt {margin-top:0px !important; margin-left:0px !important;}
+        .rightJt h2 {font-size:30px !important; }
+        .rightJt p {margin:1% 0 !important;}
+
+   header .col-md-10 , .headerRight {
+        text-align: left;
+        clear: both !important;
+        margin: 0px !important;
+        padding:0px !important;
+    }
+    .socialBtns {clear:both; width:100%; margin-top:15px;}
+        .socialBtns ul { padding-left: 0px;}
+    .menuNav {padding-left:0px; margin:20px 0px;}
+        .menuNav li {width:100% !important; position:inherit;}
+    header .container {padding:0; margin:0;}
+    #sodaMenu {width:100%; padding:0; margin:0; background-color: #f6f3f3 !important; border-bottom: 1px solid #ffffff;}
+    #sodaMenu li {border-bottom:1px solid #ffffff;}
+    #sodaMenu li a:hover {background-color: #fafafa !important;}
+    .navbar2 {display: none;}
+    .navbar { min-height:40px !important;}
+  	.navbar-toggle {background-color: #ffffff !important; border-color:#d9d9d9 !important;  }
+  	.icon-bar { background-color: ##d9d9d9!important;}
+    .navbar-default {border:none !important; margin:0 !important; padding: 0 !important; background-color: #f6f3f3 !important; border: 1px dotted #d9d9d9 !important; border-left: none !important; border-right: none !important; min-height:35px !important;}
+    .navbar-collapse {padding:0 !important; }
+    .navbar-header {background-color: #f6f3f3 !important;  padding: 0 3% !important; min-height:40px !important;}
+    .arrowActive {display:none;}
+
+    .rightJt, .rightJt p {color:#fefefe !important;}
+    
+    .ftrLinks {
+        margin:5%0;
+        text-align: center; 
+        padding-top: 5px; 
+        clear:none;
+        text-transform: uppercase;
+        color:#575757;  padding-left:0px; margin-left:0px;
+    }
+        .footNav {display:block; padding-left:0px; margin-left:0px;}
+        .footNav li {
+            list-style-type: square;
+            margin:5px auto !Important;
+            padding:7px;
+            display:block;
+            width:100%;
+            font-size: 23px;
+            color:#575757;
+            text-align:center;
+            background-color:#222222;
+        }     
+    #copyrightTxt {text-align:center;}
+
+    }
+
+
+/* Media Queries - Tablet Portrait (768px - 980px) */
+@media only screen and (min-width:768px) and (max-width:980px){
+	.arrowActive {top:32px !important;}
+	.thumbPost {margin:3%;}
+	.moreLBtn {float: left;}
+	.leftJt img {padding-left:10% !important;}
+}
+
+/* Media Queries - Tablet Portrait (768px) */
+@media only screen and (min-width: 320px) and (max-width: 1024px) and (orientation: portrait) {
+   .arrowActive{
+	    background: url(../images/arrowActive.png) no-repeat center top;
+	    width: 20%;
+	    height: 100% !important;
+	    position: absolute;
+	    bottom:-27px;
+        background-position: center;
+        left:40%;
+}
+	.headerRight {float:none !important;}
+	.navbar2 {float: none !important;}
+    .rightJt {
+        float: left !important;
+        color: #232323;
+        margin-left:10% !important;
+        padding:0px !important;
+        clear:both;
+        clear:none;
+    }
+    #logo { float:none !important; clear:both;
+        clear:none;
+    }
+
+    .banner h1 {font-size: 35px !important;}
+
+    .rightJt, .rightJt p {
+        color:#fefefe !important; 
+        margin:10% 0px;
+        clear:both;
+    }
+    footer {
+    clear:none !important;}
+
+
+}
+
+
