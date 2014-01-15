@@ -33,8 +33,13 @@
             </select>
             <!-- Script by hscripts.com -->
 
-            <label><b>Price (AUD)*</label>
+            <label><br />Price per month* </label>
             <input type="text" class="form-control" name="Price" value=@Model.PriceAmt>
+            <label><br />Price per 3 months*</label>
+            <input type="text" class="form-control" name="Price" value=@Model.PriceAmt_B>
+            <label><br />Price per 6 months*</label>
+            <input type="text" class="form-control" name="Price" value=@Model.priceAmt_C>
+           
             <label>Is first month free?</label><br>
          if (Model.FirstMonthFree)
            {

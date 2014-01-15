@@ -18,7 +18,9 @@
                     <tr style="background-color:#ffffff;">
 
                         <th>Region</th>
-                        <th>Price</th>
+                        <th>Price/month</th>
+                        <th>Price/3months</th>
+                        <th>Price/months</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
@@ -31,7 +33,9 @@
 
                         <tr>
                             <td width="200">@priceModel.region.RegionName</td>
-                            <td width="170">@priceModel.price.PriceAmt</td>
+                            <td width="120">@priceModel.price.PriceAmt</td>
+                            <td width="120">@priceModel.price.PriceAmt_B</td>
+                            <td width="120">@priceModel.price.priceAmt_C</td>
                             <td width="100"><a href=@Url.Action("editprice",new{id=priceModel.price.Id})><img alt="edit" src="~/Content/images/portal/edit.png"></a></td>
                             <td width="100"><a onclick="return confirm('Are you sure you want to delete the item?');" href=@Url.Action("deleteprice", new { id = priceModel.price.Id })><img alt="delete" src="~/Content/images/portal/delete.png"></a></td>
                         </tr>
