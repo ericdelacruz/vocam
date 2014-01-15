@@ -185,7 +185,7 @@ namespace SODAMvcApplication.Controllers
         public ActionResult Sitemap()
         {
             var sitemapData = from cat in catListingSerivceClient.get_Categories()
-                              where cat.CategoryId > 1 && cat.CategoryName.Trim() != "My Favorites"
+                              where cat.CategoryId > 1 && cat.CategoryName.Trim() != "My Favorites" && cat.CategoryName.Trim() != "Downloads" 
                               orderby ConvertGrade(cat.CategoryId)
                               select new Models.SiteMapModel()
                               {

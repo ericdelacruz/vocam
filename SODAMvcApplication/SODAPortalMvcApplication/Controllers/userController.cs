@@ -365,9 +365,11 @@ namespace SODAPortalMvcApplication.Controllers
                    
                     emailCustomer(new_accnt);
                     Session.Remove("NewAccount");
+                    
                     ViewBag.isNewAccount = true;
                     
                 }
+                Session.Remove("SalesCode");
             }
             return View();
         }
@@ -448,7 +450,7 @@ namespace SODAPortalMvcApplication.Controllers
             {
                 
 
-                var salesPersonCodePrice = Session["SalesCode"] as ViewModel.VerifyModel;
+                //var salesPersonCodePrice = Session["SalesCode"] as ViewModel.VerifyModel;
                 string redirectURL = paypalClient.checkoutModel(initCheckoutModel());
                 //string redirectURL = PaypalHelper.checkout(price, Moolah.PayPal.CurrencyCodeType.AUD, itemname, itemDesc, itemURL, cancelURl, confirmURL);
 

@@ -29,7 +29,7 @@ namespace SODAMvcApplication.Controllers
              }
 
              var listCategories = from cat in categoriesServiceClient.get_Categories()
-                                  where cat.CategoryId != 1 && cat.CategoryName.Trim() != "My Favorites"
+                                  where cat.CategoryId != 1 && cat.CategoryName.Trim() != "My Favorites" && cat.CategoryName.Trim() != "Downloads" 
                                   orderby ConvertGrade(cat.CategoryId)
                                   select cat;
              return View(listCategories);
