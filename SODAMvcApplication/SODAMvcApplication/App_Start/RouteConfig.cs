@@ -98,7 +98,7 @@ namespace SODAMvcApplication
                     
                 //}
                 //return result;
-                List<string> ignoreList = new List<string>() { "learn-more", "contact", "sitemap", "users", "defaultcaptcha", "scripts", "home", "xml", "categories", "favicon.ico" };
+                List<string> ignoreList = new List<string>() { "learn-more", "contact", "sitemap", "users", "defaultcaptcha", "scripts", "home", "xml", "categories", "favicon.ico","drm" };
                 return ignoreList.Where(url => url == values[parameterName].ToString().Trim().ToLower()).Count() == 0;
             }
         }
