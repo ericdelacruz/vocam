@@ -214,7 +214,7 @@ namespace SODAPortalMvcApplication.Controllers
                 Session.Add("SalesCode", getDefaultVerifyViewModel().First());
                 TempData["DefaultSalesCode"] = true;
             }
-            else if(Session["SalesCode"] == getDefaultVerifyViewModel().First())
+            else if((Session["SalesCode"] as ViewModel.VerifyModel).salescode.Sales_Code == getDefaultVerifyViewModel().First().salescode.Sales_Code)
             {
                 TempData["DefaultSalesCode"] = true;
             }
@@ -321,11 +321,13 @@ namespace SODAPortalMvcApplication.Controllers
 
         private IEnumerable<ViewModel.VerifyModel> getVerifyViewModel(string salescode)
         {
+            var websiteURL = Request.Url.Host.Replace("portal", "www") != "localhost" ? Request.Url.Host.Replace("portal", "www") : "www.safetyondemand.com.au";
+            //get SalesCode Details. Notes SalesCode depends on region.
             var salescodeList = from sp in portalClient.getSalePerson()
                                 join sc in portalClient.getSaleCode() on sp.SalesCodeId equals sc.Id
                                 join p in portalClient.getPrice() on sp.RegionId equals p.RegionId
                                 join r in portalClient.getRegion() on sp.RegionId equals r.Id
-                                where sc.Sales_Code == salescode.Trim()
+                                where sc.Sales_Code == salescode.Trim() &&  r.WebsiteUrl == websiteURL
                                 select new ViewModel.VerifyModel() { price = p, saleperson = sp, salescode = sc, region = r,
                                 discountedPrice_A = p.PriceAmt - (p.PriceAmt * sc.Discount),
                                 discountedPrice_B = p.PriceAmt_B - (p.PriceAmt_B * sc.Discount),
