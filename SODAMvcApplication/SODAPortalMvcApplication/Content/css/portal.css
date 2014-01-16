@@ -172,6 +172,30 @@ ul.portalUserMenu li a:hover {
 	color:transparent;
 }
 
+
+    .stepTable td  { font-size:15px; font-weight:bold; }
+    .stepTable img { border:none;}
+    
+.border3 {
+   border: 2px solid #FFFFFF !important;
+   border-radius: 5px;
+    }
+
+ .osName {
+        background-color: #E3E1E1;
+        text-align: center;
+        padding: 4%;
+        font-weight: bold;
+        font-size: 15px;
+    }
+ 
+ .osRequirement {
+        text-align: left;
+        padding: 7% 5%;
+        height: 100%;
+        font-size: 13px;
+    }
+
 #defaultPopup {
 	width: 30%;
 }
