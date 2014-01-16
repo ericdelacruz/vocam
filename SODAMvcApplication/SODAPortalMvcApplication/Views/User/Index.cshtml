@@ -84,14 +84,14 @@
         <h4>If Sales Code not available, proceed to Step 2.</h4>
         @using (@Html.BeginForm("reverify", "user"))
         {
-            if (TempData["DefaultSalesCode"] == null)
+            if (SalesCode !=null && !SalesCode.isDefaultSalesCode)
             {
                 <div style="text-align:center; font-size:14px;" class="alert alert-success"><strong>@SalesCode.salescode.Sales_Code</strong>: Sales Code Verified!</div> <br /> 
                 <label>Sales Code:</label><input type="text" value="@SalesCode.salescode.Sales_Code" name="salesCode" class="form-control" style="margin-right:5px;" />
             }
             else if (TempData["error"] != null)
             {
-                <div style="text-align:center; font-size:14px;" class="alert alert-danger clearfix">Sales Code Not Verified! Please try again.</div> <br /> 
+                <div style="text-align:center; font-size:14px;" class="alert alert-danger clearfix">Sales Code not verified! Please try again.</div> <br /> 
             <label>Sales Code:</label><input type="text" value="" name="salesCode" class="form-control" style="margin-right:5px;" />
             }
             else

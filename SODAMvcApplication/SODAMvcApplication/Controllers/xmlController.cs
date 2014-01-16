@@ -72,9 +72,25 @@ namespace SODAMvcApplication.Controllers
         public ActionResult titles(string id)
         {
             int regionId = id != null? portalClient.getRegion().Where(r => r.RegionName.ToLower() == id.ToLower().Trim()).First().Id:12; //default to 12 AU 
-            var titles =  catClient.get().Where(title=> title.RegionId == regionId);
+            var titles = catClient.get().Where(title => title.RegionId == regionId).OrderBy(title => title.Title);
             
             return View(titles);
+        }
+        public ActionResult news(string id,string username)
+        {
+          var _account = account.getAccount(username);
+          var region = portalClient.getRegion().Where(r => r.RegionName.ToLower() == id.ToLower().Trim());
+            if(_account.Count() > 0 && region.Count() > 0)
+            {
+                ViewBag.isExistsUser = true;
+                ViewBag.WebsiteURL = !string.IsNullOrEmpty(_account.First().CompanyUrl)? _account.First().CompanyUrl:"";
+            }
+            else
+            {
+                ViewBag.isExistsUser = null;
+            }
+
+            return View();
         }
     }
 }

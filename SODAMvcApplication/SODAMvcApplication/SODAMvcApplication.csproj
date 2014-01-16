@@ -499,6 +499,7 @@
     <Content Include="Views\home\reply.cshtml" />
     <Content Include="Views\home\email_FreePPT_details.cshtml" />
     <Content Include="Views\home\email_freeppt_customer.cshtml" />
+    <Content Include="Views\xml\news.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -535,7 +536,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51219</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

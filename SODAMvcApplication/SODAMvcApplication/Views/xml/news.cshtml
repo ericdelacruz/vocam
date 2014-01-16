@@ -1,0 +1,14 @@
+﻿@{
+    Layout = null;
+    Response.ContentType = "text/xml";
+}
+<TNNews>
+    <news newstitle="" newslink=""/>
+    @if(ViewBag.isExistsUser != null)
+    { 
+        <IsShowNews shownews="False" />
+        <ImageFile filename="soda_ad.jpg" />
+        <ClientWebSite websiteurl="@ViewBag.WebsiteURL" />
+        <IsQuestionAnswer questionanswer="True" />
+    }
+</TNNews>

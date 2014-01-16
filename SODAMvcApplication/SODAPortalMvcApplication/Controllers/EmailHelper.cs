@@ -125,7 +125,7 @@ namespace SODAPortalMvcApplication.Controllers
             {
                 //SmtpClient smtp_alter = new SmtpClient();
 
-                throw (exp);
+                //throw (exp);
             }
             finally
             {

@@ -2,6 +2,7 @@
     ViewBag.Title = "AddPrice";
 
     var RegionList = ViewBag.RegionList as IEnumerable<SODAPortalMvcApplication.PortalServiceReference.Region>;
+    
     //set input names
 }
 
@@ -21,7 +22,9 @@
                 <option selected="selected" value="-1">Select a region</option>
                 @foreach (var region in RegionList)
                 {
-                    <option value=@region.Id>@region.RegionName</option>
+                    var culture = SODAPortalMvcApplication.ViewModel.VerifyModel.getCultureInfo(region.Currency);
+                    var ri =  new System.Globalization.RegionInfo(culture.LCID);
+                    <option value=@region.Id>@string.Format("{0} (Currency {1})",region.RegionName,ri.ISOCurrencySymbol)</option>
                 }
 
             </select>

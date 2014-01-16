@@ -32,7 +32,10 @@ namespace SODAPortalMvcApplication.ViewModel
 
         public int selectedSubscription { get; set; }
         public int qty { get; set; }
-
+        public bool isDefaultSalesCode { get {return isDefault;}
+                                        set { isDefault = value; }
+                                        }
+        private bool isDefault = false;
         public enum Currency
         {
             USD,
@@ -55,6 +58,14 @@ namespace SODAPortalMvcApplication.ViewModel
                 default://USD default
                     return new System.Globalization.CultureInfo("en-US");
             }
+        }
+
+        public static System.Globalization.CultureInfo getCultureInfo(string strCurrency)
+        {
+
+            var currency = (Currency)Enum.Parse(typeof(Currency), strCurrency);
+
+            return getCultureInfo(currency);
         }
     }
   

@@ -9,7 +9,7 @@
     var Qty = ViewData["Qty"] as Nullable<int>;
     var username = ViewData["Username"].ToString();
     var portalUrl = "http://" + Request.Url.Host;
-    var supportEmail = "support@" + Request.Url.Host;
+    var supportEmail = Request.Url.Host.Replace("portal.","support@");
 }
 @*<p>Hi @CustomerName,</p>
 <p>&nbsp;</p>

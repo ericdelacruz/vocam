@@ -70,23 +70,17 @@ namespace SODAPortalMvcApplication.Controllers
                         }
                         if (Session["SalesCode"] == null)
                         {
-                            //var verifyModel = getVerifyViewModel(customer.Last().salesCode.Sales_Code);
-                            //if (verifyModel.Count() > 0)
-                            //{
-                            //    Session.Add("SalesCode", verifyModel.First());
-                            //    TempData["DefaultSalesCode"] = null;
-                            //}
-                            //else //set to default sales code
-                            {
+                           
                                 var verifyModel = getDefaultVerifyViewModel();
                                 Session.Add("SalesCode", verifyModel.First());
-                                TempData["DefaultSalesCode"] = true;
-                            }
+                                
+                            
                         }
-                        else
-                        {
-                            TempData["DefaultSalesCode"] = null;
-                        }
+                        //else
+                        //{
+                            
+                        //    TempData["DefaultSalesCode"] = null;
+                        //}
                         return View(customer);
                     //}
                 }
@@ -115,14 +109,14 @@ namespace SODAPortalMvcApplication.Controllers
                 var customer = getCustomerData(Session["Username"].ToString());
                 //ModelState.AddModelError("", "Invalid Quantity");
                 TempData["errorQuantity"] = "Invalid Quantity";
-                if ((Session["SalesCode"] as ViewModel.VerifyModel).salescode.Sales_Code == getDefaultVerifyViewModel().First().salescode.Sales_Code)
-                {
-                    TempData["DefaultSalesCode"] = true;
-                }
-                else
-                {
-                    TempData["DefaultSalesCode"] = null;
-                }
+                //if ((Session["SalesCode"] as ViewModel.VerifyModel).salescode.Sales_Code == getDefaultVerifyViewModel().First().salescode.Sales_Code)
+                //{
+                //    TempData["DefaultSalesCode"] = true;
+                //}
+                //else
+                //{
+                //    TempData["DefaultSalesCode"] = null;
+                //}
 
                 return View(customer);
             }
@@ -166,30 +160,45 @@ namespace SODAPortalMvcApplication.Controllers
                            join contract in portalClient.getCustomerContract() on user.Id equals contract.UserId
                            where PPT.Active == true
                            select new ViewModel.CustomerModel() { account = user, customer = cust, salesCode = salescode, salesPerson = sp, price = p, paypal = PPT, rejoin = r,contract = contract };
-            if (customer.Count() > 0)
-            {
-                if (TempData["DefaultSalesCode"] != null)
-                    TempData.Remove("DefaultSalesCode");
-                return customer;
-            }//else default
-            else
-            {
-                TempData["DefaultSalesCode"] = true;
-                //int RegionId = portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal","www")).First().Id;
-                customer = from cust in portalClient.getCustomer()
-                           join user in AccountClient.getAccount(username) on cust.UserId equals user.Id
-                           join salescode in portalClient.getSaleCode() on cust.SalesCodeId.Value equals salescode.Id
+           
+            var default_customer = from cust in portalClient.getCustomer()
+                                   join user in AccountClient.getAccount(username) on cust.UserId equals user.Id
+                                   join salescode in portalClient.getSaleCode() on cust.SalesCodeId.Value equals salescode.Id
 
-                           join r in portalClient.getRegion() on salescode.Id equals r.DefaultSalesCodeId
+                                   join r in portalClient.getRegion() on salescode.Id equals r.DefaultSalesCodeId
 
-                           join PPT in paypalClient.getPayPalTrans() on cust.PPId equals PPT.Id
-                           join p in portalClient.getPrice() on r.Id equals p.RegionId
-                           join contract in portalClient.getCustomerContract() on user.Id equals contract.UserId
-                           where PPT.Active == true
-                           select new ViewModel.CustomerModel() { account = user, customer = cust, salesCode = salescode, paypal = PPT, rejoin = r, price = p,contract = contract };
-                return customer;
+                                   join PPT in paypalClient.getPayPalTrans() on cust.PPId equals PPT.Id
+                                   join p in portalClient.getPrice() on r.Id equals p.RegionId
+                                   join contract in portalClient.getCustomerContract() on user.Id equals contract.UserId
+                                   where PPT.Active == true
+                                   select new ViewModel.CustomerModel() { account = user, customer = cust, salesCode = salescode, paypal = PPT, rejoin = r, price = p, contract = contract };
 
-            }
+            return customer.Count() > 0 && default_customer.Count() > 0 ? customer.Union(default_customer) :
+                customer.Count() > 0 && default_customer.Count() == 0 ? customer : default_customer;
+            //if (customer.Count() > 0)
+            //{
+            //    if (TempData["DefaultSalesCode"] != null)
+            //        TempData.Remove("DefaultSalesCode");
+            //    return customer;
+            //}//else default
+            //else
+            //{
+            //    TempData["DefaultSalesCode"] = true;
+            //    //int RegionId = portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal","www")).First().Id;
+            //    customer = from cust in portalClient.getCustomer()
+            //               join user in AccountClient.getAccount(username) on cust.UserId equals user.Id
+            //               join salescode in portalClient.getSaleCode() on cust.SalesCodeId.Value equals salescode.Id
+
+            //               join r in portalClient.getRegion() on salescode.Id equals r.DefaultSalesCodeId
+
+            //               join PPT in paypalClient.getPayPalTrans() on cust.PPId equals PPT.Id
+            //               join p in portalClient.getPrice() on r.Id equals p.RegionId
+            //               join contract in portalClient.getCustomerContract() on user.Id equals contract.UserId
+            //               where PPT.Active == true
+            //               select new ViewModel.CustomerModel() { account = user, customer = cust, salesCode = salescode, paypal = PPT, rejoin = r, price = p,contract = contract };
+            //    return customer;
+
+            //}
         }
         public ActionResult indexpurchase(string salescode)
         {
@@ -240,6 +249,7 @@ namespace SODAPortalMvcApplication.Controllers
                                 discountedPrice_A = p.PriceAmt - (p.PriceAmt * sc.Discount),
                                 discountedPrice_B = p.PriceAmt_B - (p.PriceAmt_B * sc.Discount),
                                 discountedPrice_C = p.priceAmt_C - (p.priceAmt_C * sc.Discount),
+                                 isDefaultSalesCode = true
                             };
             
             //ViewBag.DefaultSalesCode = true;
@@ -332,6 +342,7 @@ namespace SODAPortalMvcApplication.Controllers
                                 discountedPrice_A = p.PriceAmt - (p.PriceAmt * sc.Discount),
                                 discountedPrice_B = p.PriceAmt_B - (p.PriceAmt_B * sc.Discount),
                                 discountedPrice_C = p.priceAmt_C - (p.priceAmt_C * sc.Discount),
+                                 isDefaultSalesCode = false
                                 };
            
             return salescodeList;

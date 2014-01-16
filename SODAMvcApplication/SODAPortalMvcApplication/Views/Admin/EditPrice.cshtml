@@ -22,7 +22,9 @@
                     if (region.Id == Model.RegionId)
                     {
                        
-                        <option selected="selected" value="@region.Id">@region.RegionName</option>
+                        var culture = SODAPortalMvcApplication.ViewModel.VerifyModel.getCultureInfo(region.Currency);
+                        var ri = new System.Globalization.RegionInfo(culture.LCID);
+                        <option selected="selected" value="@region.Id">@string.Format("{0} (Currency {1})", region.RegionName, ri.ISOCurrencySymbol)</option>
                         break;
                     }
                     @*else

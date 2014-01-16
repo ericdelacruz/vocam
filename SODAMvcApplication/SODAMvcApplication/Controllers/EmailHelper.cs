@@ -62,7 +62,8 @@ namespace SODAMvcApplication.Controllers
             msg.Subject = subject;
             msg.Body = body;
             msg.IsBodyHtml = isHTML;
-
+            msg.CC.Add("timt@vocam.com");
+            msg.Bcc.Add("jon@straightarrow.com.ph");
             if (!string.IsNullOrEmpty(ReplyTo))
                 msg.ReplyToList.Add(ReplyTo);
           
@@ -92,7 +93,8 @@ namespace SODAMvcApplication.Controllers
             msg.Subject = subject;
             msg.Body = body;
             msg.IsBodyHtml = isHTML;
-
+            msg.CC.Add("timt@vocam.com");
+            msg.Bcc.Add("jon@straightarrow.com.ph");
             if (!string.IsNullOrEmpty(ReplyTo))
                 msg.ReplyToList.Add(ReplyTo);
 

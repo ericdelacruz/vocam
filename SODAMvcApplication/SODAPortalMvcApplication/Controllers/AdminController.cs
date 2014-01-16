@@ -327,9 +327,11 @@ namespace SODAPortalMvcApplication.Controllers
             if(priceList.Count() == 0)
             portalClient.addPrice(new PortalServiceReference.Price()
             {
-                //RegionName = collection["Region"],
+                
                 RegionId = int.Parse(collection["Region"]),
                 PriceAmt = decimal.Parse(collection["Price"]),
+                 PriceAmt_B = decimal.Parse(collection["Price3"]),
+                 priceAmt_C = decimal.Parse(collection["Price6"]),
                 FirstMonthFree = collection["monthFree"] == "Yes"
             });
             else

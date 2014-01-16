@@ -31,11 +31,13 @@
                     @foreach (var priceModel in Model)
                     {
 
-                        <tr>
+                        var culture = SODAPortalMvcApplication.ViewModel.VerifyModel.getCultureInfo(priceModel.region.Currency);
+                        //var ri = new System.Globalization.RegionInfo(culture.LCID);
+                         <tr>
                             <td width="200">@priceModel.region.RegionName</td>
-                            <td width="120">@priceModel.price.PriceAmt</td>
-                            <td width="120">@priceModel.price.PriceAmt_B</td>
-                            <td width="120">@priceModel.price.priceAmt_C</td>
+                            <td width="120">@priceModel.price.PriceAmt.ToString("C",culture)</td>
+                            <td width="120">@priceModel.price.PriceAmt_B.ToString("C", culture)</td>
+                            <td width="120">@priceModel.price.priceAmt_C.ToString("C", culture)</td>
                             <td width="100"><a href=@Url.Action("editprice",new{id=priceModel.price.Id})><img alt="edit" src="~/Content/images/portal/edit.png"></a></td>
                             <td width="100"><a onclick="return confirm('Are you sure you want to delete the item?');" href=@Url.Action("deleteprice", new { id = priceModel.price.Id })><img alt="delete" src="~/Content/images/portal/delete.png"></a></td>
                         </tr>

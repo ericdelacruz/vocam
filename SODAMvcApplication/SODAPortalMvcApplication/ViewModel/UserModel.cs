@@ -37,6 +37,8 @@ namespace SODAPortalMvcApplication.ViewModel
     {
         [Required]
         [DataType(DataType.Password)]
+        [StringLength(16)]
+        [RegularExpression(@"^(?=[^\d_].*?\d)\w(\w|[!@#$%]){7,20}",ErrorMessage="Your password does not fit the requirements. Please try again")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]

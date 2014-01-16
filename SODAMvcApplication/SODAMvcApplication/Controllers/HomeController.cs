@@ -268,7 +268,7 @@ namespace SODAMvcApplication.Controllers
             contact.isFreePPT = false;
             cmsServiceClient.addContact(contact);
             //EmailHelper.SendEmail(contact.Email, "SODA Customer Inquiry", "Message sent. A customer representative will contact you shortly.");
-            string from =Request.Url.Host != "localhost"? "no_reply_test" + Request.Url.Host.Replace("www.", "@"):"test@sac-iis.com";
+            string from =Request.Url.Host != "localhost"? "no-reply" + Request.Url.Host.Replace("www.", "@"):"test@sac-iis.com";
             string replyto = Request.Url.Host != "localhost"? "sales_test" + Request.Url.Host.Replace("www.", "@"):"sales_test@safetyondemand.com.au";
             //string from = "test@sac-iis.com";
             //string replyto = "sales_test@safetyondemand.com.au";
@@ -323,7 +323,7 @@ namespace SODAMvcApplication.Controllers
             contact.key = key;
             contact.DateLinkEx = dateAdded;
             cmsServiceClient.addContact(contact);
-            string from = Request.Url.Host != "localhost" ? "no_reply_test" + Request.Url.Host.Replace("www.", "@") : "test@sac-iis.com";
+            string from = Request.Url.Host != "localhost" ? "no-reply" + Request.Url.Host.Replace("www.", "@") : "test@sac-iis.com";
             string Replyto = Request.Url.Host != "localhost" ? "sales_test" + Request.Url.Host.Replace("www.", "@") : "sales_test@safetyondemand.com.au";
             ViewData.Add("Contact", contact);
             //ViewData.Add("DLink", createDownloadPPTLink(key, selected));
@@ -339,7 +339,7 @@ namespace SODAMvcApplication.Controllers
         }
         private void sendCustomerDetailsToSales(CMSServiceReference.Contact contact,string subject)
         {
-            string from = Request.Url.Host != "localhost" ? "no_reply_test" + Request.Url.Host.Replace("www.", "@") : "no_reply_test@sac-iis.com";
+            string from = Request.Url.Host != "localhost" ? "no-reply" + Request.Url.Host.Replace("www.", "@") : "no_reply_test@sac-iis.com";
             string to = Request.Url.Host != "localhost" ? "sales_test" + Request.Url.Host.Replace("www.", "@") : "sales_test@sac-iis.com";
             
             //string from = "no_reply_test@sac-iis.com";
