@@ -3,6 +3,7 @@
     ViewBag.Title = "termsandconditions2";
     var user = Session["Username"].ToString();
     user = user.Substring(0, user.IndexOf('@'));
+    var CurrentDate = DateTime.Now;
 }
 
 <div class="container row portalContainer">
@@ -145,14 +146,12 @@
                     This site includes the registered trade marks of Vocam ® and trade marks which are the subject of pending applications or which are otherwise protected by law including, but not limited to the word "Vocam Worldwide Publishing" and "Informed Business Training" with graphical logo. You may not use these trade marks or the names "Vocam Pty Ltd", "Vocam Ltd" or "Vocam" or the name of any of our related companies.
             </div>
             <br />
-            <p>You, <b>@Model.FirstName @Model.LastName</b> accepted this terms and conditions on Monday, September 14, 2009.</p>
-            <!--<p id="tz_info"></p>-->
-            <input id="tz_info" type="hidden" value="" />
+            <p>You, <b>@Model.FirstName @Model.LastName</b> accepted this terms and conditions on </p>
             <br /> <br />
             <div align="center"><a class="buyNow" href="@Url.Action("checkout")">Buy Now</a><br />
             <img src="/Content/images/portal/paypal.jpg" alt="Paypal"></div>
-           
 
+           
         </div>
     </div>
 
