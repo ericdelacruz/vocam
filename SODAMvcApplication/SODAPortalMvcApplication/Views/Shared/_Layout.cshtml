@@ -90,6 +90,7 @@
     <script src="/Content/js/bootstrap.min.js"></script>
     <script src="/Content/js/bootstrap-formhelpers.min.js"></script>
     <script type="text/javascript" src="/Content/js/jquery.datepick.js"></script>
+    <script type="text/javascript" src="/Content/js/jstz.min.js"></script>
 
     <script type="text/javascript">
         $(function () {
@@ -109,6 +110,29 @@
         function showDate(date) {
             alert('The date chosen is ' + date);
         }
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var tz = jstz.determine();
+
+            response_text = 'No timezone found';
+
+            if (typeof (tz) === 'undefined') {
+                response_text = 'No timezone found';
+            }
+            else {
+                response_text = tz.name();
+            }
+
+            $('#tz_info').html(response_text);
+
+            $('#code-example').html("> var timezone = jstz.determine();\n" +
+            "> timezone.name(); \n" +
+            "\"" + tz.name() + "\"\n\n");
+            $('#tz_info').show();
+
+        });
     </script>
 </body>
 </html>
