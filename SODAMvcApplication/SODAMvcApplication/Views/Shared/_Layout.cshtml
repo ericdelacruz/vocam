@@ -169,12 +169,12 @@
     </div>
 
     <footer>
-        <div class="whitespace container row">
+        <div class="container row">
             <div class="col-md-2"><a href="@Url.Action("index","home")"><img src="~/Content/images/safetyOnDemand-logoFooter.jpg" alt="Safety On Demand"></a></div>
             <div align="right" class="col-md-10">
-                <div class="ftrLinks">
+                <div class="ftrLinks whitespace">
                     <div class="clearfix">
-                        <ul class="footNav">
+                       <ul class="footNav">
                             <li>@Html.ActionLink("HOME", "index", "home")</li>
                             <li>@Html.ActionLink("CATEGORIES", "index", "categories")</li>
                             <li>@Html.ActionLink("LEARN MORE", "learnmore", "home")</li>
@@ -182,6 +182,7 @@
                             <li>@Html.ActionLink("SITEMAP", "sitemap", "home")</li>
                             <li>@Html.ActionLink("LEGALS", "legals", "home")</li>
                         </ul>
+                        
                     </div>
                     <div id="copyrightTxt" class="clearfix"><span>Copyright &copy; 2013</span></div>
                 </div>

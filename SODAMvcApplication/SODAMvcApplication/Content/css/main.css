@@ -74,6 +74,7 @@ p { font-size: 14px; color:#222222;}
 .margin15 { margin-bottom: 15px; }
 .padding20 { padding: 20px; }
 .whitespace {margin-bottom: 40px !important;}
+.whitespacePadding { padding-bottom: 40px !important;}
 .container { max-width:1170px; margin:0 auto; }
 .headCommonh1 {font: 32px open_sanssemibold !important; margin-bottom: 20px; }
 .fl { float: left; }
@@ -83,12 +84,17 @@ p { font-size: 14px; color:#222222;}
 /* HEADER */
 header { margin:0 auto; background-color: #ffffff; border-bottom: 1px solid #c9c9c9; color:#676767 !important; }
 	@media (max-width: 600px){
-	    	header .col-md-10 { text-align: left; clear: both; margin: 0px; padding:0px; }
+	    	header .col-md-10 { text-align: left; clear: both; margin: 0px; padding:0px; border-top: 2px dotted #D9D9D9;}
 	    	header .container {padding:0; margin:0;}
 	    }
+   
+   
 .logo { margin: 30px 0 20px 0; padding-top:17px; text-align: left; } 
 	@media (max-width: 1024px) {	
-		#logo { float:none; clear:both; clear:none; }
+		.logo { float:none; clear:both; clear:none; }
+	}
+    @media (max-width: 320px) {	
+		.logo {margin: 5% 36%; padding-top: 0px; text-align: center; width: 27%;}
 	}
 
 	/**SOCIAL MEDIA*/
@@ -98,7 +104,10 @@ header { margin:0 auto; background-color: #ffffff; border-bottom: 1px solid #c9c
 		@media (max-width: 600px){
 			.socialBtns {clear:both; width:100%; margin-top:15px;}
 			.socialBtns ul { padding-left: 0px;}
+            .socialBtns {display:none;}
 		}
+
+      
 
 	.socialBtns li {float:left; list-style:none; margin:0px 0 0 5px; font-size:14px; color: transparent;}
 		.socialTwitter { display: block; width: 32px; height: 30px; background: url('../images/socialTwitter.jpg') bottom; text-indent: -99999px; font-size: 5px; color: transparent;}
@@ -118,8 +127,14 @@ header { margin:0 auto; background-color: #ffffff; border-bottom: 1px solid #c9c
 		.nav-collapse, .nav-collapse.collapse {overflow: visible;}   
 		.navbar .btn-navbar {display: none;}  
 		#hideToggleNav {display: none;}
-	}  
+	}
 
+    @media (max-width: 600px) {
+        #hideToggleNav {
+            height: 58px !important;
+            padding-top: 4% !important;
+        }
+    }
 	@media (max-width: 600px){
 		.menuNav {padding-left:0px; margin:20px 0px;}
 		.menuNav li {width:100%; position:inherit;}
@@ -170,9 +185,6 @@ header { margin:0 auto; background-color: #ffffff; border-bottom: 1px solid #c9c
 			@media (max-width: 600px){
 	    		.navbar2 {display: none;}
 	    	}
-
-
-
 		.navbar2 li { float:left; list-style:none; margin-top:15px; padding:0 15px 0 15px; font-size:14px; }
 		.navbar2 a { font-size:15px; color:#676767; text-decoration:none; font-family: latobold;}
 		.navbar2 a:hover {color:#f48518;}
@@ -182,6 +194,17 @@ footer { background-color: #151515; background: url("../images/footerBg.jpg") re
 	@media (max-width: 1024px) {
 		footer { clear:none;}
 	}
+    @media (max-width: 600px) {
+		footer { padding-top: 6%}
+       
+	}
+    @media (max-width: 320px) {
+        footer img {
+            margin: 0 40%;
+            width: 28%;
+        }
+    }
+
 
 .ftrLinks { text-align: right; padding-top: 5px;  float:right; text-transform: uppercase; color:#575757;}
 .ftrLinks ul {float: right}
@@ -251,57 +274,97 @@ footer { background-color: #151515; background: url("../images/footerBg.jpg") re
 
 	/* FEATURED POST*/
 	.thumbPost {padding:10px;}
-		@media only screen and (min-width:768px) and (max-width:980px){
-			.thumbPost {margin:3%;}
-		}
-        @media (max-width: 960px){
+ 
+        @media (max-width: 980px){
 	    	.thumbPost { border-bottom:1px dashed #aca7a7; margin:0 auto; text-align: center; margin-bottom:10%; padding:0 8%;}
 	    }
 		@media (max-width: 600px){
-	    	.thumbPost { border-bottom:1px dashed #aca7a7; margin:0 auto; text-align: center; margin-bottom:12%;}
+	    	.thumbPost { margin-bottom:12%;}
 	    }
 	.thumbPic { border:1px solid #d9d9d9; padding: 10px; background-color: #f9f9f9; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px;}
-		@media (max-width: 600px){
+		@media only screen and (min-width:769px) and (max-width:1100px){
+	    	.thumbPic {width:310px;}
+	    }
+        @media (max-width: 600px){
 	    	.thumbPic {width:85%;}
 	    }
 	.thumbPost h3 { color:#f48518; font:18px open_sanssemibold; font-weight: bold; text-transform:uppercase; }
 	.thumbPost p { color: #676767; padding-right: 20px;}
 	.moreLBtn { display: block; width: 59px; height: 19px; background: url('../images/home/moreBtn.png') bottom; text-indent: -99999px; margin-top:10px; }
-		@media only screen and (min-width:768px) and (max-width:980px){
+        @media (max-width: 1024px) {
+            .moreLBtn { margin-right: 5%;}
+        }
+        @media only screen and (min-width:768px) and (max-width:980px){
 			.moreLBtn {float: left;}
 		}
+        @media (max-width: 768px){
+	    	.moreLBtn {float:right; margin-bottom: 2%;}
+	    }
 		@media (max-width: 600px){
 	    	.moreLBtn {float:right; margin: 4%;}
 	    }
 	.moreLBtn:hover { background-position: 0 0; color:transparent; }
 
 	/* BOTTOM BANNER */
-	.jumbotron2 { background:url('../images/bannerBg2.jpg') repeat; width: 100%;  min-height: 539px;  padding:0 auto; }
+	.jumbotron2 { background:url('../images/bannerBg2.jpg') repeat; width: 100%;  min-height: 539px;  padding:0; }
+    @media (max-width: 600px) {
+        .jumbotron2 {height:auto;}
+    }
+    
+
 	.leftJt { padding-top: 50px;}
-		@media only screen and (min-width:768px) and (max-width:980px){
-			.leftJt img {padding-left:10%;}
+@media (max-width: 1024px) {
+    .leftJt img {margin:0 82%; width:400;}
+}
+        @media only screen and (min-width:768px) and (max-width:980px){
+			.leftJt img {margin:0 26%; width:46%;}
 		}
-		@media (max-width: 600px){
-	    	.leftJt img {display:none;}
+        
+		@media only screen and (min-width:768px) and (max-width:980px){
+			.leftJt img {margin:0 26%; width:46%;}
+		}
+
+        @media (max-width: 768px){
+            .leftJt {
+                border-bottom: 1px solid #F9B24C;
+                padding: 8% 0 7%;
+            }
+	    	.leftJt img {margin:0 26%; width:46%;}
 	    }
+
+		/*@media (max-width: 600px){
+	    	.leftJt img {display:none;}
+	    }*/
+
+        @media (max-width: 320px){
+	    	.leftJt {display:none;}
+	    }
+
+
 	.rightJt { float: right;  color:#232323; padding:8% 0 0 6%;}
 		@media (max-width: 1024px) {
-	    	.rightJt { float: left; color: #232323; margin-left:10%; padding:0px; clear:both; clear:none; }
+	    	.rightJt { float: left; color: #232323; padding:0px; clear:both; clear:none; width:100%; }
 	    }
         @media (max-width: 960) {
 	    	.rightJt { float: left; color: #232323; margin:3%; padding:0px; clear:both; clear:none; }
 	    }
 
 		@media (max-width: 600px){
-	    	.rightJt {margin-top:0px; margin-left:0px; }
+	    	.rightJt {margin:5% 3% !important;}
 	    }
+       
 	.rightJt h2 {font: 40px open_sanssemibold; margin-bottom: 15px; }
-		@media (max-width: 600px){
-	    	.rightJt h2 {font-size:30px;  }
+		
+        @media (max-width: 768px){
+	    	.rightJt h2 {font-size:32px;  }
 	    }
         @media (max-width: 600px){
 	    	.rightJt h2 {font-size:25px;  }
 	    }
+        @media (max-width: 320px){
+	    	.rightJt h2 {font-size:20px; margin-top:8%;  }
+	    }
+
 	.rightJt p {font-size:18px;}
 		@media (max-width: 1024px) {
 			.rightJt, .rightJt p { margin:10% 0px; clear:both;}
@@ -312,9 +375,23 @@ footer { background-color: #151515; background: url("../images/footerBg.jpg") re
 		@media (max-width: 600px){
 	    	.rightJt p {margin:1% 0; }
 	    }
+        @media (max-width: 320px){
+	    	.rightJt p {font-size:15px; }
+	    }
  	.browseChannelBtn { display: block; width: 198px; height: 73px; background: url('../images/home/browseChannelBtn.png') bottom; text-indent: -99999px; color:transparent; }
 	.browseChannelBtn:hover { background-position: 0 0;	color:transparent; }
 	.readMoreHomeBtn { display: block; width: 185px; height: 67px; background: url('../images/home/readMoreHomeBtn.png') bottom; text-indent: -99999px; color:transparent; }
+        @media (max-width: 600px) {
+            .readMoreHomeBtn { margin: 3% 4% 0% 4%; }
+        }
+
+        @media (max-width: 384px) {
+            .readMoreHomeBtn { margin: 8% 6% 8% 0; }
+        }
+
+        @media (max-width: 320px) {
+            .readMoreHomeBtn { margin: 8% 6% 8% 0; }
+        }
 	.readMoreHomeBtn:hover { background-position: 0 0; color:transparent; }
 
 
@@ -337,7 +414,7 @@ footer { background-color: #151515; background: url("../images/footerBg.jpg") re
         @media (max-width: 600px){
 	    	.catThumb {float: none; margin: 25px; text-align: center;}
 	    }
-         @media (max-width: 320px){
+        @media (max-width: 320px){
 	    	.catThumb {float: none; margin:0 auto; text-align: center;}
 	    }
  	.catThumb img{ padding: 7px; border:1px solid #e0e0e0; -webkit-border-radius:3px; -moz-border-radius:3px; border-radius:3px; }
