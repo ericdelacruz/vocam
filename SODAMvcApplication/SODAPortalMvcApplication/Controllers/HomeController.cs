@@ -78,7 +78,7 @@ namespace SODAPortalMvcApplication.Controllers
                         return RedirectToAction("Index", "User");
                         else
                         {
-                            return RedirectToAction("changepassword", new { returnurl = @Url.Action("index", "user") });
+                            return RedirectToAction("changepassword", new { returnurl = Url.Action("index", "user") });
                         }
 
                 }
@@ -147,8 +147,7 @@ namespace SODAPortalMvcApplication.Controllers
             }
             if (ModelState.IsValid)
             {
-                try
-                {
+               
 
                     if (!accountClient.isUserNameExists(model.Email.ToLower()))
                     {//New account will be added upon successful payment. Check paymentstatus method under user controller
@@ -171,6 +170,21 @@ namespace SODAPortalMvcApplication.Controllers
                         });
                         TempData["EmailSent"] = true;
                         Session.Add("Username", model.Email);
+                        try
+                        {
+                            //Session.Add("ClientDateTime", DateHelper.UTCtoLocal(DateTime.UtcNow, collection["tz_info"]));
+                            TimeZoneInfo info = DateHelper.getTimeZoneInto(collection["tz_info"]);
+
+                            Session.Add("ClientDateTime", TimeZoneInfo.ConvertTimeToUtc(DateTime.UtcNow, info));
+                        }
+                        catch (System.Security.SecurityException)
+                        {
+                            Session.Add("ClientDateTime", DateTime.Now);
+                        }
+                        catch(Exception ex)
+                        {
+                            throw (ex);
+                        }
                         return RedirectToAction("indexpurchase", "user");
                     }
                     else
@@ -178,11 +192,7 @@ namespace SODAPortalMvcApplication.Controllers
                         ModelState.AddModelError("", "Email address already exists. Please use a different email address.");
                     }
                         
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", "Error");
-                }
+               
             }
             return View(model);
         }

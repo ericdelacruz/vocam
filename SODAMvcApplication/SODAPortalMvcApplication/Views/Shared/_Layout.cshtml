@@ -125,8 +125,8 @@
                 response_text = tz.name();
             }
 
-            $('#tz_info').html(response_text);
-
+            
+            $('#tz_info').val(response_text);
             $('#code-example').html("> var timezone = jstz.determine();\n" +
             "> timezone.name(); \n" +
             "\"" + tz.name() + "\"\n\n");

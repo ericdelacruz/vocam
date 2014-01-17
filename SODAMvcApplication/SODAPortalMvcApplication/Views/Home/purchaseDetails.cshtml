@@ -33,7 +33,7 @@
     <label>Company Website</label>
     @Html.TextBoxFor(m => m.CompanyUrl, new { placeholder = "Company Website", @class = "form-control", })
 
-  
+    @Html.Hidden("tz_info");
     <p>&nbsp;</p>
     <div>
         <button style="width:200px;" type="submit" class="fl btn btn-lg btn-primary">Submit</button>
@@ -45,6 +45,6 @@
     <p>&nbsp;</p>
     <h4>Already a user? <a href="@Url.Action("index")">Click here to login.</a></h4>
     <p>&nbsp;</p>
-
+ 
 
 }

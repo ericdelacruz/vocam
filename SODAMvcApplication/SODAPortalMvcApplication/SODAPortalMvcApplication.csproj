@@ -195,6 +195,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountHelper.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\DateHelper.cs" />
     <Compile Include="Controllers\EmailHelper.cs" />
     <Compile Include="Controllers\EncDec.cs" />
     <Compile Include="Controllers\HomeController.cs" />

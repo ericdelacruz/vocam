@@ -30,12 +30,22 @@
                 <div align="center">
                     <br> <br />
                     @*<form action="user/index.html">*@
-                    @using (@Html.BeginForm("index", "user", FormMethod.Get))
+                    @if (Session["NewAccount"] != null)
                     {
-                        <button  class="btn btn-lg btn-primary btn-block" style="max-width:40%;"> Return to Home Page</button>
-                    
-                       
-                    }                
+                        using (@Html.BeginForm("changepassword", "home", FormMethod.Get, new { returnurl = @Url.Action("index", "user") }))
+                        {
+                            <button  class="btn btn-lg btn-primary btn-block" style="max-width:40%;"> Return to Home Page</button>
+                        }
+                    }
+                    else
+                    {
+                        using (@Html.BeginForm("index", "user", FormMethod.Get))
+                        {
+                            <button  class="btn btn-lg btn-primary btn-block" style="max-width:40%;"> Return to Home Page</button>
+                      
+                        }     
+                    }
+                              
                  @*</form>*@
                 </div>
 

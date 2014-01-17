@@ -552,8 +552,10 @@ namespace SODAPortalMvcApplication.Controllers
                 if (Session["NewAccount"] != null)
                 portalClient.addCustomerContract(new PortalServiceReference.CustomerContract()
                 {
-                    DateEnd = DateTime.Now.AddMonths(6),
-                    DateStart = DateTime.Now,
+                    //DateEnd = DateTime.Now.AddMonths(6),
+                    DateEnd = (Session["ClientDateTime"] as Nullable<DateTime>).Value.AddMonths(6),
+                    //DateStart = DateTime.Now,
+                    DateStart = (Session["ClientDateTime"] as Nullable<DateTime>).Value,
                     UserId = accnt.First().Id
                 });
 
