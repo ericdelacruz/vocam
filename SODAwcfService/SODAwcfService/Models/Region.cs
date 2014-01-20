@@ -15,5 +15,13 @@ namespace SODAwcfService.Models
         public string WebsiteUrl { get; set; }
 
         public long DefaultSalesCodeId { get; set; }
+
+        public string AirPlayerFileName { get; set; }
+
+        public string PayPalUserName { get; set; }
+
+        public string PayPalPassword { get; set; }
+
+        public string PayPalSignature { get; set; }
     }
 }
