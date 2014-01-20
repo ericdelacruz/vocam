@@ -172,10 +172,10 @@ namespace SODAPortalMvcApplication.Controllers
                         Session.Add("Username", model.Email);
                         try
                         {
-                            //Session.Add("ClientDateTime", DateHelper.UTCtoLocal(DateTime.UtcNow, collection["tz_info"]));
+                          
                             TimeZoneInfo info = DateHelper.getTimeZoneInto(collection["tz_info"]);
 
-                            Session.Add("ClientDateTime", TimeZoneInfo.ConvertTimeToUtc(DateTime.UtcNow, info));
+                            Session.Add("ClientDateTime", DateHelper.UTCtoLocal(DateTime.UtcNow, collection["tz_info"]));
                         }
                         catch (System.Security.SecurityException)
                         {
@@ -380,7 +380,9 @@ namespace SODAPortalMvcApplication.Controllers
 
         public ActionResult changePassword(string returnurl)
         {
-            TempData["ReturnUrl"] = returnurl;
+           
+            TempData["ReturnUrl"] =Session["ReturnUrl"] != null? Session["ReturnUrl"].ToString(): returnurl;
+             
             return View();
         }
 
@@ -393,6 +395,8 @@ namespace SODAPortalMvcApplication.Controllers
                  if (ModelState.IsValid)
                  {
                      accountClient.updatePassword(account.Id, account.PASSWORD, changePasswordModel.Password);
+                     //if (Session["ReturnUrl"] != null)
+                     //    Session.Remove("ReturnUrl");
                      return Redirect(TempData["ReturnUrl"].ToString());
                  }
                  else

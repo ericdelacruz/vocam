@@ -346,6 +346,8 @@
     <Content Include="Content\fonts\openSans\opensans-semibold-webfont.eot" />
     <Content Include="Content\fonts\openSans\opensans-semibold-webfont.ttf" />
     <Content Include="Content\fonts\openSans\opensans-semibold-webfont.woff" />
+    <Content Include="Content\download\SODAAus3.5.3.air" />
+    <Content Include="Content\download\SODAUK3.5.3.air" />
     <None Include="Properties\PublishProfiles\Daddy portal.pubxml" />
     <None Include="Properties\PublishProfiles\Pakaged Portal.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />

@@ -61,11 +61,7 @@ namespace SODAPortalMvcApplication.Controllers
                                     portalClient.updateCustomer(cust.customer);
                                 }
                                 
-                                //if(isPayPalRecurActive(customer.First().account.Id))
-                                //{
-                                //    customer.First().customer.DateSubscriptionEnd = customer.First().customer.DateSubscriptionEnd.Value.AddMonths(1);
-                                //    portalClient.updateCustomer(customer.First().customer);
-                                //}
+                               
                             }          
                         }
                         if (Session["SalesCode"] == null)
@@ -120,6 +116,23 @@ namespace SODAPortalMvcApplication.Controllers
 
                 return View(customer);
             }
+
+            try
+            {
+
+                TimeZoneInfo info = DateHelper.getTimeZoneInto(collection["tz_info"]);
+
+                Session.Add("ClientDateTime", DateHelper.UTCtoLocal(DateTime.UtcNow, collection["tz_info"]));
+            }
+            catch (System.Security.SecurityException)
+            {
+                Session.Add("ClientDateTime", DateTime.Now);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+            
             var VerifyModel = Session["SalesCode"] as ViewModel.VerifyModel;
             VerifyModel.selectedSubscription = int.Parse(collection["subscription"]);
             VerifyModel.qty = !string.IsNullOrEmpty(collection["quantity"]) ? int.Parse(collection["quantity"]) : 1;
@@ -378,7 +391,7 @@ namespace SODAPortalMvcApplication.Controllers
                    
                     emailCustomer(new_accnt);
                     Session.Remove("NewAccount");
-                    
+                    Session.Add("ReturnUrl", Url.Action("index"));//for change password
                     ViewBag.isNewAccount = true;
                     
                 }
@@ -629,6 +642,9 @@ namespace SODAPortalMvcApplication.Controllers
         }
         public ActionResult downloads()
         {
+            if (Session["Username"] == null)
+                return RedirectToAction("index", "home");
+            else
             return View();
         }
 
@@ -641,8 +657,9 @@ namespace SODAPortalMvcApplication.Controllers
         public FileStreamResult StreamFileFromDisk()
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + "Content/download/";
-            string filename = "Sample Pictures.zip";
-            return File(new System.IO.FileStream(path + filename, System.IO.FileMode.Open), "application/zip","TestFileDownload");
+            var region = portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www") || (Request.Url.Host == "localhost" && r.RegionName.ToLower()=="au")).First();
+            string filename = region.AirPlayerFileName;
+            return File(new System.IO.FileStream(path + filename, System.IO.FileMode.Open), "application/vnd.adobe.air-application-installer-package+zip", filename);
         }
 
        

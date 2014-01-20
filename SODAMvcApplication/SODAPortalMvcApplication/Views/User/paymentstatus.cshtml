@@ -30,7 +30,7 @@
                 <div align="center">
                     <br> <br />
                     @*<form action="user/index.html">*@
-                    @if (Session["NewAccount"] != null)
+                    @if (ViewBag.isNewAccount != null)
                     {
                         using (@Html.BeginForm("changepassword", "home", FormMethod.Get, new { returnurl = @Url.Action("index", "user") }))
                         {
