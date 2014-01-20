@@ -31,6 +31,9 @@
 </div> <!-- end of panel: filter title listing -->
 
 
+<div class="holder" style="margin: 5px 0;"> </div>
+
+
 <table class="cmsTable">
     @{
         if (Model.Count() > 0)
@@ -41,18 +44,18 @@
                     <th>Edit</th>
                     <th>Delete</th>
                     <th>View</th>
-                   
+
                 </tr>
             </thead>
             <tbody>
 
-               
-                  
+
+
                 @foreach (var title in Model)
 {
 
     var webpageUrl = regionList.Where(r => r.Id == title.Specific.RegionId).First().WebsiteUrl;
-    <tr>
+    <tr id="testtitlepage">
         <td width="415" style="padding:5px;"> &nbsp; @title.Specific.Title</td>
         <td width="100"><a href=@Url.Action("edit",new{id=title.Specific.Id})><img src="/Content/images/cms/edit.png"></a></td>
         <td width="100"><a onclick="return confirm('Are you sure you want to delete the item?');" href=@Url.Action("delete",new{id=title.Specific.Id})><img src="/Content/images/cms/delete.png"></a></td>
@@ -63,7 +66,7 @@
 }
 
 
-           
+
             </tbody>
         }
         else
@@ -72,6 +75,9 @@
         }
     }
 
-   
+
 
 </table>
+</div>
+
+
