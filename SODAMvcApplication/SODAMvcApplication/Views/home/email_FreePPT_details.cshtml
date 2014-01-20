@@ -4,6 +4,10 @@
     var Customer = ViewData["Contact"] as SODAMvcApplication.CMSServiceReference.Contact;
     var msg = !string.IsNullOrEmpty(Customer.Message) ? @Customer.Message : "N/A";
 }
+
+Someone has contacted Safety On Demand. Please contact this person as soon as possible. 
+
+
 Customer Name: @Customer.Name
 Company:@Customer.Company
 Email:@Customer.Email
@@ -11,3 +15,6 @@ Phone:@Customer.Phone
 Postal: Code:@Customer.Postcode
 Message:@msg
 
+
+Regards,
+Safety On Demand
