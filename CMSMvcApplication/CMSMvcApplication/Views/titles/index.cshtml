@@ -9,6 +9,28 @@
 
 <h1 class="margin15">Titles <span><a href="@Url.Action("create")"><img src="/Content/images/cms/addNew.gif"></a></span></h1>
 
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Filter by</h3>
+    </div>
+    <div class="panel-body">
+        <div class="col-md-3 shadow" style="border-right: 1px solid #c9c9c9;">
+            <label style="padding-right:5px;">Region:</label>
+            <select class="form-control" style="width:50%; display:inline;">
+                <option value="AU">AU</option>
+                <option value="GB">GB</option>
+            </select>
+        </div>
+        
+        <div class="col-md-9">
+            <label style="padding-right:5px;">Title Name:</label><input type="text"  placeholder="Enter Title Name" autofocus="" name="TitleName" value="" style="width:60%; display: inline; font-style:italic; font-size:12px;" class="form-control">
+            <button class="fr btn btn-md btn-primary" type="submit">SUBMIT</button>
+        </div>
+        
+    </div>
+</div> <!-- end of panel:SEO-->
+
+
 <table class="cmsTable">
     @{
         if (Model.Count() > 0)
@@ -23,24 +45,25 @@
                 </tr>
             </thead>
             <tbody>
-              
-                @foreach (var title in Model)
-                   
-                {
-                   
-                    var webpageUrl = regionList.Where(r=>r.Id == title.Specific.RegionId).First().WebsiteUrl;
-                    <tr>
-                        <td width="415" style="padding:5px;"> &nbsp; @title.Specific.Title</td>
-                        <td width="100"><a href=@Url.Action("edit",new{id=title.Specific.Id})><img src="/Content/images/cms/edit.png"></a></td>
-                        <td width="100"><a onclick="return confirm('Are you sure you want to delete the item?');" href=@Url.Action("delete",new{id=title.Specific.Id})><img src="/Content/images/cms/delete.png"></a></td>
-                        <td width="100"><a target="_blank" href="http://@webpageUrl/categories/details/@title.Specific.Title.Trim().Replace(" ","-").Replace("---","-").ToLower()"><img src="/Content/images/cms/view.png"></a></td>
-                      
+
+               
                   
-                    </tr>
-                }
+                @foreach (var title in Model)
+{
+
+    var webpageUrl = regionList.Where(r => r.Id == title.Specific.RegionId).First().WebsiteUrl;
+    <tr>
+        <td width="415" style="padding:5px;"> &nbsp; @title.Specific.Title</td>
+        <td width="100"><a href=@Url.Action("edit",new{id=title.Specific.Id})><img src="/Content/images/cms/edit.png"></a></td>
+        <td width="100"><a onclick="return confirm('Are you sure you want to delete the item?');" href=@Url.Action("delete",new{id=title.Specific.Id})><img src="/Content/images/cms/delete.png"></a></td>
+        <td width="100"><a target="_blank" href="http://@webpageUrl/categories/details/@title.Specific.Title.Trim().Replace(" ","-").Replace("---","-").ToLower()"><img src="/Content/images/cms/view.png"></a></td>
 
 
+    </tr>
+}
 
+
+           
             </tbody>
         }
         else
@@ -49,5 +72,6 @@
         }
     }
 
+   
 
 </table>

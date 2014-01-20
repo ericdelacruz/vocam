@@ -116,9 +116,10 @@
         </div>
     </footer>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="//code.jquery.com/jquery.js"></script>
+    <script src="/Content/js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="/Content/js/bootstrap.min.js"></script>
+    <script src="/Content/js/bootstrap-paginator.js"></script>
 
     <script language="javascript">
 
@@ -229,6 +230,71 @@
 
         });
     </script>
+
+    <script type="text/javascript">
+
+        $(function () {
+            test("Test bootstrap v3 rendering", function () {
+
+                var element = $('#bp-3-element-test');
+
+                var options = {
+                    bootstrapMajorVersion: 3,
+                    currentPage: 3,
+                    numberOfPages: 5,
+                    totalPages: 11
+                }
+
+                element.bootstrapPaginator(options);
+
+                var element = $('#bp-3-element-test');
+
+                ok(!element.hasClass('pagination-lg'), "Root element shouldn't have pagination-lg class");
+
+                ok(!element.hasClass('pagination-sm'), "Root element shouldn't have pagination-sm class");
+
+                var list = element.children();
+
+                for (var i = 0; i < list.length; i++) {
+                    var item = $(list[i]);
+
+                    ok(item.is("li"), "Element " + i + " should be li");
+                }
+
+                options = {
+                    size: "large",
+                    bootstrapMajorVersion: 3,
+                    currentPage: 3,
+                    numberOfPages: 5,
+                    totalPages: 11
+                };
+
+                var element = $('#bp-3-element-lg-test');
+
+                element.bootstrapPaginator(options);
+
+                ok(element.hasClass('pagination-lg'), "Root element should have pagination-lg class");
+
+                var element = $('#bp-3-element-sm-test');
+
+                options = {
+                    size: "small",
+                    bootstrapMajorVersion: 3,
+                    currentPage: 3,
+                    numberOfPages: 5,
+                    totalPages: 11
+                };
+
+                element.bootstrapPaginator(options);
+
+                ok(element.hasClass('pagination-sm'), "Root element should have pagination-sm class");
+            })
+        });
+
+    </script>
+
+
+    
 
     
 
