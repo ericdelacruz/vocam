@@ -16,32 +16,50 @@
            @Html.ValidationSummary()
              <!-- Script by hscripts.com -->
             <label>Region:</label>
-            <input type="text" style="width:70%;" class="form-control" name="RegionName" value="@Model.RegionName">
+            <input type="text" class="form-control" name="RegionName" value="@Model.RegionName">
              <label>Website URL:</label>
-            <input type="text" style="width:70%;" class="form-control" name="siteUrl" value="@Model.WebsiteUrl">
+            <input type="text" class="form-control" name="siteUrl" value="@Model.WebsiteUrl">
             <label>Currency:</label>
             @*<input type="text" style="width:70%;" class="form-control" name="RegionCurrency" value="@Model.RegionCurrency">*@
             <!-- Script by hscripts.com -->
-            <select class="form-control" style="width:70%;" name="currency">
-              @foreach(var cur in CurrencyList)
-              {
-                  if(Model.Currency == cur)
-                  {
-                     <option value="@cur" selected>@cur</option>
-                  }
-                 else
-                 {
-                      <option value="@cur">@cur</option>        
-                 }
-              }  
-              @*<option selected="selected" value="">Select Currency</option>
-                <option value="AUD">AUD</option>
-                <option value="USD">USD</option>
-                <option value="GBP">GBP</option>
-                <option value="EUR">EUR</option>*@
+            <select class="form-control" name="currency" style="width:50%;">
+                @foreach (var cur in CurrencyList)
+                {
+                    if (Model.Currency == cur)
+                    {
+                        <option value="@cur" selected>@cur</option>
+                    }
+                    else
+                    {
+                        <option value="@cur">@cur</option>
+                    }
+                }
+                @*<option selected="selected" value="">Select Currency</option>
+                    <option value="AUD">AUD</option>
+                    <option value="USD">USD</option>
+                    <option value="GBP">GBP</option>
+                    <option value="EUR">EUR</option>*@
             </select>
 
             <br />
+            
+             <div class="panel panel-default" >
+                <div class="panel-heading">
+                    <h3 class="panel-title"><strong>Paypal Account Settings*</strong> </h3>
+                </div>
+                <div class="panel-body">
+                    <div>
+                        <label>User name:</label><br />
+                        <input type="text" style="width:100%;" class="form-control" name="usernamePpUser" required><br />
+                        <label>Password:</label><br />
+                        <input type="password" style="width:100%;" class="form-control" name="passwordPpUser" required><br />
+                        <label>Signature</label><br />
+                        <input type="text" style="width:100%;" class="form-control" name="signaturePpUser" required>
+                    </div>
+
+                </div>
+            </div> <!-- end of panel: paypal account settings -->
+            
             <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">UPDATE</button>
             <br><br>
         }

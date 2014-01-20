@@ -201,6 +201,7 @@
     <Content Include="Content\images\socialTwitter.jpg" />
     <Content Include="Content\images\socialYoutube.jpg" />
     <Content Include="Content\js\birthdate.js" />
+    <Content Include="Content\js\bootstrap-paginator.js" />
     <Content Include="Content\js\bootstrap.js" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\datepick.js" />
@@ -282,6 +283,8 @@
     <None Include="Properties\PublishProfiles\Daddy-cms.pubxml" />
     <None Include="Properties\PublishProfiles\Packaged CMS.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Scripts\bootstrap-paginator.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

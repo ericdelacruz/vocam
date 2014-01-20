@@ -17,13 +17,14 @@
             @Html.ValidationSummary()
             <!-- Script by hscripts.com -->
             <label>Region:</label>
-            <input style="width:70%;" type="text" class="form-control" name="RegionName" required>
+            <input  type="text" class="form-control" name="RegionName" required>
             <label>Website URL:</label>
-            <input style="width:70%;" type="text" class="form-control" name="siteUrl">
+            <input type="text" class="form-control" name="siteUrl">
             <label>Currency:</label>
            @* <input style="width:70%;" type="text" class="form-control" name="RegionCurrency">*@
             <!-- Script by hscripts.com -->
-            <select style="width:70%;" class="form-control" name="currency">
+            <select class="form-control" name="currency" style="width:50%;">
+                >
                 <option selected="selected" value="">Select Currency</option>
                 <option value="AUD">AUD</option>
                 <option value="USD">USD</option>
@@ -32,6 +33,26 @@
             </select>
             <br />
 
+
+    <div class="panel panel-default" >
+        <div class="panel-heading">
+            <h3 class="panel-title"><strong>Paypal Account Settings*</strong> </h3>
+        </div>
+        <div class="panel-body">
+            <div>
+                <label>User name:</label><br />
+                <input type="text" style="width:100%;" class="form-control" name="usernamePpUser" required><br />
+                <label>Password:</label><br />
+                <input type="password" style="width:100%;" class="form-control" name="passwordPpUser" required><br />
+                <label>Signature</label><br />
+                <input type="text" style="width:100%;" class="form-control" name="signaturePpUser" required>
+            </div>
+
+        </div>
+    </div> <!-- end of panel: paypal account settings -->
+            
+             <br />
+            
             <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">PUBLISH</button>
             <br><br>
         }
