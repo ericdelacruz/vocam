@@ -11,10 +11,7 @@ namespace CMSMvcApplication.Controllers
     {
         //private static string UploadPath = "~/Content/Uploaded";
         private static string UploadPath = ConfigurationManager.AppSettings["UploadPath"].ToString();
-        //private static string root = @"C:/Users/jcua/Documents/vocam.git/SODAMvcApplication/SODAMvcApplication";
-        //private static string root = "http://localhost:51219/";
-        //private static string webPagedir = ConfigurationManager.AppSettings["webpagedir"].ToString();
-        //private static string CMSPageDir = ConfigurationManager.AppSettings["cmsdir"].ToString();
+        
 
         internal static string UploadImage(HttpPostedFileBase httpPostedFileBase)
         {
@@ -41,16 +38,7 @@ namespace CMSMvcApplication.Controllers
             }
             return dest.Replace("~","");
         }
-        //internal static string UploadImageFTP(HttpPostedFileBase httpPostedFileBase, HttpServerUtilityBase Server)
-        //{
-        //    FtpWebRequest request = (FtpWebRequest)WebRequest.Create("ftp://sac.iis/Content/images/");
-        //    request.Method = WebRequestMethods.Ftp.UploadFile;
-
-        //    request.Credentials = new NetworkCredential("jonct2", "P@ssw0rd");
-
-        //    Stream requestStream = request.GetRequestStream();
-            
-        //}
+       
         
     }
 }
