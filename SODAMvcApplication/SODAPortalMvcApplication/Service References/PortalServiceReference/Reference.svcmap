@@ -19,14 +19,15 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:50620/PortalService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:50615/PortalService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="PortalService1.disco" MetadataType="Disco" ID="22348342-c116-46c7-a030-df9c0e13c40a" SourceId="1" SourceUrl="http://localhost:50620/PortalService.svc?disco" />
-    <MetadataFile FileName="PortalService3.xsd" MetadataType="Schema" ID="c61722b4-bf1e-426d-b824-cdd8c110b697" SourceId="1" SourceUrl="http://localhost:50620/PortalService.svc?xsd=xsd2" />
-    <MetadataFile FileName="PortalService31.xsd" MetadataType="Schema" ID="375d96b1-0372-4817-959e-62f5dc4b5ce4" SourceId="1" SourceUrl="http://localhost:50620/PortalService.svc?xsd=xsd1" />
-    <MetadataFile FileName="PortalService32.xsd" MetadataType="Schema" ID="89c27fc7-19f1-4bd9-abf9-fb5d92b23a6c" SourceId="1" SourceUrl="http://localhost:50620/PortalService.svc?xsd=xsd0" />
-    <MetadataFile FileName="PortalService1.wsdl" MetadataType="Wsdl" ID="f065996c-1bc1-4170-85d9-780b38fb5008" SourceId="1" SourceUrl="http://localhost:50620/PortalService.svc?wsdl" />
+    <MetadataFile FileName="PortalService.wsdl" MetadataType="Wsdl" ID="ab38d96d-d2c0-4c21-a7a0-0df619b5aafa" SourceId="1" SourceUrl="http://localhost:50615/PortalService.svc?wsdl" />
+    <MetadataFile FileName="PortalService.disco" MetadataType="Disco" ID="4c4c0814-bb47-4140-a947-820481032d6f" SourceId="1" SourceUrl="http://localhost:50615/PortalService.svc?disco" />
+    <MetadataFile FileName="PortalService2.xsd" MetadataType="Schema" ID="170306dd-209d-4dec-a15d-8da5e1cc73ee" SourceId="1" SourceUrl="http://localhost:50615/PortalService.svc?xsd=xsd0" />
+    <MetadataFile FileName="PortalService.xsd" MetadataType="Schema" ID="fd2a7061-0a92-484c-b3d9-4b9c0536c82b" SourceId="1" SourceUrl="http://localhost:50615/PortalService.svc?xsd=xsd1" />
+    <MetadataFile FileName="PortalService1.xsd" MetadataType="Schema" ID="fdea4ed5-a8fe-4c53-bc49-d9c2e795a24b" SourceId="1" SourceUrl="http://localhost:50615/PortalService.svc?xsd=xsd2" />
+    <MetadataFile FileName="PortalService3.xsd" MetadataType="Schema" ID="efdb76de-4754-4539-9c23-55bf1c84375d" SourceId="1" SourceUrl="http://localhost:50615/PortalService.svc?xsd=xsd3" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

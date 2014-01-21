@@ -132,6 +132,7 @@ namespace SODAPortalMvcApplication.Controllers
         }
         public ActionResult purchaseDetails()
         {
+            ViewBag.Country = portaClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www")).FirstOrDefault();
             return View();
         }
         [HttpPost]
@@ -294,7 +295,7 @@ namespace SODAPortalMvcApplication.Controllers
                     ViewData.Add("Password", EncDec.DecryptString(accnt.PASSWORD));
                     string body = EmailHelper.ToHtml("emailforgotpassword", ViewData, this.ControllerContext);     
                     //EmailHelper.SendEmail("test@sac-iis.com", collection["Username"], "Forgot password", body);
-                    string from = Request.Url.Host != "localhost" ? "no_reply_test" + Request.Url.Host.Replace("portal.", "@") : "test@sac-iis.com";
+                    string from = Request.Url.Host != "localhost" ? "no-reply" + Request.Url.Host.Replace("portal.", "@") : "test@sac-iis.com";
                     EmailHelper.SendEmail(new System.Net.Mail.MailAddress(from, "Safety On Demand"), new System.Net.Mail.MailAddress(collection["Username"]), "Forgot Password", body, true,null);
                     TempData["ResetPassSent"] = true;
 
@@ -395,8 +396,9 @@ namespace SODAPortalMvcApplication.Controllers
                  if (ModelState.IsValid)
                  {
                      accountClient.updatePassword(account.Id, account.PASSWORD, changePasswordModel.Password);
-                     //if (Session["ReturnUrl"] != null)
-                     //    Session.Remove("ReturnUrl");
+
+                     emailCustomerNewPassword(changePasswordModel, account);
+                     
                      return Redirect(TempData["ReturnUrl"].ToString());
                  }
                  else
@@ -408,6 +410,22 @@ namespace SODAPortalMvcApplication.Controllers
              {
                  return RedirectToAction("Index");
              }
+        }
+
+        private void emailCustomerNewPassword(ViewModel.changePasswordModel changePasswordModel, AccountServiceRef.Account account)
+        {
+            string from = "no-reply" + Request.Url.Host.Replace("portal.", "@");
+            string to = account.USERNAME; //username is email 
+            ViewData.Add("CustomerName", account.FirstName + " " + account.LastName);
+            ViewData.Add("Password", changePasswordModel.Password);
+            ViewData.Add("Username", account.USERNAME);
+            string body = EmailHelper.ToHtml("changepasswordemail", ViewData, this.ControllerContext);
+            EmailHelper.SendEmail(new System.Net.Mail.MailAddress(from, "Safety On Demand"), new System.Net.Mail.MailAddress(to), "Change Password", body, true, null);
+
+        }
+        public ActionResult changepasswordemail()
+        {
+            return View();
         }
     }
 }

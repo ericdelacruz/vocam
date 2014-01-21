@@ -434,15 +434,16 @@
     </Content>
     <None Include="Service References\PortalServiceReference\configuration91.svcinfo" />
     <None Include="Service References\PortalServiceReference\configuration.svcinfo" />
-    <None Include="Service References\PortalServiceReference\PortalService1.wsdl" />
+    <None Include="Service References\PortalServiceReference\PortalService.wsdl" />
+    <None Include="Service References\PortalServiceReference\PortalService.xsd" />
+    <None Include="Service References\PortalServiceReference\PortalService1.xsd" />
+    <None Include="Service References\PortalServiceReference\PortalService2.xsd" />
     <None Include="Service References\PortalServiceReference\PortalService3.xsd" />
-    <None Include="Service References\PortalServiceReference\PortalService31.xsd" />
-    <None Include="Service References\PortalServiceReference\PortalService32.xsd" />
     <None Include="Service References\PortalServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\PortalServiceReference\PortalService1.disco" />
+    <None Include="Service References\PortalServiceReference\PortalService.disco" />
     <Content Include="Services\trainnow.asmx" />
     <Content Include="Services\WebService1.asmx" />
     <Content Include="Web.config">
@@ -500,6 +501,9 @@
     <Content Include="Views\home\email_FreePPT_details.cshtml" />
     <Content Include="Views\home\email_freeppt_customer.cshtml" />
     <Content Include="Views\xml\news.cshtml" />
+    <Content Include="Service References\PortalServiceReference\SODAMvcApplication.PortalServiceReference.CustomerContract.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

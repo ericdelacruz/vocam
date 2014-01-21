@@ -148,8 +148,9 @@
             <br />
            
 
-            <form name="theForm" action="#" method="post">
-                <input required type="checkbox" name="theCheck" value=""
+            <form name="termsForm" action="@Url.Action("termsinit")" method="post">
+                @Html.ValidationSummary()
+                <input required type="checkbox" name="theCheck" value="yes"
                        onclick="theChecker()"> You, <b>@Model.FirstName @Model.LastName</b> accepted this terms and conditions on <strong>@string.Format("{0:ddd, MMMM dd,yyyy}", CurrentDate.Value)</strong>
                 <div align="center"><br /><br />
                     <input type="image" class="buyNow" alt="Buy Now"> <br />

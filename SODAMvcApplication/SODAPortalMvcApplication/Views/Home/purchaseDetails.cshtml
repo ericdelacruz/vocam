@@ -1,6 +1,7 @@
 ﻿@model SODAPortalMvcApplication.ViewModel.UserModel
 @{
     ViewBag.Title = "purchaseDetails";
+    var country = ViewBag.Country as string;
 }
 @using (@Html.BeginForm("purchasedetails", "home", FormMethod.Post, new { @class = "formRegistration border shadow" }))
 {
@@ -14,9 +15,13 @@
     @Html.TextBoxFor(m => m.Email, new { placeholder = "Email Address", @class = "form-control", required = "" })
 
     <label>Country *</label>
-    if (Model == null || string.IsNullOrEmpty(Model.Country))
+    if (country != null)
     {
         @*<select required class="form-control bfh-countries" data-country="NONE" name="country"></select>*@
+    <select required class="form-control bfh-countries" data-country="@country" name="country"><option value="">test</option></select>
+    }
+    else if(Model == null || string.IsNullOrEmpty(Model.Country))
+    {
     <select required class="form-control bfh-countries" data-country="" name="country"><option value="">test</option></select>
     }
     else

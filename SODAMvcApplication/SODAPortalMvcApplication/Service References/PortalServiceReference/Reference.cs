@@ -567,6 +567,15 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         private int IdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PayPalPasswordField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PayPalSignatureField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PayPalUserNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string RegionNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -630,6 +639,45 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
                 if ((this.IdField.Equals(value) != true)) {
                     this.IdField = value;
                     this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PayPalPassword {
+            get {
+                return this.PayPalPasswordField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PayPalPasswordField, value) != true)) {
+                    this.PayPalPasswordField = value;
+                    this.RaisePropertyChanged("PayPalPassword");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PayPalSignature {
+            get {
+                return this.PayPalSignatureField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PayPalSignatureField, value) != true)) {
+                    this.PayPalSignatureField = value;
+                    this.RaisePropertyChanged("PayPalSignature");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PayPalUserName {
+            get {
+                return this.PayPalUserNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PayPalUserNameField, value) != true)) {
+                    this.PayPalUserNameField = value;
+                    this.RaisePropertyChanged("PayPalUserName");
                 }
             }
         }
@@ -1039,6 +1087,12 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/getCustomerContract", ReplyAction="http://tempuri.org/IPortalService/getCustomerContractResponse")]
         System.Threading.Tasks.Task<SODAPortalMvcApplication.PortalServiceReference.CustomerContract[]> getCustomerContractAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/getPayPalCurrencies", ReplyAction="http://tempuri.org/IPortalService/getPayPalCurrenciesResponse")]
+        string[] getPayPalCurrencies();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/getPayPalCurrencies", ReplyAction="http://tempuri.org/IPortalService/getPayPalCurrenciesResponse")]
+        System.Threading.Tasks.Task<string[]> getPayPalCurrenciesAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1306,6 +1360,14 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         
         public System.Threading.Tasks.Task<SODAPortalMvcApplication.PortalServiceReference.CustomerContract[]> getCustomerContractAsync() {
             return base.Channel.getCustomerContractAsync();
+        }
+        
+        public string[] getPayPalCurrencies() {
+            return base.Channel.getPayPalCurrencies();
+        }
+        
+        public System.Threading.Tasks.Task<string[]> getPayPalCurrenciesAsync() {
+            return base.Channel.getPayPalCurrenciesAsync();
         }
     }
 }

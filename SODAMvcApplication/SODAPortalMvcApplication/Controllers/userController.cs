@@ -376,11 +376,23 @@ namespace SODAPortalMvcApplication.Controllers
             }
             
         }
-
+        [HttpPost]
+        public ActionResult termsinit(FormCollection collection)
+        {
+            if(collection["theCheck"] == "yes")
+            {
+                return RedirectToAction("checkout");
+            }
+            else
+            {
+                ModelState.AddModelError("", "You must agree on the Term and Conditions to continue");
+            }
+            return View();
+        }
         public ActionResult paymentstatus(string stat)
         {
             ViewBag.paymentSuccess = (Session["Username"] != null || Session["NewAccount"] != null) && stat == "success";
-            if (stat != "success" && Session["CustomerData"] != null)
+            if (stat != "success")
                 Session.Remove("CustomerData");
             else//Success
             {
@@ -406,6 +418,7 @@ namespace SODAPortalMvcApplication.Controllers
             var ContractRecord = from contract in portalClient.getCustomerContract()
                                  join accnt in AccountClient.getAccount(account.USERNAME) on contract.UserId equals accnt.Id
                                  select contract;
+
             var ContractEndDate = ContractRecord.First().DateEnd;
             var VerfiyModel = Session["SalesCode"] as ViewModel.VerifyModel;
             ViewData.Add("CustomerName", CustomerName);
@@ -414,7 +427,7 @@ namespace SODAPortalMvcApplication.Controllers
             ViewData.Add("Username", Session["Username"].ToString());
             string body = EmailHelper.ToHtml("emailaccount", ViewData, this.ControllerContext);
             //EmailHelper.SendEmail("test@sac-iis.com", Session["Username"].ToString(), "Account Details", body);
-            string from = Request.Url.Host != "localhost" ? "no_reply_test" + Request.Url.Host.Replace("portal.", "@") : "test@sac-iis.com";
+            string from = Request.Url.Host != "localhost" ? "no-reply" + Request.Url.Host.Replace("portal.", "@") : "test@sac-iis.com";
             string subject = "Your login details to Safety On Demand";
             EmailHelper.SendEmail(new System.Net.Mail.MailAddress(from, "Safety on Demand"), new System.Net.Mail.MailAddress(Session["Username"].ToString()), subject, body, true, null);
         }

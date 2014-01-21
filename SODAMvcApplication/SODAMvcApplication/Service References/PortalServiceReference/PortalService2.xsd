@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/SODAwcfService.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/SODAwcfService.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfCustomer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Customer" nillable="true" type="tns:Customer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCustomer" nillable="true" type="tns:ArrayOfCustomer" />
+  <xs:complexType name="Customer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DatePurchase" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DateSubscriptionEnd" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DateUpdated" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Licenses" type="xs:int" />
+      <xs:element minOccurs="0" name="PPId" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="RecurringType" type="xs:short" />
+      <xs:element minOccurs="0" name="SalesCodeId" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="UserId" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Customer" nillable="true" type="tns:Customer" />
+  <xs:complexType name="ArrayOfSalesPerson">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SalesPerson" nillable="true" type="tns:SalesPerson" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSalesPerson" nillable="true" type="tns:ArrayOfSalesPerson" />
+  <xs:complexType name="SalesPerson">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="RegionId" type="xs:int" />
+      <xs:element minOccurs="0" name="SalesCodeId" type="xs:long" />
+      <xs:element minOccurs="0" name="UserId" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SalesPerson" nillable="true" type="tns:SalesPerson" />
+  <xs:complexType name="ArrayOfSalesCode">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SalesCode" nillable="true" type="tns:SalesCode" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSalesCode" nillable="true" type="tns:ArrayOfSalesCode" />
+  <xs:complexType name="SalesCode">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DateCreated" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DateEnd" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Discount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="SalesPersonID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Sales_Code" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SalesCode" nillable="true" type="tns:SalesCode" />
+  <xs:complexType name="ArrayOfPrice">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Price" nillable="true" type="tns:Price" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPrice" nillable="true" type="tns:ArrayOfPrice" />
+  <xs:complexType name="Price">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Active" type="xs:boolean" />
+      <xs:element minOccurs="0" name="FirstMonthFree" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="PriceAmt" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PriceAmt_B" type="xs:decimal" />
+      <xs:element minOccurs="0" name="RegionId" type="xs:int" />
+      <xs:element minOccurs="0" name="priceAmt_C" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Price" nillable="true" type="tns:Price" />
+  <xs:complexType name="ArrayOfRegion">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Region" nillable="true" type="tns:Region" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRegion" nillable="true" type="tns:ArrayOfRegion" />
+  <xs:complexType name="Region">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AirPlayerFileName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Currency" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DefaultSalesCodeId" type="xs:long" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="PayPalPassword" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PayPalSignature" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PayPalUserName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegionName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WebsiteUrl" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Region" nillable="true" type="tns:Region" />
+  <xs:complexType name="ArrayOfLicenseConsumption">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LicenseConsumption" nillable="true" type="tns:LicenseConsumption" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLicenseConsumption" nillable="true" type="tns:ArrayOfLicenseConsumption" />
+  <xs:complexType name="LicenseConsumption">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Consumed" type="xs:int" />
+      <xs:element minOccurs="0" name="DateUpdated" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="UserId" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LicenseConsumption" nillable="true" type="tns:LicenseConsumption" />
+  <xs:complexType name="CustomerContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DateEnd" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DateStart" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="UserId" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CustomerContract" nillable="true" type="tns:CustomerContract" />
+  <xs:complexType name="ArrayOfCustomerContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CustomerContract" nillable="true" type="tns:CustomerContract" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCustomerContract" nillable="true" type="tns:ArrayOfCustomerContract" />
+</xs:schema>

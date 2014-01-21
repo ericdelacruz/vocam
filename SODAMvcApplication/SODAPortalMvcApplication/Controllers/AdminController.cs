@@ -494,20 +494,67 @@ namespace SODAPortalMvcApplication.Controllers
 
         public ActionResult addRegion()
         {
+            var currencyList = portalClient.getPayPalCurrencies();
+            var SalesCodeList = portalClient.getSaleCode();
+            ViewBag.CurrencyList = currencyList.Select(c => new SelectListItem()
+            {
+                Text = c,
+                Value = c,
+                Selected = false
+            });
+            ViewBag.SalesCodeList = SalesCodeList.Select(sc => new SelectListItem()
+            {
+                Text = sc.Sales_Code,
+                Value = sc.Id.ToString(),
+                Selected = false
+            });
             return View();
         }
         [HttpPost]
         public ActionResult addregion(FormCollection collection)
         {
-            if(portalClient.getRegion().Select(r => r).Where(r => r.RegionName == collection["RegionName"]).Count() ==0)
-            portalClient.addRegion(new PortalServiceReference.Region(){
-                 RegionName = collection["RegionName"],
-                  Currency = collection["currency"],
-                 WebsiteUrl = collection["siteUrl"]
-            });
+            if (portalClient.getRegion().Select(r => r).Where(r => r.RegionName == collection["RegionName"]).Count() == 0)
+            {
+                string strAirPlayerFileName = Request.Files.Count > 0? Request.Files["air"].FileName:"#";
+                if(!strAirPlayerFileName.Contains(".air"))
+                {
+                    ModelState.AddModelError("", "Invalid file. Please choose a file with a .air extension");
+                    return View();
+                }
+                try
+                {
+                    FileTransferHelper.UploadFile(Request.Files["air"], Server);
+                }
+                catch(Exception ex)
+                {
+                    ModelState.AddModelError("", "File was not uploaded successfully. Please try again...");
+                    return View();
+                }
+                portalClient.addRegion(new PortalServiceReference.Region()
+                {
+                    RegionName = collection["RegionName"],
+                    Currency = collection["currency"],
+                    WebsiteUrl = collection["siteUrl"],
+                    PayPalUserName = collection["usernamePpUser"],
+                    PayPalPassword = collection["passwordPpUser"],
+                    PayPalSignature = collection["signaturePpUser"],
+                    AirPlayerFileName = strAirPlayerFileName,
+                    DefaultSalesCodeId = long.Parse(collection["defaultSalesCode"])
+
+                });
+                
+
+            }
             else
             {
-                ModelState.AddModelError("","Region Name already exists");
+                ModelState.AddModelError("", "Region Name already exists");
+                var currencyList = portalClient.getPayPalCurrencies();
+                ViewBag.CurrencyList = currencyList.Select(c => new SelectListItem()
+                {
+                    Text = c,
+                    Value = c,
+                    Selected = c == collection["currency"]
+                });
                 return View();
             }
             return RedirectToAction("region");
@@ -516,7 +563,20 @@ namespace SODAPortalMvcApplication.Controllers
         public ActionResult editregion(int id)
         {
             var region = portalClient.getRegion().Select(r => r).Where(r => r.Id == id).First();
-
+            var currencyList = portalClient.getPayPalCurrencies();
+            var SalesCodeList = portalClient.getSaleCode();
+            ViewBag.CurrencyList = currencyList.Select(c => new SelectListItem()
+            {
+                Text = c,
+                Value = c,
+                Selected = c == region.Currency
+            });
+            ViewBag.SalesCodeList = SalesCodeList.Select(sc => new SelectListItem()
+            {
+                Text = sc.Sales_Code,
+                Value = sc.Id.ToString(),
+                Selected = sc.Id == region.DefaultSalesCodeId
+            });
             return View(region);
         }
 
@@ -526,30 +586,69 @@ namespace SODAPortalMvcApplication.Controllers
             var existing_Region = from region in portalClient.getRegion()
                                   where region.Id != id && region.RegionName == collection["RegionName"]
                                   select region;
-            //test
+            
             if(existing_Region.Count() == 0)
             {
+              
                 var orig_Region = portalClient.getRegion().Where(r => r.Id == id).First();
                     
                     orig_Region.RegionName = collection["RegionName"];
                     orig_Region.Currency = collection["currency"];
                     orig_Region.WebsiteUrl = collection["siteUrl"];
+                    orig_Region.PayPalUserName = collection["usernamePpUser"];
+                    orig_Region.PayPalPassword = collection["passwordPpUser"];
+                    orig_Region.PayPalSignature = collection["signaturePpUser"];
+                    if (Request.Files.Count > 0)
+                    {
+                        string strAirPlayerFileName = Request.Files["air"].FileName;
+                        if (!strAirPlayerFileName.Contains(".air"))
+                        {
+                            ModelState.AddModelError("", "Invalid file. Please choose a file with a .air extension");
+                            return View();
+                        }
+                        try
+                        {
+                            FileTransferHelper.UploadFile(Request.Files["air"], Server);
+                            orig_Region.AirPlayerFileName = strAirPlayerFileName;
+                        }
+                        catch
+                        {
+                            ModelState.AddModelError("", "Upload File failed. Please try again.");
+                            var region = initRegionData(id);
+                            return View(region);
+                        }
+                    }
+                    
                     portalClient.updateRegion(orig_Region);
-                //portalClient.updateRegion(new PortalServiceReference.Region()
-                //{
-                //    Id = id,
-                //    RegionName = collection["RegionName"],
-                //    Currency = collection["currency"],
-                //    WebsiteUrl = collection["siteUrl"]
-                //});
+               
             }
             else
             {
                 ModelState.AddModelError("", "Region Name already exists");
-                var region = portalClient.getRegion().Select(r => r).Where(r => r.Id == id).First();
+                var region = initRegionData(id);
                 return View(region);
             }
             return RedirectToAction("region");
+        }
+
+        private PortalServiceReference.Region initRegionData(int id)
+        {
+            var region = portalClient.getRegion().Select(r => r).Where(r => r.Id == id).First();
+            var currencyList = portalClient.getPayPalCurrencies();
+            var SalesCodeList = portalClient.getSaleCode();
+            ViewBag.CurrencyList = currencyList.Select(c => new SelectListItem()
+            {
+                Text = c,
+                Value = c,
+                Selected = c == region.Currency
+            });
+            ViewBag.SalesCodeList = SalesCodeList.Select(sc => new SelectListItem()
+            {
+                Text = sc.Sales_Code,
+                Value = sc.Id.ToString(),
+                Selected = sc.Id == region.DefaultSalesCodeId
+            });
+            return region;
         }
 
         public ActionResult deleteregion(int id)

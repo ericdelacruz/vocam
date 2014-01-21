@@ -29,17 +29,19 @@ namespace SODAMvcApplication.Controllers
           
         public ActionResult validate(string username, string password)
         {
+           
             if(!string.IsNullOrEmpty(username.Trim()) && !string.IsNullOrEmpty(password.Trim()) && account.AuthenticateUser(username,password))
             {
                 var customer = from accnt in account.getAccount(username)
                                join cust in portalClient.getCustomer() on accnt.Id equals cust.UserId
+                             
                                where cust.DateSubscriptionEnd > DateTime.Now
                                orderby cust.DateSubscriptionEnd descending
                                select cust;
                                 
                                         
-
-                if(customer.Count() > 0)
+                
+                if(customer.Count() > 0 && isSameRegion(customer))
                 {
                     int daysleft = 0;
                     int consumed = 0;
@@ -62,6 +64,28 @@ namespace SODAMvcApplication.Controllers
             {
                 return View(new Users() { authorized = false, daysleft = 0, shownews = false, PCLicenses = 0, PCLicenseConsumed = 0, CompanyWebsite = "" });
             }
+        }
+
+        private bool isSameRegion(IEnumerable<PortalServiceReference.Customer> customer)
+        {
+            var nonDefault = from salesCode in portalClient.getSaleCode()
+                                      join salesPerson in portalClient.getSalePerson() on salesCode.SalesPersonID equals salesPerson.Id
+                                      join region in portalClient.getRegion() on salesPerson.RegionId equals region.Id
+                                      where customer.First().SalesCodeId == salesCode.Id
+                                      select region;
+              if(nonDefault.Count() > 0)
+              {
+                  return nonDefault.First().WebsiteUrl == Request.Url.Host;
+              }
+              else
+              {
+                  var Default = from salesCode in portalClient.getSaleCode()
+                               
+                                join region in portalClient.getRegion() on salesCode.Id equals region.DefaultSalesCodeId
+                                where customer.First().SalesCodeId == salesCode.Id && region.WebsiteUrl == Request.Url.Host
+                                select region;
+                  return Default.Count() > 0;
+              }
         }
         public ActionResult channels()
         {
