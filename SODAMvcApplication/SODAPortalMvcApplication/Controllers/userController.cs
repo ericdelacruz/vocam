@@ -653,6 +653,11 @@ namespace SODAPortalMvcApplication.Controllers
             return View();
         }
 
+        public ActionResult faqs()
+        {
+            return View();
+        }
+
 
         public FileStreamResult StreamFileFromDisk()
         {

@@ -538,6 +538,8 @@
     <Content Include="Views\User\emailaccount.cshtml" />
     <Content Include="Views\Home\purchaseDetails.cshtml" />
     <Content Include="Views\Home\emailforgotpassword.cshtml" />
+    <Content Include="Views\Home\changepasswordemail.cshtml" />
+    <Content Include="Views\User\faqs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
