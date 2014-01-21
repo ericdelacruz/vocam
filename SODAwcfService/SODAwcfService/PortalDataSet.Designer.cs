@@ -4438,11 +4438,11 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string PayPalUserName {
                 get {
-                    try {
-                        return ((string)(this[this.tableRegion.PayPalUserNameColumn]));
+                    if (this.IsPayPalUserNameNull()) {
+                        return string.Empty;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PayPalUserName\' in table \'Region\' is DBNull.", e);
+                    else {
+                        return ((string)(this[this.tableRegion.PayPalUserNameColumn]));
                     }
                 }
                 set {
@@ -4454,11 +4454,11 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string PayPalPassword {
                 get {
-                    try {
-                        return ((string)(this[this.tableRegion.PayPalPasswordColumn]));
+                    if (this.IsPayPalPasswordNull()) {
+                        return string.Empty;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PayPalPassword\' in table \'Region\' is DBNull.", e);
+                    else {
+                        return ((string)(this[this.tableRegion.PayPalPasswordColumn]));
                     }
                 }
                 set {
@@ -4470,11 +4470,11 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string PayPalSignature {
                 get {
-                    try {
-                        return ((string)(this[this.tableRegion.PayPalSignatureColumn]));
+                    if (this.IsPayPalSignatureNull()) {
+                        return string.Empty;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PayPalSignature\' in table \'Region\' is DBNull.", e);
+                    else {
+                        return ((string)(this[this.tableRegion.PayPalSignatureColumn]));
                     }
                 }
                 set {

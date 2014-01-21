@@ -105,6 +105,8 @@ namespace SODAwcfService
          [OperationContract]
         IEnumerable<Models.CustomerContract> getCustomerContract();
         #endregion
+        [OperationContract]
+         IEnumerable<string> getPayPalCurrencies();
     }
 
 }

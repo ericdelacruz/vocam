@@ -285,5 +285,11 @@ namespace SODAwcfService
                 UserId = contract.UserId
             });
         }
+
+
+        public IEnumerable<string> getPayPalCurrencies()
+        {
+            return Enum.GetNames(typeof(PayPal.PayPalAPIInterfaceService.Model.CurrencyCodeType));
+        }
     }
 }
