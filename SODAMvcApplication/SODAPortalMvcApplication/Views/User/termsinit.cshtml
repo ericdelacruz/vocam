@@ -146,10 +146,31 @@
                     This site includes the registered trade marks of Vocam ® and trade marks which are the subject of pending applications or which are otherwise protected by law including, but not limited to the word "Vocam Worldwide Publishing" and "Informed Business Training" with graphical logo. You may not use these trade marks or the names "Vocam Pty Ltd", "Vocam Ltd" or "Vocam" or the name of any of our related companies.
             </div>
             <br />
-            <p>You, <b>@Model.FirstName @Model.LastName</b> accepted this terms and conditions on <strong>@string.Format("{0:ddd, MMMM dd,yyyy}",CurrentDate.Value)</strong></p>
-            <br /> <br />
-            <div align="center"><a class="buyNow" href="@Url.Action("checkout")">Buy Now</a><br />
-            <img src="/Content/images/portal/paypal.jpg" alt="Paypal"></div>
+           
+
+            <form name="theForm" action="#" method="post">
+                <input required type="checkbox" name="theCheck" value=""
+                       onclick="theChecker()"> You, <b>@Model.FirstName @Model.LastName</b> accepted this terms and conditions on <strong>@string.Format("{0:ddd, MMMM dd,yyyy}", CurrentDate.Value)</strong>
+                <div align="center"><br /><br />
+                    <input type="image" class="buyNow" alt="Buy Now"> <br />
+                    @*<a class="buyNow" href="@Url.Action("checkout")">Buy Now</a><br />*@
+                    <img src="/Content/images/portal/paypal.jpg" alt="Paypal">
+                </div>
+            </form>
+            <script type="text/javascript">
+                document.theForm.theButton.disabled = true;
+                function theChecker() {
+                    if (document.theForm.theCheck.checked == false) {
+                        document.theForm.theButton.disabled = true;
+                    }
+                    else {
+                        document.theForm.theButton.disabled = false;
+                    }
+                }
+            </script>
+
+
+          
 
            
         </div>
