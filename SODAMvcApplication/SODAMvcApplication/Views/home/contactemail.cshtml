@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "contactemail";
+    Layout = null;
+    Response.ContentType = "text/plain";
+    var Customer = ViewData["Contact"] as SODAMvcApplication.CMSServiceReference.Contact;
+    var key = ViewData["key"] as string;
+    var selected = ViewData["selected"] as string;
+   
+}
+Hi @Customer.Name,
+
+
+Thank you for your recent enquiry to our site.
+Your message has been sent and our customer representative will contact you shortly.
+
+
+Regards,
+Safety On Demand Team
