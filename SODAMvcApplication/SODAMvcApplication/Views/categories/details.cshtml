@@ -32,7 +32,8 @@
             <div class="videoDetails">
                 <p>@Model.Description</p>
                 <p><br></p>
-                <p><span style="font-weight: bold; color: #f48518;">Category</span> &nbsp; &nbsp; @selCat.CategoryName</p>
+                @*<p><span style="font-weight: bold; color: #f48518;">Category</span> &nbsp; &nbsp; @selCat.CategoryName</p>*@
+                <p><span style="font-weight: bold; color: #f48518;">@Html.ActionLink("Category", "index")</span> &nbsp; &nbsp; <a href=@Url.Action("Browse", new { cat = selCat.CategoryName.Trim().Replace(" ", "-").ToLower() })>@selCat.CategoryName</a></p>
             </div>
         </div>
 
