@@ -17,40 +17,35 @@
                     <h1>@selCategory.CategoryName</h1>
                     <p>@selCategory.Overview</p>@*todo: put overview here*@
                 </div>
-                <div class="contentBody transparentBg border clearfix">
-                    @{int i = 1;}
-                    @while (i <= Model.Count())
-                    {
+                <div class="contentBody transparentBg clearfix">
+                   
+                    <div class="row">
+                    @for (int i = 0; i < Model.Count(); i++)
+                        {
+                            var spec = Model.ElementAt(i);
+                            <div class="catThumb listThumbBg clearfix" style="min-height:185px;">
+                                <a href=@Url.Action("Details", new { id = spec.Title.Trim().Replace(": ", "-").Replace(" ", "-").Replace("---", "-").ToLower() })>
+                                    <img alt="@spec.Title" src=@HttpUtility.UrlPathEncode(@spec.ImageURL)>
+                                    <h2 style="width:200px;">@spec.Title</h2>
+                                </a>
+                            </div> @*end catThumb listThumbBg*@
+                        }  
 
-                        <div class="catThumbWrapper clearfix">
-                            @for (int j = 0; j < 4 && i <= Model.Count(); j++, i++)
-                            {
-                                var spec = Model.ElementAt(i - 1);
-                                <div class="catThumb listThumbBg">
-                                    <a href=@Url.Action("Details", new { id = spec.Title.Trim().Replace(": ", "-").Replace(" ", "-").Replace("---", "-").ToLower() })>
-                                        <img alt="@spec.Title" src=@HttpUtility.UrlPathEncode(@spec.ImageURL)>
-                                        <h2 style="width:210px;">@spec.Title</h2>
-                                    </a>
-                                </div> @*end catThumb listThumbBg*@
-                            }
+                   
+                    
+                    </div>
+                    <div class="row"><p><br />@selCategory.Description<br /><br /></p></div>
+                </div>
+                    
+              
+                </div> @*end catThumbWrapper clearfix*@
 
-
-
-                        </div> @*end catThumbWrapper clearfix*@
-
-                    }
+                    
+                
 
                     <!-- end of catThumbWrapper-->
 
-                    <p>&nbsp;</p>
-                    <p>
-                        @selCategory.Description
-                    </p>
-                    <p>&nbsp;</p>
-
+                   
 
                 </div>
             </div>
-        </div>
-
-    </div>
