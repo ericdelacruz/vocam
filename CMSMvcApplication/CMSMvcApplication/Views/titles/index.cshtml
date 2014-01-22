@@ -1,10 +1,14 @@
-﻿@model IEnumerable<CMSMvcApplication.ViewModels.Title>
+﻿@*@model IEnumerable<CMSMvcApplication.ViewModels.Title>*@
+@model PagedList.IPagedList<CMSMvcApplication.ViewModels.Title>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
     //var webpageUrl = System.Configuration.ConfigurationManager.AppSettings["webpageURL"].ToString() == "" ? "http://localhost:51219" :
     //                                      System.Configuration.ConfigurationManager.AppSettings["webpageURL"].ToString();
     
     var regionList =  ViewBag.RegionList as IEnumerable<CMSMvcApplication.PortalServiceReference.Region>;
+    var selRegion = ViewBag.RegionName !=null? ViewBag.RegionName as string:null;
+    var regionSelList = regionList.Select(r => new SelectListItem() { Text = r.RegionName, Selected = selRegion != null && r.RegionName == selRegion, Value = r.RegionName });
 }
 
 <h1 class="margin15">Titles <span><a href="@Url.Action("create")"><img src="/Content/images/cms/addNew.gif"></a></span></h1>
@@ -14,19 +18,23 @@
         <h3 class="panel-title">Filter by</h3>
     </div>
     <div class="panel-body">
-        <div class="col-md-3 shadow" style="border-right: 1px solid #c9c9c9;">
-            <label style="padding-right:5px;">Region:</label>
-            <select class="form-control" style="width:50%; display:inline;">
-                <option value="AU">AU</option>
-                <option value="GB">GB</option>
-            </select>
-        </div>
+        @using(@Html.BeginForm("index","titles", FormMethod.Get))
+        { 
+            <div class="col-md-3 shadow" style="border-right: 1px solid #c9c9c9;">
+                <label style="padding-right:5px;">Region:</label>
+                @*<select class="form-control" style="width:50%; display:inline;">
+                    <option value="AU">AU</option>
+                    <option value="GB">GB</option>
+                </select>*@
+                @Html.DropDownList("region", regionSelList,null, new { @class = "form-control", style = "width:50%; display:inline;" })
+            </div>
         
-        <div class="col-md-9">
-            <label style="padding-right:5px;">Title Name:</label><input type="text"  placeholder="Enter Title Name" autofocus="" name="TitleName" value="" style="width:60%; display: inline; font-style:italic; font-size:12px;" class="form-control">
-            <button class="fr btn btn-md btn-primary" type="submit">SUBMIT</button>
-        </div>
-        
+            <div class="col-md-9">
+                <label style="padding-right:5px;">Title Name:</label>@Html.TextBox("title", ViewBag.TitleName as string, new { @class="form-control",placeholder = "Enter Title Name", style = "width:60%; display: inline; font-style:italic; font-size:12px;" })
+                @*<input type="text"  placeholder="Enter Title Name" autofocus="" name="TitleName" value="" style="width:60%; display: inline; font-style:italic; font-size:12px;" class="form-control">*@
+                <button class="fr btn btn-md btn-primary" type="submit">SUBMIT</button>
+            </div>
+        }
     </div>
 </div> <!-- end of panel: filter title listing -->
 
@@ -51,19 +59,19 @@
 
 
 
-                @foreach (var title in Model)
-{
+            @foreach (var title in Model)
+            {
 
-    var webpageUrl = regionList.Where(r => r.Id == title.Specific.RegionId).First().WebsiteUrl;
-    <tr id="testtitlepage">
-        <td width="415" style="padding:5px;"> &nbsp; @title.Specific.Title</td>
-        <td width="100"><a href=@Url.Action("edit",new{id=title.Specific.Id})><img src="/Content/images/cms/edit.png"></a></td>
-        <td width="100"><a onclick="return confirm('Are you sure you want to delete the item?');" href=@Url.Action("delete",new{id=title.Specific.Id})><img src="/Content/images/cms/delete.png"></a></td>
-        <td width="100"><a target="_blank" href="http://@webpageUrl/categories/details/@title.Specific.Title.Trim().Replace(" ","-").Replace("---","-").ToLower()"><img src="/Content/images/cms/view.png"></a></td>
+                var webpageUrl = regionList.Where(r => r.Id == title.Specific.RegionId).First().WebsiteUrl;
+                <tr id="testtitlepage">
+                    <td width="415" style="padding:5px;"> &nbsp; @title.Specific.Title</td>
+                    <td width="100"><a href=@Url.Action("edit",new{id=title.Specific.Id})><img src="/Content/images/cms/edit.png"></a></td>
+                    <td width="100"><a onclick="return confirm('Are you sure you want to delete the item?');" href=@Url.Action("delete",new{id=title.Specific.Id})><img src="/Content/images/cms/delete.png"></a></td>
+                    <td width="100"><a target="_blank" href="http://@webpageUrl/categories/details/@title.Specific.Title.Trim().Replace(" ","-").Replace("---","-").ToLower()"><img src="/Content/images/cms/view.png"></a></td>
 
 
-    </tr>
-}
+                </tr>
+            }
 
 
 
@@ -78,6 +86,12 @@
 
 
 </table>
+<br />
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, region=selRegion, title = ViewBag.TitleName }))
 </div>
 
 

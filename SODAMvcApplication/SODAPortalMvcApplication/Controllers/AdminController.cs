@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using PagedList;
 namespace SODAPortalMvcApplication.Controllers
 {
     public class AdminController : Controller
@@ -13,7 +13,7 @@ namespace SODAPortalMvcApplication.Controllers
         private AccountServiceRef.AccountServiceClient account = new AccountServiceRef.AccountServiceClient();
         private PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
 
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             if (!isUserSessionActive())
             {
@@ -25,9 +25,11 @@ namespace SODAPortalMvcApplication.Controllers
                 var reportlist = from customer in portalClient.getCustomer()
                                  join accnt in account.getAccount("") on customer.UserId equals accnt.Id
                                  join sc in portalClient.getSaleCode() on customer.SalesCodeId equals sc.Id
-                                
+                                 orderby customer.DatePurchase descending
                                  select new ViewModel.ReportViewModel() { account = accnt, customer = customer,salesCode = sc };
-                return View(reportlist);
+                int pageSize = 10;
+                int pageNumber = page ?? 1;
+                return View(reportlist.ToPagedList(pageNumber, pageSize));
             }
             
         }
@@ -39,11 +41,12 @@ namespace SODAPortalMvcApplication.Controllers
         }
         
         [HttpPost]
-        public ActionResult index(FormCollection collection)
+        public ActionResult index(int? page,FormCollection collection)
         {
             DateTime start;
             DateTime? end = new Nullable<DateTime>();
-
+            int pageSize = 10;
+            int pageNumber = page ?? 1;
             if (!isUserSessionActive())
             {
                 return RedirectToAction("login", "Home");
@@ -59,7 +62,7 @@ namespace SODAPortalMvcApplication.Controllers
                                  where customer.DatePurchase >= start && customer.DatePurchase < end
                                  select new ViewModel.ReportViewModel() { account = accnt, customer = customer,salesCode = sc };
 
-                return View(reportlist);
+                 return View(reportlist.ToPagedList(pageNumber, pageSize));
             }
             else if (collection["datefrom"].Trim() != "")
             {
@@ -69,7 +72,7 @@ namespace SODAPortalMvcApplication.Controllers
                                  join sc in portalClient.getSaleCode() on customer.SalesCodeId equals sc.Id
                                  where customer.DatePurchase == start 
                                  select new ViewModel.ReportViewModel() { account = accnt, customer = customer, salesCode = sc };
-                return View(reportlist);
+                return View(reportlist.ToPagedList(pageNumber, pageSize));
             }
             else if(collection["salescode"].Trim() != "")
             {
@@ -78,7 +81,7 @@ namespace SODAPortalMvcApplication.Controllers
                                  join sc in portalClient.getSaleCode() on customer.SalesCodeId equals sc.Id
                                  where sc.Sales_Code == collection["salescode"]
                                  select new ViewModel.ReportViewModel() { account = accnt, customer = customer, salesCode =sc };
-                return View(reportlist);
+                return View(reportlist.ToPagedList(pageNumber, pageSize));
             }
             else//all are empty
             {

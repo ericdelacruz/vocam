@@ -13,7 +13,7 @@ namespace SODAPortalMvcApplication.Controllers
         private AccountServiceRef.AccountServiceClient accountClient = new AccountServiceRef.AccountServiceClient();
         private PortalServiceReference.PortalServiceClient portaClient = new PortalServiceReference.PortalServiceClient();
         private CMSServiceReference.CMS_ServiceClient cmsClient = new CMSServiceReference.CMS_ServiceClient();
-     
+       
         public ActionResult Index()
         {
             string PhoneNo = getPhoneNum();

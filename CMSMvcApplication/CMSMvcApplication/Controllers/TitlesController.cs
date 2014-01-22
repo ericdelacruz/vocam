@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using PagedList;
 namespace CMSMvcApplication.Controllers
 {
     public class TitlesController : Controller
@@ -33,14 +33,37 @@ namespace CMSMvcApplication.Controllers
         //
         // GET: /Titles/
 
-        public ActionResult Index()
+        public ActionResult Index(string region, string title, int? page)
         {
             if (Session["Username"] == null)
                 return RedirectToAction("login", "Home");
             var catTitleList = getTitles("", "");
-            ViewBag.RegionList = portalClient.getRegion();
 
-            return View(catTitleList);
+            if(region !=null && !string.IsNullOrEmpty(title))
+            {
+                catTitleList = from titles in catTitleList
+                               join r in portalClient.getRegion() on titles.Specific.RegionId equals r.Id
+                               where r.RegionName == region && titles.Specific.Title.Contains(title.Trim()) 
+                               select titles;
+
+            }
+            else if(region !=null && title == null)
+            {
+                catTitleList = from titles in catTitleList
+                               join r in portalClient.getRegion() on titles.Specific.RegionId equals r.Id
+                               where r.RegionName == region 
+                               select titles;
+            }
+            
+            ViewBag.RegionList = portalClient.getRegion();
+            
+            ViewBag.RegionName = region ?? null;
+            ViewBag.TitleName = title ?? "";
+
+            int pageSize = 15;
+            int pageNum = page ?? 1;
+
+            return View(catTitleList.ToPagedList(pageNum,pageSize));
         }
 
         //

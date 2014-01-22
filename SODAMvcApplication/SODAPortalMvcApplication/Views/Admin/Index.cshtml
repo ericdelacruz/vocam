@@ -1,4 +1,6 @@
-﻿@model IEnumerable<SODAPortalMvcApplication.ViewModel.ReportViewModel>
+﻿@*@model IEnumerable<SODAPortalMvcApplication.ViewModel.ReportViewModel>*@
+@model PagedList.IPagedList<SODAPortalMvcApplication.ViewModel.ReportViewModel>
+ @using PagedList.Mvc;
 @{
     //Jon notes: Model is List type.
     ViewBag.Title = "Index";
@@ -78,6 +80,10 @@
 
         </table>
 
+        <br />
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page }))
     </div>
 </div>
