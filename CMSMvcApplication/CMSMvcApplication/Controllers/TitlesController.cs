@@ -43,11 +43,11 @@ namespace CMSMvcApplication.Controllers
             {
                 catTitleList = from titles in catTitleList
                                join r in portalClient.getRegion() on titles.Specific.RegionId equals r.Id
-                               where r.RegionName == region && titles.Specific.Title.Contains(title.Trim()) 
+                               where r.RegionName == region && titles.Specific.Title.ToLower().Contains(title.Trim().ToLower()) 
                                select titles;
 
             }
-            else if(region !=null && title == null)
+            else if (region != null && string.IsNullOrEmpty(title))
             {
                 catTitleList = from titles in catTitleList
                                join r in portalClient.getRegion() on titles.Specific.RegionId equals r.Id
