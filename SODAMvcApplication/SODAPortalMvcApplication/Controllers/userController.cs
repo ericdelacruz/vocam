@@ -188,48 +188,12 @@ namespace SODAPortalMvcApplication.Controllers
 
             return customer.Count() > 0 && default_customer.Count() > 0 ? customer.Union(default_customer) :
                 customer.Count() > 0 && default_customer.Count() == 0 ? customer : default_customer;
-            //if (customer.Count() > 0)
-            //{
-            //    if (TempData["DefaultSalesCode"] != null)
-            //        TempData.Remove("DefaultSalesCode");
-            //    return customer;
-            //}//else default
-            //else
-            //{
-            //    TempData["DefaultSalesCode"] = true;
-            //    //int RegionId = portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal","www")).First().Id;
-            //    customer = from cust in portalClient.getCustomer()
-            //               join user in AccountClient.getAccount(username) on cust.UserId equals user.Id
-            //               join salescode in portalClient.getSaleCode() on cust.SalesCodeId.Value equals salescode.Id
-
-            //               join r in portalClient.getRegion() on salescode.Id equals r.DefaultSalesCodeId
-
-            //               join PPT in paypalClient.getPayPalTrans() on cust.PPId equals PPT.Id
-            //               join p in portalClient.getPrice() on r.Id equals p.RegionId
-            //               join contract in portalClient.getCustomerContract() on user.Id equals contract.UserId
-            //               where PPT.Active == true
-            //               select new ViewModel.CustomerModel() { account = user, customer = cust, salesCode = salescode, paypal = PPT, rejoin = r, price = p,contract = contract };
-            //    return customer;
-
-            //}
+           
         }
         public ActionResult indexpurchase(string salescode)
         {
-            if (Session["Username"] == null)
-                return RedirectToAction("index", "home");
-
-           
-                
-            //var salescodeList =salescode != null? getVerifyViewModel(salescode): getDefaultVerifyViewModel();
-            
-
-            //if (salescodeList.Count() > 0)
-            //{
-
-            //    Session.Add("SalesCode", salescodeList.First());
-            //}
-            //else
-            //    Session["SalesCode"] = null;
+            //if (Session["Username"] == null)
+            //    return RedirectToAction("index", "home");
 
             if (Session["SalesCode"] == null)
             {
@@ -246,7 +210,36 @@ namespace SODAPortalMvcApplication.Controllers
             }
             return View();
         }
+        [HttpPost]
+        public ActionResult indexpurchase(FormCollection collection)
+        {
 
+            if (collection["subscription"] == null)
+            {
+                return RedirectToAction("indexpurchase");
+            }
+            int qty = 0;
+            if (!int.TryParse(collection["quantity"], out qty))
+            {
+                ModelState.AddModelError("", "Invalid Quantity");
+                //TempData["error"] = "Invalid Quantity";
+                if ((Session["SalesCode"] as ViewModel.VerifyModel).salescode.Sales_Code == getDefaultVerifyViewModel().First().salescode.Sales_Code)
+                {
+                    TempData["DefaultSalesCode"] = true;
+                }
+                else
+                {
+                    TempData["DefaultSalesCode"] = null;
+                }
+                return View();
+            }
+            var VerifyModel = Session["SalesCode"] as ViewModel.VerifyModel;
+            VerifyModel.selectedSubscription = int.Parse(collection["subscription"]);
+            VerifyModel.qty = !string.IsNullOrEmpty(collection["quantity"]) ? int.Parse(collection["quantity"]) : 1;
+            Session["SalesCode"] = VerifyModel;
+            
+            return Session["NewAccount"] != null? RedirectToAction("termsinit"):RedirectToAction("purchasedetails","home");
+        }
         private IEnumerable<ViewModel.VerifyModel> getDefaultVerifyViewModel()
         {
             int RegionId = getRegionId();
@@ -274,35 +267,7 @@ namespace SODAPortalMvcApplication.Controllers
             //int RegionId = portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www")).First().Id;
             return portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www")).Count() > 0? portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www")).First().Id:12;
         }
-        [HttpPost]
-        public ActionResult indexpurchase(FormCollection collection)
-        {
-            
-            if(collection["subscription"] == null)
-            {
-                return RedirectToAction("indexpurchase");
-            }
-            int  qty = 0;
-            if(!int.TryParse(collection["quantity"],out qty))
-            {
-                ModelState.AddModelError("", "Invalid Quantity");
-                //TempData["error"] = "Invalid Quantity";
-                if ((Session["SalesCode"] as ViewModel.VerifyModel).salescode.Sales_Code == getDefaultVerifyViewModel().First().salescode.Sales_Code)
-                {
-                    TempData["DefaultSalesCode"] = true;
-                }
-                else
-                {
-                    TempData["DefaultSalesCode"] = null;
-                }
-                return View();
-            }
-            var VerifyModel = Session["SalesCode"] as ViewModel.VerifyModel;
-            VerifyModel.selectedSubscription = int.Parse(collection["subscription"]);
-            VerifyModel.qty = !string.IsNullOrEmpty(collection["quantity"])?int.Parse(collection["quantity"]):1;
-            Session["SalesCode"] = VerifyModel;
-            return RedirectToAction("termsinit");
-        }
+       
         [HttpPost]
         public ActionResult reverify(FormCollection collection)
         {

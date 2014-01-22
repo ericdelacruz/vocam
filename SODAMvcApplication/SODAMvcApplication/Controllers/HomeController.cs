@@ -269,13 +269,15 @@ namespace SODAMvcApplication.Controllers
             cmsServiceClient.addContact(contact);
             //EmailHelper.SendEmail(contact.Email, "SODA Customer Inquiry", "Message sent. A customer representative will contact you shortly.");
             string from =Request.Url.Host != "localhost"? "no-reply" + Request.Url.Host.Replace("www.", "@"):"test@sac-iis.com";
-            string replyto = Request.Url.Host != "localhost"? "sales_test" + Request.Url.Host.Replace("www.", "@"):"sales_test@safetyondemand.com.au";
+            string replyto = Request.Url.Host != "localhost"? "sales" + Request.Url.Host.Replace("www.", "@"):"sales@safetyondemand.com.au";
             //string from = "test@sac-iis.com";
             //string replyto = "sales_test@safetyondemand.com.au";
 
             //EmailHelper.SendEmail(from,contact.Email, "SODA Customer Inquiry", "Message sent. A customer representative will contact you shortly.",replyto);
-            string body = "Your message sent. A customer representative will contact you shortly.";
-            EmailHelper.SendEmail(new System.Net.Mail.MailAddress(from, "Safety On Demand"), new System.Net.Mail.MailAddress(contact.Email),"SODA Customer Inquiry", body,false, replyto,"P@ssw0rd12345");
+            //string body = "Your message sent. A customer representative will contact you shortly.";
+            ViewData.Add("Contact", contact);
+            string body = EmailHelper.ToHtml("contactemail",ViewData,this.ControllerContext);
+            EmailHelper.SendEmail(new System.Net.Mail.MailAddress(from, "Safety On Demand"), new System.Net.Mail.MailAddress(contact.Email),"SODA Customer Inquiry", body,true, replyto);
             sendCustomerDetailsToSales(contact, "SODA:Customer Inquiry");
             TempData["MsgSent"] = true;
             return RedirectToAction("contact");

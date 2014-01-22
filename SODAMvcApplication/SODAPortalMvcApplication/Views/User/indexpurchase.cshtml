@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "indexpurchase";
     var SalesCode = Session["SalesCode"] as SODAPortalMvcApplication.ViewModel.VerifyModel;
-    var username = Session["Username"].ToString().Substring(0, Session["Username"].ToString().IndexOf('@'));
+    var username =Session["Username"] != null? Session["Username"].ToString().Substring(0, Session["Username"].ToString().IndexOf('@')):null;
     var culture = SODAPortalMvcApplication.ViewModel.VerifyModel.getCultureInfo((SODAPortalMvcApplication.ViewModel.VerifyModel.Currency)(Enum.Parse(typeof(SODAPortalMvcApplication.ViewModel.VerifyModel.Currency), SalesCode.region.Currency)));   
 }
 
@@ -11,7 +11,10 @@
 
     <div class="portalWrap displayInline border">
         <div class="fr">
-            <div class="logoutSec fr clearfix">Hi @username! @Html.ActionLink("(Logout)", "logout", "home")</div>
+            @if(username != null)
+            { 
+                <div class="logoutSec fr clearfix">Hi @username! @Html.ActionLink("(Logout)", "logout", "home")</div>
+            }
         </div>
 
         <div class="portalCont margin15">

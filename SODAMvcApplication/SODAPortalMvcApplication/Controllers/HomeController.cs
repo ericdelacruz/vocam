@@ -132,7 +132,7 @@ namespace SODAPortalMvcApplication.Controllers
         }
         public ActionResult purchaseDetails()
         {
-            ViewBag.Country = portaClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www")).FirstOrDefault();
+            ViewBag.Country = portaClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www")).FirstOrDefault().RegionName;
             return View();
         }
         [HttpPost]
@@ -186,7 +186,7 @@ namespace SODAPortalMvcApplication.Controllers
                         {
                             throw (ex);
                         }
-                        return RedirectToAction("indexpurchase", "user");
+                        return Session["SalesCode"] == null?RedirectToAction("indexpurchase", "user"):RedirectToAction("termsinit","user");
                     }
                     else
                     {
@@ -420,7 +420,7 @@ namespace SODAPortalMvcApplication.Controllers
             ViewData.Add("Password", changePasswordModel.Password);
             ViewData.Add("Username", account.USERNAME);
             string body = EmailHelper.ToHtml("changepasswordemail", ViewData, this.ControllerContext);
-            EmailHelper.SendEmail(new System.Net.Mail.MailAddress(from, "Safety On Demand"), new System.Net.Mail.MailAddress(to), "Change Password", body, true, null);
+            EmailHelper.SendEmail(new System.Net.Mail.MailAddress(from, "Safety On Demand"), new System.Net.Mail.MailAddress(to), "Your TrainNow Password Changed", body, true, null);
 
         }
         public ActionResult changepasswordemail()

@@ -504,6 +504,7 @@
     <Content Include="Service References\PortalServiceReference\SODAMvcApplication.PortalServiceReference.CustomerContract.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <Content Include="Views\home\contactemail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

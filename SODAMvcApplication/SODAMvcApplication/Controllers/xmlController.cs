@@ -32,16 +32,11 @@ namespace SODAMvcApplication.Controllers
            
             if(!string.IsNullOrEmpty(username.Trim()) && !string.IsNullOrEmpty(password.Trim()) && account.AuthenticateUser(username,password))
             {
-                var customer = from accnt in account.getAccount(username)
-                               join cust in portalClient.getCustomer() on accnt.Id equals cust.UserId
-                             
-                               where cust.DateSubscriptionEnd > DateTime.Now
-                               orderby cust.DateSubscriptionEnd descending
-                               select cust;
+                var customer = getCustomer(username);
                                 
                                         
                 
-                if(customer.Count() > 0 && isSameRegion(customer))
+                if(customer.Count() > 0)
                 {
                     int daysleft = 0;
                     int consumed = 0;
@@ -53,7 +48,7 @@ namespace SODAMvcApplication.Controllers
                         consumed = LicenseConsumption.First().Consumed;
                     if (customer.First().DateSubscriptionEnd.HasValue)
                         daysleft = ((TimeSpan)(customer.First().DateSubscriptionEnd.Value - DateTime.Now)).Days;
-                    return View(new Users() { authorized = true,daysleft=daysleft, shownews = false,PCLicenses=maxActiveLicenses, PCLicenseConsumed = consumed,CompanyWebsite=CompanyWebsite });
+                    return View(new Users() { authorized = true,daysleft=daysleft, shownews = false,PCLicenses=maxActiveLicenses, PCLicenseConsumed = consumed,CompanyWebsite=getWebsiteUrl(customer) });
                 }
                 else
                 {
@@ -63,6 +58,38 @@ namespace SODAMvcApplication.Controllers
             else
             {
                 return View(new Users() { authorized = false, daysleft = 0, shownews = false, PCLicenses = 0, PCLicenseConsumed = 0, CompanyWebsite = "" });
+            }
+        }
+
+        private IEnumerable<PortalServiceReference.Customer> getCustomer(string username)
+        {
+            var customer = from accnt in account.getAccount(username)
+                           join cust in portalClient.getCustomer() on accnt.Id equals cust.UserId
+
+                           where cust.DateSubscriptionEnd > DateTime.Now
+                           orderby cust.DateSubscriptionEnd descending
+                           select cust;
+            return customer;
+        }
+
+        private string getWebsiteUrl(IEnumerable<PortalServiceReference.Customer> customer)
+        {
+            var nonDefault = from salesCode in portalClient.getSaleCode()
+                             join salesPerson in portalClient.getSalePerson() on salesCode.SalesPersonID equals salesPerson.Id
+                             join region in portalClient.getRegion() on salesPerson.RegionId equals region.Id
+                             where customer.First().SalesCodeId == salesCode.Id
+                             select region;
+            if (nonDefault.Count() > 0)
+            {
+                return "http://" + nonDefault.First().WebsiteUrl;
+            }
+            else
+            {
+                var Default = from salesCode in portalClient.getSaleCode()
+                              join region in portalClient.getRegion() on salesCode.Id equals region.DefaultSalesCodeId
+                              where customer.First().SalesCodeId == salesCode.Id 
+                              select region;
+                return "http://" + Default.First().WebsiteUrl;
             }
         }
 
@@ -104,10 +131,12 @@ namespace SODAMvcApplication.Controllers
         {
           var _account = account.getAccount(username);
           var region = portalClient.getRegion().Where(r => r.RegionName.ToLower() == id.ToLower().Trim());
+          
             if(_account.Count() > 0 && region.Count() > 0)
             {
+                var customer = getCustomer(username);
                 ViewBag.isExistsUser = true;
-                ViewBag.WebsiteURL = !string.IsNullOrEmpty(_account.First().CompanyUrl)? _account.First().CompanyUrl:"";
+                ViewBag.WebsiteURL =  getWebsiteUrl(customer);
             }
             else
             {
