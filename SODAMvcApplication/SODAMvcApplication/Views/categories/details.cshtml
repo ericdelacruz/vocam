@@ -51,7 +51,7 @@
                     @for (int j = 0; j < 4 && i <= related.Count(); j++, i++)
                     {
                         var spec = related.ElementAt(i-1);
-                        <div class="catThumb2">
+                        <div class="catThumb2" style="min-height:200px;">
                             <a href=@Url.Action("Details", new { id = spec.Title.Trim().Replace(": ", "-").Replace(" ", "-").Replace("---", "-").ToLower() })>
 
                                 <img alt=@spec.Title src=@HttpUtility.UrlPathEncode(@spec.ImageURL)>
