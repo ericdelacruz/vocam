@@ -132,7 +132,7 @@ namespace SODAPortalMvcApplication.Controllers
         }
         public ActionResult purchaseDetails()
         {
-            ViewBag.Country = portaClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www")).FirstOrDefault().RegionName;
+            ViewBag.Country = portaClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www") || (Request.Url.Host == "localhost" && r.RegionName == "AU")).FirstOrDefault().RegionName;
             return View();
         }
         [HttpPost]
