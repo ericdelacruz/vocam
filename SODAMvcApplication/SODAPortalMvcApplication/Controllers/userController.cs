@@ -153,6 +153,16 @@ namespace SODAPortalMvcApplication.Controllers
             
             base.Dispose(disposing);
         }
+        protected override IAsyncResult BeginExecute(System.Web.Routing.RequestContext requestContext, AsyncCallback callback, object state)
+        {
+            var region = portalClient.getRegion().Where(r => r.WebsiteUrl == requestContext.HttpContext.Request.Url.Host.Replace("portal", "www") || (requestContext.HttpContext.Request.Url.Host == "localhost" && r.RegionName == "AU")).FirstOrDefault();
+            if (region != null)
+            {
+                paypalClient.initPayPalAccountSettings(region.Id);
+            }
+            return base.BeginExecute(requestContext, callback, state);
+        }
+        
         private bool isPayPalRecurActive(long userid)
         {
 

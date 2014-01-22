@@ -126,4 +126,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="initPayPalAccountSettings">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="regionID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="initPayPalAccountSettingsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="initPayPalAccountSettingsResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

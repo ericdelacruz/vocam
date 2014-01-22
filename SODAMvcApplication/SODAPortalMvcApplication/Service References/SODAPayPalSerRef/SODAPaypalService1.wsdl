@@ -56,6 +56,12 @@
   <wsdl:message name="ISODAPaypalService_getPayPalTrans_OutputMessage">
     <wsdl:part name="parameters" element="tns:getPayPalTransResponse" />
   </wsdl:message>
+  <wsdl:message name="ISODAPaypalService_initPayPalAccountSettings_InputMessage">
+    <wsdl:part name="parameters" element="tns:initPayPalAccountSettings" />
+  </wsdl:message>
+  <wsdl:message name="ISODAPaypalService_initPayPalAccountSettings_OutputMessage">
+    <wsdl:part name="parameters" element="tns:initPayPalAccountSettingsResponse" />
+  </wsdl:message>
   <wsdl:portType name="ISODAPaypalService">
     <wsdl:operation name="checkout">
       <wsdl:input wsaw:Action="http://tempuri.org/ISODAPaypalService/checkout" message="tns:ISODAPaypalService_checkout_InputMessage" />
@@ -88,6 +94,10 @@
     <wsdl:operation name="getPayPalTrans">
       <wsdl:input wsaw:Action="http://tempuri.org/ISODAPaypalService/getPayPalTrans" message="tns:ISODAPaypalService_getPayPalTrans_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISODAPaypalService/getPayPalTransResponse" message="tns:ISODAPaypalService_getPayPalTrans_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="initPayPalAccountSettings">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISODAPaypalService/initPayPalAccountSettings" message="tns:ISODAPaypalService_initPayPalAccountSettings_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISODAPaypalService/initPayPalAccountSettingsResponse" message="tns:ISODAPaypalService_initPayPalAccountSettings_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISODAPaypalService" type="tns:ISODAPaypalService">
@@ -157,6 +167,15 @@
     </wsdl:operation>
     <wsdl:operation name="getPayPalTrans">
       <soap:operation soapAction="http://tempuri.org/ISODAPaypalService/getPayPalTrans" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="initPayPalAccountSettings">
+      <soap:operation soapAction="http://tempuri.org/ISODAPaypalService/initPayPalAccountSettings" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
