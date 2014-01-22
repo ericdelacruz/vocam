@@ -352,7 +352,8 @@ namespace SODAPortalMvcApplication.Controllers
             {
                 ModelState.AddModelError("", "You must agree on the Term and Conditions to continue");
             }
-            return View();
+            var account = Session["NewAccount"] == null ? AccountClient.getAccount(Session["Username"].ToString()).Select(a => a).First() : Session["NewAccount"] as AccountServiceRef.Account;
+            return View(account);
         }
         public ActionResult paymentstatus(string stat)
         {
