@@ -16,7 +16,7 @@
 <div class="landingSection" style="background:#ffffff url(@Model.BG_Img) top center no-repeat;">
     <div class="landingWrapper">
         @*<div class="margin15" id="catName">Category &nbsp; <span class="glyphicon glyphicon-play"></span>&nbsp; <span id="active2">@selCat.CategoryName</span></div>*@
-        <div class="margin15" id="catName">@Html.ActionLink("Category","index") <span class="glyphicon glyphicon-play"></span>&nbsp; <span id="active2"><a href=@Url.Action("Browse", new { cat = selCat.CategoryName.Trim().Replace(" ", "-").ToLower() })>@selCat.CategoryName</a></span></div>
+        <div class="margin15" id="catName">@Html.ActionLink("Category", "index", null, new { style = "color:#2e362b;" }) <span class="glyphicon glyphicon-play"></span>&nbsp; <span id="active2"><a href="@Url.Action("Browse", new { cat = selCat.CategoryName.Trim().Replace(" ", "-").ToLower() })" style="color:#f69a43">@selCat.CategoryName</a></span></div>
         <div class="row">
             <h1 class="col-md-8" id="titleName" style="margin-bottom:10px;">@Model.Title</h1>
             <a href="@portalUrl" class="purchaseBtn fr col-md-4">Purchase</a>
@@ -33,7 +33,7 @@
                 <p>@Model.Description</p>
                 <p><br></p>
                 @*<p><span style="font-weight: bold; color: #f48518;">Category</span> &nbsp; &nbsp; @selCat.CategoryName</p>*@
-                <p><span style="font-weight: bold; color: #f48518;">@Html.ActionLink("Category", "index")</span> &nbsp; &nbsp; <a href=@Url.Action("Browse", new { cat = selCat.CategoryName.Trim().Replace(" ", "-").ToLower() })>@selCat.CategoryName</a></p>
+                <p><span style="font-weight: bold; color: #f48518;">@Html.ActionLink("Category", "index",  null, new { style = "color:#2e362b;" })</span> &nbsp; &nbsp; <a href="@Url.Action("Browse", new { cat = selCat.CategoryName.Trim().Replace(" ", "-").ToLower() })" style="color:#f69a43">@selCat.CategoryName</a></p>
             </div>
         </div>
 
