@@ -163,8 +163,8 @@ namespace SODAMvcApplication.Controllers
                     var listSpecByCat = from ca in categoriesServiceClient.getCatAssign()
                                         join s in categoriesServiceClient.get() on ca.SpecID equals s.Id
                                         where ca.CategoryId == lCatId && s.Id != spec.First().Id
-                                        select s;
-                    var related = getRelatedTitles(listSpecByCat);
+                                        select s;//this gets all titles under selected cat
+                    var related = getRelatedTitles(listSpecByCat); //this filters the title list by region
                     ViewBag.Related = related;
  
             }

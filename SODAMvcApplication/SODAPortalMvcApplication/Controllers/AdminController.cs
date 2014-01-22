@@ -363,6 +363,9 @@ namespace SODAPortalMvcApplication.Controllers
                 RegionId = int.Parse(collection["Region"]),
                 PriceAmt = decimal.Parse(collection["Price"]),
                 FirstMonthFree = collection["monthFree"] == "Yes",
+                PriceAmt_B = decimal.Parse(collection["PriceB"].ToString()),
+                priceAmt_C = decimal.Parse(collection["PriceC"].ToString()),
+
                 Active = true
 
             });
@@ -598,7 +601,7 @@ namespace SODAPortalMvcApplication.Controllers
                     orig_Region.PayPalUserName = collection["usernamePpUser"];
                     orig_Region.PayPalPassword = collection["passwordPpUser"];
                     orig_Region.PayPalSignature = collection["signaturePpUser"];
-                    if (Request.Files.Count > 0)
+                    if (Request.Files.Count > 1)
                     {
                         string strAirPlayerFileName = Request.Files["air"].FileName;
                         if (!strAirPlayerFileName.Contains(".air"))

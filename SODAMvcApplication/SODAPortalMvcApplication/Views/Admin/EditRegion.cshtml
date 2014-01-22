@@ -38,11 +38,11 @@
                 <div class="panel-body">
                     <div>
                         <label>User name:</label><br />
-                        <input type="text" style="width:100%;" class="form-control" name="usernamePpUser" required><br />
+                        <input type="text" style="width:100%;" class="form-control" name="usernamePpUser" value="@Model.PayPalUserName" required><br />
                         <label>Password:</label><br />
-                        <input type="password" style="width:100%;" class="form-control" name="passwordPpUser" required><br />
+                        <input type="password" style="width:100%;" class="form-control" name="passwordPpUser" value="@Model.PayPalPassword"  required><br />
                         <label>Signature</label><br />
-                        <input type="text" style="width:100%;" class="form-control" name="signaturePpUser" required>
+                        <input type="text" style="width:100%;" class="form-control" name="signaturePpUser" value="@Model.PayPalSignature" required>
                     </div>
 
                 </div>

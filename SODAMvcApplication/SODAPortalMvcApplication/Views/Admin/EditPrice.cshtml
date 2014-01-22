@@ -22,15 +22,15 @@
                     if (region.Id == Model.RegionId)
                     {
                        
-                        var culture = SODAPortalMvcApplication.ViewModel.VerifyModel.getCultureInfo(region.Currency);
-                        var ri = new System.Globalization.RegionInfo(culture.LCID);
-                        <option selected="selected" value="@region.Id">@string.Format("{0} (Currency {1})", region.RegionName, ri.ISOCurrencySymbol)</option>
+                        //var culture = SODAPortalMvcApplication.ViewModel.VerifyModel.getCultureInfo(region.Currency);
+                        //var ri = new System.Globalization.RegionInfo(culture.LCID);
+                        <option selected="selected" value="@region.Id">@string.Format("{0} (Currency in {1})", region.RegionName, region.Currency)</option>
                         break;
                     }
-                    @*else
+                    else
                     {
-                        <option value="@region.Id">@region.RegionName</option>
-                    }*@
+                        <option value="@region.Id">@string.Format("{0} (Currency in {1})", region.RegionName, region.Currency)</option>
+                    }
                 }
             </select>
             <!-- Script by hscripts.com -->
@@ -38,9 +38,9 @@
             <label><br />Price per month* </label>
             <input type="text" class="form-control" name="Price" value=@Model.PriceAmt>
             <label><br />Price per 3 months*</label>
-            <input type="text" class="form-control" name="Price" value=@Model.PriceAmt_B>
+            <input type="text" class="form-control" name="PriceB" value=@Model.PriceAmt_B>
             <label><br />Price per 6 months*</label>
-            <input type="text" class="form-control" name="Price" value=@Model.priceAmt_C>
+            <input type="text" class="form-control" name="PriceC" value=@Model.priceAmt_C>
            
             <label>Is first month free?</label><br>
          if (Model.FirstMonthFree)

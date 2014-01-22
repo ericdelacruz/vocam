@@ -15,7 +15,8 @@
 
 <div class="landingSection" style="background:#ffffff url(@Model.BG_Img) top center no-repeat;">
     <div class="landingWrapper">
-        <div class="margin15" id="catName">Category &nbsp; <span class="glyphicon glyphicon-play"></span>&nbsp; <span id="active2">@selCat.CategoryName</span></div>
+        @*<div class="margin15" id="catName">Category &nbsp; <span class="glyphicon glyphicon-play"></span>&nbsp; <span id="active2">@selCat.CategoryName</span></div>*@
+        <div class="margin15" id="catName">@Html.ActionLink("Category","index") <span class="glyphicon glyphicon-play"></span>&nbsp; <span id="active2"><a href=@Url.Action("Browse", new { cat = selCat.CategoryName.Trim().Replace(" ", "-").ToLower() })>@selCat.CategoryName</a></span></div>
         <div class="row">
             <h1 class="col-md-8" id="titleName" style="margin-bottom:10px;">@Model.Title</h1>
             <a href="@portalUrl" class="purchaseBtn fr col-md-4">Purchase</a>
@@ -39,7 +40,7 @@
             <h2>Related Titles</h2>
 
             @{int i = 1;}
-            @while (related != null && i < related.Count())
+            @while (related != null && i <= related.Count())
             {
                 if (i > 1 && (i - 1) % 4 == 0 && i <= related.Count())
                 {
