@@ -2561,7 +2561,7 @@ namespace SODAwcfService {
                 this.columnAirPlayerFileName.MaxLength = 30;
                 this.columnPayPalUserName.MaxLength = 50;
                 this.columnPayPalPassword.MaxLength = 50;
-                this.columnPayPalSignature.MaxLength = 50;
+                this.columnPayPalSignature.MaxLength = 150;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

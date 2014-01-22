@@ -29,6 +29,7 @@ namespace SODAwcfService
         Models.RecuringProfileDetails getRecurProfileDetailsByTransID(string TransID);
         [OperationContract]
         IEnumerable<Models.PayPalTrans> getPayPalTrans();
-        
+        [OperationContract]
+        bool initPayPalAccountSettings(int regionID);
     }
 }

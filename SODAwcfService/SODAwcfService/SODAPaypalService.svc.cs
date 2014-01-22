@@ -17,6 +17,7 @@ namespace SODAwcfService
         private static string username = "jon_api1.straightarrow.com";
         private static string password = "1384995928";
         private static string signature = "AFcWxV21C7fd0v3bYYYRCpSSRl31ATsYWC6SETdiq-vn09q6FuTpA0Kp";
+
         //private static PayPalConfiguration config = new PayPalConfiguration(PaymentEnvironment.Test, username, password, signature);
         //private static PayPalConfiguration config = new PayPalConfiguration(PaymentEnvironment.Test, "jon_api1.straightarrow.com", "1384995928", "AFcWxV21C7fd0v3bYYYRCpSSRl31ATsYWC6SETdiq-vn09q6FuTpA0Kp");
         
@@ -470,6 +471,36 @@ namespace SODAwcfService
             // configMap.Add("account2.Subject", "");
             return configMap;
         }
+        private Dictionary<string, string> GetAcctAndConfig(int regionID)
+        {
+            Dictionary<string, string> configMap = new Dictionary<string, string>();
+
+            configMap = GetConfig();
+
+            using(PortalDataSetTableAdapters.RegionTableAdapter regionAdapter = new PortalDataSetTableAdapters.RegionTableAdapter())
+            {
+                try
+                {
+                    var region = regionAdapter.GetData().Where(r => r.Id == regionID).FirstOrDefault();
+
+                    if(region != null)
+                    {
+                        configMap.Add("account1.apiUsername", region.PayPalUserName);
+                        configMap.Add("account1.apiPassword", region.PayPalPassword);
+                        configMap.Add("account1.apiSignature", region.PayPalSignature);
+                    }
+                    else
+                    {
+                        throw new FaultException("RegionId doesnt exists");
+                    }
+                }
+                catch(Exception ex)
+                {
+
+                }
+            }
+            return configMap;
+        }
         private Dictionary<string, string> GetConfig()
         {
             Dictionary<string, string> configMap = new Dictionary<string, string>();
@@ -661,6 +692,31 @@ namespace SODAwcfService
                 }
             }
             return new Models.RecuringProfileDetails() { profileStatus = recurringPaymentsProfileDetailsResponse.GetRecurringPaymentsProfileDetailsResponseDetails.ProfileStatus };
+        }
+
+
+        public bool initPayPalAccountSettings(int regionID)
+        {
+            bool result = false;
+            using (PortalDataSetTableAdapters.RegionTableAdapter regionAdapter = new PortalDataSetTableAdapters.RegionTableAdapter())
+            {
+                try
+                {
+                    var region = regionAdapter.GetData().Where(r => r.Id == regionID).FirstOrDefault();
+                    if ((result = region != null))
+                    {
+                        username = region.PayPalUserName;
+                        password = region.PayPalPassword;
+                        signature = region.PayPalSignature;
+                    }
+                    
+                }
+                catch (Exception ex)
+                {
+                     
+                }
+            }
+            return result;
         }
     }
 }
