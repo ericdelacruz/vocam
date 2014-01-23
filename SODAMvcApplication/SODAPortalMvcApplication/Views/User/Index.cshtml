@@ -7,6 +7,18 @@
     var SalesCode = Session["SalesCode"] as SODAPortalMvcApplication.ViewModel.VerifyModel;
 }
 
+<style>
+    .serviceChargeCode {
+        font-weight: normal;
+        font-size: 20px;
+        color: #f8981d;
+    }
+    .priceSub {
+        line-height: 35px;
+        margin: 15px;
+    }
+</style>
+
 <div class="portalWrap border">
     @RenderPage("usermenu.cshtml")
 
@@ -19,7 +31,7 @@
             </div>
             <div class="panel-body">
 
-                <table class="currentSub" border="0" cellspacing="0" cellpadding="0" width="100%">
+                <table class="currentSub" border="0" cellspacing="0" cellpadding="0" style="width:100%;">
                     <tr class="currSubHead">
                         <td width="550" bgcolor="">DETAILS</td>
                         @if(Model.First().contract  != null && Model.First().contract.DateEnd <= DateTime.Now)
@@ -126,7 +138,7 @@ A Safety On Demand Subscription allows you pay every 1 month, 3 month or 6 month
                             { 
                                 <div class="col-sm-4 border2 shadow">
                                     <div class="monthSub">1 MONTH</div>
-                                    <div class="priceSub">@SalesCode.discountedPrice_A.ToString("C", culture)</div>
+                                    <div class="priceSub">@SalesCode.discountedPrice_A.ToString("C", culture) <br /><span class="serviceChargeCode">+ GMT </span></div>
                                     <div class="radioBg">
                                         <label>
                                             <input type="radio" name="subscription" value="1" checked>
@@ -139,7 +151,7 @@ A Safety On Demand Subscription allows you pay every 1 month, 3 month or 6 month
                            { 
                             <div class="col-sm-4 border2 shadow">
                                 <div class="monthSub">3 MONTHS</div>
-                                <div class="priceSub">@SalesCode.discountedPrice_B.ToString("C", culture)</div>
+                                <div class="priceSub">@SalesCode.discountedPrice_B.ToString("C", culture) <br /><span class="serviceChargeCode">+ GMT</span></div>
                                 @if(latestLicensesType == 2)
                                 { 
                                     <div class="radioBg">
@@ -159,7 +171,7 @@ A Safety On Demand Subscription allows you pay every 1 month, 3 month or 6 month
                             { 
                                 <div class="col-sm-4 border2 shadow">
                                     <div class="monthSub">6 MONTHS</div>
-                                    <div class="priceSub">@SalesCode.discountedPrice_C.ToString("C", culture)</div>
+                                    <div class="priceSub">@SalesCode.discountedPrice_C.ToString("C", culture) <br /><span class="serviceChargeCode">+ GMT </span></div>
                                     @if (latestLicensesType == 3)
                                     {
                                         <div class="radioBg"><label><input type="radio" name="subscription" value="3" checked></label></div>
