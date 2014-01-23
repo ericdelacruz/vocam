@@ -21,6 +21,8 @@ namespace SODAPortalMvcApplication.ViewModel
         public AccountServiceRef.Account account { get; set; }
         public PortalServiceReference.SalesPerson salesPerson { get; set; }
         public PortalServiceReference.SalesCode salesCode { get; set; }
+
+        public PortalServiceReference.Region region { get; set; }
     }
     public class PriceViewModel
     {

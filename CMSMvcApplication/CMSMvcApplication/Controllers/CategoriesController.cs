@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using PagedList;
 namespace CMSMvcApplication.Controllers
 {
     public class CategoriesController : Controller
@@ -13,15 +13,19 @@ namespace CMSMvcApplication.Controllers
         //
         // GET: /Categories/
 
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             if (Session["Username"] == null)
                 return RedirectToAction("login", "Home");
             var catList = from cat in catListingClient.get_Categories()
                           where cat.CategoryId != 1
+                         
                           select cat;
+            
             ViewBag.defaultRegion = portalClient.getRegion().Where(r => r.RegionName.ToLower() == "au").First();
-            return View(catList);
+            int pageMaxSize = 15;
+            int pageNumber = page ?? 1;
+            return View(catList.ToPagedList(pageNumber,pageMaxSize));
         }
 
         //

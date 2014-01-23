@@ -33,13 +33,33 @@ namespace SODAPortalMvcApplication.Controllers
             }
             
         }
+        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
+        {
+            
+            base.Initialize(requestContext);
+           
+        }
+        protected override IAsyncResult BeginExecute(System.Web.Routing.RequestContext requestContext, AsyncCallback callback, object state)
+        {
+            if (requestContext.HttpContext.Session["Username"] == null)
+                requestContext.HttpContext.Response.Redirect("~/home");
+            return base.BeginExecute(requestContext, callback, state);
+
+           
+           
+        }
+        protected override IAsyncResult BeginExecuteCore(AsyncCallback callback, object state)
+        {
+            
+                return base.BeginExecuteCore(callback, state);
+        }
         protected override void Dispose(bool disposing)
         {
             account.Close();
             portalClient.Close();
             base.Dispose(disposing);
         }
-        
+      
         [HttpPost]
         public ActionResult index(int? page,FormCollection collection)
         {
@@ -103,7 +123,8 @@ namespace SODAPortalMvcApplication.Controllers
                 var salesList = from salesperson in portalClient.getSalePerson()
                                 join accnt in account.getAccount("") on salesperson.UserId equals accnt.Id
                                 join sc in portalClient.getSaleCode() on salesperson.SalesCodeId equals sc.Id
-                                select new ViewModel.SalesViewModel() { account = accnt, salesPerson = salesperson, salesCode = sc };
+                                join region in portalClient.getRegion() on salesperson.RegionId equals region.Id
+                                select new ViewModel.SalesViewModel() { account = accnt, salesPerson = salesperson, salesCode = sc,region=region };
 
                 return View(salesList);
             }

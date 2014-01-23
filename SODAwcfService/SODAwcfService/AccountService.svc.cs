@@ -114,7 +114,8 @@ namespace SODAwcfService
                     Id = (long) row["Id"],
                     Birthdate = row["Birthdate"].ToString()=="" ? DateTime.Parse("1/1/1753 12:00:00 AM"): (DateTime)row["Birthdate"],
                     EmailVerified =(bool) row["EmailVerify"],
-                    CompanyUrl = row["CompanyUrl"].ToString()
+                    CompanyUrl = row["CompanyUrl"].ToString(),
+                    Country = row["Country"].ToString()
                 });
             }
             return listAccounts;

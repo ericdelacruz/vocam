@@ -63,7 +63,7 @@ namespace CMSMvcApplication.Controllers
             int pageSize = 15;
             int pageNum = page ?? 1;
 
-            return View(catTitleList.ToPagedList(pageNum,pageSize));
+            return View(catTitleList.OrderBy(t=>t.Specific.Title).ToList().ToPagedList(pageNum,pageSize));
         }
 
         //
