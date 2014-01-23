@@ -500,6 +500,12 @@ namespace SODAPortalMvcApplication.Controllers
 
         public ActionResult addRegion()
         {
+            initAddRegionViewBag();
+            return View();
+        }
+
+        private void initAddRegionViewBag()
+        {
             var currencyList = portalClient.getPayPalCurrencies();
             var SalesCodeList = portalClient.getSaleCode();
             ViewBag.CurrencyList = currencyList.Select(c => new SelectListItem()
@@ -514,7 +520,6 @@ namespace SODAPortalMvcApplication.Controllers
                 Value = sc.Id.ToString(),
                 Selected = false
             });
-            return View();
         }
         [HttpPost]
         public ActionResult addregion(FormCollection collection)
@@ -522,9 +527,10 @@ namespace SODAPortalMvcApplication.Controllers
             if (portalClient.getRegion().Select(r => r).Where(r => r.RegionName == collection["RegionName"]).Count() == 0)
             {
                 string strAirPlayerFileName = Request.Files.Count > 0? Request.Files["air"].FileName:"#";
-                if(!strAirPlayerFileName.Contains(".air"))
+                if (!strAirPlayerFileName.Contains(".air") && !strAirPlayerFileName.Contains(".zip"))
                 {
-                    ModelState.AddModelError("", "Invalid file. Please choose a file with a .air extension");
+                    ModelState.AddModelError("", "Invalid file. Please choose a file with a .air or.zip extension");
+                    initAddRegionViewBag();
                     return View();
                 }
                 try
@@ -534,6 +540,7 @@ namespace SODAPortalMvcApplication.Controllers
                 catch(Exception ex)
                 {
                     ModelState.AddModelError("", "File was not uploaded successfully. Please try again...");
+                    initAddRegionViewBag();
                     return View();
                 }
                 portalClient.addRegion(new PortalServiceReference.Region()
@@ -568,6 +575,12 @@ namespace SODAPortalMvcApplication.Controllers
 
         public ActionResult editregion(int id)
         {
+            var region = initEditRegionViewBagData(id);
+            return View(region);
+        }
+
+        private PortalServiceReference.Region initEditRegionViewBagData(int id)
+        {
             var region = portalClient.getRegion().Select(r => r).Where(r => r.Id == id).First();
             var currencyList = portalClient.getPayPalCurrencies();
             var SalesCodeList = portalClient.getSaleCode();
@@ -583,7 +596,7 @@ namespace SODAPortalMvcApplication.Controllers
                 Value = sc.Id.ToString(),
                 Selected = sc.Id == region.DefaultSalesCodeId
             });
-            return View(region);
+            return region;
         }
 
         [HttpPost]
@@ -604,23 +617,26 @@ namespace SODAPortalMvcApplication.Controllers
                     orig_Region.PayPalUserName = collection["usernamePpUser"];
                     orig_Region.PayPalPassword = collection["passwordPpUser"];
                     orig_Region.PayPalSignature = collection["signaturePpUser"];
-                    if (Request.Files.Count > 1)
+                    orig_Region.DefaultSalesCodeId = long.Parse(collection["defaultSalesCode"]);
+                    
+                    if (Request.Files["air"].ContentLength > 0)
                     {
                         string strAirPlayerFileName = Request.Files["air"].FileName;
-                        if (!strAirPlayerFileName.Contains(".air"))
+                        if (!strAirPlayerFileName.Contains(".air") && !strAirPlayerFileName.Contains(".zip"))
                         {
-                            ModelState.AddModelError("", "Invalid file. Please choose a file with a .air extension");
-                            return View();
+                            ModelState.AddModelError("", "Invalid file. Please choose a file with a .air or .zip extension");
+                            var region = initEditRegionViewBagData(id);
+                            return View(region);
                         }
                         try
                         {
-                            FileTransferHelper.UploadFile(Request.Files["air"], Server);
+                            FileTransferHelper.UploadFile(Request.Files["air"], Server,orig_Region.AirPlayerFileName);
                             orig_Region.AirPlayerFileName = strAirPlayerFileName;
                         }
                         catch
                         {
                             ModelState.AddModelError("", "Upload File failed. Please try again.");
-                            var region = initRegionData(id);
+                            var region = initEditRegionViewBagData(id);
                             return View(region);
                         }
                     }
@@ -631,31 +647,14 @@ namespace SODAPortalMvcApplication.Controllers
             else
             {
                 ModelState.AddModelError("", "Region Name already exists");
-                var region = initRegionData(id);
+                var region = initEditRegionViewBagData(id);
                 return View(region);
             }
             return RedirectToAction("region");
         }
 
-        private PortalServiceReference.Region initRegionData(int id)
-        {
-            var region = portalClient.getRegion().Select(r => r).Where(r => r.Id == id).First();
-            var currencyList = portalClient.getPayPalCurrencies();
-            var SalesCodeList = portalClient.getSaleCode();
-            ViewBag.CurrencyList = currencyList.Select(c => new SelectListItem()
-            {
-                Text = c,
-                Value = c,
-                Selected = c == region.Currency
-            });
-            ViewBag.SalesCodeList = SalesCodeList.Select(sc => new SelectListItem()
-            {
-                Text = sc.Sales_Code,
-                Value = sc.Id.ToString(),
-                Selected = sc.Id == region.DefaultSalesCodeId
-            });
-            return region;
-        }
+      
+        
 
         public ActionResult deleteregion(int id)
         {

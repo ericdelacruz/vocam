@@ -41,7 +41,8 @@ namespace SODAPortalMvcApplication.ViewModel
             USD,
             EUR,
             AUD,
-            GBP
+            GBP,
+            PHP
         };
       
         public static System.Globalization.CultureInfo getCultureInfo(Currency curenncy)
@@ -55,6 +56,8 @@ namespace SODAPortalMvcApplication.ViewModel
                     return new System.Globalization.CultureInfo("de-DE");
                 case Currency.AUD:
                     return new System.Globalization.CultureInfo("en-AU");
+                case Currency.PHP:
+                    return new System.Globalization.CultureInfo("en-PH");
                 default://USD default
                     return new System.Globalization.CultureInfo("en-US");
             }

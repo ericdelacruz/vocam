@@ -140,19 +140,19 @@ namespace SODAMvcApplication.Controllers
             string strCatName = HttpUtility.HtmlEncode(cat);
 
 
-            long lCatId = getCategoryId(strCatName);
+            long lCatId = 0 ;
             if (cat == null)
             {
-                if(Session["CatID"] != null)
-                long.TryParse(Session["CatID"].ToString(), out lCatId);
+                if (Session["CatID"] != null)
+                    long.TryParse(Session["CatID"].ToString(), out lCatId);
                 else
                 {
                     var ca = categoriesServiceClient.getCatAssign().Where(c => c.SpecID == spec.First().Id);
                     lCatId = ca.Count() > 0 ? ca.First().CategoryId : 1;//else no_cat
                 }
             }
-            //else
-            //    long.TryParse(cat, out lCatId);
+            else
+                lCatId = getCategoryId(strCatName);
 
             ViewBag.SelCategory = categoriesServiceClient.get_Category(lCatId).First();
             
