@@ -25,7 +25,8 @@
             <br />
             <label>Currency *</label>           
             @Html.DropDownList("currency", currencyList, "Select Currency", new { @class = "form-control", style = "width:50%", required = "" })
-            <br />
+            <label><br />Service charge code *</label>
+            <input type="text" class="form-control" style="width:50%;" name="serviceChargeCode" value="" required>
             <label>Default Sales Code * (default pricing if no sales code is verified by the customer)</label>
             @Html.DropDownList("defaultSalesCode", SalesCodeList, "Select Sales Code", new { @class = "form-control", style = "width:50%", required = "" })
             <br />
