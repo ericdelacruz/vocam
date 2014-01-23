@@ -43,6 +43,8 @@
             <input type="text" class="form-control" name="PriceC" value=@string.Format("{0:0.00}",Model.priceAmt_C)>
             <label><br />Service charge code*</label>
             <input type="text" class="form-control" name="serviceCharge" value="" required>
+            <label><br />Service charge rate*</label>
+            <input type="number" class="form-control" name="serviceChargeRate" value="" required>
            
             @*<label>Is first month free?</label><br>
          if (Model.FirstMonthFree)
