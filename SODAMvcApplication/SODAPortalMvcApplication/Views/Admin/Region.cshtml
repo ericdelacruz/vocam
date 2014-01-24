@@ -13,7 +13,7 @@
         @*Error message*@
         @if (TempData["delRegionError"] != null)
         {
-            <p>@TempData["delRegionError"]</p>
+            <div class="validation-summary-errors"><ul><li>@TempData["delRegionError"]</li></ul></div>
         }
         <table class="portTable">
         @{ if (Model.Count() > 0)
