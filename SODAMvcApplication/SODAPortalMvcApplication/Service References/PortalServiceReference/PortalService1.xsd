@@ -86,6 +86,7 @@
       <xs:element minOccurs="0" name="PayPalSignature" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PayPalUserName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="RegionName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ServiceChargeCode" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="WebsiteUrl" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>

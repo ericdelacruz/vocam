@@ -573,7 +573,8 @@ namespace SODAPortalMvcApplication.Controllers
                     PayPalPassword = collection["passwordPpUser"],
                     PayPalSignature = collection["signaturePpUser"],
                     AirPlayerFileName = strAirPlayerFileName,
-                    DefaultSalesCodeId = long.Parse(collection["defaultSalesCode"])
+                    DefaultSalesCodeId = long.Parse(collection["defaultSalesCode"]),
+                    ServiceChargeCode = collection["serviceChargeCode"]
 
                 });
                 
@@ -639,7 +640,7 @@ namespace SODAPortalMvcApplication.Controllers
                     orig_Region.PayPalPassword = collection["passwordPpUser"];
                     orig_Region.PayPalSignature = collection["signaturePpUser"];
                     orig_Region.DefaultSalesCodeId = long.Parse(collection["defaultSalesCode"]);
-                    
+                    orig_Region.ServiceChargeCode = collection["serviceChargeCode"];
                     if (Request.Files["air"].ContentLength > 0)
                     {
                         string strAirPlayerFileName = Request.Files["air"].FileName;

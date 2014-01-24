@@ -2332,6 +2332,8 @@ namespace SODAwcfService {
             
             private global::System.Data.DataColumn columnPayPalSignature;
             
+            private global::System.Data.DataColumn columnServiceChargeCode;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public RegionDataTable() {
@@ -2439,6 +2441,14 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ServiceChargeCodeColumn {
+                get {
+                    return this.columnServiceChargeCode;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2474,7 +2484,7 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public RegionRow AddRegionRow(int Id, string RegionName, string Currency, string WebsiteUrl, SalesCodeRow parentSalesCodeRowByFK_Region_ToSalesCode, string AirPlayerFileName, string PayPalUserName, string PayPalPassword, string PayPalSignature) {
+            public RegionRow AddRegionRow(int Id, string RegionName, string Currency, string WebsiteUrl, SalesCodeRow parentSalesCodeRowByFK_Region_ToSalesCode, string AirPlayerFileName, string PayPalUserName, string PayPalPassword, string PayPalSignature, string ServiceChargeCode) {
                 RegionRow rowRegionRow = ((RegionRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Id,
@@ -2485,7 +2495,8 @@ namespace SODAwcfService {
                         AirPlayerFileName,
                         PayPalUserName,
                         PayPalPassword,
-                        PayPalSignature};
+                        PayPalSignature,
+                        ServiceChargeCode};
                 if ((parentSalesCodeRowByFK_Region_ToSalesCode != null)) {
                     columnValuesArray[4] = parentSalesCodeRowByFK_Region_ToSalesCode[0];
                 }
@@ -2527,6 +2538,7 @@ namespace SODAwcfService {
                 this.columnPayPalUserName = base.Columns["PayPalUserName"];
                 this.columnPayPalPassword = base.Columns["PayPalPassword"];
                 this.columnPayPalSignature = base.Columns["PayPalSignature"];
+                this.columnServiceChargeCode = base.Columns["ServiceChargeCode"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2550,6 +2562,8 @@ namespace SODAwcfService {
                 base.Columns.Add(this.columnPayPalPassword);
                 this.columnPayPalSignature = new global::System.Data.DataColumn("PayPalSignature", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPayPalSignature);
+                this.columnServiceChargeCode = new global::System.Data.DataColumn("ServiceChargeCode", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnServiceChargeCode);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AllowDBNull = false;
@@ -2562,6 +2576,7 @@ namespace SODAwcfService {
                 this.columnPayPalUserName.MaxLength = 50;
                 this.columnPayPalPassword.MaxLength = 50;
                 this.columnPayPalSignature.MaxLength = 150;
+                this.columnServiceChargeCode.MaxLength = 10;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4484,6 +4499,22 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string ServiceChargeCode {
+                get {
+                    if (this.IsServiceChargeCodeNull()) {
+                        return string.Empty;
+                    }
+                    else {
+                        return ((string)(this[this.tableRegion.ServiceChargeCodeColumn]));
+                    }
+                }
+                set {
+                    this[this.tableRegion.ServiceChargeCodeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public SalesCodeRow SalesCodeRow {
                 get {
                     return ((SalesCodeRow)(this.GetParentRow(this.Table.ParentRelations["FK_Region_ToSalesCode"])));
@@ -4575,6 +4606,18 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetPayPalSignatureNull() {
                 this[this.tableRegion.PayPalSignatureColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsServiceChargeCodeNull() {
+                return this.IsNull(this.tableRegion.ServiceChargeCodeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetServiceChargeCodeNull() {
+                this[this.tableRegion.ServiceChargeCodeColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7011,6 +7054,7 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("PayPalUserName", "PayPalUserName");
             tableMapping.ColumnMappings.Add("PayPalPassword", "PayPalPassword");
             tableMapping.ColumnMappings.Add("PayPalSignature", "PayPalSignature");
+            tableMapping.ColumnMappings.Add("ServiceChargeCode", "ServiceChargeCode");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -7019,7 +7063,7 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Region] ([RegionName], [Currency], [WebsiteUrl], [DefaultSalesCodeId], [AirPlayerFileName], [PayPalUserName], [PayPalPassword], [PayPalSignature]) VALUES (@RegionName, @Currency, @WebsiteUrl, @DefaultSalesCodeId, @AirPlayerFileName, @PayPalUserName, @PayPalPassword, @PayPalSignature)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Region] ([RegionName], [Currency], [WebsiteUrl], [DefaultSalesCodeId], [AirPlayerFileName], [PayPalUserName], [PayPalPassword], [PayPalSignature], [ServiceChargeCode]) VALUES (@RegionName, @Currency, @WebsiteUrl, @DefaultSalesCodeId, @AirPlayerFileName, @PayPalUserName, @PayPalPassword, @PayPalSignature, @ServiceChargeCode)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionName", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Currency", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Currency", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -7029,9 +7073,10 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PayPalUserName", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PayPalUserName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PayPalPassword", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PayPalPassword", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PayPalSignature", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PayPalSignature", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ServiceChargeCode", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ServiceChargeCode", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [Region] SET [RegionName] = @RegionName, [Currency] = @Currency, [WebsiteUrl] = @WebsiteUrl, [DefaultSalesCodeId] = @DefaultSalesCodeId, [AirPlayerFileName] = @AirPlayerFileName, [PayPalUserName] = @PayPalUserName, [PayPalPassword] = @PayPalPassword, [PayPalSignature] = @PayPalSignature WHERE (([Id] = @Original_Id))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [Region] SET [RegionName] = @RegionName, [Currency] = @Currency, [WebsiteUrl] = @WebsiteUrl, [DefaultSalesCodeId] = @DefaultSalesCodeId, [AirPlayerFileName] = @AirPlayerFileName, [PayPalUserName] = @PayPalUserName, [PayPalPassword] = @PayPalPassword, [PayPalSignature] = @PayPalSignature, [ServiceChargeCode] = @ServiceChargeCode WHERE (([Id] = @Original_Id))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionName", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Currency", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Currency", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -7041,6 +7086,7 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PayPalUserName", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PayPalUserName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PayPalPassword", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PayPalPassword", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PayPalSignature", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PayPalSignature", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ServiceChargeCode", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ServiceChargeCode", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
@@ -7140,7 +7186,7 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string RegionName, string Currency, string WebsiteUrl, global::System.Nullable<long> DefaultSalesCodeId, string AirPlayerFileName, string PayPalUserName, string PayPalPassword, string PayPalSignature) {
+        public virtual int Insert(string RegionName, string Currency, string WebsiteUrl, global::System.Nullable<long> DefaultSalesCodeId, string AirPlayerFileName, string PayPalUserName, string PayPalPassword, string PayPalSignature, string ServiceChargeCode) {
             if ((RegionName == null)) {
                 throw new global::System.ArgumentNullException("RegionName");
             }
@@ -7189,6 +7235,12 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             else {
                 this.Adapter.InsertCommand.Parameters[7].Value = ((string)(PayPalSignature));
             }
+            if ((ServiceChargeCode == null)) {
+                this.Adapter.InsertCommand.Parameters[8].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[8].Value = ((string)(ServiceChargeCode));
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -7209,7 +7261,7 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string RegionName, string Currency, string WebsiteUrl, global::System.Nullable<long> DefaultSalesCodeId, string AirPlayerFileName, string PayPalUserName, string PayPalPassword, string PayPalSignature, int Original_Id) {
+        public virtual int Update(string RegionName, string Currency, string WebsiteUrl, global::System.Nullable<long> DefaultSalesCodeId, string AirPlayerFileName, string PayPalUserName, string PayPalPassword, string PayPalSignature, string ServiceChargeCode, int Original_Id) {
             if ((RegionName == null)) {
                 throw new global::System.ArgumentNullException("RegionName");
             }
@@ -7258,7 +7310,13 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             else {
                 this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(PayPalSignature));
             }
-            this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_Id));
+            if ((ServiceChargeCode == null)) {
+                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(ServiceChargeCode));
+            }
+            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {

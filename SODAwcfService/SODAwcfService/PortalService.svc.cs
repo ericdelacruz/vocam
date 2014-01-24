@@ -209,7 +209,8 @@ namespace SODAwcfService
                      AirPlayerFileName = region.AirPlayerFileName,
                       PayPalPassword = region.PayPalPassword,
                        PayPalSignature = region.PayPalSignature,
-                        PayPalUserName = region.PayPalUserName
+                        PayPalUserName = region.PayPalUserName,
+                         ServiceChargeCode = region.ServiceChargeCode
                 });
             }
             return regionlist;
@@ -217,12 +218,12 @@ namespace SODAwcfService
 
         public int addRegion(Models.Region region)
         {
-            return regionTableAdapter.Insert(region.RegionName,region.Currency,region.WebsiteUrl,region.DefaultSalesCodeId, region.AirPlayerFileName,region.PayPalUserName, region.PayPalPassword, region.PayPalSignature );
+            return regionTableAdapter.Insert(region.RegionName,region.Currency,region.WebsiteUrl,region.DefaultSalesCodeId, region.AirPlayerFileName,region.PayPalUserName, region.PayPalPassword, region.PayPalSignature,region.ServiceChargeCode );
         }
 
         public int updateRegion(Models.Region region)
         {
-            return regionTableAdapter.Update(region.RegionName, region.Currency, region.WebsiteUrl, region.DefaultSalesCodeId, region.AirPlayerFileName, region.PayPalUserName, region.PayPalPassword, region.PayPalSignature, region.Id);
+            return regionTableAdapter.Update(region.RegionName, region.Currency, region.WebsiteUrl, region.DefaultSalesCodeId, region.AirPlayerFileName, region.PayPalUserName, region.PayPalPassword, region.PayPalSignature,region.ServiceChargeCode , region.Id);
         }
 
         public int deleteRegion(int id)

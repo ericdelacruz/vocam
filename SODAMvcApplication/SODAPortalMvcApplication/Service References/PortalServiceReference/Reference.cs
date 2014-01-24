@@ -579,6 +579,9 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         private string RegionNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ServiceChargeCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string WebsiteUrlField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -691,6 +694,19 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
                 if ((object.ReferenceEquals(this.RegionNameField, value) != true)) {
                     this.RegionNameField = value;
                     this.RaisePropertyChanged("RegionName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ServiceChargeCode {
+            get {
+                return this.ServiceChargeCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ServiceChargeCodeField, value) != true)) {
+                    this.ServiceChargeCodeField = value;
+                    this.RaisePropertyChanged("ServiceChargeCode");
                 }
             }
         }

@@ -23,5 +23,7 @@ namespace SODAwcfService.Models
         public string PayPalPassword { get; set; }
 
         public string PayPalSignature { get; set; }
+
+        public string ServiceChargeCode { get; set; }
     }
 }
