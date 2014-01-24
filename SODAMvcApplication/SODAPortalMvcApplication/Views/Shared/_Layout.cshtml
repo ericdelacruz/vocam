@@ -112,27 +112,48 @@
         }
     </script>
 
+  @*complete date with +GMT*@
     <script type="text/javascript">
+
         $(document).ready(function () {
-            var tz = jstz.determine();
+            var currentDate = new Date()
+            var day = currentDate.getDate()
+            var month = currentDate.getMonth() + 1
+            var year = currentDate.getFullYear()
 
-            response_text = 'No timezone found';
-
-            if (typeof (tz) === 'undefined') {
-                response_text = 'No timezone found';
-            }
-            else {
-                response_text = tz.name();
-            }
-
-            
-            $('#tz_info').val(response_text);
-            $('#code-example').html("> var timezone = jstz.determine();\n" +
-            "> timezone.name(); \n" +
-            "\"" + tz.name() + "\"\n\n");
-            $('#tz_info').show();
+            $('#dateAcceptance1').text(currentDate);
+            $('#dateAcceptance2').text("" + day + "/" + month + "/" + year + "");
 
         });
+
+    </script>
+
+
+
+
+
+    
+    <script type="text/javascript">
+                $(document).ready(function () {
+                    var tz = jstz.determine();
+
+                    response_text = 'No timezone found';
+
+                    if (typeof (tz) === 'undefined') {
+                        response_text = 'No timezone found';
+                    }
+                    else {
+                        response_text = tz.name();
+                    }
+
+
+                    $('#tz_info').val(response_text);
+                    $('#code-example').html("> var timezone = jstz.determine();\n" +
+                    "> timezone.name(); \n" +
+                    "\"" + tz.name() + "\"\n\n");
+                    $('#tz_info').show();
+
+                });
     </script>
 
 

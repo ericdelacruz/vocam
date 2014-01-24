@@ -36,7 +36,9 @@
     <label>Company Name *</label>
     @Html.TextBoxFor(m => m.Company, new { placeholder = "Company Name", @class = "form-control", required = "" })
 
-    @Html.Hidden("tz_info");
+   
+    @Html.Hidden("dateAcceptance1");
+   
     <p>&nbsp;</p>
     <div>
         <button style="width:200px;" type="submit" class="fl btn btn-lg btn-primary">Submit</button>

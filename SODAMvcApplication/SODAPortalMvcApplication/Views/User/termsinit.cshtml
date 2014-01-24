@@ -151,8 +151,16 @@
 
             <form name="termsForm" action="@Url.Action("termsinit")" method="post">
                 <input type="checkbox" name="theCheck" value="yes">
-                You, <b>@Model.FirstName @Model.LastName</b> accepted this terms and conditions on <strong>@string.Format("{0:ddd, MMMM dd, yyyy}", CurrentDate.Value)</strong>
+                You, <b>@Model.FirstName @Model.LastName</b> accepted this terms and conditions on <strong><span id="dateAcceptance2"></span></strong>
+               
+                
+                
+
+
+               
+                
                 <p>&nbsp;</p>
+
                 <input type="submit" name="submitButton" class="buyNow" alt="Buy Now" style="border:none; cursor:pointer;" onclick="check_agree(this.form);" value="Continue">
             </form>
 
