@@ -171,21 +171,21 @@ namespace SODAPortalMvcApplication.Controllers
                         });
                         TempData["EmailSent"] = true;
                         Session.Add("Username", model.Email);
-                        try
-                        {
+                        //try
+                        //{
                           
-                            TimeZoneInfo info = DateHelper.getTimeZoneInto(collection["tz_info"]);
+                        //    //TimeZoneInfo info = DateHelper.getTimeZoneInto(collection["tz_info"]);
 
-                            Session.Add("ClientDateTime", DateHelper.UTCtoLocal(DateTime.UtcNow, collection["tz_info"]));
-                        }
-                        catch (System.Security.SecurityException)
-                        {
-                            Session.Add("ClientDateTime", DateTime.Now);
-                        }
-                        catch(Exception ex)
-                        {
-                            throw (ex);
-                        }
+                        //    //Session.Add("ClientDateTime", DateHelper.UTCtoLocal(DateTime.UtcNow, collection["tz_info"]));
+                        //}
+                        //catch (System.Security.SecurityException)
+                        //{
+                        Session.Add("ClientDateTime", DateTime.Now);
+                        //}
+                        //catch(Exception ex)
+                        //{
+                        //    throw (ex);
+                        //}
                         return Session["SalesCode"] == null?RedirectToAction("indexpurchase", "user"):RedirectToAction("termsinit","user");
                     }
                     else
