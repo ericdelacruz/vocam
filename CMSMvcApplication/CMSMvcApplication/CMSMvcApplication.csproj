@@ -147,6 +147,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\FLVCoreCuePointsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\AccountServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -442,7 +443,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Uploaded\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

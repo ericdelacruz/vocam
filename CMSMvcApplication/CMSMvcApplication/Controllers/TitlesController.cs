@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using System.Xml.Serialization;
+using System.IO;
 namespace CMSMvcApplication.Controllers
 {
     public class TitlesController : Controller
@@ -133,13 +135,20 @@ namespace CMSMvcApplication.Controllers
         {
             if (Session["Username"] == null)
                 return RedirectToAction("login", "Home");
-            ViewBag.catList = catClient.get_Categories();
-            ViewBag.regionList = portalClient.getRegion().Select(r=> new SelectListItem(){
-                 Value = r.Id.ToString(),
-                 Text = r.RegionName,
-                 Selected = false});
+            initCreateViewBagData();
 
             return View();
+        }
+
+        private void initCreateViewBagData()
+        {
+            ViewBag.catList = catClient.get_Categories();
+            ViewBag.regionList = portalClient.getRegion().Select(r => new SelectListItem()
+            {
+                Value = r.Id.ToString(),
+                Text = r.RegionName,
+                Selected = false
+            });
         }
 
         //
@@ -159,7 +168,17 @@ namespace CMSMvcApplication.Controllers
             //    ViewBag.catList = catClient.get_Categories();
             //    return View();
             //}
-            
+            if (Request.Files["importChapter"].ContentLength > 0)
+            {
+                importchapters();
+                initCreateViewBagData();
+                ViewBag.Name = collection["Title"];
+                ViewBag.TitleCode = collection["Code"];
+                ViewBag.PageTitle = collection["TitlePageTitle"];
+                ViewBag.MetaKeywords = collection["TitleMetaKeywords"];
+                ViewBag.MetaDescription = collection["TitleMetaDescription"];
+                return View();
+            }
             try
             {
                 // TODO: Add insert logic here
@@ -240,39 +259,7 @@ namespace CMSMvcApplication.Controllers
             }
         }
 
-        //private void addChapters(FormCollection collection, CatListingServiceReference.Specific title)
-        //{
-        //    if (!string.IsNullOrEmpty(collection["chapterName[]"]))
-        //    {
-        //        //catClient.addChapter(title.Id,collection["chapterName"],TimeSpan.FromMilliseconds(double.Parse(collection["chapterTime"])));
-
-        //        if (!string.IsNullOrEmpty(collection["chapterName[]"]))
-        //        {
-        //            string[] chapterNameCollection = collection["chapterName[]"].Split(',');
-        //            string[] chapterTimeCollection = collection["chapterTime[]"].Split(',');
-        //            for (int i = 0; i < chapterNameCollection.Count(); i++)
-        //            {
-        //                if (chapterTimeCollection[i].Trim() != "")
-        //                catClient.addChapter(title.Id, chapterNameCollection[i], TimeSpan.FromMilliseconds(double.Parse(chapterTimeCollection[i])));
-        //            }
-        //        }
-        //    }
-        //}
-
-        //private void addTopics(FormCollection collection, CatListingServiceReference.Specific title)
-        //{
-        //    if (!string.IsNullOrEmpty(collection["topicName[]"]))
-        //    {
-
-        //        //catClient.addTopic(title.Id, collection["topicName"]);
-        //        if (!string.IsNullOrEmpty(collection["topicName[]"]))
-        //            foreach (string topic in collection["topicName[]"].Split(','))
-        //            {
-        //                if(topic != "")
-        //                catClient.addTopic(title.Id, topic);
-        //            }
-        //    }
-        //}
+       
 
         private bool hasErrorInTitles(FormCollection collection, out string errorMsg)
         {
@@ -314,23 +301,30 @@ namespace CMSMvcApplication.Controllers
             var title = catClient.get().Select(t => t).Where(t => t.Id == id);
             if (title.Count() == 0)
                 return Redirect("Titles");
-            
-                
-                var CAList = catClient.getCatAssign().Where(ca=>ca.SpecID == id);
-               var excludeIds = new HashSet<long>(CAList.Select(ca=>ca.CategoryId));
-                ViewBag.CatList = catClient.get_Categories().Where(cat => !excludeIds.Contains(cat.CategoryId));
-                ViewBag.TopicList = catClient.getTopics().Select(t => t).Where(t => t.SpecId == id);
-                ViewBag.ChapterList = catClient.getChapter().Select(c => c).Where(c => c.SpecID == id);
-                ViewBag.CAList = from CA in CAList
-                                 join cat in catClient.get_Categories() on CA.CategoryId equals cat.CategoryId
-                                 select cat;
 
-                ViewBag.regionList = portalClient.getRegion().Select(r=> new SelectListItem(){
-                 Value = r.Id.ToString(),
-                 Text = r.RegionName,
-                 Selected = r.Id == title.First().RegionId});
+
+            initEditTitleViewBagData(id, title);
                 return View(title.First());
             
+        }
+
+        private void initEditTitleViewBagData(long id, IEnumerable<CatListingServiceReference.Specific> title)
+        {
+            var CAList = catClient.getCatAssign().Where(ca => ca.SpecID == id);
+            var excludeIds = new HashSet<long>(CAList.Select(ca => ca.CategoryId));
+            ViewBag.CatList = catClient.get_Categories().Where(cat => !excludeIds.Contains(cat.CategoryId));
+            ViewBag.TopicList = catClient.getTopics().Select(t => t).Where(t => t.SpecId == id);
+            ViewBag.ChapterList = catClient.getChapter().Select(c => c).Where(c => c.SpecID == id);
+            ViewBag.CAList = from CA in CAList
+                             join cat in catClient.get_Categories() on CA.CategoryId equals cat.CategoryId
+                             select cat;
+
+            ViewBag.regionList = portalClient.getRegion().Select(r => new SelectListItem()
+            {
+                Value = r.Id.ToString(),
+                Text = r.RegionName,
+                Selected = r.Id == title.First().RegionId
+            });
         }
 
         //
@@ -342,8 +336,14 @@ namespace CMSMvcApplication.Controllers
             DateTime dateQuestion = new DateTime();
 
             DateTime.TryParse(collection["datefrom"], out dateQuestion);
-         
 
+            if (Request.Files["importChapter"].ContentLength > 0)
+            {
+                importchapters();
+                var title = catClient.get().Select(t => t).Where(t => t.Id == id);
+                initEditTitleViewBagData(id, title);
+                return View();
+            }
             try
             {
                 // TODO: Add update logic here
@@ -451,6 +451,56 @@ namespace CMSMvcApplication.Controllers
             return View();
         }
         
-        
+       
+        public void importchapters()
+        {
+            
+                try
+                {
+                    Models.FLVCoreCuePoints cuepoints = xmlSerialize(Request.Files["importChapter"]);
+                   
+                    if(cuepoints.Cuepoints.Count() > 0)
+                    {
+                       var importChapterList = cuepoints.Cuepoints.Select(cue => new CatListingServiceReference.Chapter()
+                        {
+                            ChapterName = cue.Name,
+                            time = TimeSpan.FromMilliseconds(cue.Time)
+
+                        }).OrderBy(cue=>cue.time).ToList();
+
+                       TempData.Add("ImportChapterList", importChapterList);
+                    }
+
+                }
+                catch
+                {
+                    //error
+                    TempData.Add("ImportError", "Error during import please try again.");
+                }
+            
+            //u is return url
+           
+        }
+
+        private Models.FLVCoreCuePoints xmlSerialize(HttpPostedFileBase httpPostedFileBase)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(Models.FLVCoreCuePoints));
+            Models.FLVCoreCuePoints result = new Models.FLVCoreCuePoints();
+            TextReader reader;
+            // System.Xml.XmlReader xmlReader = System.Xml.XmlReader.Create() 
+            try
+            {
+                reader = new StreamReader(httpPostedFileBase.InputStream);
+                //System.Xml.XmlReader xmlReader = System.Xml.XmlReader.Create(reader);
+                result = (Models.FLVCoreCuePoints)serializer.Deserialize(reader);
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+
+            return result;
+        }
     }
 }

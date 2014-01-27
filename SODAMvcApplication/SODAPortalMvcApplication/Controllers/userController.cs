@@ -639,6 +639,11 @@ namespace SODAPortalMvcApplication.Controllers
 
         public ActionResult termsconditions()
         {
+            if (Session["Username"] == null)
+                return RedirectToAction("index", "home");
+
+            var CustomerContract = portalClient.getCustomerContract().Where(contract => contract.UserId == AccountClient.getAccount(Session["Username"].ToString()).First().Id);
+            ViewBag.ContractDate = CustomerContract.First().DateStart;
             return View();
         }
 
