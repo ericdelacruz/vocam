@@ -12,7 +12,7 @@ namespace SODAPortalMvcApplication.Controllers
         // GET: /Admin/
         private AccountServiceRef.AccountServiceClient account = new AccountServiceRef.AccountServiceClient();
         private PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
-
+        
         public ActionResult Index(int? page)
         {
             if (!isUserSessionActive())

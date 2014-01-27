@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using SODAPortalMvcApplication.Models;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Globalization;
 namespace SODAPortalMvcApplication.Controllers
 {
     public class HomeController : Controller
@@ -171,21 +172,10 @@ namespace SODAPortalMvcApplication.Controllers
                         });
                         TempData["EmailSent"] = true;
                         Session.Add("Username", model.Email);
-                        //try
-                        //{
-                          
-                        //    //TimeZoneInfo info = DateHelper.getTimeZoneInto(collection["tz_info"]);
 
-                        //    //Session.Add("ClientDateTime", DateHelper.UTCtoLocal(DateTime.UtcNow, collection["tz_info"]));
-                        //}
-                        //catch (System.Security.SecurityException)
-                        //{
-                        Session.Add("ClientDateTime", DateTime.Now);
-                        //}
-                        //catch(Exception ex)
-                        //{
-                        //    throw (ex);
-                        //}
+                        DateTime clientDateTime = toClientTime(collection["dateTimeOffset"]);
+                        Session.Add("ClientDateTime", clientDateTime);
+                             
                         return Session["SalesCode"] == null?RedirectToAction("indexpurchase", "user"):RedirectToAction("termsinit","user");
                     }
                     else
@@ -196,6 +186,13 @@ namespace SODAPortalMvcApplication.Controllers
                
             }
             return View(model);
+        }
+
+        private DateTime toClientTime(string strTimeZoneOffset)
+        {
+            
+            
+            return (DateTime.UtcNow.Add(new TimeSpan(long.Parse(strTimeZoneOffset))));
         }
         private bool IsValidEmail(string strIn)
         {
