@@ -49,6 +49,7 @@
             <thead>
                 <tr style="background-color:#fff;">
                     <th>Title</th>
+                    <th>Region</th>
                     <th>Edit</th>
                     <th>Delete</th>
                     <th>View</th>
@@ -65,6 +66,7 @@
                 var webpageUrl = regionList.Where(r => r.Id == title.Specific.RegionId).First().WebsiteUrl;
                 <tr id="testtitlepage">
                     <td width="415" style="padding:5px;"> &nbsp; @title.Specific.Title</td>
+                    <td width="120"> &nbsp; @title.Specific.RegionId</td>
                     <td width="100"><a href=@Url.Action("edit",new{id=title.Specific.Id})><img src="/Content/images/cms/edit.png"></a></td>
                     <td width="100"><a onclick="return confirm('Are you sure you want to delete the item?');" href=@Url.Action("delete",new{id=title.Specific.Id})><img src="/Content/images/cms/delete.png"></a></td>
                     <td width="100"><a target="_blank" href="http://@webpageUrl/categories/details/@title.Specific.Title.Trim().Replace(" ","-").Replace("---","-").ToLower()"><img src="/Content/images/cms/view.png"></a></td>
