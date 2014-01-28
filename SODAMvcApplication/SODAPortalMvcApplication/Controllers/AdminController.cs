@@ -13,7 +13,7 @@ namespace SODAPortalMvcApplication.Controllers
         private AccountServiceRef.AccountServiceClient account = new AccountServiceRef.AccountServiceClient();
         private PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
         
-        public ActionResult Index(int? page)
+        public ActionResult Index(string df,string dt,string sc,int? page)
         {
             if (!isUserSessionActive())
             {
@@ -24,12 +24,36 @@ namespace SODAPortalMvcApplication.Controllers
                 
                 var reportlist = from customer in portalClient.getCustomer()
                                  join accnt in account.getAccount("") on customer.UserId equals accnt.Id
-                                 join sc in portalClient.getSaleCode() on customer.SalesCodeId equals sc.Id
+                                 join salescode in portalClient.getSaleCode() on customer.SalesCodeId equals salescode.Id
                                  orderby customer.DatePurchase descending
-                                 select new ViewModel.ReportViewModel() { account = accnt, customer = customer,salesCode = sc };
+                                 select new ViewModel.ReportViewModel() { account = accnt, customer = customer,salesCode = salescode};
+
+                if(!string.IsNullOrEmpty(df) && !string.IsNullOrEmpty(dt))
+                {
+                    reportlist = from report in reportlist
+                                 where report.customer.DatePurchase >= DateTime.Parse(df) && report.customer.DatePurchase <= DateTime.Parse(dt)
+                                 select report;
+
+                }
+                else if(!string.IsNullOrEmpty(df))
+                {
+                    reportlist = from report in reportlist
+                                 where report.customer.DatePurchase == DateTime.Parse(df)
+                                 select report;
+                }
+
+                if(!string.IsNullOrEmpty(sc))
+                {
+                    reportlist = from report in reportlist
+                                 where report.salesCode.Sales_Code.ToLower() == sc.ToLower().Trim()
+                                 select report;
+                }
                 int pageSize = 10;
                 int pageNumber = page ?? 1;
-                return View(reportlist.ToPagedList(pageNumber, pageSize));
+                ViewBag.dt = dt ?? "";
+                ViewBag.df = df ?? "";
+                ViewBag.sc = sc ?? "";
+                return View(reportlist.ToList().ToPagedList(pageNumber, pageSize));
             }
             
         }
@@ -60,55 +84,7 @@ namespace SODAPortalMvcApplication.Controllers
             base.Dispose(disposing);
         }
       
-        [HttpPost]
-        public ActionResult index(int? page,FormCollection collection)
-        {
-            DateTime start;
-            DateTime? end = new Nullable<DateTime>();
-            int pageSize = 10;
-            int pageNumber = page ?? 1;
-            if (!isUserSessionActive())
-            {
-                return RedirectToAction("login", "Home");
-            }
-
-            if ( collection["dateto"].Trim() != "" && collection["datefrom"].Trim() != "")
-            {
-                start = DateTime.Parse(collection["datefrom"]); 
-                end = DateTime.Parse(collection["dateto"]);
-                 var reportlist = from customer in portalClient.getCustomer()
-                                  join accnt in account.getAccount("") on customer.UserId equals accnt.Id
-                                  join sc in portalClient.getSaleCode() on customer.SalesCodeId equals sc.Id
-                                 where customer.DatePurchase >= start && customer.DatePurchase < end
-                                 select new ViewModel.ReportViewModel() { account = accnt, customer = customer,salesCode = sc };
-
-                 return View(reportlist.ToPagedList(pageNumber, pageSize));
-            }
-            else if (collection["datefrom"].Trim() != "")
-            {
-                start = DateTime.Parse(collection["datefrom"]); 
-                var reportlist = from customer in portalClient.getCustomer()
-                                 join accnt in account.getAccount("") on customer.UserId equals accnt.Id
-                                 join sc in portalClient.getSaleCode() on customer.SalesCodeId equals sc.Id
-                                 where customer.DatePurchase == start 
-                                 select new ViewModel.ReportViewModel() { account = accnt, customer = customer, salesCode = sc };
-                return View(reportlist.ToPagedList(pageNumber, pageSize));
-            }
-            else if(collection["salescode"].Trim() != "")
-            {
-                var reportlist = from customer in portalClient.getCustomer()
-                                 join accnt in account.getAccount("") on customer.UserId equals accnt.Id
-                                 join sc in portalClient.getSaleCode() on customer.SalesCodeId equals sc.Id
-                                 where sc.Sales_Code == collection["salescode"]
-                                 select new ViewModel.ReportViewModel() { account = accnt, customer = customer, salesCode =sc };
-                return View(reportlist.ToPagedList(pageNumber, pageSize));
-            }
-            else//all are empty
-            {
-                return RedirectToAction("index");//view all
-            }
-            
-        }
+       
         
         
         #region sales
@@ -422,7 +398,7 @@ namespace SODAPortalMvcApplication.Controllers
         [HttpPost]
         public ActionResult addsalescode(FormCollection collection)
         {
-            if (portalClient.getSaleCode().Select(sales => sales).Where(sales => sales.Sales_Code == collection["SalesCode"]).Count() == 0)
+            if (portalClient.getSaleCode().Select(sales => sales).Where(sales => sales.Sales_Code.ToLower() == collection["SalesCode"].ToLower()).Count() == 0)
             {
                 portalClient.addSalesCode(new PortalServiceReference.SalesCode()
                     {

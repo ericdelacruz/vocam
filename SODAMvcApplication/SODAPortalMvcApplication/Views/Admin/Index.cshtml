@@ -19,14 +19,17 @@
                 <h3 class="panel-title"><b>Search By</b></h3>
             </div>
             <div class="panel-body">
-                @using(@Html.BeginForm("index","admin",FormMethod.Post))
+                @using(@Html.BeginForm("index","admin",FormMethod.Get))
                 {
-                 <label> From Date: </label> <input type="text" id="popupDatepicker" class="form-control" placeholder="Click to choose date" name="datefrom">
-                 <label>To Date:</label> <input type="text" id="popupDatepicker2" class="form-control" placeholder="Click to choose date" name="dateto">        
+                 <label> From Date: </label> @Html.TextBox("df", ViewBag.df as string, new { @class = "form-control", placeholder = "Click to choose date", id = "popupDatepicker" })
+                     @*<input type="text" id="popupDatepicker" class="form-control" placeholder="Click to choose date" name="df">*@
+                 <label>To Date:</label>@Html.TextBox("dt", ViewBag.dt as string, new { @class = "form-control", placeholder = "Click to choose date", id = "popupDatepicker2" })
+                     @*<input type="text" id="popupDatepicker2" class="form-control" placeholder="Click to choose date" name="dt">*@        
                     <button class="btn btn-s btn-primary" type="submit">VIEW REPORT</button>
 
                 <hr>
-                <label>Sales Code:</label><input type="text" id="" class="form-control" placeholder="Enter sales code" name="salescode"/>        
+                <label>Sales Code:</label>@Html.TextBox("sc", ViewBag.sc as string, new {@class="form-control", placeholder="Enter sales code" })
+                @*<input type="text" id="" class="form-control" placeholder="Enter sales code" name="sc"/>*@        
                  <button class="btn btn-s btn-primary" type="submit">VIEW REPORT</button>
                 }
             </div>
@@ -84,6 +87,6 @@
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
         @Html.PagedListPager(Model, page => Url.Action("Index",
-        new { page }))
+        new { page,dt = ViewBag.dt, df=ViewBag.df, sc = ViewBag.sc }))
     </div>
 </div>

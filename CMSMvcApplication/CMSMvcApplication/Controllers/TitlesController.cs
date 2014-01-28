@@ -41,15 +41,15 @@ namespace CMSMvcApplication.Controllers
                 return RedirectToAction("login", "Home");
             var catTitleList = getTitles("", "");
 
-            if(region !=null && !string.IsNullOrEmpty(title))
+            if(!string.IsNullOrEmpty(title))
             {
                 catTitleList = from titles in catTitleList
                                join r in portalClient.getRegion() on titles.Specific.RegionId equals r.Id
-                               where r.RegionName == region && titles.Specific.Title.ToLower().Contains(title.Trim().ToLower()) 
+                               where titles.Specific.Title.ToLower().Contains(title.Trim().ToLower()) 
                                select titles;
 
             }
-            else if (region != null && string.IsNullOrEmpty(title))
+            if (!string.IsNullOrEmpty(region) )
             {
                 catTitleList = from titles in catTitleList
                                join r in portalClient.getRegion() on titles.Specific.RegionId equals r.Id
@@ -97,22 +97,24 @@ namespace CMSMvcApplication.Controllers
 
             var titleList = catClient.get();
             var catList = catClient.get_Categories();
-
+            var regionList = portalClient.getRegion();
             if (title != "" && cat == "")
             {
                 
                 var catTitle = from titleRow in titleList
                                join catRow in catList on titleRow.CategoryID equals catRow.CategoryId
+                               join region in regionList on titleRow.RegionId equals region.Id
                                where titleRow.Title == title
-                               select new ViewModels.Title() { Category = catRow, Specific = titleRow };
+                               select new ViewModels.Title() { Category = catRow, Specific = titleRow,regionName=region.RegionName };
                 return catTitle;
             }
             else if (title == "" && cat != "")
             {
                 var catTitle = from titleRow in titleList
                                join catRow in catList on titleRow.CategoryID equals catRow.CategoryId
+                               join region in regionList on titleRow.RegionId equals region.Id
                                where catRow.CategoryName == cat
-                               select new ViewModels.Title() { Category = catRow, Specific = titleRow };
+                               select new ViewModels.Title() { Category = catRow, Specific = titleRow, regionName = region.RegionName };
 
                 return catTitle;
             }
@@ -121,8 +123,8 @@ namespace CMSMvcApplication.Controllers
                 
                 var catTitle = from titleRow in titleList
                                join catRow in catList on titleRow.CategoryID equals catRow.CategoryId
-                              
-                               select new ViewModels.Title() { Category = catRow, Specific = titleRow };
+                               join region in regionList on titleRow.RegionId equals region.Id
+                               select new ViewModels.Title() { Category = catRow, Specific = titleRow, regionName = region.RegionName };
 
                 return catTitle;
             }
@@ -168,17 +170,17 @@ namespace CMSMvcApplication.Controllers
             //    ViewBag.catList = catClient.get_Categories();
             //    return View();
             //}
-            if (Request.Files["importChapter"].ContentLength > 0)
-            {
-                importchapters();
-                initCreateViewBagData();
-                ViewBag.Name = collection["Title"];
-                ViewBag.TitleCode = collection["Code"];
-                ViewBag.PageTitle = collection["TitlePageTitle"];
-                ViewBag.MetaKeywords = collection["TitleMetaKeywords"];
-                ViewBag.MetaDescription = collection["TitleMetaDescription"];
-                return View();
-            }
+            //if (Request.Files["importChapter"].ContentLength > 0)
+            //{
+            //    importchapters();
+            //    initCreateViewBagData();
+            //    ViewBag.Name = collection["Title"];
+            //    ViewBag.TitleCode = collection["Code"];
+            //    ViewBag.PageTitle = collection["TitlePageTitle"];
+            //    ViewBag.MetaKeywords = collection["TitleMetaKeywords"];
+            //    ViewBag.MetaDescription = collection["TitleMetaDescription"];
+            //    return View();
+            //}
             try
             {
                 // TODO: Add insert logic here
@@ -220,6 +222,14 @@ namespace CMSMvcApplication.Controllers
                 //addTopics(collection, title);
                 addTopics(Request.Form.GetValues("topicName[]"), title);
                 //addChapters(collection, title);
+                if (Request.Files["importChapter"].ContentLength > 0)
+                {
+                    var Imported_ChapterList = importchapters();
+                    foreach(var chapter in Imported_ChapterList)
+                    {
+                        catClient.addChapter(title.Id, chapter.ChapterName, chapter.time.Value);
+                    }
+                }
                 addChapters(Request.Form.GetValues("chapterName[]"), Request.Form.GetValues("chapterTime[]"), title);
                 return RedirectToAction("Index");
             }
@@ -337,13 +347,15 @@ namespace CMSMvcApplication.Controllers
 
             DateTime.TryParse(collection["datefrom"], out dateQuestion);
 
-            if (Request.Files["importChapter"].ContentLength > 0)
-            {
-                importchapters();
-                var title = catClient.get().Select(t => t).Where(t => t.Id == id);
-                initEditTitleViewBagData(id, title);
-                return View();
-            }
+            //if (Request.Files["importChapter"].ContentLength > 0)
+            //{
+            //    importchapters();
+            //    var title = catClient.get().Select(t => t).Where(t => t.Id == id);
+            //    initEditTitleViewBagData(id, title);
+            //    if (TempData["ImportChapterList"] != null)
+            //    ViewBag.ChapterList = TempData["ImportChapterList"] as IEnumerable<CatListingServiceReference.Chapter>;
+            //    return View(title.First());
+            //}
             try
             {
                 // TODO: Add update logic here
@@ -398,7 +410,15 @@ namespace CMSMvcApplication.Controllers
                 }
                 addTopics(Request.Form.GetValues("topicName[]"), title);
                 //addChapters(collection, title);
-                addChapters(Request.Form.GetValues("chapterName[]"), Request.Form.GetValues("chapterTime[]"), title);
+                if (Request.Files["importChapter"].ContentLength > 0)
+                {
+                    var Imported_ChapterList = importchapters();
+                    foreach (var chapter in Imported_ChapterList)
+                    {
+                        catClient.addChapter(title.Id, chapter.ChapterName, chapter.time.Value);
+                    }
+                }
+                    addChapters(Request.Form.GetValues("chapterName[]"), Request.Form.GetValues("chapterTime[]"), title);
                 
 
 
@@ -452,7 +472,7 @@ namespace CMSMvcApplication.Controllers
         }
         
        
-        public void importchapters()
+        public IEnumerable<CatListingServiceReference.Chapter> importchapters()
         {
             
                 try
@@ -468,7 +488,7 @@ namespace CMSMvcApplication.Controllers
 
                         }).OrderBy(cue=>cue.time).ToList();
 
-                       TempData.Add("ImportChapterList", importChapterList);
+                       return importChapterList;
                     }
 
                 }
@@ -479,7 +499,7 @@ namespace CMSMvcApplication.Controllers
                 }
             
             //u is return url
-           
+                return null;
         }
 
         private Models.FLVCoreCuePoints xmlSerialize(HttpPostedFileBase httpPostedFileBase)

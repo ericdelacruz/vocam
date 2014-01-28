@@ -9,6 +9,7 @@
     var regionList =  ViewBag.RegionList as IEnumerable<CMSMvcApplication.PortalServiceReference.Region>;
     var selRegion = ViewBag.RegionName !=null? ViewBag.RegionName as string:null;
     var regionSelList = regionList.Select(r => new SelectListItem() { Text = r.RegionName, Selected = selRegion != null && r.RegionName == selRegion, Value = r.RegionName });
+   
 }
 
 <h1 class="margin15">Titles <span><a href="@Url.Action("create")"><img src="/Content/images/cms/addNew.gif"></a></span></h1>
@@ -26,7 +27,7 @@
                     <option value="AU">AU</option>
                     <option value="GB">GB</option>
                 </select>*@
-                @Html.DropDownList("region", regionSelList,null, new { @class = "form-control", style = "width:50%; display:inline;" })
+                @Html.DropDownList("region", regionSelList,"All", new { @class = "form-control", style = "width:50%; display:inline;" })
             </div>
         
             <div class="col-md-9">
@@ -39,7 +40,7 @@
 </div> <!-- end of panel: filter title listing -->
 
 
-<div class="holder" style="margin: 5px 0;"> </div>
+
 
 
 <table class="cmsTable">
@@ -66,7 +67,7 @@
                 var webpageUrl = regionList.Where(r => r.Id == title.Specific.RegionId).First().WebsiteUrl;
                 <tr id="testtitlepage">
                     <td width="415" style="padding:5px;"> &nbsp; @title.Specific.Title</td>
-                    <td width="120"> &nbsp; @title.Specific.RegionId</td>
+                    <td width="120"> &nbsp; @title.regionName</td>
                     <td width="100"><a href=@Url.Action("edit",new{id=title.Specific.Id})><img src="/Content/images/cms/edit.png"></a></td>
                     <td width="100"><a onclick="return confirm('Are you sure you want to delete the item?');" href=@Url.Action("delete",new{id=title.Specific.Id})><img src="/Content/images/cms/delete.png"></a></td>
                     <td width="100"><a target="_blank" href="http://@webpageUrl/categories/details/@title.Specific.Title.Trim().Replace(" ","-").Replace("---","-").ToLower()"><img src="/Content/images/cms/view.png"></a></td>
