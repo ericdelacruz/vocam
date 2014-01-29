@@ -14,6 +14,8 @@ namespace SODAPortalMvcApplication.ViewModel
        public AccountServiceRef.Account account { get; set; }
        public PortalServiceReference.Customer customer { get; set; }
        public PortalServiceReference.SalesCode salesCode { get; set; }
+
+       public DateTime DateContractEnd { get; set; }
     }
 
     public class SalesViewModel

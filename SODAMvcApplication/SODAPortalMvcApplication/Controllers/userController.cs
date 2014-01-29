@@ -248,7 +248,11 @@ namespace SODAPortalMvcApplication.Controllers
             VerifyModel.qty = !string.IsNullOrEmpty(collection["quantity"]) ? int.Parse(collection["quantity"]) : 1;
             Session["SalesCode"] = VerifyModel;
             
-            return Session["NewAccount"] != null? RedirectToAction("termsinit"):RedirectToAction("purchasedetails","home");
+            //return Session["NewAccount"] != null? RedirectToAction("termsinit"):RedirectToAction("purchasedetails","home");
+            if(Session["Username"] !=null && AccountClient.isUserNameExists(Session["Username"].ToString()))
+            return RedirectToAction("termsinit");
+            else
+                return RedirectToAction("purchasedetails","home");
         }
         private IEnumerable<ViewModel.VerifyModel> getDefaultVerifyViewModel()
         {

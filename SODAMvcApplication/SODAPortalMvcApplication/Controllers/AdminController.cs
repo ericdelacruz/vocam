@@ -25,8 +25,9 @@ namespace SODAPortalMvcApplication.Controllers
                 var reportlist = from customer in portalClient.getCustomer()
                                  join accnt in account.getAccount("") on customer.UserId equals accnt.Id
                                  join salescode in portalClient.getSaleCode() on customer.SalesCodeId equals salescode.Id
+                                 join contract in portalClient.getCustomerContract() on customer.UserId equals contract.UserId
                                  orderby customer.DatePurchase descending
-                                 select new ViewModel.ReportViewModel() { account = accnt, customer = customer,salesCode = salescode};
+                                 select new ViewModel.ReportViewModel() { account = accnt, customer = customer,salesCode = salescode,DateContractEnd = contract.DateEnd};
 
                 if(!string.IsNullOrEmpty(df) && !string.IsNullOrEmpty(dt))
                 {
@@ -130,7 +131,7 @@ namespace SODAPortalMvcApplication.Controllers
                 account.addAccount(new AccountServiceRef.Account()
                 {
                     USERNAME = collection["Email"],
-                    PASSWORD = collection["Password"],
+                    PASSWORD = collection["Password"].Split(',')[0],
                     LastName = collection["LastName"],
                     FirstName = collection["FirstName"],
                     Email = collection["Email"],
