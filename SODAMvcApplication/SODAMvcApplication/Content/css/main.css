@@ -48,11 +48,18 @@
     font-style: normal;
 }
 
-div { 
--webkit-transition: all 100ms ease-in-out;
--moz-transition: all 100ms ease-in-out;
--o-transition: all 100ms ease-in-out;
+/*div { 
+-webkit-transition: all 0ms ease-in-out;
+-moz-transition: all 0ms ease-in-out;
+-o-transition: all 0ms ease-in-out;
 transition: all 100ms ease-in-out;
+}*/
+
+div { 
+-webkit-transition: all 500ms ease-out 1s;
+-moz-transition: all 500ms ease-out 1s;
+-o-transition: all 500ms ease-out 1s;
+transition: all 500ms ease-out 1s;
 }
 
 
