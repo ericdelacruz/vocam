@@ -1,4 +1,5 @@
-﻿@model IEnumerable<SODAPortalMvcApplication.ViewModel.ReportViewModel>
+﻿@model PagedList.IPagedList<SODAPortalMvcApplication.ViewModel.ReportViewModel>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
     var user = Session["Username"].ToString();
@@ -16,43 +17,63 @@
 
     <div class="portalCont margin15">
         <h2>Report</h2>
-        @using(@Html.BeginForm("index","sales", FormMethod.Post))
-        { 
-        <div class="panel-body">
-            From Date: <input type="text" id="popupDatepicker" class="form-control" placeholder="Click to choose date" name="start"> 
-            To Date: <input type="text" id="popupDatepicker2" class="form-control" placeholder="Click to choose date" name="end"> 
-            <button class="btn btn-s btn-primary" type="submit">VIEW REPORT</button>
-        </div>
-        }
-         <p>&nbsp;</p>
-        <table class="portTable">
-
-            <thead>
-                <tr style="background-color:#fff;">
-                    <th>Purchase Date</th>
-                    <th>Contract End Date</th>
-                    <th>Company</th>
-                    <th>Full Name</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var subscriber in Model)
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><b>Search By</b></h3>
+                </div>
+                @using (@Html.BeginForm("index", "sales", FormMethod.Post))
                 {
+                    <label> From Date: </label> @Html.TextBox("df", ViewBag.df as string, new { @class = "form-control", placeholder = "Click to choose date", id = "popupDatepicker" })
+                    @*<input type="text" id="popupDatepicker" class="form-control" placeholder="Click to choose date" name="df">*@
+                    <label>To Date:</label>@Html.TextBox("dt", ViewBag.dt as string, new { @class = "form-control", placeholder = "Click to choose date", id = "popupDatepicker2" })
+                    @*<input type="text" id="popupDatepicker2" class="form-control" placeholder="Click to choose date" name="dt">*@
+                    <button class="btn btn-s btn-primary" type="submit">VIEW REPORT</button>
 
-                    <tr>
-                    <td width="170">@string.Format("{0:MMM dd yyyy}", subscriber.customer.DatePurchase)</td>
-                     <td width="170">@subscriber.customer.DateSubscriptionEnd</td>
-                     <td width="170">@subscriber.account.Company</td>
-                    <td width="200">@subscriber.account.FirstName +" "+@subscriber.account.LastName</td>
-                    <td width="100">@subscriber.salesCode.Sales_Code</td>
-                   </tr>
+                    <hr>
+                    <label>Sales Code:</label>@Html.TextBox("sc", ViewBag.sc as string, new { @class = "form-control", placeholder = "Enter sales code" })
+                    @*<input type="text" id="" class="form-control" placeholder="Enter sales code" name="sc"/>*@
+                    <button class="btn btn-s btn-primary" type="submit">VIEW REPORT</button>
                 }
-               
+            </div>
+       </div>
+            <p>&nbsp;</p>
+            <table class="portTable">
+
+                <thead>
+                    <tr style="background-color:#fff;">
+                        <td align="center">Full Name</td>
+                        <td align="center">Purchase Date</td>
+                        <td align="center">Contract End Date</td>
+                        <td align="center">Company</td>
+                        <td align="center">Country </td>
+                        <td align="center">Sales Code</td>
+                        <td align="center">No. of Licenses</td>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var subscriber in Model)
+                    {
+
+                        <tr>
+                            <td align="center" width="170" style="padding:5px;">@subscriber.account.FirstName @subscriber.account.LastName</td>
+                            <td align="center" width="170">@string.Format("{0:MMM dd yyyy}", subscriber.customer.DatePurchase)</td>
+                            <td align="center" width="170">@string.Format("{0:MMM dd yyyy}", subscriber.customer.DateSubscriptionEnd)</td>
+                            <td align="center" width="150">@subscriber.account.Company</td>
+                            <td align="center" width="150">@subscriber.account.Country</td>
+                            <td align="center" width="150">@subscriber.salesCode.Sales_Code</td>
+                            <td align="center" width="100">@subscriber.customer.Licenses</td>
+                        </tr>
+                    }
 
 
-            </tbody>
-        </table>
 
-    </div>
-</div>
+                </tbody>
+            </table>
+            <br />
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+            @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, dt = ViewBag.dt, df = ViewBag.df, sc = ViewBag.sc }))
+  </div>
+
