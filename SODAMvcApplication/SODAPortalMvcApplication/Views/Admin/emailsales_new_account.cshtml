@@ -1,0 +1,21 @@
+﻿@{
+    Layout = null;
+    var SalesName = ViewData["SalesName"] as string;
+    var Password = ViewData["Password"] as string;
+    var SalesCode = ViewData["SalesCode"] as string;
+    var portalUrl = "http://" + Request.Url.Host;
+   
+}
+<p>Hi @SalesName,</p>
+<p>&nbsp;</p>
+<p>
+    Your password is @Password.<br /><br />
+    You are currently assigned to Sales Code: @SalesCode <br />
+    Copy and paste the link below for Safety On Demand Login Page <br />
+    @portalUrl <br />
+</p>
+<p>&nbsp;</p>
+<p>
+    Regards,<br />
+    SafetyOnDemand.com
+</p>

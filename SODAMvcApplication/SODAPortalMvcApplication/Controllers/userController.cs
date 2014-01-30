@@ -43,6 +43,7 @@ namespace SODAPortalMvcApplication.Controllers
                         }
 
                         Session.Add("CustomerData", customer);
+                        //Check Customer Recurring profile if still active, 
                         foreach(var cust in customer)
                         {
                             if (getRemainingDays(cust.customer) == 0)
@@ -181,7 +182,7 @@ namespace SODAPortalMvcApplication.Controllers
                            join PPT in paypalClient.getPayPalTrans() on cust.PPId equals PPT.Id
                            join r in portalClient.getRegion() on p.RegionId equals r.Id
                            join contract in portalClient.getCustomerContract() on user.Id equals contract.UserId
-                           where PPT.Active == true
+                           where PPT.Active == true && r.DefaultSalesCodeId != salescode.Id
                            select new ViewModel.CustomerModel() { account = user, customer = cust, salesCode = salescode, salesPerson = sp, price = p, paypal = PPT, rejoin = r,contract = contract };
            
             var default_customer = from cust in portalClient.getCustomer()

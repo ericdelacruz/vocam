@@ -34,7 +34,7 @@
                 <table class="currentSub" border="0" cellspacing="0" cellpadding="0" style="width:100%;">
                     <tr class="currSubHead">
                         <td width="550" bgcolor="">DETAILS</td>
-                        @if(Model.First().contract  != null && Model.First().contract.DateEnd <= DateTime.Now)
+                        @if(Model.First().contract  != null && Model.First().contract.DateEnd <= Model.First().contract.DateStart)
                         {                                             
                              <td>CANCEL SUBSCRIPTION</td>
                         }

@@ -167,7 +167,8 @@ namespace SODAPortalMvcApplication.Controllers
                     Sales_Code = salesCode.First().Sales_Code,
                     DateEnd = salesCode.First().DateEnd
                 });
-                emailSales(account_New.Email);
+                //emailSales(account_New.Email);
+                emailSales(collection);
                 return RedirectToAction("Sales");
             }
             else
@@ -178,10 +179,26 @@ namespace SODAPortalMvcApplication.Controllers
             
         }
 
-        private void emailSales(string to)
+        private void emailSales(FormCollection collection)
         {
-            EmailHelper.SendEmail("test@sac-iis.com", to, "Verification Email", "Please click the link to process. " + Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("verify", "sales", new { code = EncDec.EncryptData(to) }));
+            string strSalesName = collection["FirstName"] + " " + collection["LastName"];
+            string strPassword = collection["Password"].Split(',')[0];
+            string SalesCodeId = collection["SalesCode"];
+            var salesCode = portalClient.getSaleCode().Where(sc => sc.Id == long.Parse(SalesCodeId)).First();
+
+            ViewData.Add("SalesName", strSalesName);
+            ViewData.Add("Password", strPassword);
+            ViewData.Add("SalesCode", salesCode.Sales_Code);
+            string from = Request.Url.Host != "localhost"? "no-reply" + Request.Url.Host.Replace("portal.", "@"):"no-reply@safeyondemand.com.au";
+            string to = collection["Email"].ToString();
+            string body = EmailHelper.ToHtml("emailsales_new_account", ViewData, this.ControllerContext);
+            EmailHelper.SendEmail(new System.Net.Mail.MailAddress(from, "Safety On Demand"), new System.Net.Mail.MailAddress(to), "Sales Account", body, true, null);
         }
+
+        //private void emailSales(string to)
+        //{
+        //    EmailHelper.SendEmail("test@sac-iis.com", to, "Verification Email", "Please click the link to process. " + Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("verify", "sales", new { code = EncDec.EncryptData(to) }));
+        //}
 
         public ActionResult editsale(long id)
         {

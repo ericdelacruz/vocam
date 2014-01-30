@@ -180,12 +180,14 @@ namespace SODAMvcApplication.Controllers
             var related = from titleCat in listSpecByCat
                           join region in portalClient.getRegion() on titleCat.RegionId equals region.Id
                           where region.WebsiteUrl.ToLower() == Request.Url.Host.ToLower()
+                          orderby titleCat.Title
                           select titleCat;
 
 
             return related.Count() > 0 ? related : from titleCat in listSpecByCat
                                                    join region in portalClient.getRegion() on titleCat.RegionId equals region.Id
                                                    where region.RegionName.ToLower() == defaultRegion.ToLower()
+                                                   orderby titleCat.Title
                                                    select titleCat; 
         }
 
