@@ -107,6 +107,8 @@ namespace SODAwcfService
         #endregion
         [OperationContract]
          IEnumerable<string> getPayPalCurrencies();
+        [OperationContract]
+        int addToLogsTable(Models.LogModel log);
     }
 
 }

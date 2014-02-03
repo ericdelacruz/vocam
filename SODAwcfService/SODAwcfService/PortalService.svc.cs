@@ -292,5 +292,24 @@ namespace SODAwcfService
         {
             return Enum.GetNames(typeof(PayPal.PayPalAPIInterfaceService.Model.CurrencyCodeType));
         }
+
+
+        public int addToLogsTable(Models.LogModel log)
+        {
+            int result = 0;
+            using (SodaDBDataSetTableAdapters.LogsTableTableAdapter logAdapter = new SodaDBDataSetTableAdapters.LogsTableTableAdapter())
+            {
+                try
+                {
+                    result = logAdapter.Insert(log.UserId, log.Action, log.PropertyName, log.Properties, log.Old_values, log.New_values, log.DateLog);
+                }
+                catch (Exception ex)
+                {
+
+                }
+
+            }
+            return result;
+        }
     }
 }

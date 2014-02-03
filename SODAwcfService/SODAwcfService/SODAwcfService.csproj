@@ -119,6 +119,7 @@
     <Compile Include="Models\CustomerContractModel.cs" />
     <Compile Include="Models\FreePPT.cs" />
     <Compile Include="Models\LicenseConsumption.cs" />
+    <Compile Include="Models\LogModel.cs" />
     <Compile Include="Models\PayPalModel.cs" />
     <Compile Include="Models\PayPalTrans.cs" />
     <Compile Include="Models\ResetPassword.cs" />
@@ -583,7 +584,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50615</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
