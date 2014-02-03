@@ -55,6 +55,7 @@ namespace SODAPortalMvcApplication.Controllers
             {
                 Session.Add("Username", collection["Username"]);
                 AccountServiceRef.Account account = accountClient.getAccount(collection["Username"]).First();
+                Session.Add("UserId", account.Id);
                 switch (account.Role)
                 {
                     case 0: return RedirectToAction("Index", "Admin");

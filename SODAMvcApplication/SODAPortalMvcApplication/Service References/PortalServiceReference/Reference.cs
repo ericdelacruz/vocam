@@ -920,6 +920,147 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="LogModel", Namespace="http://schemas.datacontract.org/2004/07/SODAwcfService.Models")]
+    [System.SerializableAttribute()]
+    public partial class LogModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ActionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime DateLogField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string New_valuesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Old_valuesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PropertiesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PropertyNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long UserIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Action {
+            get {
+                return this.ActionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ActionField, value) != true)) {
+                    this.ActionField = value;
+                    this.RaisePropertyChanged("Action");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime DateLog {
+            get {
+                return this.DateLogField;
+            }
+            set {
+                if ((this.DateLogField.Equals(value) != true)) {
+                    this.DateLogField = value;
+                    this.RaisePropertyChanged("DateLog");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string New_values {
+            get {
+                return this.New_valuesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.New_valuesField, value) != true)) {
+                    this.New_valuesField = value;
+                    this.RaisePropertyChanged("New_values");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Old_values {
+            get {
+                return this.Old_valuesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Old_valuesField, value) != true)) {
+                    this.Old_valuesField = value;
+                    this.RaisePropertyChanged("Old_values");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Properties {
+            get {
+                return this.PropertiesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PropertiesField, value) != true)) {
+                    this.PropertiesField = value;
+                    this.RaisePropertyChanged("Properties");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PropertyName {
+            get {
+                return this.PropertyNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PropertyNameField, value) != true)) {
+                    this.PropertyNameField = value;
+                    this.RaisePropertyChanged("PropertyName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long UserId {
+            get {
+                return this.UserIdField;
+            }
+            set {
+                if ((this.UserIdField.Equals(value) != true)) {
+                    this.UserIdField = value;
+                    this.RaisePropertyChanged("UserId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="PortalServiceReference.IPortalService")]
     public interface IPortalService {
@@ -1109,6 +1250,12 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/getPayPalCurrencies", ReplyAction="http://tempuri.org/IPortalService/getPayPalCurrenciesResponse")]
         System.Threading.Tasks.Task<string[]> getPayPalCurrenciesAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/addToLogsTable", ReplyAction="http://tempuri.org/IPortalService/addToLogsTableResponse")]
+        int addToLogsTable(SODAPortalMvcApplication.PortalServiceReference.LogModel log);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/addToLogsTable", ReplyAction="http://tempuri.org/IPortalService/addToLogsTableResponse")]
+        System.Threading.Tasks.Task<int> addToLogsTableAsync(SODAPortalMvcApplication.PortalServiceReference.LogModel log);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1384,6 +1531,14 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         
         public System.Threading.Tasks.Task<string[]> getPayPalCurrenciesAsync() {
             return base.Channel.getPayPalCurrenciesAsync();
+        }
+        
+        public int addToLogsTable(SODAPortalMvcApplication.PortalServiceReference.LogModel log) {
+            return base.Channel.addToLogsTable(log);
+        }
+        
+        public System.Threading.Tasks.Task<int> addToLogsTableAsync(SODAPortalMvcApplication.PortalServiceReference.LogModel log) {
+            return base.Channel.addToLogsTableAsync(log);
         }
     }
 }

@@ -121,4 +121,16 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfCustomerContract" nillable="true" type="tns:ArrayOfCustomerContract" />
+  <xs:complexType name="LogModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Action" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DateLog" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="New_values" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Old_values" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Properties" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PropertyName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserId" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LogModel" nillable="true" type="tns:LogModel" />
 </xs:schema>

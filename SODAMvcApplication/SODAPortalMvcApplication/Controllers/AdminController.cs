@@ -12,7 +12,7 @@ namespace SODAPortalMvcApplication.Controllers
         // GET: /Admin/
         private AccountServiceRef.AccountServiceClient account = new AccountServiceRef.AccountServiceClient();
         private PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
-        
+     
         public ActionResult Index(string df,string dt,string sc,int? page)
         {
             if (!isUserSessionActive())
@@ -128,46 +128,20 @@ namespace SODAPortalMvcApplication.Controllers
         {
             if (!account.isUserNameExists(collection["Email"]))
             {
-                account.addAccount(new AccountServiceRef.Account()
-                {
-                    USERNAME = collection["Email"],
-                    PASSWORD = collection["Password"].Split(',')[0],
-                    LastName = collection["LastName"],
-                    FirstName = collection["FirstName"],
-                    Email = collection["Email"],
-                    ContactNo = collection["ContactNo"],
-                    Company = collection["Company"],
-                    Role = 2,
-                    Status = 0
-                });
-                AccountServiceRef.Account account_New = account.getAccount(collection["Email"].ToString()).First();
-                
-                portalClient.addSalesPerson(new PortalServiceReference.SalesPerson(){
-                     UserId = account_New.Id,
-                     //Sales_Code = collection["SalesCode"],
-                      SalesCodeId = long.Parse(collection["SalesCode"]),
-                     RegionId = int.Parse(collection["Region"])
-                });
-                 
-                var salesCode = from salecode in portalClient.getSaleCode()
-                                where salecode.Id == long.Parse(collection["SalesCode"])
-                                select salecode;
+                AccountServiceRef.Account account_New = addSalesInAccount(collection);
 
-                var salesPerson = from salesperson in portalClient.getSalePerson()
-                                  where salesperson.UserId == account_New.Id && salesperson.SalesCodeId == long.Parse(collection["SalesCode"])
-                                  select salesperson;
-
-                portalClient.updateSalsCode(new PortalServiceReference.SalesCode()
+                var new_sales_person = new PortalServiceReference.SalesPerson()
                 {
-                    
-                    Id = salesCode.First().Id,
-                    Discount = decimal.Parse(collection["Discount"])/100,
-                    DateCreated = DateTime.Now,
-                    SalesPersonID = salesPerson.First().Id, 
-                    Sales_Code = salesCode.First().Sales_Code,
-                    DateEnd = salesCode.First().DateEnd
-                });
-                //emailSales(account_New.Email);
+                    UserId = account_New.Id,
+                    //Sales_Code = collection["SalesCode"],
+                    SalesCodeId = long.Parse(collection["SalesCode"]),
+                    RegionId = int.Parse(collection["Region"])
+                };
+                AuditLoggingHelper.LogCreateAction(long.Parse(Session["UserId"].ToString()), new_sales_person, portalClient);
+                portalClient.addSalesPerson(new_sales_person);
+
+                updateSalesCode(collection, account_New);
+               
                 emailSales(collection);
                 return RedirectToAction("Sales");
             }
@@ -177,6 +151,49 @@ namespace SODAPortalMvcApplication.Controllers
                return RedirectToAction("addSale");
             }
             
+        }
+
+        private void updateSalesCode(FormCollection collection, AccountServiceRef.Account account_New)
+        {
+            var salesCode = from salecode in portalClient.getSaleCode()
+                            where salecode.Id == long.Parse(collection["SalesCode"])
+                            select salecode;
+
+            var salesPerson = from salesperson in portalClient.getSalePerson()
+                              where salesperson.UserId == account_New.Id && salesperson.SalesCodeId == long.Parse(collection["SalesCode"])
+                              select salesperson;
+            var new_SalesCode = new PortalServiceReference.SalesCode()
+            {
+
+                Id = salesCode.First().Id,
+                Discount = decimal.Parse(collection["Discount"]) / 100,
+                DateCreated = DateTime.Now,
+                SalesPersonID = salesPerson.First().Id,
+                Sales_Code = salesCode.First().Sales_Code,
+                DateEnd = salesCode.First().DateEnd
+            };
+            AuditLoggingHelper.LogCreateAction(long.Parse(Session["UserId"].ToString()), new_SalesCode, portalClient);
+            portalClient.updateSalsCode(new_SalesCode);
+        }
+
+        private AccountServiceRef.Account addSalesInAccount(FormCollection collection)
+        {
+            var new_account = new AccountServiceRef.Account()
+            {
+                USERNAME = collection["Email"],
+                PASSWORD = collection["Password"].Split(',')[0],
+                LastName = collection["LastName"],
+                FirstName = collection["FirstName"],
+                Email = collection["Email"],
+                ContactNo = collection["ContactNo"],
+                Company = collection["Company"],
+                Role = 2,
+                Status = 0
+            };
+            AuditLoggingHelper.LogCreateAction(long.Parse(Session["UserId"].ToString()), new_account, portalClient);
+            account.addAccount(new_account);
+            AccountServiceRef.Account account_New = account.getAccount(collection["Email"].ToString()).First();
+            return account_New;
         }
 
         private void emailSales(FormCollection collection)
@@ -290,30 +307,21 @@ namespace SODAPortalMvcApplication.Controllers
         public ActionResult deletesale(int id)
         {
 
-            setSalepersonToNull(id);
+            UpdateSalesCodeSalepersonIdToNull(id);
+            var old_sp = portalClient.getSalePerson().Where(sp => sp.Id == id).First();
+            AuditLoggingHelper.LogDeleteAction(long.Parse(Session["UserId"].ToString()), old_sp, portalClient);
             portalClient.deleteSalePerson(id);
             return RedirectToAction("sales");
         }
 
-        private void setSalepersonToNull(int id)
+        private void UpdateSalesCodeSalepersonIdToNull(int id)
         {
-            var orig_SalesCode = from sc in portalClient.getSaleCode()
-                             
-                                 where sc.SalesPersonID == id
-                                 select sc;
+            var orig_SalesCode = portalClient.getSaleCode().Where(sc => sc.Id == id).FirstOrDefault();
+            orig_SalesCode.SalesPersonID = null;
+            portalClient.updateSalsCode(orig_SalesCode);                 
+                                 
 
-            if(orig_SalesCode.Count() > 0)
-            portalClient.updateSalsCode(new PortalServiceReference.SalesCode()
-            {
-
-                Id = orig_SalesCode.First().Id,
-                SalesPersonID = null,
-                DateCreated = orig_SalesCode.First().DateCreated,
-                Sales_Code = orig_SalesCode.First().Sales_Code,
-                Discount = orig_SalesCode.First().Discount,
-                DateEnd = orig_SalesCode.First().DateEnd
-
-            });
+            
         }
         #endregion
 
@@ -342,16 +350,20 @@ namespace SODAPortalMvcApplication.Controllers
             var priceList = from price in portalClient.getPrice()
                         where price.RegionId == int.Parse(collection["Region"])
                         select price;
-            if(priceList.Count() == 0)
-            portalClient.addPrice(new PortalServiceReference.Price()
+            if (priceList.Count() == 0)
             {
-                
-                RegionId = int.Parse(collection["Region"]),
-                PriceAmt = decimal.Parse(collection["Price"]),
-                 PriceAmt_B = decimal.Parse(collection["Price3"]),
-                 priceAmt_C = decimal.Parse(collection["Price6"]),
-                FirstMonthFree = collection["monthFree"] == "Yes"
-            });
+                var price = new PortalServiceReference.Price()
+                    {
+
+                        RegionId = int.Parse(collection["Region"]),
+                        PriceAmt = decimal.Parse(collection["Price"]),
+                        PriceAmt_B = decimal.Parse(collection["Price3"]),
+                        priceAmt_C = decimal.Parse(collection["Price6"]),
+                        FirstMonthFree = collection["monthFree"] == "Yes"
+                    };
+                AuditLoggingHelper.LogCreateAction(long.Parse(Session["UserId"].ToString()), price, portalClient);
+                portalClient.addPrice(price);
+            }
             else
             {
                 ModelState.AddModelError("", "There is already a price assign to the selected Region");
@@ -374,7 +386,7 @@ namespace SODAPortalMvcApplication.Controllers
         public ActionResult editprice(int id, FormCollection collection)
         {
 
-            portalClient.updatePrice(new PortalServiceReference.Price()
+            var new_price = new PortalServiceReference.Price()
             {
                 Id = id,
                 //RegionName = collection["Region"],
@@ -386,12 +398,18 @@ namespace SODAPortalMvcApplication.Controllers
 
                 Active = true
 
-            });
+            };
+            portalClient.updatePrice(new_price);
             return RedirectToAction("price");
         }
         public ActionResult deleteprice(int id)
         {
+
+            var old_price = portalClient.getPrice().Where(p=>p.Id==id).FirstOrDefault();
+            AuditLoggingHelper.LogDeleteAction(long.Parse(Session["UserId"].ToString()), old_price, portalClient);
             portalClient.deletePrice(id);
+            
+
             return RedirectToAction("price");
         }
     #endregion
@@ -467,8 +485,12 @@ namespace SODAPortalMvcApplication.Controllers
         
         public ActionResult deletesalescode(int id)
         {
-            if(!hasSalesCodeinSP(id))
-            portalClient.deleteSalesCode(id);
+            if (!hasSalesCodeinSP(id))
+            {
+                var old_sc = portalClient.getSaleCode().Where(sc => sc.Id == id).FirstOrDefault();
+                AuditLoggingHelper.LogDeleteAction(long.Parse(Session["UserId"].ToString()), old_sc, portalClient);
+                portalClient.deleteSalesCode(id);
+            }
             else
             {
                 //error: salescode currently assigned to error
@@ -558,7 +580,8 @@ namespace SODAPortalMvcApplication.Controllers
                     initAddRegionViewBag();
                     return View();
                 }
-                portalClient.addRegion(new PortalServiceReference.Region()
+
+                var new_region = new PortalServiceReference.Region()
                 {
                     RegionName = collection["RegionName"],
                     Currency = collection["currency"],
@@ -570,20 +593,16 @@ namespace SODAPortalMvcApplication.Controllers
                     DefaultSalesCodeId = long.Parse(collection["defaultSalesCode"]),
                     ServiceChargeCode = collection["serviceChargeCode"]
 
-                });
+                };
+                AuditLoggingHelper.LogCreateAction(long.Parse(Session["UserId"].ToString()), new_region, portalClient);
+                portalClient.addRegion(new_region);
                 
 
             }
             else
             {
                 ModelState.AddModelError("", "Region Name already exists");
-                var currencyList = portalClient.getPayPalCurrencies();
-                ViewBag.CurrencyList = currencyList.Select(c => new SelectListItem()
-                {
-                    Text = c,
-                    Value = c,
-                    Selected = c == collection["currency"]
-                });
+                initAddRegionViewBag();
                 return View();
             }
             return RedirectToAction("region");
@@ -684,13 +703,16 @@ namespace SODAPortalMvcApplication.Controllers
             {
                 TempData["delRegionError"] = "Cannot delete region because it is currently assigned to a Sales Person (id:" + sales.First().Id;
             }
-            else if(price.Count() >0)
+            else if (price.Count() > 0)
             {
                 TempData["delRegionError"] = "Cannot delete region because it is currently assigned to a Price (id:" + price.First().Id.ToString();
             }
             else
-            portalClient.deleteRegion(id);
-
+            {
+                var old_region = portalClient.getRegion().Where(r => r.Id == id);
+                AuditLoggingHelper.LogDeleteAction(long.Parse(Session["UserId"].ToString()), old_region, portalClient);
+                portalClient.deleteRegion(id);
+            }
             return RedirectToAction("region");
         }
         #endregion  
@@ -721,8 +743,9 @@ namespace SODAPortalMvcApplication.Controllers
             
            var user = from accnt in account.getAccount(collection["Email"].Trim())
                       select accnt;
-            if(user.Count() == 0)
-            account.addAccount(new AccountServiceRef.Account()
+           if (user.Count() == 0)
+           {
+               var new_account = new AccountServiceRef.Account()
             {
                 USERNAME = collection["Email"],
                 PASSWORD = collection["Password"],
@@ -735,12 +758,17 @@ namespace SODAPortalMvcApplication.Controllers
                 Address = collection["Address"],
                 Role = 1,
                 Status = 0
-            });
-            else
-            {
-                ModelState.AddModelError("", "Email already existing");
-                return View(collection);
-            }
+            };
+               
+               AuditLoggingHelper.LogCreateAction(long.Parse(Session["UserId"].ToString()), new_account, portalClient);
+               
+               account.addAccount(new_account);
+           }
+           else
+           {
+               ModelState.AddModelError("", "Email already existing");
+               return View(collection);
+           }
             return RedirectToAction("marketer");
         }
 
@@ -772,7 +800,7 @@ namespace SODAPortalMvcApplication.Controllers
                            select accnt;
             if (marAccnt.Count() > 0)
             {
-                account.updateAccount(new AccountServiceRef.Account()
+                var new_account = new AccountServiceRef.Account()
                 {
                     USERNAME = collection["Email"],
                     PASSWORD = marAccnt.First().PASSWORD,
@@ -781,12 +809,14 @@ namespace SODAPortalMvcApplication.Controllers
                     Email = collection["Email"],
                     ContactNo = collection["ContactNo"],
                     Company = collection["Company"],
-                   // Birthdate = birthdate,
+                    // Birthdate = birthdate,
                     Address = collection["Address"],
                     Role = 1,
                     Status = 0,
                     Id = marAccnt.First().Id
-                });
+                };
+                AuditLoggingHelper.LogUpdateAction(long.Parse(Session["UserId"].ToString()), marAccnt, new_account, portalClient);
+                account.updateAccount(new_account);
 
                 return RedirectToAction("marketer");
             }
@@ -805,8 +835,10 @@ namespace SODAPortalMvcApplication.Controllers
                            where accnt.Role == 1 && accnt.Id == id
                            select accnt;
             if (marAccnt.Count() > 0)
+            {
+                AuditLoggingHelper.LogDeleteAction(long.Parse(Session["UserId"].ToString()), marAccnt, portalClient);
                 account.deleteAccount(marAccnt.First().USERNAME);
-
+            }
             return RedirectToAction("marketer");
         }
         #endregion
