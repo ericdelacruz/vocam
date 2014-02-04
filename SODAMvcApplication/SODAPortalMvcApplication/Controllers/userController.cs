@@ -50,6 +50,7 @@ namespace SODAPortalMvcApplication.Controllers
                             {
                                 if(isPayPalRecurActive(cust.paypal.ECTransID))
                                 {
+                                    var old_customer = cust.customer;
                                     switch(cust.customer.RecurringType)
                                     {
                                         case 1: cust.customer.DateSubscriptionEnd = cust.customer.DateSubscriptionEnd.Value.AddMonths(1);
@@ -59,6 +60,7 @@ namespace SODAPortalMvcApplication.Controllers
                                         case 3: cust.customer.DateSubscriptionEnd = cust.customer.DateSubscriptionEnd.Value.AddMonths(6);
                                             break;
                                     }
+                                    AuditLoggingHelper.LogUpdateAction(Session["Username"].ToString(), old_customer, cust.customer, portalClient);
                                     portalClient.updateCustomer(cust.customer);
                                 }
                                 
@@ -557,15 +559,18 @@ namespace SODAPortalMvcApplication.Controllers
                      PPId =  paypalClient.getPayPalTrans().Select(p=>p).Where(p=>p.ECTransID == result.Split(';')[0]).First().Id
                 });
                 if (Session["NewAccount"] != null)
-                portalClient.addCustomerContract(new PortalServiceReference.CustomerContract()
                 {
-                    //DateEnd = DateTime.Now.AddMonths(6),
-                    DateEnd = (Session["ClientDateTime"] as Nullable<DateTime>).Value.AddMonths(6),
-                    //DateStart = DateTime.Now,
-                    DateStart = (Session["ClientDateTime"] as Nullable<DateTime>).Value,
-                    UserId = accnt.First().Id
-                });
-
+                    var new_cust_contract = new PortalServiceReference.CustomerContract()
+                    {
+                        //DateEnd = DateTime.Now.AddMonths(6),
+                        DateEnd = (Session["ClientDateTime"] as Nullable<DateTime>).Value.AddMonths(6),
+                        //DateStart = DateTime.Now,
+                        DateStart = (Session["ClientDateTime"] as Nullable<DateTime>).Value,
+                        UserId = accnt.First().Id
+                    };
+                    AuditLoggingHelper.LogCreateAction(Session["Username"].ToString(), new_cust_contract, portalClient);
+                    portalClient.addCustomerContract(new_cust_contract);
+                }
                 return RedirectToAction("paymentstatus",new{stat="success"});
             
         }
@@ -626,8 +631,10 @@ namespace SODAPortalMvcApplication.Controllers
                  customRecord.DateSubscriptionEnd = DateTime.Now;
 
                  if (paypalClient.cancelSubscription(transid))
+                 {
+                     AuditLoggingHelper.LogUpdateAction(Session["Username"].ToString(), customerViewModel.First().customer, customRecord, portalClient);
                      portalClient.updateCustomer(customRecord);
-
+                 }
                  return RedirectToAction("index");
                  
              }

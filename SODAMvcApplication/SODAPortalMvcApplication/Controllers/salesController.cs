@@ -113,7 +113,7 @@ namespace SODAPortalMvcApplication.Controllers
             {
                 try
                 {
-                    account.addAccount(new AccountServiceRef.Account()
+                    var new_user = new AccountServiceRef.Account()
                     {
                         USERNAME = model.Email,
                         PASSWORD = model.Password.Split(',')[0],
@@ -125,7 +125,9 @@ namespace SODAPortalMvcApplication.Controllers
                         FirstName = model.FirtName,
                         LastName = model.LastName,
 
-                    });
+                    };
+                    AuditLoggingHelper.LogCreateAction(Session["Username"].ToString(), new_user, portalClient);
+                    account.addAccount(new_user);
 
                     sendEmailVerification(model);
                     TempData["EmailSent"] = true;

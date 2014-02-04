@@ -948,7 +948,7 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         private string PropertyNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private long UserIdField;
+        private string UsernameField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -1039,14 +1039,14 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public long UserId {
+        public string Username {
             get {
-                return this.UserIdField;
+                return this.UsernameField;
             }
             set {
-                if ((this.UserIdField.Equals(value) != true)) {
-                    this.UserIdField = value;
-                    this.RaisePropertyChanged("UserId");
+                if ((object.ReferenceEquals(this.UsernameField, value) != true)) {
+                    this.UsernameField = value;
+                    this.RaisePropertyChanged("Username");
                 }
             }
         }

@@ -56,6 +56,7 @@ namespace SODAPortalMvcApplication.Controllers
                 Session.Add("Username", collection["Username"]);
                 AccountServiceRef.Account account = accountClient.getAccount(collection["Username"]).First();
                 Session.Add("UserId", account.Id);
+                AuditLoggingHelper.LogAuthenticationAction(Session["Username"].ToString(), true, portaClient);
                 switch (account.Role)
                 {
                     case 0: return RedirectToAction("Index", "Admin");
@@ -104,21 +105,24 @@ namespace SODAPortalMvcApplication.Controllers
             {
                 try
                 {
-                    accountClient.addAccount(new AccountServiceRef.Account(){
-                         USERNAME = model.Email,
-                         PASSWORD = model.Password.Split(',')[0],
-                         Role = 3,
-                         Status = 1,
-                         Company = model.Company,
-                         ContactNo = model.Contact,
-                         Email = model.Email,
-                         FirstName = model.FirtName,
-                         LastName = model.LastName,
-                         Country = collection["country"],
-                          CompanyUrl = model.CompanyUrl
-                          
-                                                     
-                    });
+                    var new_cust = new AccountServiceRef.Account()
+                    {
+                        USERNAME = model.Email,
+                        PASSWORD = model.Password.Split(',')[0],
+                        Role = 3,
+                        Status = 1,
+                        Company = model.Company,
+                        ContactNo = model.Contact,
+                        Email = model.Email,
+                        FirstName = model.FirtName,
+                        LastName = model.LastName,
+                        Country = collection["country"],
+                        CompanyUrl = model.CompanyUrl
+
+
+                    };
+                    AuditLoggingHelper.LogCreateAction(new_cust.USERNAME, new_cust, portaClient);
+                    accountClient.addAccount(new_cust);
 
                     //sendEmailVerification(model);
                     TempData["EmailSent"] = true;
@@ -254,7 +258,7 @@ namespace SODAPortalMvcApplication.Controllers
         {
             if (Session["Username"] == null)
                 return RedirectToAction("index");
-
+            AuditLoggingHelper.LogAuthenticationAction(Session["Username"].ToString(), false, portaClient);
             accountClient.LogOff(username);
             Session.RemoveAll();
             return RedirectToAction("index");

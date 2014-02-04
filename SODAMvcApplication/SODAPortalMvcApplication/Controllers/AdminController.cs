@@ -137,7 +137,7 @@ namespace SODAPortalMvcApplication.Controllers
                     SalesCodeId = long.Parse(collection["SalesCode"]),
                     RegionId = int.Parse(collection["Region"])
                 };
-                AuditLoggingHelper.LogCreateAction(long.Parse(Session["UserId"].ToString()), new_sales_person, portalClient);
+                AuditLoggingHelper.LogCreateAction(Session["Username"].ToString(), new_sales_person, portalClient);
                 portalClient.addSalesPerson(new_sales_person);
 
                 updateSalesCode(collection, account_New);
@@ -172,7 +172,7 @@ namespace SODAPortalMvcApplication.Controllers
                 Sales_Code = salesCode.First().Sales_Code,
                 DateEnd = salesCode.First().DateEnd
             };
-            AuditLoggingHelper.LogCreateAction(long.Parse(Session["UserId"].ToString()), new_SalesCode, portalClient);
+            AuditLoggingHelper.LogCreateAction(Session["Username"].ToString(), new_SalesCode, portalClient);
             portalClient.updateSalsCode(new_SalesCode);
         }
 
@@ -190,7 +190,7 @@ namespace SODAPortalMvcApplication.Controllers
                 Role = 2,
                 Status = 0
             };
-            AuditLoggingHelper.LogCreateAction(long.Parse(Session["UserId"].ToString()), new_account, portalClient);
+            AuditLoggingHelper.LogCreateAction(Session["Username"].ToString(), new_account, portalClient);
             account.addAccount(new_account);
             AccountServiceRef.Account account_New = account.getAccount(collection["Email"].ToString()).First();
             return account_New;
@@ -309,14 +309,14 @@ namespace SODAPortalMvcApplication.Controllers
 
             UpdateSalesCodeSalepersonIdToNull(id);
             var old_sp = portalClient.getSalePerson().Where(sp => sp.Id == id).First();
-            AuditLoggingHelper.LogDeleteAction(long.Parse(Session["UserId"].ToString()), old_sp, portalClient);
+            AuditLoggingHelper.LogDeleteAction(Session["Username"].ToString(), old_sp, portalClient);
             portalClient.deleteSalePerson(id);
             return RedirectToAction("sales");
         }
 
         private void UpdateSalesCodeSalepersonIdToNull(int id)
         {
-            var orig_SalesCode = portalClient.getSaleCode().Where(sc => sc.Id == id).FirstOrDefault();
+            var orig_SalesCode = portalClient.getSaleCode().Where(sc => sc.SalesPersonID == id).FirstOrDefault();
             orig_SalesCode.SalesPersonID = null;
             portalClient.updateSalsCode(orig_SalesCode);                 
                                  
@@ -361,7 +361,7 @@ namespace SODAPortalMvcApplication.Controllers
                         priceAmt_C = decimal.Parse(collection["Price6"]),
                         FirstMonthFree = collection["monthFree"] == "Yes"
                     };
-                AuditLoggingHelper.LogCreateAction(long.Parse(Session["UserId"].ToString()), price, portalClient);
+                AuditLoggingHelper.LogCreateAction(Session["Username"].ToString(), price, portalClient);
                 portalClient.addPrice(price);
             }
             else
@@ -406,7 +406,7 @@ namespace SODAPortalMvcApplication.Controllers
         {
 
             var old_price = portalClient.getPrice().Where(p=>p.Id==id).FirstOrDefault();
-            AuditLoggingHelper.LogDeleteAction(long.Parse(Session["UserId"].ToString()), old_price, portalClient);
+            AuditLoggingHelper.LogDeleteAction(Session["Username"].ToString(), old_price, portalClient);
             portalClient.deletePrice(id);
             
 
@@ -436,12 +436,14 @@ namespace SODAPortalMvcApplication.Controllers
         {
             if (portalClient.getSaleCode().Select(sales => sales).Where(sales => sales.Sales_Code.ToLower() == collection["SalesCode"].ToLower()).Count() == 0)
             {
-                portalClient.addSalesCode(new PortalServiceReference.SalesCode()
+                var new_sc = new PortalServiceReference.SalesCode()
                     {
                         DateCreated = DateTime.Now,
                         Discount = 0,
                         Sales_Code = collection["SalesCode"]
-                    });
+                    };
+                AuditLoggingHelper.LogCreateAction(Session["Username"].ToString(), new_sc, portalClient);
+                portalClient.addSalesCode(new_sc);
                 return RedirectToAction("salescode");
             }
             else
@@ -469,16 +471,18 @@ namespace SODAPortalMvcApplication.Controllers
             var salesCode_orig = from salesCode in portalClient.getSaleCode()
                                  where salesCode.Id == id
                                  select salesCode;
-            portalClient.updateSalsCode(new PortalServiceReference.SalesCode()
+            var new_sc = new PortalServiceReference.SalesCode()
             {
-                 Id = id,
-                DateCreated  =salesCode_orig.First().DateCreated,
+                Id = id,
+                DateCreated = salesCode_orig.First().DateCreated,
                 Discount = salesCode_orig.First().Discount,
                 SalesPersonID = salesCode_orig.First().SalesPersonID,
                 DateEnd = salesCode_orig.First().DateEnd,
-                     
+
                 Sales_Code = collection["SalesCode"]
-            });
+            };
+            AuditLoggingHelper.LogUpdateAction(Session["Username"].ToString(), salesCode_orig.First(), new_sc, portalClient);
+            portalClient.updateSalsCode(new_sc);
 
             return RedirectToAction("salescode");
         }
@@ -488,7 +492,7 @@ namespace SODAPortalMvcApplication.Controllers
             if (!hasSalesCodeinSP(id))
             {
                 var old_sc = portalClient.getSaleCode().Where(sc => sc.Id == id).FirstOrDefault();
-                AuditLoggingHelper.LogDeleteAction(long.Parse(Session["UserId"].ToString()), old_sc, portalClient);
+                AuditLoggingHelper.LogDeleteAction(Session["Username"].ToString(), old_sc, portalClient);
                 portalClient.deleteSalesCode(id);
             }
             else
@@ -594,7 +598,7 @@ namespace SODAPortalMvcApplication.Controllers
                     ServiceChargeCode = collection["serviceChargeCode"]
 
                 };
-                AuditLoggingHelper.LogCreateAction(long.Parse(Session["UserId"].ToString()), new_region, portalClient);
+                AuditLoggingHelper.LogCreateAction(Session["Username"].ToString(), new_region, portalClient);
                 portalClient.addRegion(new_region);
                 
 
@@ -709,8 +713,8 @@ namespace SODAPortalMvcApplication.Controllers
             }
             else
             {
-                var old_region = portalClient.getRegion().Where(r => r.Id == id);
-                AuditLoggingHelper.LogDeleteAction(long.Parse(Session["UserId"].ToString()), old_region, portalClient);
+                var old_region = portalClient.getRegion().Where(r => r.Id == id).First();
+                AuditLoggingHelper.LogDeleteAction(Session["Username"].ToString(), old_region, portalClient);
                 portalClient.deleteRegion(id);
             }
             return RedirectToAction("region");
@@ -760,7 +764,7 @@ namespace SODAPortalMvcApplication.Controllers
                 Status = 0
             };
                
-               AuditLoggingHelper.LogCreateAction(long.Parse(Session["UserId"].ToString()), new_account, portalClient);
+               AuditLoggingHelper.LogCreateAction(Session["Username"].ToString(), new_account, portalClient);
                
                account.addAccount(new_account);
            }
@@ -815,7 +819,7 @@ namespace SODAPortalMvcApplication.Controllers
                     Status = 0,
                     Id = marAccnt.First().Id
                 };
-                AuditLoggingHelper.LogUpdateAction(long.Parse(Session["UserId"].ToString()), marAccnt, new_account, portalClient);
+                AuditLoggingHelper.LogUpdateAction(Session["Username"].ToString(), marAccnt, new_account, portalClient);
                 account.updateAccount(new_account);
 
                 return RedirectToAction("marketer");
@@ -836,7 +840,7 @@ namespace SODAPortalMvcApplication.Controllers
                            select accnt;
             if (marAccnt.Count() > 0)
             {
-                AuditLoggingHelper.LogDeleteAction(long.Parse(Session["UserId"].ToString()), marAccnt, portalClient);
+                AuditLoggingHelper.LogDeleteAction(Session["Username"].ToString(), marAccnt.First(), portalClient);
                 account.deleteAccount(marAccnt.First().USERNAME);
             }
             return RedirectToAction("marketer");

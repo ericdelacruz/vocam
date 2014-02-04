@@ -70,8 +70,6 @@ namespace SODAwcfService {
         
         private global::System.Data.DataRelation relationFK_FreePPTFileNames_ToRegion;
         
-        private global::System.Data.DataRelation relationFK_LogsTable_ToAccount;
-        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -514,7 +512,6 @@ namespace SODAwcfService {
             this.relationFK_ResetPassword_ToAccount = this.Relations["FK_ResetPassword_ToAccount"];
             this.relationFK_Specific_ToRegion = this.Relations["FK_Specific_ToRegion"];
             this.relationFK_FreePPTFileNames_ToRegion = this.Relations["FK_FreePPTFileNames_ToRegion"];
-            this.relationFK_LogsTable_ToAccount = this.Relations["FK_LogsTable_ToAccount"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -591,10 +588,6 @@ namespace SODAwcfService {
                         this.tableRegion.IdColumn}, new global::System.Data.DataColumn[] {
                         this.tableFreePPTFileNames.RegionIdColumn}, false);
             this.Relations.Add(this.relationFK_FreePPTFileNames_ToRegion);
-            this.relationFK_LogsTable_ToAccount = new global::System.Data.DataRelation("FK_LogsTable_ToAccount", new global::System.Data.DataColumn[] {
-                        this.tableAccounts.IdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableLogsTable.UserIdColumn}, false);
-            this.Relations.Add(this.relationFK_LogsTable_ToAccount);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5175,8 +5168,6 @@ namespace SODAwcfService {
             
             private global::System.Data.DataColumn columnId;
             
-            private global::System.Data.DataColumn columnUserId;
-            
             private global::System.Data.DataColumn columnAction;
             
             private global::System.Data.DataColumn columnPropertyName;
@@ -5188,6 +5179,8 @@ namespace SODAwcfService {
             private global::System.Data.DataColumn columnNew_values;
             
             private global::System.Data.DataColumn columnDateLog;
+            
+            private global::System.Data.DataColumn columnUsername;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -5227,14 +5220,6 @@ namespace SODAwcfService {
             public global::System.Data.DataColumn IdColumn {
                 get {
                     return this.columnId;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn UserIdColumn {
-                get {
-                    return this.columnUserId;
                 }
             }
             
@@ -5288,6 +5273,14 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn UsernameColumn {
+                get {
+                    return this.columnUsername;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -5323,20 +5316,17 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public LogsTableRow AddLogsTableRow(AccountsRow parentAccountsRowByFK_LogsTable_ToAccount, string Action, string PropertyName, string Properties, string Old_values, string New_values, System.DateTime DateLog) {
+            public LogsTableRow AddLogsTableRow(string Action, string PropertyName, string Properties, string Old_values, string New_values, System.DateTime DateLog, string Username) {
                 LogsTableRow rowLogsTableRow = ((LogsTableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        null,
                         null,
                         Action,
                         PropertyName,
                         Properties,
                         Old_values,
                         New_values,
-                        DateLog};
-                if ((parentAccountsRowByFK_LogsTable_ToAccount != null)) {
-                    columnValuesArray[1] = parentAccountsRowByFK_LogsTable_ToAccount[0];
-                }
+                        DateLog,
+                        Username};
                 rowLogsTableRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowLogsTableRow);
                 return rowLogsTableRow;
@@ -5367,13 +5357,13 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
                 this.columnId = base.Columns["Id"];
-                this.columnUserId = base.Columns["UserId"];
                 this.columnAction = base.Columns["Action"];
                 this.columnPropertyName = base.Columns["PropertyName"];
                 this.columnProperties = base.Columns["Properties"];
                 this.columnOld_values = base.Columns["Old_values"];
                 this.columnNew_values = base.Columns["New_values"];
                 this.columnDateLog = base.Columns["DateLog"];
+                this.columnUsername = base.Columns["Username"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5381,8 +5371,6 @@ namespace SODAwcfService {
             private void InitClass() {
                 this.columnId = new global::System.Data.DataColumn("Id", typeof(long), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnId);
-                this.columnUserId = new global::System.Data.DataColumn("UserId", typeof(long), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnUserId);
                 this.columnAction = new global::System.Data.DataColumn("Action", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAction);
                 this.columnPropertyName = new global::System.Data.DataColumn("PropertyName", typeof(string), null, global::System.Data.MappingType.Element);
@@ -5395,6 +5383,8 @@ namespace SODAwcfService {
                 base.Columns.Add(this.columnNew_values);
                 this.columnDateLog = new global::System.Data.DataColumn("DateLog", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDateLog);
+                this.columnUsername = new global::System.Data.DataColumn("Username", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUsername);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -5403,7 +5393,6 @@ namespace SODAwcfService {
                 this.columnId.AllowDBNull = false;
                 this.columnId.ReadOnly = true;
                 this.columnId.Unique = true;
-                this.columnUserId.AllowDBNull = false;
                 this.columnAction.AllowDBNull = false;
                 this.columnAction.MaxLength = 50;
                 this.columnPropertyName.MaxLength = 50;
@@ -5411,6 +5400,8 @@ namespace SODAwcfService {
                 this.columnOld_values.MaxLength = 1000;
                 this.columnNew_values.MaxLength = 1000;
                 this.columnDateLog.AllowDBNull = false;
+                this.columnUsername.AllowDBNull = false;
+                this.columnUsername.MaxLength = 50;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6014,17 +6005,6 @@ namespace SODAwcfService {
                 }
                 else {
                     return ((ResetPasswordRow[])(base.GetChildRows(this.Table.ChildRelations["FK_ResetPassword_ToAccount"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public LogsTableRow[] GetLogsTableRows() {
-                if ((this.Table.ChildRelations["FK_LogsTable_ToAccount"] == null)) {
-                    return new LogsTableRow[0];
-                }
-                else {
-                    return ((LogsTableRow[])(base.GetChildRows(this.Table.ChildRelations["FK_LogsTable_ToAccount"])));
                 }
             }
         }
@@ -7784,17 +7764,6 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public long UserId {
-                get {
-                    return ((long)(this[this.tableLogsTable.UserIdColumn]));
-                }
-                set {
-                    this[this.tableLogsTable.UserIdColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string Action {
                 get {
                     return ((string)(this[this.tableLogsTable.ActionColumn]));
@@ -7808,11 +7777,11 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string PropertyName {
                 get {
-                    try {
-                        return ((string)(this[this.tableLogsTable.PropertyNameColumn]));
+                    if (this.IsPropertyNameNull()) {
+                        return string.Empty;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PropertyName\' in table \'LogsTable\' is DBNull.", e);
+                    else {
+                        return ((string)(this[this.tableLogsTable.PropertyNameColumn]));
                     }
                 }
                 set {
@@ -7840,11 +7809,11 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string Old_values {
                 get {
-                    try {
-                        return ((string)(this[this.tableLogsTable.Old_valuesColumn]));
+                    if (this.IsOld_valuesNull()) {
+                        return null;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Old_values\' in table \'LogsTable\' is DBNull.", e);
+                    else {
+                        return ((string)(this[this.tableLogsTable.Old_valuesColumn]));
                     }
                 }
                 set {
@@ -7856,11 +7825,11 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string New_values {
                 get {
-                    try {
-                        return ((string)(this[this.tableLogsTable.New_valuesColumn]));
+                    if (this.IsNew_valuesNull()) {
+                        return null;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'New_values\' in table \'LogsTable\' is DBNull.", e);
+                    else {
+                        return ((string)(this[this.tableLogsTable.New_valuesColumn]));
                     }
                 }
                 set {
@@ -7881,12 +7850,12 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public AccountsRow AccountsRow {
+            public string Username {
                 get {
-                    return ((AccountsRow)(this.GetParentRow(this.Table.ParentRelations["FK_LogsTable_ToAccount"])));
+                    return ((string)(this[this.tableLogsTable.UsernameColumn]));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_LogsTable_ToAccount"]);
+                    this[this.tableLogsTable.UsernameColumn] = value;
                 }
             }
             
@@ -14067,26 +14036,26 @@ WHERE        (CategoryId = @CategoryId)";
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "LogsTable";
             tableMapping.ColumnMappings.Add("Id", "Id");
-            tableMapping.ColumnMappings.Add("UserId", "UserId");
             tableMapping.ColumnMappings.Add("Action", "Action");
             tableMapping.ColumnMappings.Add("PropertyName", "PropertyName");
             tableMapping.ColumnMappings.Add("Properties", "Properties");
             tableMapping.ColumnMappings.Add("Old_values", "Old_values");
             tableMapping.ColumnMappings.Add("New_values", "New_values");
             tableMapping.ColumnMappings.Add("DateLog", "DateLog");
+            tableMapping.ColumnMappings.Add("Username", "Username");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [logstable] WHERE (([Id] = @Original_Id))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [LogsTable] WHERE (([Id] = @Original_Id))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [logstable] ([UserId], [Action], [PropertyName], [Properties], [Old_v" +
-                "alues], [New_values], [DateLog]) VALUES (@UserId, @Action, @PropertyName, @Prope" +
-                "rties, @Old_values, @New_values, @DateLog)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [LogsTable] ([Username], [Action], [PropertyName], [Properties], [Old" +
+                "_values], [New_values], [DateLog]) VALUES (@Username, @Action, @PropertyName, @P" +
+                "roperties, @Old_values, @New_values, @DateLog)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UserId", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UserId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Username", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Username", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Action", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Action", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PropertyName", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PropertyName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Properties", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Properties", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -14095,11 +14064,11 @@ WHERE        (CategoryId = @CategoryId)";
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DateLog", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DateLog", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE [logstable] SET [UserId] = @UserId, [Action] = @Action, [PropertyName] = @" +
-                "PropertyName, [Properties] = @Properties, [Old_values] = @Old_values, [New_value" +
-                "s] = @New_values, [DateLog] = @DateLog WHERE (([Id] = @Original_Id))";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [LogsTable] SET [Username] = @Username, [Action] = @Action, [PropertyName]" +
+                " = @PropertyName, [Properties] = @Properties, [Old_values] = @Old_values, [New_v" +
+                "alues] = @New_values, [DateLog] = @DateLog WHERE (([Id] = @Original_Id))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UserId", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UserId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Username", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Username", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Action", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Action", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PropertyName", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PropertyName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Properties", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Properties", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -14122,7 +14091,7 @@ WHERE        (CategoryId = @CategoryId)";
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "select * from logstable";
+            this._commandCollection[0].CommandText = "SELECT * FROM LogsTable";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -14205,8 +14174,13 @@ WHERE        (CategoryId = @CategoryId)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(long UserId, string Action, string PropertyName, string Properties, string Old_values, string New_values, System.DateTime DateLog) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((long)(UserId));
+        public virtual int Insert(string Username, string Action, string PropertyName, string Properties, string Old_values, string New_values, System.DateTime DateLog) {
+            if ((Username == null)) {
+                throw new global::System.ArgumentNullException("Username");
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(Username));
+            }
             if ((Action == null)) {
                 throw new global::System.ArgumentNullException("Action");
             }
@@ -14258,8 +14232,13 @@ WHERE        (CategoryId = @CategoryId)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(long UserId, string Action, string PropertyName, string Properties, string Old_values, string New_values, System.DateTime DateLog, long Original_Id) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((long)(UserId));
+        public virtual int Update(string Username, string Action, string PropertyName, string Properties, string Old_values, string New_values, System.DateTime DateLog, long Original_Id) {
+            if ((Username == null)) {
+                throw new global::System.ArgumentNullException("Username");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(Username));
+            }
             if ((Action == null)) {
                 throw new global::System.ArgumentNullException("Action");
             }

@@ -129,7 +129,7 @@
       <xs:element minOccurs="0" name="Old_values" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Properties" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PropertyName" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="UserId" type="xs:long" />
+      <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="LogModel" nillable="true" type="tns:LogModel" />

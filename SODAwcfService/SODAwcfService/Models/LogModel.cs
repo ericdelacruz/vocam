@@ -7,7 +7,7 @@ namespace SODAwcfService.Models
 {
     public class LogModel
     {
-        public long UserId { get; set; }
+        //public long UserId { get; set; }
 
         public string Action { get; set; }
 
@@ -20,5 +20,7 @@ namespace SODAwcfService.Models
         public string New_values { get; set; }
 
         public DateTime DateLog { get; set; }
+
+        public string Username { get; set; }
     }
 }

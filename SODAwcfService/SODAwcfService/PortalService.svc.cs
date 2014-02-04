@@ -301,7 +301,7 @@ namespace SODAwcfService
             {
                 try
                 {
-                    result = logAdapter.Insert(log.UserId, log.Action, log.PropertyName, log.Properties, log.Old_values, log.New_values, log.DateLog);
+                    result = logAdapter.Insert(log.Username, log.Action, log.PropertyName, log.Properties, log.Old_values, log.New_values, log.DateLog);
                 }
                 catch (Exception ex)
                 {
