@@ -252,7 +252,7 @@ namespace SODAPortalMvcApplication.Controllers
             Session["SalesCode"] = VerifyModel;
             
             //return Session["NewAccount"] != null? RedirectToAction("termsinit"):RedirectToAction("purchasedetails","home");
-            if(Session["Username"] !=null && AccountClient.isUserNameExists(Session["Username"].ToString()))
+            if(Session["Username"] !=null || AccountClient.isUserNameExists(Session["Username"].ToString()))
             return RedirectToAction("termsinit");
             else
                 return RedirectToAction("purchasedetails","home");
