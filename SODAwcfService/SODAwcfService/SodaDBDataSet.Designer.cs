@@ -5396,9 +5396,9 @@ namespace SODAwcfService {
                 this.columnAction.AllowDBNull = false;
                 this.columnAction.MaxLength = 50;
                 this.columnPropertyName.MaxLength = 50;
-                this.columnProperties.MaxLength = 200;
-                this.columnOld_values.MaxLength = 1000;
-                this.columnNew_values.MaxLength = 1000;
+                this.columnProperties.MaxLength = 500;
+                this.columnOld_values.MaxLength = 3000;
+                this.columnNew_values.MaxLength = 3000;
                 this.columnDateLog.AllowDBNull = false;
                 this.columnUsername.AllowDBNull = false;
                 this.columnUsername.MaxLength = 50;
@@ -7793,11 +7793,11 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string Properties {
                 get {
-                    try {
-                        return ((string)(this[this.tableLogsTable.PropertiesColumn]));
+                    if (this.IsPropertiesNull()) {
+                        return null;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Properties\' in table \'LogsTable\' is DBNull.", e);
+                    else {
+                        return ((string)(this[this.tableLogsTable.PropertiesColumn]));
                     }
                 }
                 set {

@@ -1550,29 +1550,29 @@ WHERE        (CategoryId = @CategoryId)</CommandText>
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Properties" msprop:Generator_ColumnVarNameInTable="columnProperties" msprop:Generator_ColumnPropNameInRow="Properties" msprop:Generator_ColumnPropNameInTable="PropertiesColumn" msprop:Generator_UserColumnName="Properties" minOccurs="0">
+              <xs:element name="Properties" msprop:nullValue="_null" msprop:Generator_ColumnPropNameInRow="Properties" msprop:Generator_ColumnVarNameInTable="columnProperties" msprop:Generator_ColumnPropNameInTable="PropertiesColumn" msprop:Generator_UserColumnName="Properties" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="200" />
+                    <xs:maxLength value="500" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
               <xs:element name="Old_values" msprop:nullValue="_null" msprop:Generator_ColumnPropNameInRow="Old_values" msprop:Generator_ColumnVarNameInTable="columnOld_values" msprop:Generator_ColumnPropNameInTable="Old_valuesColumn" msprop:Generator_UserColumnName="Old_values" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="1000" />
+                    <xs:maxLength value="3000" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
               <xs:element name="New_values" msprop:nullValue="_null" msprop:Generator_ColumnPropNameInRow="New_values" msprop:Generator_ColumnVarNameInTable="columnNew_values" msprop:Generator_ColumnPropNameInTable="New_valuesColumn" msprop:Generator_UserColumnName="New_values" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="1000" />
+                    <xs:maxLength value="3000" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
               <xs:element name="DateLog" msprop:Generator_ColumnVarNameInTable="columnDateLog" msprop:Generator_ColumnPropNameInRow="DateLog" msprop:Generator_ColumnPropNameInTable="DateLogColumn" msprop:Generator_UserColumnName="DateLog" type="xs:dateTime" />
-              <xs:element name="Username" msprop:Generator_ColumnVarNameInTable="columnUsername" msprop:Generator_ColumnPropNameInRow="Username" msprop:nullValue="_empty" msprop:Generator_ColumnPropNameInTable="UsernameColumn" msprop:Generator_UserColumnName="Username">
+              <xs:element name="Username" msprop:nullValue="_empty" msprop:Generator_ColumnPropNameInRow="Username" msprop:Generator_ColumnVarNameInTable="columnUsername" msprop:Generator_ColumnPropNameInTable="UsernameColumn" msprop:Generator_UserColumnName="Username">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />
