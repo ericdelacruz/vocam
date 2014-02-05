@@ -60,19 +60,20 @@ namespace CMSMvcApplication.Controllers
             
             try
             {
-               
-                catListingClient.add_Category(new CatListingServiceReference.Category()
+                var new_cat = new CatListingServiceReference.Category()
                 {
-                    CategoryName = collection["CategoryTitle"].Replace("\n","<br/>"),
-                    Overview = collection["Overview"].Replace("\n","<br/>"),
-                    Description = collection["Description"].Replace("\n","<br/>"), 
+                    CategoryName = collection["CategoryTitle"].Replace("\n", "<br/>"),
+                    Overview = collection["Overview"].Replace("\n", "<br/>"),
+                    Description = collection["Description"].Replace("\n", "<br/>"),
                     Metatags = collection["CategoryMetaKeywords"],
                     MetaDesc = collection["CategoryMetaDescription"],
                     PageTitile = collection["CategoryPageTitle"],
-                    IMG_URL = !string.IsNullOrEmpty(Request.Files["Thumb"].FileName)?string.Concat(Request.Url.GetLeftPart(UriPartial.Authority),FileTransferHelper.UploadImage(Request.Files["Thumb"],Server)):"#",
-                    Banner_IMG = !string.IsNullOrEmpty(Request.Files["Banner"].FileName)?string.Concat(Request.Url.GetLeftPart(UriPartial.Authority),FileTransferHelper.UploadImage(Request.Files["Banner"], Server)):"#",
-                    BG_IMG =!string.IsNullOrEmpty(Request.Files["BG"].FileName)? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority),FileTransferHelper.UploadImage(Request.Files["BG"],Server)):"#"
-                });
+                    IMG_URL = !string.IsNullOrEmpty(Request.Files["Thumb"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority), FileTransferHelper.UploadImage(Request.Files["Thumb"], Server)) : "#",
+                    Banner_IMG = !string.IsNullOrEmpty(Request.Files["Banner"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority), FileTransferHelper.UploadImage(Request.Files["Banner"], Server)) : "#",
+                    BG_IMG = !string.IsNullOrEmpty(Request.Files["BG"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority), FileTransferHelper.UploadImage(Request.Files["BG"], Server)) : "#"
+                };
+                AuditLoggingHelper.LogCreateAction(Session["Username"].ToString(), new_cat, portalClient);
+                catListingClient.add_Category(new_cat);
                 
                 return RedirectToAction("Index");
             }
@@ -108,7 +109,8 @@ namespace CMSMvcApplication.Controllers
             {
                 // TODO: Add update logic here
                 CatListingServiceReference.Category catTemp = catListingClient.get_Category(id).First();
-                catListingClient.update_Category(new CatListingServiceReference.Category()
+                
+                var new_cat = new CatListingServiceReference.Category()
                 {
                     CategoryId = id,
                     CategoryName = collection["CategoryTitle"],
@@ -117,10 +119,12 @@ namespace CMSMvcApplication.Controllers
                     Metatags = collection["CategoryMetaKeywords"],
                     MetaDesc = collection["CategoryMetaDescription"],
                     PageTitile = collection["CategoryPageTitle"],
-                    IMG_URL = !string.IsNullOrEmpty(Request.Files["Thumb"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority),FileTransferHelper.UploadImage(Request.Files["Thumb"], Server)) : catTemp.IMG_URL,
-                    Banner_IMG = !string.IsNullOrEmpty(Request.Files["Banner"].FileName)?string.Concat(Request.Url.GetLeftPart(UriPartial.Authority),FileTransferHelper.UploadImage(Request.Files["Banner"],Server)): catTemp.Banner_IMG,
-                    BG_IMG = !string.IsNullOrEmpty(Request.Files["BG"].FileName)?string.Concat(Request.Url.GetLeftPart(UriPartial.Authority),FileTransferHelper.UploadImage(Request.Files["BG"],Server)): catTemp.BG_IMG
-                });
+                    IMG_URL = !string.IsNullOrEmpty(Request.Files["Thumb"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority), FileTransferHelper.UploadImage(Request.Files["Thumb"], Server)) : catTemp.IMG_URL,
+                    Banner_IMG = !string.IsNullOrEmpty(Request.Files["Banner"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority), FileTransferHelper.UploadImage(Request.Files["Banner"], Server)) : catTemp.Banner_IMG,
+                    BG_IMG = !string.IsNullOrEmpty(Request.Files["BG"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority), FileTransferHelper.UploadImage(Request.Files["BG"], Server)) : catTemp.BG_IMG
+                };
+                AuditLoggingHelper.LogUpdateAction(Session["Username"].ToString(), catTemp, new_cat, portalClient);
+                catListingClient.update_Category(new_cat);
                 return RedirectToAction("Index");
             }
             catch(Exception ex)
@@ -138,6 +142,8 @@ namespace CMSMvcApplication.Controllers
             try
             {
                 // TODO: Add delete logic here
+                var old_cat = catListingClient.get_Category(id).First();
+                AuditLoggingHelper.LogDeleteAction(Session["Username"].ToString(), old_cat, portalClient);
                 catListingClient.delete_Category(id);
                 return RedirectToAction("Index");
             }

@@ -139,6 +139,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AuditLoggingHelper.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\FileTransferHelper.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -389,9 +390,13 @@
     <Content Include="Service References\PortalServiceReference\CMSMvcApplication.PortalServiceReference.SalesPerson.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <Content Include="Service References\PortalServiceReference\CMSMvcApplication.PortalServiceReference.CustomerContract.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <None Include="Service References\PortalServiceReference\PortalService.disco" />
     <None Include="Service References\PortalServiceReference\configuration91.svcinfo" />
     <None Include="Service References\PortalServiceReference\configuration.svcinfo" />
+    <None Include="Service References\PortalServiceReference\PortalService3.xsd" />
     <None Include="Service References\PortalServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

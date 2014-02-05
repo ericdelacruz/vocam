@@ -97,23 +97,34 @@ namespace CMSMvcApplication.Controllers
         {
             if(Session["Username"] !=null)
             {
-                var accnt_orig = accountClient.getAccount(Session["Username"].ToString()).Select(a => a).First();
-                accnt_orig.FirstName = accnt.FirstName;
-                accnt_orig.LastName = accnt.LastName;
-                accnt_orig.Company = accnt.Company;
-                accnt_orig.ContactNo = accnt.ContactNo;
-                accnt_orig.Address = accnt.Address;
-                accnt_orig.Email = accnt.Email;
-                accnt_orig.Role = 1;
+                var old_accnt = accountClient.getAccount(Session["Username"].ToString()).Select(a => a).First();
+
+                var new_accnt = accountClient.getAccount(Session["Username"].ToString()).Select(a => a).First();
+                
+                new_accnt.FirstName = accnt.FirstName;
+                new_accnt.LastName = accnt.LastName;
+                new_accnt.Company = accnt.Company;
+                new_accnt.ContactNo = accnt.ContactNo;
+                new_accnt.Address = accnt.Address;
+                new_accnt.Email = accnt.Email;
+                new_accnt.Role = 1;
                 accnt.USERNAME = accnt.Email;
-                accnt_orig.Id = accnt.Id;
-                accountClient.updateAccount(accnt_orig);
+                new_accnt.Id = accnt.Id;
+                logUpdatedAccount(old_accnt, new_accnt);
+                accountClient.updateAccount(new_accnt);
                 return RedirectToAction("profile");
             }
             else
             {
                 return RedirectToAction("index");
             }
+        }
+
+        private void logUpdatedAccount(AccountServiceReference.Account old_accnt, AccountServiceReference.Account new_accnt)
+        {
+            PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
+            AuditLoggingHelper.LogUpdateAction(Session["Username"].ToString(), old_accnt, new_accnt, portalClient);
+            portalClient.Close();
         }
     }
 }

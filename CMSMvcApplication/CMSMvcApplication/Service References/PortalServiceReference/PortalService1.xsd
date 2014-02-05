@@ -15,7 +15,7 @@
       <xs:element minOccurs="0" name="Licenses" type="xs:int" />
       <xs:element minOccurs="0" name="PPId" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="RecurringType" type="xs:short" />
-      <xs:element minOccurs="0" name="SalesCodeId" type="xs:long" />
+      <xs:element minOccurs="0" name="SalesCodeId" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="UserId" type="xs:long" />
     </xs:sequence>
   </xs:complexType>
@@ -78,9 +78,15 @@
   <xs:element name="ArrayOfRegion" nillable="true" type="tns:ArrayOfRegion" />
   <xs:complexType name="Region">
     <xs:sequence>
+      <xs:element minOccurs="0" name="AirPlayerFileName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Currency" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DefaultSalesCodeId" type="xs:long" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="PayPalPassword" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PayPalSignature" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PayPalUserName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="RegionName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ServiceChargeCode" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="WebsiteUrl" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
@@ -100,4 +106,31 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="LicenseConsumption" nillable="true" type="tns:LicenseConsumption" />
+  <xs:complexType name="CustomerContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DateEnd" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DateStart" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="UserId" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CustomerContract" nillable="true" type="tns:CustomerContract" />
+  <xs:complexType name="ArrayOfCustomerContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CustomerContract" nillable="true" type="tns:CustomerContract" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCustomerContract" nillable="true" type="tns:ArrayOfCustomerContract" />
+  <xs:complexType name="LogModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Action" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DateLog" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="New_values" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Old_values" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Properties" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PropertyName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LogModel" nillable="true" type="tns:LogModel" />
 </xs:schema>

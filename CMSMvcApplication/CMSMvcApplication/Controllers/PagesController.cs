@@ -102,14 +102,18 @@ namespace CMSMvcApplication.Controllers
 
         private void UpdateHomeContent(string sectionName, string strType, string strValue)
         {
-            cmsService.UpdateContent(new CMSServiceReference.ContentDef()
+            var old_content = cmsService.getContent("Home", sectionName).First();
+
+            var new_Content = new CMSServiceReference.ContentDef()
             {
                 PageCode = "Home",
                 SectionName = sectionName,
-                Value = strValue.Replace("\n","<br/>").Trim(),
+                Value = strValue.Replace("\n", "<br/>").Trim(),
                 Type = strType,
                 RegionId = (Session["Region"] as PortalServiceReference.Region).Id
-            });
+            };
+            AuditLoggingHelper.LogUpdateAction(Session["Username"].ToString(), old_content, new_Content, portalClient);
+            cmsService.UpdateContent(new_Content);
         }
 
        
@@ -134,7 +138,8 @@ namespace CMSMvcApplication.Controllers
         {
             string phoneno = collection["PhoneNo"];
             //update phone no
-            cmsService.UpdateContent(new CMSServiceReference.ContentDef()
+            var old_content = cmsService.getContent("Contact", "PhoneNo").First();
+            var new_content = new CMSServiceReference.ContentDef()
             {
                 PageCode = "Contact",
                 SectionName = "PhoneNo",
@@ -142,7 +147,9 @@ namespace CMSMvcApplication.Controllers
                 Type = "text",
                 RegionId = (Session["Region"] as PortalServiceReference.Region).Id
 
-            });
+            };
+            AuditLoggingHelper.LogUpdateAction(Session["Username"].ToString(), old_content, new_content, portalClient);
+            cmsService.UpdateContent(new_content);
             return RedirectToAction("index");
         }
         //
@@ -168,15 +175,18 @@ namespace CMSMvcApplication.Controllers
 
         private void UpdateLearnContent(string sectionName, string strType, string strValue)
         {
-            cmsService.UpdateContent(new CMSServiceReference.ContentDef()
+            var old_content = cmsService.getContent("learn", sectionName).First();
+            var new_content = new CMSServiceReference.ContentDef()
             {
                 PageCode = "learn",
                 SectionName = sectionName,
                 Value = strValue.Replace("\n", "<br/>"),
                 Type = strType,
                 RegionId = (Session["Region"] as PortalServiceReference.Region).Id
-                
-            });
+
+            };
+            AuditLoggingHelper.LogUpdateAction(Session["Username"].ToString(), old_content, new_content, portalClient);
+            cmsService.UpdateContent(new_content);
         }
     }
 }

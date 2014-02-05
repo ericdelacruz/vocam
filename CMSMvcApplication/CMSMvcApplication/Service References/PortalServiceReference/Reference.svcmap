@@ -21,11 +21,12 @@
     <MetadataSource Address="http://localhost:50615/PortalService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
+    <MetadataFile FileName="PortalService.wsdl" MetadataType="Wsdl" ID="e72f15b6-2c68-4980-aba1-4d5419ad9f0e" SourceId="1" SourceUrl="http://localhost:50615/PortalService.svc?wsdl" />
+    <MetadataFile FileName="PortalService.disco" MetadataType="Disco" ID="448f5925-9cde-49dd-83b7-ce94e7ac3c8a" SourceId="1" SourceUrl="http://localhost:50615/PortalService.svc?disco" />
+    <MetadataFile FileName="PortalService2.xsd" MetadataType="Schema" ID="b68e4d4f-d881-4b5b-b6c1-3c7d0920d3d0" SourceId="1" SourceUrl="http://localhost:50615/PortalService.svc?xsd=xsd0" />
     <MetadataFile FileName="PortalService.xsd" MetadataType="Schema" ID="d10295d4-5579-414d-b4dc-81771a759412" SourceId="1" SourceUrl="http://localhost:50615/PortalService.svc?xsd=xsd1" />
     <MetadataFile FileName="PortalService1.xsd" MetadataType="Schema" ID="76773fe4-9959-4c1e-99f5-35faea570fcc" SourceId="1" SourceUrl="http://localhost:50615/PortalService.svc?xsd=xsd2" />
-    <MetadataFile FileName="PortalService.disco" MetadataType="Disco" ID="448f5925-9cde-49dd-83b7-ce94e7ac3c8a" SourceId="1" SourceUrl="http://localhost:50615/PortalService.svc?disco" />
-    <MetadataFile FileName="PortalService.wsdl" MetadataType="Wsdl" ID="e72f15b6-2c68-4980-aba1-4d5419ad9f0e" SourceId="1" SourceUrl="http://localhost:50615/PortalService.svc?wsdl" />
-    <MetadataFile FileName="PortalService2.xsd" MetadataType="Schema" ID="b68e4d4f-d881-4b5b-b6c1-3c7d0920d3d0" SourceId="1" SourceUrl="http://localhost:50615/PortalService.svc?xsd=xsd0" />
+    <MetadataFile FileName="PortalService3.xsd" MetadataType="Schema" ID="8688836d-d9ea-4700-b792-a5f0a15073d5" SourceId="1" SourceUrl="http://localhost:50615/PortalService.svc?xsd=xsd3" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

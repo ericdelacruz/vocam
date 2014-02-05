@@ -184,7 +184,7 @@ namespace CMSMvcApplication.Controllers
             try
             {
                 // TODO: Add insert logic here
-                catClient.add_Specific(new CatListingServiceReference.Specific()
+                var new_title = new CatListingServiceReference.Specific()
                 {
                     Title = collection["Title"],
                     TitleCode = collection["Code"],
@@ -194,21 +194,23 @@ namespace CMSMvcApplication.Controllers
                     PageTitle = collection["TitlePageTitle"],
                     Metatags = collection["TitleMetaKeywords"],
                     MetaDesc = collection["TitleMetaDescription"],
-                    ImageURL = !string.IsNullOrEmpty(Request.Files["Thumb"].FileName)?string.Concat(Request.Url.GetLeftPart(UriPartial.Authority) ,FileTransferHelper.UploadImage(Request.Files["Thumb"],Server)):"#",
+                    ImageURL = !string.IsNullOrEmpty(Request.Files["Thumb"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority), FileTransferHelper.UploadImage(Request.Files["Thumb"], Server)) : "#",
                     BG_Img = !string.IsNullOrEmpty(Request.Files["BG"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority) + "/", FileTransferHelper.UploadImage(Request.Files["BG"], Server)) : "#",
                     VideoURL = collection["VidURL"],
                     FileName = collection["filename"],
-                    Duration = collection["duration"].Trim() != ""? int.Parse(collection["duration"]):0,
-                    time =collection["time"].Trim() !=""? TimeSpan.FromMilliseconds(double.Parse(collection["time"])):default(TimeSpan),
-                     totalChapters =collection["totalChap"].Trim() !=""? int.Parse(collection["totalChap"]):0,
-                     Approved = collection["approved"] == "yes",
-                     Downloadlable = collection["downloadable"] == "yes",
-                      DateQuestionAnswerChange = dateQuestion,
-                      InDisc =collection["indisc"].Trim() !=""? int.Parse(collection["indisc"]):0,
-                      isDOwnloadNews = collection["isdownloadnews"] == "yes",
-                       RegionId = int.Parse(collection["titleRegion"]),
-                    Id = 0 
-                });
+                    Duration = collection["duration"].Trim() != "" ? int.Parse(collection["duration"]) : 0,
+                    time = collection["time"].Trim() != "" ? TimeSpan.FromMilliseconds(double.Parse(collection["time"])) : default(TimeSpan),
+                    totalChapters = collection["totalChap"].Trim() != "" ? int.Parse(collection["totalChap"]) : 0,
+                    Approved = collection["approved"] == "yes",
+                    Downloadlable = collection["downloadable"] == "yes",
+                    DateQuestionAnswerChange = dateQuestion,
+                    InDisc = collection["indisc"].Trim() != "" ? int.Parse(collection["indisc"]) : 0,
+                    isDOwnloadNews = collection["isdownloadnews"] == "yes",
+                    RegionId = int.Parse(collection["titleRegion"]),
+                    Id = 0
+                };
+                AuditLoggingHelper.LogCreateAction(Session["Username"].ToString(), new_title, portalClient);
+                catClient.add_Specific(new_title);
 
                 
                 var title = catClient.get().Select(c => c).Where(c => c.TitleCode == collection["Code"]).First();
@@ -359,7 +361,9 @@ namespace CMSMvcApplication.Controllers
             try
             {
                 // TODO: Add update logic here
-                catClient.update_Specific(new CatListingServiceReference.Specific()
+                var old_title = catClient.getSpecificByID(id).First();
+
+                var new_title = new CatListingServiceReference.Specific()
                 {
                     Id = id,
                     TitleCode = collection["Code"],
@@ -371,7 +375,7 @@ namespace CMSMvcApplication.Controllers
                     Metatags = collection["TitleMetaKeywords"],
                     MetaDesc = collection["TitleMetaDescription"],
                     ImageURL = !string.IsNullOrEmpty(Request.Files["Thumb"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority), FileTransferHelper.UploadImage(Request.Files["Thumb"], Server)) : catClient.getSpecificByID(id).First().ImageURL,
-                    BG_Img = !string.IsNullOrEmpty(Request.Files["BG_IMG"].FileName)? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority), FileTransferHelper.UploadImage(Request.Files["BG_IMG"], Server)) : catClient.getSpecificByID(id).First().BG_Img,
+                    BG_Img = !string.IsNullOrEmpty(Request.Files["BG_IMG"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority), FileTransferHelper.UploadImage(Request.Files["BG_IMG"], Server)) : catClient.getSpecificByID(id).First().BG_Img,
                     VideoURL = collection["VidURL"],
                     FileName = collection["filename"],
                     Duration = collection["duration"].Trim() != "" ? int.Parse(collection["duration"]) : 0,
@@ -383,7 +387,9 @@ namespace CMSMvcApplication.Controllers
                     InDisc = collection["indisc"].Trim() != "" ? int.Parse(collection["indisc"]) : 0,
                     isDOwnloadNews = collection["isdownloadnews"] == "yes",
                     RegionId = int.Parse(collection["titleRegion"])
-                });
+                };
+                AuditLoggingHelper.LogUpdateAction(Session["Username"].ToString(), old_title, new_title, portalClient);
+                catClient.update_Specific(new_title);
                 
                 
                 var title = catClient.get().Select(c => c).Where(c => c.Id == id).First();
@@ -455,7 +461,8 @@ namespace CMSMvcApplication.Controllers
                 var catAssign = catClient.getCatAssign().Where(ca => ca.SpecID == id);
                 foreach (var ca in catAssign)
                 catClient.deleteCatAssign(ca.Id);
-
+                var old_title = catClient.getSpecificByID(id).First();
+                AuditLoggingHelper.LogDeleteAction(Session["Username"].ToString(), old_title, portalClient);
                 catClient.delete_Specific(id);
                 return RedirectToAction("Index");
             }
