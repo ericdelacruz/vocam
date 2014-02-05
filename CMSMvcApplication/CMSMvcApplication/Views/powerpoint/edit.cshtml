@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "edit";
+}
+
+<h1 class="margin15">Edit Powerpoint</h1>
+
+<div class="cmsForm">
+    @using(Html.BeginForm("Edit","Powerpoint", FormMethod.Post, new{enctype="multipart/form-data"}))
+{
+
+        <label>Title</label>
+        <input type="text" class="form-control" value="Industrial Induction Powerpoint" /> @*sample lng to*@
+
+        <label>Powerpoint File</label>
+        <div><input class="fl" type="file" />  <input class="fr" type="button" value="Remove Powerpoint" /> </div>
+
+        <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">UPDATE</button>
+
+}
+
+ </div>

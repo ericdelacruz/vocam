@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "create";
+}
+
+
+<h1 class="margin15">Add Powerpoint</h1>
+
+<div class="cmsForm">
+@using (Html.BeginForm("Create", "Powerpoint", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+    <label>Title</label>
+    <input type="text" class="form-control" name="powerpointTitle" />
+
+    <label>Powerpoint File</label>
+    <div><input class="fl" type="file" />  <input class="fr" type="button" value="Remove Powerpoint" /> </div>
+
+    <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">PUBLISH</button>
+    }
+</div>
