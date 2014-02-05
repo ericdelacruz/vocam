@@ -444,6 +444,9 @@
     <None Include="Service References\PortalServiceReference\PortalService.xsd" />
     <None Include="Service References\PortalServiceReference\PortalService1.xsd" />
     <None Include="Service References\PortalServiceReference\PortalService2.xsd" />
+    <Content Include="Views\powerpoint\index.cshtml" />
+    <Content Include="Views\powerpoint\edit.cshtml" />
+    <Content Include="Views\powerpoint\create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
