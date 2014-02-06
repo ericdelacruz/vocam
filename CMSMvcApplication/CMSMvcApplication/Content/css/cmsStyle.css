@@ -143,6 +143,19 @@ padding: 35px;
 	color:transparent !important;
 }
 
+.powerpointMenu {
+	display: block;
+	width: 93px;
+	height: 91px;
+	background: url('../images/cms/powerpoint.jpg') bottom;
+	text-indent: -99999px;
+	font-size: 5px;
+	color:transparent !important;
+}
+.powerpointMenu:hover {
+	background-position: 0 0;
+	color:transparent !important;
+}
 
 .profileMenu {
 	display: block;

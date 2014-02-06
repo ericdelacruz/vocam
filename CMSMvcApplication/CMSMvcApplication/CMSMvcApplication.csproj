@@ -197,6 +197,7 @@
     <Content Include="Content\images\cms\logout.jpg" />
     <Content Include="Content\images\cms\pages.jpg" />
     <Content Include="Content\images\cms\posts.jpg" />
+    <Content Include="Content\images\cms\powerpoint.jpg" />
     <Content Include="Content\images\cms\profile.jpg" />
     <Content Include="Content\images\cms\view.png" />
     <Content Include="Content\images\footerBg.jpg" />
