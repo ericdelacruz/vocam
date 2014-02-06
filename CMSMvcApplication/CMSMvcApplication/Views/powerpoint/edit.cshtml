@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "edit";
+    var regionList = ViewBag.regionList as IEnumerable<SelectListItem>;
 }
 
 <h1 class="margin15">Edit Powerpoint</h1>
@@ -7,7 +8,10 @@
 <div class="cmsForm">
     @using(Html.BeginForm("Edit","Powerpoint", FormMethod.Post, new{enctype="multipart/form-data"}))
 {
-
+        <label>Region: </label><br />
+       
+        @Html.DropDownList("titleRegion", regionList, new { @class = "form-control", style = "width: 300px !important; margin-bottom:10px;" })
+        <br />
         <label>Title</label>
         <input type="text" class="form-control" value="Industrial Induction Powerpoint" /> @*sample lng to*@
 
