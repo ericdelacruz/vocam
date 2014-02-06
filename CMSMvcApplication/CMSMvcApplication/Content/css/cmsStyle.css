@@ -5,6 +5,7 @@
 
 /* CSS Document */
 body {background-color:#f8f8f8 !important;}
+body { min-width:700px; }
 a {outline:none !important;}
 a:hover {text-decoration: none;}
 a:focus {border: none !important;}
@@ -18,7 +19,7 @@ a:focus {border: none !important;}
 	background-color:#fff; 
 	border:1px solid #c9c9c9; 
 	padding:45px;
-	min-height: 465px; }
+	min-height: 560px; }
 
 
  .ifield {
