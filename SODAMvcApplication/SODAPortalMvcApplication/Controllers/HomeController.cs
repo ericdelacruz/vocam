@@ -64,7 +64,7 @@ namespace SODAPortalMvcApplication.Controllers
                     case 1: return Redirect(cmsurl);
 
                     case 2:
-                        if (account.EmailVerified && EncDec.DecryptString(account.PASSWORD) != "safety")
+                        if (EncDec.DecryptString(account.PASSWORD) != "safety")
                         return RedirectToAction("Index", "Sales");
                         else if (EncDec.DecryptString(account.PASSWORD) == "safety")
                         {

@@ -148,7 +148,7 @@ namespace SODAPortalMvcApplication.Controllers
             else
             {
                 //error username/email existing 
-               return RedirectToAction("addSale");
+               return View();
             }
             
         }

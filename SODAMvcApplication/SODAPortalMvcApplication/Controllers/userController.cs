@@ -158,7 +158,7 @@ namespace SODAPortalMvcApplication.Controllers
         }
         protected override IAsyncResult BeginExecute(System.Web.Routing.RequestContext requestContext, AsyncCallback callback, object state)
         {
-            var region = portalClient.getRegion().Where(r => r.WebsiteUrl == requestContext.HttpContext.Request.Url.Host.Replace("portal", "www") || (requestContext.HttpContext.Request.Url.Host == "localhost" && r.RegionName == "AU")).FirstOrDefault();
+            var region = portalClient.getRegion().Where(r => r.WebsiteUrl == requestContext.HttpContext.Request.Url.Host.Replace("portal", "www") || (requestContext.HttpContext.Request.Url.Host == "localhost" && r.RegionName == "UK")).FirstOrDefault();
             if (region != null)
             {
                 paypalClient.initPayPalAccountSettings(region.Id);
@@ -282,7 +282,7 @@ namespace SODAPortalMvcApplication.Controllers
         private int getRegionId()
         {
             //int RegionId = portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www")).First().Id;
-            return portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www")).Count() > 0? portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www")).First().Id:12;
+            return portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www")).Count() > 0? portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www")).First().Id:27;
         }
        
         [HttpPost]
@@ -326,13 +326,13 @@ namespace SODAPortalMvcApplication.Controllers
 
         private IEnumerable<ViewModel.VerifyModel> getVerifyViewModel(string salescode)
         {
-            var websiteURL = Request.Url.Host.Replace("portal", "www") != "localhost" ? Request.Url.Host.Replace("portal", "www") : "www.safetyondemand.com.au";
+            var websiteURL = Request.Url.Host.Replace("portal", "www") != "localhost" ? Request.Url.Host.Replace("portal", "www") : "www.safetyondemand.co.uk";
             //get SalesCode Details. Notes SalesCode depends on region.
             var salescodeList = from sp in portalClient.getSalePerson()
                                 join sc in portalClient.getSaleCode() on sp.SalesCodeId equals sc.Id
                                 join p in portalClient.getPrice() on sp.RegionId equals p.RegionId
                                 join r in portalClient.getRegion() on sp.RegionId equals r.Id
-                                where sc.Sales_Code == salescode.Trim() &&  r.WebsiteUrl == websiteURL
+                                where sc.Sales_Code.ToLower() == salescode.Trim().ToLower() &&  r.WebsiteUrl == websiteURL
                                 select new ViewModel.VerifyModel() { price = p, saleperson = sp, salescode = sc, region = r,
                                 discountedPrice_A = p.PriceAmt - (p.PriceAmt * sc.Discount),
                                 discountedPrice_B = p.PriceAmt_B - (p.PriceAmt_B * sc.Discount),
@@ -472,7 +472,7 @@ namespace SODAPortalMvcApplication.Controllers
             {
                 
 
-                //var salesPersonCodePrice = Session["SalesCode"] as ViewModel.VerifyModel;
+                
                 string redirectURL = paypalClient.checkoutModel(initCheckoutModel());
                 //string redirectURL = PaypalHelper.checkout(price, Moolah.PayPal.CurrencyCodeType.AUD, itemname, itemDesc, itemURL, cancelURl, confirmURL);
 
@@ -493,30 +493,37 @@ namespace SODAPortalMvcApplication.Controllers
             ppc.CType = (SODAPayPalSerRef.CurrencyCodeType)Enum.Parse(typeof(SODAPayPalSerRef.CurrencyCodeType), VerifyModel.region.Currency);
             ppc.Quantity = VerifyModel.qty;
             ppc.OrderDesc = "Order Description here.";
-            
+            decimal roundedDCPrice = 0;
             switch(VerifyModel.selectedSubscription)
             {
                 case 1:
-                    ppc.ItemAmt = string.Format("{0:0.00}", VerifyModel.discountedPrice_A);
+                     roundedDCPrice = Math.Round( VerifyModel.discountedPrice_A,2);
+                    ppc.ItemAmt = string.Format("{0:0.00}", roundedDCPrice);
                     ppc.itemDesc = "SODA Monthly Recurring Subscription";
                     ppc.itemName = "Monthly Recurring Subscription";
-                    ppc.itemTotalamt = Convert.ToDouble(VerifyModel.discountedPrice_A * ppc.Quantity);
+                    
+                    ppc.itemTotalamt =  Convert.ToDouble(roundedDCPrice * ppc.Quantity);
+                    
                     ppc.orderTotalamt = ppc.itemTotalamt;
+                   
                     ppc.BillingAgreement = string.Format(BILLING_AGREEMENT_FORMAT, 1);
                    
                     break;
                 case 2:
-                     ppc.ItemAmt = string.Format("{0:0.00}",VerifyModel.discountedPrice_B);
+                    roundedDCPrice = Math.Round(VerifyModel.discountedPrice_B,2);
+                    ppc.ItemAmt = string.Format("{0:0.00}",roundedDCPrice);
                     ppc.itemDesc = "SODA 3 Months Recurring Subscription";
                     ppc.itemName = "3 Months Recurring Subscription";
-                    ppc.itemTotalamt = Convert.ToDouble(VerifyModel.discountedPrice_B * ppc.Quantity);
+                    ppc.itemTotalamt = Convert.ToDouble(roundedDCPrice * ppc.Quantity);
                     ppc.orderTotalamt = ppc.itemTotalamt;
                     ppc.BillingAgreement = string.Format(BILLING_AGREEMENT_FORMAT, 3);
                     break;
-                case 3: ppc.ItemAmt = string.Format("{0:0.00}",VerifyModel.discountedPrice_C);
+                case 3: 
+                     roundedDCPrice = Math.Round(VerifyModel.discountedPrice_C,2);
+                    ppc.ItemAmt = string.Format("{0:0.00}",roundedDCPrice);
                     ppc.itemDesc = "SODA 6 Months Recurring Subscription";
                     ppc.itemName = "6 Months Recurring Subscription";
-                    ppc.itemTotalamt = Convert.ToDouble(VerifyModel.discountedPrice_C * ppc.Quantity);
+                    ppc.itemTotalamt = Convert.ToDouble(roundedDCPrice * ppc.Quantity);
                     ppc.orderTotalamt = ppc.itemTotalamt;
                     ppc.BillingAgreement = string.Format(BILLING_AGREEMENT_FORMAT, 6);
                     break;
@@ -668,7 +675,7 @@ namespace SODAPortalMvcApplication.Controllers
         public FileStreamResult StreamFileFromDisk()
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + "Content/download/";
-            var region = portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www") || (Request.Url.Host == "localhost" && r.RegionName.ToLower()=="au")).First();
+            var region = portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www") || (Request.Url.Host == "localhost" && r.RegionName.ToLower()=="uk")).First();
             string filename = region.AirPlayerFileName;
             return File(new System.IO.FileStream(path + filename, System.IO.FileMode.Open), "application/vnd.adobe.air-application-installer-package+zip", filename);
         }
