@@ -524,5 +524,6 @@ hr.hrLine2 { width: 95%; height: 1px; background-color: #dddddd; }
 input, textarea {margin-bottom: 5px;}
 .btnSubmit {width:50%; margin: 0 auto; margin-top: 10px !important;}
 .formInput label {float:left; display:inline;}
+.validation-summary-errors { background-color: #f2dede; border: 1px solid #ebccd1 !important; color: #a94442; padding:4px; 0 2px 0; margin-bottom:10px;}
 
 
