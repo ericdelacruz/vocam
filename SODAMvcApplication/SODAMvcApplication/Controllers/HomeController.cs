@@ -404,7 +404,7 @@ namespace SODAMvcApplication.Controllers
             string path = AppDomain.CurrentDomain.BaseDirectory + "Content/download/";
             var freeppt = from fppt in cmsServiceClient.getFreePPT()
                           join region in cmsServiceClient.getRegions() on fppt.RegionId equals region.Id
-                          where region.WebsiteUrl == Request.Url.Host && fppt.PPTType == selected
+                          where (region.WebsiteUrl == Request.Url.Host || (Request.Url.Host =="localhost" && region.Id ==12)) && fppt.PPTType == selected
                           select fppt;
             string filename = "";
             if(freeppt.Count() > 0)
@@ -417,7 +417,10 @@ namespace SODAMvcApplication.Controllers
                 //return RedirectToAction("index");
             }
             //string filename = ;
+            if(string.IsNullOrEmpty(freeppt.First().Url))
             return File(new System.IO.FileStream(path + filename, System.IO.FileMode.Open), "application/vnd.ms-powerpoint", filename);
+            else
+                return File(new System.IO.FileStream(freeppt.First().Url, System.IO.FileMode.Open), "application/vnd.ms-powerpoint", filename);
         }
 
     }

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model CMSMvcApplication.CMSServiceReference.FreePPT
+@{
     ViewBag.Title = "edit";
     var regionList = ViewBag.regionList as IEnumerable<SelectListItem>;
 }
@@ -10,13 +11,19 @@
 {
         <label>Region: </label><br />
        
-        @Html.DropDownList("titleRegion", regionList, new { @class = "form-control", style = "width: 300px !important; margin-bottom:10px;" })
+        @Html.DropDownList("region", regionList, new { @class = "form-control", style = "width: 300px !important; margin-bottom:10px;" })
         <br />
         <label>Title</label>
-        <input type="text" class="form-control" value="Industrial Induction Powerpoint" /> @*sample lng to*@
 
-        <label>Powerpoint File</label>
-        <div><input class="fl" type="file" />  <input class="fr" type="button" value="Remove Powerpoint" /> </div>
+    <input type="text" class="form-control" value="@Model.DisplayText" name="DisplayText" required /> @*sample lng to*@
+        
+        <label>Code</label>
+        <input type="text" class="form-control" name="ppttype" value="@Model.PPTType" required/>
+        
+        <label>Current File: @Model.FileName</label>
+        
+        <label>Powerpoint File:</label>
+        <input class="fl" type="file" name="pptFile" />  
 
         <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">UPDATE</button>
 

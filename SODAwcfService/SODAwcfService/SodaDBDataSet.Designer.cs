@@ -4547,6 +4547,8 @@ namespace SODAwcfService {
             
             private global::System.Data.DataColumn columnDisplayText;
             
+            private global::System.Data.DataColumn columnUrl;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public FreePPTFileNamesDataTable() {
@@ -4622,6 +4624,14 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn UrlColumn {
+                get {
+                    return this.columnUrl;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -4657,14 +4667,15 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public FreePPTFileNamesRow AddFreePPTFileNamesRow(int Id, string FileName, string PPTType, RegionRow parentRegionRowByFK_FreePPTFileNames_ToRegion, string DisplayText) {
+            public FreePPTFileNamesRow AddFreePPTFileNamesRow(int Id, string FileName, string PPTType, RegionRow parentRegionRowByFK_FreePPTFileNames_ToRegion, string DisplayText, string Url) {
                 FreePPTFileNamesRow rowFreePPTFileNamesRow = ((FreePPTFileNamesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Id,
                         FileName,
                         PPTType,
                         null,
-                        DisplayText};
+                        DisplayText,
+                        Url};
                 if ((parentRegionRowByFK_FreePPTFileNames_ToRegion != null)) {
                     columnValuesArray[3] = parentRegionRowByFK_FreePPTFileNames_ToRegion[0];
                 }
@@ -4702,6 +4713,7 @@ namespace SODAwcfService {
                 this.columnPPTType = base.Columns["PPTType"];
                 this.columnRegionId = base.Columns["RegionId"];
                 this.columnDisplayText = base.Columns["DisplayText"];
+                this.columnUrl = base.Columns["Url"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4717,14 +4729,17 @@ namespace SODAwcfService {
                 base.Columns.Add(this.columnRegionId);
                 this.columnDisplayText = new global::System.Data.DataColumn("DisplayText", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDisplayText);
+                this.columnUrl = new global::System.Data.DataColumn("Url", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUrl);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AllowDBNull = false;
                 this.columnId.Unique = true;
-                this.columnFileName.MaxLength = 50;
+                this.columnFileName.MaxLength = 100;
                 this.columnPPTType.MaxLength = 20;
                 this.columnRegionId.AllowDBNull = false;
                 this.columnDisplayText.MaxLength = 50;
+                this.columnUrl.MaxLength = 200;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7576,6 +7591,22 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Url {
+                get {
+                    if (this.IsUrlNull()) {
+                        return string.Empty;
+                    }
+                    else {
+                        return ((string)(this[this.tableFreePPTFileNames.UrlColumn]));
+                    }
+                }
+                set {
+                    this[this.tableFreePPTFileNames.UrlColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public RegionRow RegionRow {
                 get {
                     return ((RegionRow)(this.GetParentRow(this.Table.ParentRelations["FK_FreePPTFileNames_ToRegion"])));
@@ -7619,6 +7650,18 @@ namespace SODAwcfService {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetDisplayTextNull() {
                 this[this.tableFreePPTFileNames.DisplayTextColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsUrlNull() {
+                return this.IsNull(this.tableFreePPTFileNames.UrlColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetUrlNull() {
+                this[this.tableFreePPTFileNames.UrlColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -13391,6 +13434,7 @@ WHERE        (CategoryId = @CategoryId)";
             tableMapping.ColumnMappings.Add("PPTType", "PPTType");
             tableMapping.ColumnMappings.Add("RegionId", "RegionId");
             tableMapping.ColumnMappings.Add("DisplayText", "DisplayText");
+            tableMapping.ColumnMappings.Add("Url", "Url");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -13399,22 +13443,25 @@ WHERE        (CategoryId = @CategoryId)";
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [freepptfilenames] ([FileName], [PPTType], [RegionId], [DisplayText])" +
-                " VALUES (@FileName, @PPTType, @RegionId, @DisplayText)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [freepptfilenames] ([FileName], [PPTType], [RegionId], [DisplayText]," +
+                " [Url]) VALUES (@FileName, @PPTType, @RegionId, @DisplayText, @Url)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@FileName", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "FileName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PPTType", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PPTType", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DisplayText", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DisplayText", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Url", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Url", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = "UPDATE [freepptfilenames] SET [FileName] = @FileName, [PPTType] = @PPTType, [Regi" +
-                "onId] = @RegionId, [DisplayText] = @DisplayText WHERE (([Id] = @Original_Id))";
+                "onId] = @RegionId, [DisplayText] = @DisplayText, [Url] = @Url WHERE (([Id] = @Or" +
+                "iginal_Id))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@FileName", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "FileName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PPTType", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PPTType", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DisplayText", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DisplayText", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Url", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Url", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
@@ -13514,7 +13561,7 @@ WHERE        (CategoryId = @CategoryId)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string FileName, string PPTType, int RegionId, string DisplayText) {
+        public virtual int Insert(string FileName, string PPTType, int RegionId, string DisplayText, string Url) {
             if ((FileName == null)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -13533,6 +13580,12 @@ WHERE        (CategoryId = @CategoryId)";
             }
             else {
                 this.Adapter.InsertCommand.Parameters[3].Value = ((string)(DisplayText));
+            }
+            if ((Url == null)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(Url));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -13554,7 +13607,7 @@ WHERE        (CategoryId = @CategoryId)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string FileName, string PPTType, int RegionId, string DisplayText, int Original_Id) {
+        public virtual int Update(string FileName, string PPTType, int RegionId, string DisplayText, string Url, int Original_Id) {
             if ((FileName == null)) {
                 this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -13574,7 +13627,13 @@ WHERE        (CategoryId = @CategoryId)";
             else {
                 this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(DisplayText));
             }
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_Id));
+            if ((Url == null)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Url));
+            }
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {

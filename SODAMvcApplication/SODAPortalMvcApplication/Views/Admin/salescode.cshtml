@@ -12,7 +12,10 @@
     <div class="portalCont margin15">
         <h2>Sales Code <span><a href="@Url.Action("addsalescode")"><img alt="Add" src="~/Content/images/portal/addNew.gif"></a></span></h2>
         <p>&nbsp;</p>
-
+        @if (ViewBag.SalesPersonExists != null)
+        {
+            <p>@ViewBag.SalesPersonExists</p>
+        }
         <table class="portTable">
         @{ if (Model.Count() > 0)
              {

@@ -252,7 +252,7 @@ namespace SODAPortalMvcApplication.Controllers
             Session["SalesCode"] = VerifyModel;
             
             //return Session["NewAccount"] != null? RedirectToAction("termsinit"):RedirectToAction("purchasedetails","home");
-            if(Session["Username"] !=null || AccountClient.isUserNameExists(Session["Username"].ToString()))
+            if(Session["Username"] !=null && !AccountClient.isUserNameExists(Session["Username"].ToString()))
             return RedirectToAction("termsinit");
             else
                 return RedirectToAction("purchasedetails","home");
@@ -272,7 +272,7 @@ namespace SODAPortalMvcApplication.Controllers
                                 discountedPrice_A = p.PriceAmt - (p.PriceAmt * sc.Discount),
                                 discountedPrice_B = p.PriceAmt_B - (p.PriceAmt_B * sc.Discount),
                                 discountedPrice_C = p.priceAmt_C - (p.priceAmt_C * sc.Discount),
-                                 isDefaultSalesCode = true
+                                isDefaultSalesCode = true
                             };
             
             //ViewBag.DefaultSalesCode = true;

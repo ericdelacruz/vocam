@@ -159,7 +159,7 @@ namespace SODAwcfService
         {
             if (!Allowed)
                 throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
-            return freePPTAdapter.Insert(freeppt.FileName, freeppt.PPTType, freeppt.RegionId,freeppt.DisplayText);
+            return freePPTAdapter.Insert(freeppt.FileName, freeppt.PPTType, freeppt.RegionId,freeppt.DisplayText,freeppt.Url);
         }
         public IEnumerable<Models.FreePPT> getFreePPT()
         {
@@ -171,14 +171,15 @@ namespace SODAwcfService
                 RegionId = fppt.RegionId,
                 FileName = fppt.FileName,
                 PPTType = fppt.PPTType,
-                 DisplayText = fppt.DisplayText
+                 DisplayText = fppt.DisplayText,
+                  Url = fppt.Url
             });
         }
         public int updateFreePPT(Models.FreePPT freeppt)
         {
             if (!Allowed)
                 throw (new FaultException("Access Denied!!!", new FaultCode("AccessDenied")));
-            return freePPTAdapter.Update(freeppt.FileName, freeppt.PPTType, freeppt.RegionId, freeppt.DisplayText, freeppt.Id);
+            return freePPTAdapter.Update(freeppt.FileName, freeppt.PPTType, freeppt.RegionId, freeppt.DisplayText,freeppt.Url, freeppt.Id);
         }
         public int deleteFreePPT(int id)
         {

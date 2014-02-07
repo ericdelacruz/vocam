@@ -385,7 +385,7 @@ namespace SODAPortalMvcApplication.Controllers
         [HttpPost]
         public ActionResult editprice(int id, FormCollection collection)
         {
-
+            var old_price = portalClient.getPrice().Where(p=>p.Id == id).First();
             var new_price = new PortalServiceReference.Price()
             {
                 Id = id,
@@ -395,10 +395,13 @@ namespace SODAPortalMvcApplication.Controllers
                 FirstMonthFree = collection["monthFree"] == "Yes",
                 PriceAmt_B = decimal.Parse(collection["PriceB"].ToString()),
                 priceAmt_C = decimal.Parse(collection["PriceC"].ToString()),
-
+               
                 Active = true
 
             };
+           
+            AuditLoggingHelper.LogUpdateAction(Session["Username"].ToString(), new_price, old_price, portalClient);
+
             portalClient.updatePrice(new_price);
             return RedirectToAction("price");
         }
@@ -423,6 +426,8 @@ namespace SODAPortalMvcApplication.Controllers
             }
             var SalesCodeList = from salesCode in portalClient.getSaleCode()
                                 select salesCode;
+            if (TempData["SalesPersonExists"] != null)
+                ViewBag.SalesPersonExists = TempData["SalesPersonExists"];
             return View(SalesCodeList);
         }
 
@@ -489,6 +494,7 @@ namespace SODAPortalMvcApplication.Controllers
         
         public ActionResult deletesalescode(int id)
         {
+            
             if (!hasSalesCodeinSP(id))
             {
                 var old_sc = portalClient.getSaleCode().Where(sc => sc.Id == id).FirstOrDefault();
@@ -498,6 +504,7 @@ namespace SODAPortalMvcApplication.Controllers
             else
             {
                 //error: salescode currently assigned to error
+                
                 RedirectToAction("salescode");
             }
             return RedirectToAction("salescode");
@@ -505,9 +512,16 @@ namespace SODAPortalMvcApplication.Controllers
 
         private bool hasSalesCodeinSP(int salescodeid)
         {
+            if (TempData["SalesPersonExists"] != null)
+                TempData["SalesPersonExists"] = null;
+
             var salesperson = from sp in portalClient.getSalePerson()
                               where sp.SalesCodeId == salescodeid
                               select sp;
+
+            if (salesperson.Count() > 0)
+                TempData["SalesPersonExists"] = "Can't delete because it is currently assigned to sales person with ID=" + salesperson.First().Id;
+
             return salesperson.Count() > 0;
         }
 

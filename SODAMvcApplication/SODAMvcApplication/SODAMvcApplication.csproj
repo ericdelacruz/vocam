@@ -424,10 +424,10 @@
     <None Include="Service References\CategoriesServiceReference\CatListingService1.xsd" />
     <None Include="Service References\CategoriesServiceReference\CatListingService11.xsd" />
     <None Include="Service References\CategoriesServiceReference\CatListingService12.xsd" />
-    <None Include="Service References\CMSServiceReference\CMS_Service1.wsdl" />
+    <None Include="Service References\CMSServiceReference\CMS_Service.wsdl" />
+    <None Include="Service References\CMSServiceReference\CMS_Service.xsd" />
     <None Include="Service References\CMSServiceReference\CMS_Service1.xsd" />
-    <None Include="Service References\CMSServiceReference\CMS_Service11.xsd" />
-    <None Include="Service References\CMSServiceReference\CMS_Service12.xsd" />
+    <None Include="Service References\CMSServiceReference\CMS_Service2.xsd" />
     <None Include="Service References\CMSServiceReference\configuration91.svcinfo" />
     <None Include="Service References\CMSServiceReference\configuration.svcinfo" />
     <None Include="Service References\CMSServiceReference\Reference.svcmap">
@@ -444,7 +444,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery.backstretch.min.js" />
     <Content Include="Scripts\respond.min.js" />
-    <None Include="Service References\CMSServiceReference\CMS_Service1.disco" />
+    <None Include="Service References\CMSServiceReference\CMS_Service.disco" />
     <Content Include="Service References\CMSServiceReference\SODAMvcApplication.CMSServiceReference.Contact.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
