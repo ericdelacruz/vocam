@@ -174,7 +174,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Services\trainnow.asmx.cs">
+    <Compile Include="trainnow.asmx.cs">
       <DependentUpon>trainnow.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
@@ -466,7 +466,7 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Service References\PortalServiceReference\PortalService.disco" />
-    <Content Include="Services\trainnow.asmx" />
+    <Content Include="trainnow.asmx" />
     <Content Include="Services\WebService1.asmx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

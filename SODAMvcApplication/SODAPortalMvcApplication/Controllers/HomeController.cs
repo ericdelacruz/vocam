@@ -152,6 +152,7 @@ namespace SODAPortalMvcApplication.Controllers
             {
                 ModelState.AddModelError("", "Invalid Email");
             }
+            
             if (ModelState.IsValid)
             {
                

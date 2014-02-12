@@ -14,7 +14,8 @@ namespace SODAPortalMvcApplication.Controllers
         //
         // GET: /user/
         private static string BILLING_AGREEMENT_FORMAT = "You will be bill every {0} month/s";
-
+      
+        [RequireHttps]
         public ActionResult Index()
         {
             string username = Session["Username"] != null? Session["Username"].ToString():null;
@@ -179,12 +180,12 @@ namespace SODAPortalMvcApplication.Controllers
             var customer = from cust in portalClient.getCustomer()
                            join user in AccountClient.getAccount(username) on cust.UserId equals user.Id
                            join salescode in portalClient.getSaleCode() on cust.SalesCodeId.Value equals salescode.Id
-                           join sp in portalClient.getSalePerson() on cust.SalesCodeId equals sp.SalesCodeId
+                           join sp in portalClient.getSalePerson() on salescode.SalesPersonID equals sp.Id
                            join p in portalClient.getPrice() on sp.RegionId equals p.RegionId
                            join PPT in paypalClient.getPayPalTrans() on cust.PPId equals PPT.Id
                            join r in portalClient.getRegion() on p.RegionId equals r.Id
                            join contract in portalClient.getCustomerContract() on user.Id equals contract.UserId
-                           where PPT.Active == true && r.DefaultSalesCodeId != salescode.Id
+                           where (PPT.Active == true && r.DefaultSalesCodeId != salescode.Id) 
                            select new ViewModel.CustomerModel() { account = user, customer = cust, salesCode = salescode, salesPerson = sp, price = p, paypal = PPT, rejoin = r,contract = contract };
            
             var default_customer = from cust in portalClient.getCustomer()
@@ -196,24 +197,40 @@ namespace SODAPortalMvcApplication.Controllers
                                    join PPT in paypalClient.getPayPalTrans() on cust.PPId equals PPT.Id
                                    join p in portalClient.getPrice() on r.Id equals p.RegionId
                                    join contract in portalClient.getCustomerContract() on user.Id equals contract.UserId
-                                   where PPT.Active == true
+                                   where PPT.Active == true || (Request.Url.Host == "localhost" && r.Id == 27)
                                    select new ViewModel.CustomerModel() { account = user, customer = cust, salesCode = salescode, paypal = PPT, rejoin = r, price = p, contract = contract };
 
             return customer.Count() > 0 && default_customer.Count() > 0 ? customer.Union(default_customer) :
                 customer.Count() > 0 && default_customer.Count() == 0 ? customer : default_customer;
            
         }
+        [RequireHttps]
+        [AllowAnonymous]
         public ActionResult indexpurchase(string salescode)
         {
             //if (Session["Username"] == null)
             //    return RedirectToAction("index", "home");
 
-            if (Session["SalesCode"] == null)
+            //if (Session["SalesCode"] == null)
+            //{
+            //    Session.Add("SalesCode", getDefaultVerifyViewModel().First());
+            //    TempData["DefaultSalesCode"] = true;
+            //}
+            //else if((Session["SalesCode"] as ViewModel.VerifyModel).salescode.Sales_Code == getDefaultVerifyViewModel().First().salescode.Sales_Code)
+            //{
+            //    TempData["DefaultSalesCode"] = true;
+            //}
+            //else
+            //{
+            //    TempData["DefaultSalesCode"] = null;
+            //}
+            if (TempData["SalesCode"] == null)
             {
-                Session.Add("SalesCode", getDefaultVerifyViewModel().First());
+                //Session.Add("SalesCode", getDefaultVerifyViewModel().First());
+                TempData.Add("SalesCode", getDefaultVerifyViewModel().First());
                 TempData["DefaultSalesCode"] = true;
             }
-            else if((Session["SalesCode"] as ViewModel.VerifyModel).salescode.Sales_Code == getDefaultVerifyViewModel().First().salescode.Sales_Code)
+            else if ((TempData["SalesCode"] as ViewModel.VerifyModel).salescode.Sales_Code == getDefaultVerifyViewModel().First().salescode.Sales_Code)
             {
                 TempData["DefaultSalesCode"] = true;
             }
@@ -224,6 +241,7 @@ namespace SODAPortalMvcApplication.Controllers
             return View();
         }
         [HttpPost]
+        [RequireHttps]
         public ActionResult indexpurchase(FormCollection collection)
         {
 
@@ -252,6 +270,7 @@ namespace SODAPortalMvcApplication.Controllers
             Session["SalesCode"] = VerifyModel;
             
             //return Session["NewAccount"] != null? RedirectToAction("termsinit"):RedirectToAction("purchasedetails","home");
+
             if(Session["Username"] !=null && !AccountClient.isUserNameExists(Session["Username"].ToString()))
             return RedirectToAction("termsinit");
             else
@@ -315,11 +334,13 @@ namespace SODAPortalMvcApplication.Controllers
             {
                 TempData["error"] = null;
                 Session.Add("SalesCode", salescodeList.First());
+                TempData.Add("SalesCode", salescodeList.First());
             }
             else
             {
                 TempData["error"] = "Sales Code: " + collection["SalesCode"] + " doesn't exists"; 
                 Session["SalesCode"] = null;
+                TempData["SalesCode"] = null;
             }
             return RedirectToAction("indexpurchase");
         }
@@ -372,6 +393,7 @@ namespace SODAPortalMvcApplication.Controllers
             var account = Session["NewAccount"] == null ? AccountClient.getAccount(Session["Username"].ToString()).Select(a => a).First() : Session["NewAccount"] as AccountServiceRef.Account;
             return View(account);
         }
+        [RequireHttps]
         public ActionResult paymentstatus(string stat)
         {
             ViewBag.paymentSuccess = (Session["Username"] != null || Session["NewAccount"] != null) && stat == "success";
@@ -414,7 +436,7 @@ namespace SODAPortalMvcApplication.Controllers
             string subject = "Your login details to Safety On Demand";
             EmailHelper.SendEmail(new System.Net.Mail.MailAddress(from, "Safety on Demand"), new System.Net.Mail.MailAddress(Session["Username"].ToString()), subject, body, true, null);
         }
-      
+        [RequireHttps]
         public ActionResult profile()
         {
             if (Session["Username"] == null)
@@ -422,7 +444,7 @@ namespace SODAPortalMvcApplication.Controllers
             var cust = Session["CustomerData"] as IEnumerable<ViewModel.CustomerModel>;
             return View(cust.OrderByDescending(c=>c.customer.DateSubscriptionEnd).First());
         }
-        
+        [RequireHttps]
         public ActionResult editProfile()
         {
             if (Session["Username"] != null)
@@ -444,7 +466,7 @@ namespace SODAPortalMvcApplication.Controllers
                 return RedirectToAction("index", "Home");
             }
         }
-
+        [RequireHttps]
         [HttpPost]
         public ActionResult editprofile(ViewModel.UserModel user)
         {
@@ -464,7 +486,7 @@ namespace SODAPortalMvcApplication.Controllers
                 return View(user);
 
         }
-
+        [RequireHttps]
         public ActionResult checkout()
         {
             //ViewModel.CustomerModel customer = new ViewModel.CustomerModel();
@@ -537,6 +559,7 @@ namespace SODAPortalMvcApplication.Controllers
         {
             return RedirectToAction("paymentstatus", new { stat = "cancel" }) ;
         }
+        [RequireHttps]
         public ActionResult confirm(string token, string payerid)
         {
             
@@ -545,6 +568,7 @@ namespace SODAPortalMvcApplication.Controllers
             if(Session["NewAccount"] != null)
             {
                 var new_accnt = Session["NewAccount"] as AccountServiceRef.Account;
+                AuditLoggingHelper.LogCreateAction(new_accnt.USERNAME, new_accnt, portalClient);
                 AccountClient.addAccount(new_accnt);
 
                
@@ -553,18 +577,20 @@ namespace SODAPortalMvcApplication.Controllers
                         select account;
                 
             string result = paypalClient.confirmationModel(initConfirmModel(VerfiyModel, accnt.First().Id, token, payerid));
-                portalClient.addCustomer(new PortalServiceReference.Customer()
+            var new_cust = new PortalServiceReference.Customer()
                 {
                     UserId = accnt.First().Id,
                     DatePurchase = new Nullable<DateTime>(DateTime.Now),
                     //DateSubscriptionEnd = new Nullable<DateTime>(DateTime.Now.AddMonths(6)),
-                    DateSubscriptionEnd = getDateSubscriptionEnd(VerfiyModel.selectedSubscription,VerfiyModel.price.FirstMonthFree),
+                    DateSubscriptionEnd = getDateSubscriptionEnd(VerfiyModel.selectedSubscription, VerfiyModel.price.FirstMonthFree),
                     SalesCodeId = VerfiyModel.salescode.Id,
-                     DateUpdated = DateTime.Now,
-                     Licenses = VerfiyModel.qty,
-                     RecurringType = Convert.ToInt16(VerfiyModel.selectedSubscription),
-                     PPId =  paypalClient.getPayPalTrans().Select(p=>p).Where(p=>p.ECTransID == result.Split(';')[0]).First().Id
-                });
+                    DateUpdated = DateTime.Now,
+                    Licenses = VerfiyModel.qty,
+                    RecurringType = Convert.ToInt16(VerfiyModel.selectedSubscription),
+                    PPId = paypalClient.getPayPalTrans().Select(p => p).Where(p => p.ECTransID == result.Split(';')[0]).First().Id
+                };
+                AuditLoggingHelper.LogCreateAction(Session["Username"].ToString(), new_cust, portalClient);
+                portalClient.addCustomer(new_cust);
                 if (Session["NewAccount"] != null)
                 {
                     var new_cust_contract = new PortalServiceReference.CustomerContract()
@@ -575,6 +601,7 @@ namespace SODAPortalMvcApplication.Controllers
                         DateStart = (Session["ClientDateTime"] as Nullable<DateTime>).Value,
                         UserId = accnt.First().Id
                     };
+                    
                     AuditLoggingHelper.LogCreateAction(Session["Username"].ToString(), new_cust_contract, portalClient);
                     portalClient.addCustomerContract(new_cust_contract);
                 }
@@ -606,19 +633,19 @@ namespace SODAPortalMvcApplication.Controllers
             {
                 case 1:
                     ppConfirm.dateStart = VerfiyModel.price.FirstMonthFree ? DateTime.Now.AddMonths(2) : DateTime.Now.AddMonths(1);
-                    ppConfirm.PaymenytAmt = VerfiyModel.discountedPrice_A * VerfiyModel.qty;
+                    ppConfirm.PaymenytAmt = Math.Round(VerfiyModel.discountedPrice_A,2) * VerfiyModel.qty;
                     ppConfirm.schedDesc = string.Format(BILLING_AGREEMENT_FORMAT, 1);
                     ppConfirm.BillingFrequency = 1;
                     break;
                 case 2:
                     ppConfirm.dateStart = VerfiyModel.price.FirstMonthFree ? DateTime.Now.AddMonths(4) : DateTime.Now.AddMonths(3);
-                    ppConfirm.PaymenytAmt = VerfiyModel.discountedPrice_B * VerfiyModel.qty;
+                    ppConfirm.PaymenytAmt = Math.Round(VerfiyModel.discountedPrice_B,2) * VerfiyModel.qty;
                     ppConfirm.schedDesc = string.Format(BILLING_AGREEMENT_FORMAT, 3);
                     ppConfirm.BillingFrequency = 3;
                     break;
                 case 3:
                      ppConfirm.dateStart = VerfiyModel.price.FirstMonthFree ? DateTime.Now.AddMonths(7) : DateTime.Now.AddMonths(6);
-                    ppConfirm.PaymenytAmt = VerfiyModel.discountedPrice_C * VerfiyModel.qty;
+                    ppConfirm.PaymenytAmt = Math.Round( VerfiyModel.discountedPrice_C,2) * VerfiyModel.qty;
                     ppConfirm.schedDesc = string.Format(BILLING_AGREEMENT_FORMAT, 6);
                     ppConfirm.BillingFrequency = 6;
                     break;
@@ -648,6 +675,7 @@ namespace SODAPortalMvcApplication.Controllers
              else
                  return RedirectToAction("index");
         }
+        [RequireHttps]
         public ActionResult downloads()
         {
             if (Session["Username"] == null)
@@ -655,7 +683,7 @@ namespace SODAPortalMvcApplication.Controllers
             else
             return View();
         }
-
+        [RequireHttps]
         public ActionResult termsconditions()
         {
             if (Session["Username"] == null)
@@ -671,7 +699,7 @@ namespace SODAPortalMvcApplication.Controllers
             return View();
         }
 
-
+        [RequireHttps]
         public FileStreamResult StreamFileFromDisk()
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + "Content/download/";

@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+    var returnUrl = "http://" + "portal.safetyondemand.com.au"+Url.Action("confirm","user");
 }
 
 @using (@Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "formSignin border shadow" }))

@@ -19,14 +19,14 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:50620/AccountService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:50615/AccountService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="AccountService1.wsdl" MetadataType="Wsdl" ID="230bda4b-df6f-404a-a6d9-ceec40ef0629" SourceId="1" SourceUrl="http://localhost:50620/AccountService.svc?wsdl" />
-    <MetadataFile FileName="AccountService1.disco" MetadataType="Disco" ID="ceea5672-45e6-4867-8dbb-f10fb3ff6958" SourceId="1" SourceUrl="http://localhost:50620/AccountService.svc?disco" />
-    <MetadataFile FileName="AccountService3.xsd" MetadataType="Schema" ID="923603cc-ca44-4996-971d-b883e9184b15" SourceId="1" SourceUrl="http://localhost:50620/AccountService.svc?xsd=xsd2" />
-    <MetadataFile FileName="AccountService31.xsd" MetadataType="Schema" ID="0bcb292b-ae52-47ba-8359-7a5b20151356" SourceId="1" SourceUrl="http://localhost:50620/AccountService.svc?xsd=xsd0" />
-    <MetadataFile FileName="AccountService32.xsd" MetadataType="Schema" ID="04fa235f-5b7a-46e0-8514-4ad6c6286475" SourceId="1" SourceUrl="http://localhost:50620/AccountService.svc?xsd=xsd1" />
+    <MetadataFile FileName="AccountService.xsd" MetadataType="Schema" ID="c67f1e7b-96c0-4dc1-ac67-b3f49e0ffce3" SourceId="1" SourceUrl="http://localhost:50615/AccountService.svc?xsd=xsd1" />
+    <MetadataFile FileName="AccountService1.xsd" MetadataType="Schema" ID="15ac4cd5-7631-4cdb-a531-39d25a70f8dd" SourceId="1" SourceUrl="http://localhost:50615/AccountService.svc?xsd=xsd0" />
+    <MetadataFile FileName="AccountService.wsdl" MetadataType="Wsdl" ID="8c2c7e96-f7a1-4593-a3c3-a9f5f114b7d0" SourceId="1" SourceUrl="http://localhost:50615/AccountService.svc?wsdl" />
+    <MetadataFile FileName="AccountService2.xsd" MetadataType="Schema" ID="2755208c-3b26-4a2b-893f-3781cbbfaf24" SourceId="1" SourceUrl="http://localhost:50615/AccountService.svc?xsd=xsd2" />
+    <MetadataFile FileName="AccountService.disco" MetadataType="Disco" ID="e1f04b00-7391-48e2-b411-c4ebe65e1473" SourceId="1" SourceUrl="http://localhost:50615/AccountService.svc?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

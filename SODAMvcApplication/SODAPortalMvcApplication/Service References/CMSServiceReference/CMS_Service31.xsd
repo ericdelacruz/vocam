@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:50620/CMS_Service.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SODAwcfService.Models" />
+  <xs:import schemaLocation="http://localhost:50615/CMS_Service.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SODAwcfService.Models" />
   <xs:element name="addContent">
     <xs:complexType>
       <xs:sequence>
@@ -178,6 +178,18 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="deleteFreePPTResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getRegions">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getRegionsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/SODAwcfService.Models" minOccurs="0" name="getRegionsResult" nillable="true" type="q10:ArrayOfRegion" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

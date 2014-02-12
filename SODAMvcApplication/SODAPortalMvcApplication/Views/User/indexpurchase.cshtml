@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "indexpurchase";
-    var SalesCode = Session["SalesCode"] as SODAPortalMvcApplication.ViewModel.VerifyModel;
+    var SalesCode = TempData["SalesCode"] as SODAPortalMvcApplication.ViewModel.VerifyModel;
     var username =Session["Username"] != null? Session["Username"].ToString().Substring(0, Session["Username"].ToString().IndexOf('@')):null;
     var culture = SODAPortalMvcApplication.ViewModel.VerifyModel.getCultureInfo((SODAPortalMvcApplication.ViewModel.VerifyModel.Currency)(Enum.Parse(typeof(SODAPortalMvcApplication.ViewModel.VerifyModel.Currency), SalesCode.region.Currency)));   
 }

@@ -12,7 +12,8 @@ namespace SODAPortalMvcApplication.Controllers
         // GET: /Admin/
         private AccountServiceRef.AccountServiceClient account = new AccountServiceRef.AccountServiceClient();
         private PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
-     
+        
+        [RequireHttps]
         public ActionResult Index(string df,string dt,string sc,int? page)
         {
             if (!isUserSessionActive())
@@ -89,6 +90,7 @@ namespace SODAPortalMvcApplication.Controllers
         
         
         #region sales
+        [RequireHttps]
         public ActionResult sales()
         {
             if (!isUserSessionActive())
@@ -108,7 +110,7 @@ namespace SODAPortalMvcApplication.Controllers
 
            
         }
-
+        [RequireHttps]
         public ActionResult addsale()   
         {
             ViewBag.RegionList = from region in portalClient.getRegion()
@@ -124,6 +126,7 @@ namespace SODAPortalMvcApplication.Controllers
         }
 
         [HttpPost]
+        [RequireHttps]
         public ActionResult addsale(FormCollection collection)
         {
             if (!account.isUserNameExists(collection["Email"]))
@@ -195,7 +198,7 @@ namespace SODAPortalMvcApplication.Controllers
             AccountServiceRef.Account account_New = account.getAccount(collection["Email"].ToString()).First();
             return account_New;
         }
-
+        
         private void emailSales(FormCollection collection)
         {
             string strSalesName = collection["FirstName"] + " " + collection["LastName"];
@@ -216,7 +219,7 @@ namespace SODAPortalMvcApplication.Controllers
         //{
         //    EmailHelper.SendEmail("test@sac-iis.com", to, "Verification Email", "Please click the link to process. " + Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("verify", "sales", new { code = EncDec.EncryptData(to) }));
         //}
-
+        [RequireHttps]
         public ActionResult editsale(long id)
         {
             ViewBag.RegionList = from region in portalClient.getRegion()
@@ -238,6 +241,7 @@ namespace SODAPortalMvcApplication.Controllers
         }
         
         [HttpPost]
+        [RequireHttps]
         public ActionResult editsale(int id, FormCollection collection)
         {
             var salesPerson_orig = from salesPerson in portalClient.getSalePerson()
@@ -303,7 +307,7 @@ namespace SODAPortalMvcApplication.Controllers
             //var salesperson = portalClient.getSalePerson().Where(sp=>sp.)
             return RedirectToAction("sales");
         }
-
+        [RequireHttps]
         public ActionResult deletesale(int id)
         {
 
@@ -326,6 +330,7 @@ namespace SODAPortalMvcApplication.Controllers
         #endregion
 
         #region price
+        [RequireHttps]
         public ActionResult price()
         {
             if (!isUserSessionActive())
@@ -337,6 +342,7 @@ namespace SODAPortalMvcApplication.Controllers
                             select new ViewModel.PriceViewModel() { price = p, region = r };
             return View(priceList);
         }
+        [RequireHttps]
         public ActionResult addprice()
         {
             ViewBag.RegionList = from region in portalClient.getRegion()
@@ -345,6 +351,7 @@ namespace SODAPortalMvcApplication.Controllers
         }
         
         [HttpPost]
+        [RequireHttps]
         public ActionResult addprice(FormCollection collection)
         {
             var priceList = from price in portalClient.getPrice()
@@ -373,6 +380,7 @@ namespace SODAPortalMvcApplication.Controllers
             }
             return RedirectToAction("price");
         }
+        [RequireHttps]
         public ActionResult editprice(int id)
         {
             ViewBag.RegionList = from region in portalClient.getRegion()
@@ -383,6 +391,7 @@ namespace SODAPortalMvcApplication.Controllers
             return View(priceModel.First());
         }
         [HttpPost]
+        [RequireHttps]
         public ActionResult editprice(int id, FormCollection collection)
         {
             var old_price = portalClient.getPrice().Where(p=>p.Id == id).First();
@@ -405,6 +414,7 @@ namespace SODAPortalMvcApplication.Controllers
             portalClient.updatePrice(new_price);
             return RedirectToAction("price");
         }
+        [RequireHttps]
         public ActionResult deleteprice(int id)
         {
 
@@ -418,6 +428,7 @@ namespace SODAPortalMvcApplication.Controllers
     #endregion
 
         #region Sales Code
+        [RequireHttps]
         public ActionResult salescode()
         {
             if (!isUserSessionActive())
@@ -431,7 +442,7 @@ namespace SODAPortalMvcApplication.Controllers
             return View(SalesCodeList);
         }
 
-        
+        [RequireHttps]
         public ActionResult addsalescode()
         {
             return View();
@@ -541,6 +552,7 @@ namespace SODAPortalMvcApplication.Controllers
         #endregion
 
         #region region
+
         public ActionResult region()
         {
             if (!isUserSessionActive())
@@ -552,7 +564,7 @@ namespace SODAPortalMvcApplication.Controllers
                              select region;
             return View(regionList);
         }
-
+        [RequireHttps]
         public ActionResult addRegion()
         {
             initAddRegionViewBag();
@@ -577,6 +589,7 @@ namespace SODAPortalMvcApplication.Controllers
             });
         }
         [HttpPost]
+        [RequireHttps]
         public ActionResult addregion(FormCollection collection)
         {
             if (portalClient.getRegion().Select(r => r).Where(r => r.RegionName == collection["RegionName"]).Count() == 0)
@@ -625,7 +638,7 @@ namespace SODAPortalMvcApplication.Controllers
             }
             return RedirectToAction("region");
         }
-
+        [RequireHttps]
         public ActionResult editregion(int id)
         {
             var region = initEditRegionViewBagData(id);
@@ -653,6 +666,7 @@ namespace SODAPortalMvcApplication.Controllers
         }
 
         [HttpPost]
+        [RequireHttps]
         public ActionResult editregion(int id, FormCollection collection)
         {
             var existing_Region = from region in portalClient.getRegion()
@@ -708,7 +722,7 @@ namespace SODAPortalMvcApplication.Controllers
 
       
         
-
+        [RequireHttps]
         public ActionResult deleteregion(int id)
         {
             if (!isUserSessionActive())
@@ -736,6 +750,7 @@ namespace SODAPortalMvcApplication.Controllers
         #endregion  
 
         #region Marketer
+        [RequireHttps]
         public ActionResult marketer()
         {
             if (!isUserSessionActive())
@@ -756,6 +771,7 @@ namespace SODAPortalMvcApplication.Controllers
             return View();
         }
         [HttpPost]
+        [RequireHttps]
         public ActionResult addmarketer(FormCollection collection)
         {
             
@@ -789,7 +805,7 @@ namespace SODAPortalMvcApplication.Controllers
            }
             return RedirectToAction("marketer");
         }
-
+        [RequireHttps]
         public ActionResult editMarketer(long id)
         {
             if (!isUserSessionActive())
@@ -805,6 +821,7 @@ namespace SODAPortalMvcApplication.Controllers
                 return RedirectToAction("marketer");
         }
         [HttpPost]
+        [RequireHttps]
         public ActionResult editmarketer(long id, FormCollection collection)
         {
             //DateTime birthdate = DateTime.Parse(collection["yyyy"] + "-" + collection["mm"] + "-" + collection["dd"]);
@@ -842,7 +859,7 @@ namespace SODAPortalMvcApplication.Controllers
                 return RedirectToAction("marketer");
 
         }
-
+        [RequireHttps]
         public ActionResult deletemarketer(long id)
         {
             if (!isUserSessionActive())

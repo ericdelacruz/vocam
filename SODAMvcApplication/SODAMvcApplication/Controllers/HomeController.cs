@@ -41,11 +41,12 @@ namespace SODAMvcApplication.Controllers
 
             if (!Request.Url.Host.Contains("www.") && Request.Url.Host != "localhost")
                 return Redirect("http://www." + Request.Url.Host);
-            else if (Request.Url.Host == "www.sac-iis.com" || Request.Url.Host == "sac-iis.com")
-            {
-                var websiteUrl = cmsServiceClient.getRegions().Where(r => r.Id == 12).First().WebsiteUrl;
-                return Redirect("http://" + websiteUrl);
-            }
+
+            //else if (Request.Url.Host == "www.sac-iis.com" || Request.Url.Host == "sac-iis.com")
+            //{
+            //    var websiteUrl = cmsServiceClient.getRegions().Where(r => r.Id == 12).First().WebsiteUrl;
+            //    return Redirect("http://" + websiteUrl);
+            //}
 
               var  lContentDef = cmsServiceClient.getContent(HOME, string.Empty);
 
