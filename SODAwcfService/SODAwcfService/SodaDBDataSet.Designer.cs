@@ -1464,7 +1464,7 @@ namespace SODAwcfService {
                 this.columnId.ReadOnly = true;
                 this.columnId.Unique = true;
                 this.columnUSERNAME.AllowDBNull = false;
-                this.columnUSERNAME.MaxLength = 30;
+                this.columnUSERNAME.MaxLength = 70;
                 this.columnPASSWORD.AllowDBNull = false;
                 this.columnPASSWORD.MaxLength = 200;
                 this.columnFirstName.AllowDBNull = false;
