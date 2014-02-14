@@ -194,6 +194,12 @@
   <wsdl:message name="IPortalService_getPayPalCurrencies_OutputMessage">
     <wsdl:part name="parameters" element="tns:getPayPalCurrenciesResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_addToLogsTable_InputMessage">
+    <wsdl:part name="parameters" element="tns:addToLogsTable" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_addToLogsTable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:addToLogsTableResponse" />
+  </wsdl:message>
   <wsdl:portType name="IPortalService">
     <wsdl:operation name="getCustomer">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/getCustomer" message="tns:IPortalService_getCustomer_InputMessage" />
@@ -318,6 +324,10 @@
     <wsdl:operation name="getPayPalCurrencies">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/getPayPalCurrencies" message="tns:IPortalService_getPayPalCurrencies_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/getPayPalCurrenciesResponse" message="tns:IPortalService_getPayPalCurrencies_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="addToLogsTable">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/addToLogsTable" message="tns:IPortalService_addToLogsTable_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/addToLogsTableResponse" message="tns:IPortalService_addToLogsTable_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPortalService" type="tns:IPortalService">
@@ -594,6 +604,15 @@
     </wsdl:operation>
     <wsdl:operation name="getPayPalCurrencies">
       <soap:operation soapAction="http://tempuri.org/IPortalService/getPayPalCurrencies" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addToLogsTable">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/addToLogsTable" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -14,34 +14,44 @@ namespace SODAPortalMvcApplication.Controllers
         //
         // GET: /user/
         private static string BILLING_AGREEMENT_FORMAT = "You will be bill every {0} month/s";
-      
+
         [RequireHttps]
-        public ActionResult Index()
+        public ActionResult Index(string u, string p)
         {
-            string username = Session["Username"] != null? Session["Username"].ToString():null;
+            if (!string.IsNullOrEmpty(u))
+            {
+                if (AccountClient.AuthenticateUser(u, EncDec.DecryptString(p)))
+                {
+                    Session["Username"] = u;
+                }
+            }
+
+            string username = Session["Username"] != null ? Session["Username"].ToString() : null;
+
             if (username == null)
                 return RedirectToAction("index", "home");
             else
             {
                 //if (Session["CustomerData"] == null)
                 //{
-                    var customer = getCustomerData(username);
-                    
-                    
-                    //First time user 
-                    if (customer.Count() == 0)
+                var customer = getCustomerData(username);
+
+
+                //First time user 
+                if (customer.Count() == 0)
+                {
+
+                    return RedirectToAction("indexpurchase");
+                }
+                else
+                {
+
+                    if (Request.Url.Host != "localhost" && Request.Url.Host != customer.First().rejoin.WebsiteUrl.Replace("www", "portal"))
                     {
 
-                        return RedirectToAction("indexpurchase");
+                        //return Redirect("https://" + "localhost:44301" + Url.Action("Index", "user", new { u = username, p = customer.First().account.PASSWORD }));
+                        return Redirect("https://" + customer.First().rejoin.WebsiteUrl.Replace("www", "portal") + Url.Action("Index", "user", new { u = username, p = customer.First().account.PASSWORD }));
                     }
-                    else
-                    {
-
-                        if (Request.Url.Host != "localhost" && Request.Url.Host != customer.First().rejoin.WebsiteUrl.Replace("www", "portal"))
-                        {
-                            
-                            return Redirect("http://" + customer.First().rejoin.WebsiteUrl.Replace("www", "portal") +Url.Action("Index","user"));
-                        }
 
                         Session.Add("CustomerData", customer);
                         //Check Customer Recurring profile if still active, 
@@ -510,11 +520,12 @@ namespace SODAPortalMvcApplication.Controllers
         {
             var VerifyModel = Session["SalesCode"] as ViewModel.VerifyModel;
             SODAPayPalSerRef.PayPalCheckOutModel ppc = new SODAPayPalSerRef.PayPalCheckOutModel();
-            ppc.cancelurl = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("cancel"); ;
+            ppc.cancelurl = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("cancel"); 
             ppc.confirmUrl = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("confirm");
             ppc.CType = (SODAPayPalSerRef.CurrencyCodeType)Enum.Parse(typeof(SODAPayPalSerRef.CurrencyCodeType), VerifyModel.region.Currency);
             ppc.Quantity = VerifyModel.qty;
             ppc.OrderDesc = "Order Description here.";
+            
             decimal roundedDCPrice = 0;
             switch(VerifyModel.selectedSubscription)
             {

@@ -93,7 +93,7 @@ namespace SODAwcfService
 
             double orderTotal = model.orderTotalamt;
             double itemTotal = model.itemTotalamt;
-
+            double taxTotal = model.TaxTotalamt ?? 0;
             
                 paymentDetails.OrderDescription = model.OrderDesc;
             
@@ -105,6 +105,8 @@ namespace SODAwcfService
             itemDetails.Name = model.itemName;
             itemDetails.Amount = new BasicAmountType(model.CType, model.ItemAmt);
             itemDetails.Quantity = model.Quantity;
+            if (taxTotal > 0)
+                itemDetails.Tax = new BasicAmountType(model.CType, model.taxAmt);
             // Indicates whether an item is digital or physical. For digital goods, this field is required and must be set to Digital. It is one of the following values:
             //   1.Digital
             //   2.Physical
@@ -124,7 +126,8 @@ namespace SODAwcfService
             //orderTotal += itemTotal;
             paymentDetails.ItemTotal = new BasicAmountType(model.CType, itemTotal.ToString());
             paymentDetails.OrderTotal = new BasicAmountType(model.CType, orderTotal.ToString());
-
+            if (taxTotal > 0)
+                paymentDetails.TaxTotal = new BasicAmountType(model.CType, taxTotal.ToString());
          
             BillingCodeType billingCodeType = BillingCodeType.RECURRINGPAYMENTS;
             BillingAgreementDetailsType baType = new BillingAgreementDetailsType(billingCodeType);
@@ -220,6 +223,8 @@ namespace SODAwcfService
 
             BillingPeriodDetailsType paymentPeriod = new BillingPeriodDetailsType(period, model.BillingFrequency, paymentAmount);
 
+            if(model.TaxAmt != null)
+            paymentPeriod.TaxAmount = new BasicAmountType(model.cType, model.TaxAmt);
 
             scheduleDetails.PaymentPeriod = paymentPeriod;
 

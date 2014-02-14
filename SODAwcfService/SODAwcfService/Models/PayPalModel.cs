@@ -28,6 +28,10 @@ namespace SODAwcfService.Models
         public string BillingAgreement { get; set; }
 
         public string ItemAmt { get; set; }
+
+        public int? TaxTotalamt { get; set; }
+
+        public string taxAmt { get; set; }
     }
     public class PayPalConfirmModel
     {
@@ -51,6 +55,8 @@ namespace SODAwcfService.Models
         public long SalesCodeId { get; set; }
 
         public int Qty { get; set; }
+
+        public string TaxAmt { get; set; }
     }
     
 }

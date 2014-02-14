@@ -8,12 +8,14 @@
       <xs:element minOccurs="0" name="ItemAmt" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="OrderDesc" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Quantity" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TaxTotalamt" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="cancelurl" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="confirmUrl" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="itemDesc" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="itemName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="itemTotalamt" type="xs:double" />
       <xs:element minOccurs="0" name="orderTotalamt" type="xs:double" />
+      <xs:element minOccurs="0" name="taxAmt" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="PayPalCheckOutModel" nillable="true" type="tns:PayPalCheckOutModel" />
@@ -23,6 +25,7 @@
       <xs:element minOccurs="0" name="PaymenytAmt" type="xs:decimal" />
       <xs:element minOccurs="0" name="Qty" type="xs:int" />
       <xs:element minOccurs="0" name="SalesCodeId" type="xs:long" />
+      <xs:element minOccurs="0" name="TaxAmt" nillable="true" type="xs:string" />
       <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/PayPal.PayPalAPIInterfaceService.Model" minOccurs="0" name="cType" nillable="true" type="q2:CurrencyCodeType" />
       <xs:element minOccurs="0" name="dateStart" type="xs:dateTime" />
       <xs:element minOccurs="0" name="payorid" nillable="true" type="xs:string" />
