@@ -53,7 +53,8 @@ namespace SODAPortalMvcApplication.Controllers
                         return Redirect("https://" + customer.First().rejoin.WebsiteUrl.Replace("www", "portal") + Url.Action("Index", "user", new { u = username, p = customer.First().account.PASSWORD }));
                     }
 
-                        Session.Add("CustomerData", customer);
+                        
+                    Session.Add("CustomerData", customer);
                         //Check Customer Recurring profile if still active, 
                         foreach(var cust in customer)
                         {
@@ -134,9 +135,11 @@ namespace SODAPortalMvcApplication.Controllers
             try
             {
 
-                TimeZoneInfo info = DateHelper.getTimeZoneInto(collection["tz_info"]);
+                //TimeZoneInfo info = DateHelper.getTimeZoneInto(collection["tz_info"]);
 
-                Session.Add("ClientDateTime", DateHelper.UTCtoLocal(DateTime.UtcNow, collection["tz_info"]));
+                //Session.Add("ClientDateTime", DateHelper.UTCtoLocal(DateTime.UtcNow, collection["tz_info"]));
+                DateTime clientDateTime = toClientTime(collection["dateTimeOffset"]);
+                Session.Add("ClientDateTime", clientDateTime);
             }
             catch (System.Security.SecurityException)
             {
@@ -152,6 +155,13 @@ namespace SODAPortalMvcApplication.Controllers
             VerifyModel.qty = !string.IsNullOrEmpty(collection["quantity"]) ? int.Parse(collection["quantity"]) : 1;
             Session["SalesCode"] = VerifyModel;
             return RedirectToAction("termsinit");
+        }
+
+        private DateTime toClientTime(string strTimeZoneOffset)
+        {
+
+
+            return (DateTime.UtcNow.Add(new TimeSpan(long.Parse(strTimeZoneOffset))));
         }
         private bool isPayPalRecurActive(string ECTRans)
         {
@@ -236,7 +246,7 @@ namespace SODAPortalMvcApplication.Controllers
             //}
             if (TempData["SalesCode"] == null)
             {
-                //Session.Add("SalesCode", getDefaultVerifyViewModel().First());
+                Session.Add("SalesCode", getDefaultVerifyViewModel().First());
                 TempData.Add("SalesCode", getDefaultVerifyViewModel().First());
                 TempData["DefaultSalesCode"] = true;
             }
@@ -615,6 +625,24 @@ namespace SODAPortalMvcApplication.Controllers
                     
                     AuditLoggingHelper.LogCreateAction(Session["Username"].ToString(), new_cust_contract, portalClient);
                     portalClient.addCustomerContract(new_cust_contract);
+                }
+                else
+                {
+
+                    var old_contract = portalClient.getCustomerContract().Where(c => c.UserId == accnt.First().Id).First();
+                    var new_cust_contract = new PortalServiceReference.CustomerContract()
+                    {
+                        //DateEnd = DateTime.Now.AddMonths(6),
+                        DateEnd = (Session["ClientDateTime"] as Nullable<DateTime>).Value.AddMonths(6),
+                        //DateStart = DateTime.Now,
+                        DateStart = (Session["ClientDateTime"] as Nullable<DateTime>).Value,
+                        UserId = accnt.First().Id,
+                        Id = old_contract.Id
+                    };
+                    AuditLoggingHelper.LogUpdateAction(Session["Username"].ToString(), old_contract, new_cust_contract, portalClient);
+                    portalClient.updateCustomerContract(new_cust_contract);
+                    //AuditLoggingHelper.LogCreateAction(Session["Username"].ToString(), new_cust_contract, portalClient);
+                    //portalClient.addCustomerContract(new_cust_contract);
                 }
                 return RedirectToAction("paymentstatus",new{stat="success"});
             

@@ -1,0 +1,121 @@
+﻿@{
+    var SalesCode = Page.SalesCode as SODAPortalMvcApplication.ViewModel.VerifyModel;
+}
+@*<hr id="divHr">*@
+<p>&nbsp;</p>
+<h2>Purchase Additional License</h2>
+<br />
+<img src="/Content/images/portal/step1.jpg" alt="Step 1: Enter Your Sales Code"><br />
+<h4>If Sales Code not available, proceed to Step 2.</h4>
+@using (@Html.BeginForm("reverify", "user"))
+{
+    if (SalesCode != null && !SalesCode.isDefaultSalesCode)
+    {
+        <div style="text-align:center; font-size:14px;" class="alert alert-success"><strong>@SalesCode.salescode.Sales_Code</strong>: Sales Code Verified!</div> <br />
+        <label>Sales Code:</label><input type="text" value="@SalesCode.salescode.Sales_Code" name="salesCode" class="form-control" style="margin-right:5px;" />
+    }
+    else if (TempData["error"] != null)
+    {
+        <div style="text-align:center; font-size:14px;" class="alert alert-danger clearfix">Sales Code not verified! Please try again.</div> <br />
+        <label>Sales Code:</label><input type="text" value="" name="salesCode" class="form-control" style="margin-right:5px;" />
+    }
+    else
+    {
+
+        <br />
+        <label>Sales Code:</label><input type="text" value="" name="salesCode" class="form-control" style="margin-right:5px;" />
+
+    }
+    <button type="submit" class="btn btn-default fl">Verify</button>
+    <p>&nbsp;</p>
+}
+
+
+<br /><br /><br />
+@if (SalesCode != null)
+{
+    var latestLicensesType = Page.LicenseType;
+    var culture = SODAPortalMvcApplication.ViewModel.VerifyModel.getCultureInfo((SODAPortalMvcApplication.ViewModel.VerifyModel.Currency)Enum.Parse(typeof(SODAPortalMvcApplication.ViewModel.VerifyModel.Currency), SalesCode.region.Currency));
+    //string displayFormat = "{0} License/s : {1} initial for {2} month/s plus {1} recurring every {3} month/s";
+
+    using (@Html.BeginForm("index", "user", FormMethod.Post))
+    {
+
+
+
+        <img src="/Content/images/portal/step2.jpg" alt="Step 2: Choose Your Subscription">
+        <p style="margin-right:10%;">
+            <br />To subscribe, simply select your preferred payment interval for your recurring subscription from the list below.<br><br>
+            A Safety On Demand Subscription allows you pay every 1 month, 3 month or 6 month intervals to suit your training budget needs. Please note a 6 month minimum sign up is required on all subscriptions, from then you can cancel at any time. Save money by purchasing a payment in 6 month interval subscription. <strong>Great value!</strong><br><br>
+        </p>
+        <div class="row">
+            @if (latestLicensesType < 2)
+            {
+                <div class="col-sm-4 border2 shadow">
+                    <div class="monthSub">1 MONTH</div>
+                    <div class="priceSub">@SalesCode.discountedPrice_A.ToString("C", culture) <br /><span class="serviceChargeCode">+ @SalesCode.region.ServiceChargeCode </span></div>
+                    <div class="radioBg">
+                        <label>
+                            <input type="radio" name="subscription" value="1" checked>
+                        </label>
+                    </div>
+
+                </div>
+            }
+            @if (latestLicensesType > 0 && latestLicensesType != 3)
+            {
+                <div class="col-sm-4 border2 shadow">
+                    <div class="monthSub">3 MONTHS</div>
+                    <div class="priceSub">@SalesCode.discountedPrice_B.ToString("C", culture) <br /><span class="serviceChargeCode">+ @SalesCode.region.ServiceChargeCode</span></div>
+                    @if (latestLicensesType == 2)
+                    {
+                        <div class="radioBg">
+                            <label><input type="radio" name="subscription" value="2" checked></label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="radioBg">
+                            <label><input type="radio" name="subscription" value="2"></label>
+                        </div>
+                    }
+                </div>
+
+            }
+            @if (latestLicensesType <= 3)
+            {
+                <div class="col-sm-4 border2 shadow">
+                    <div class="monthSub">6 MONTHS</div>
+                    <div class="priceSub">@SalesCode.discountedPrice_C.ToString("C", culture) <br /><span class="serviceChargeCode">+ @SalesCode.region.ServiceChargeCode </span></div>
+                    @if (latestLicensesType == 3)
+                    {
+                        <div class="radioBg"><label><input type="radio" name="subscription" value="3" checked></label></div>
+                    }
+                    else
+                    {
+                        <div class="radioBg"><label><input type="radio" name="subscription" value="3"></label></div>
+                    }
+                </div>
+            }
+        </div>
+        <br /><br />
+        if (TempData["errorQuantity"] != null)
+        {
+            <div style="text-align:center; font-size:14px;" class="alert alert-danger clearfix">@TempData["errorQuantity"].ToString()</div>
+        }
+        <label>Quantity:</label><input type="text" name="quantity" class="form-control" value="1">
+        @*<label>Quantity:</label><input type="text" name="quantity" class="form-control" value="1">
+               <label>Sales Code:</label><input type="text" value="@Model.Last().salesCode.Sales_Code" name="salesCode" class="form-control" style="margin-right:5px;" />
+               <button type="submit" class="btn btn-default fl" value="verify" name="verify">Verify</button>
+            @Html.ValidationSummary()*@
+        @Html.Hidden("dateTimeOffset");
+        <button type="submit" class="btn btn-lg btn-primary btn-block" style="width: 200px; float: right; margin-right: 5%;">Purchase </button>
+        @*<a href="@Url.Action("reverify", new { salescode = @Model.Last().salesCode.Sales_Code })"><button type="submit" class="btn btn-default fl">Verify</button></a>*@
+    }
+
+}
+
+
+
+
+<br /><br />
