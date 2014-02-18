@@ -14,7 +14,7 @@ namespace SODAPortalMvcApplication.Controllers
         private AccountServiceRef.AccountServiceClient accountClient = new AccountServiceRef.AccountServiceClient();
         private PortalServiceReference.PortalServiceClient portaClient = new PortalServiceReference.PortalServiceClient();
         private CMSServiceReference.CMS_ServiceClient cmsClient = new CMSServiceReference.CMS_ServiceClient();
-       
+        [RequireHttps]
         public ActionResult Index()
         {
             string PhoneNo = getPhoneNum();
@@ -93,12 +93,14 @@ namespace SODAPortalMvcApplication.Controllers
             }
                 return View(collection);
         }
+        [RequireHttps]
         public ActionResult registration()
         {
             return View();
         }
         [HttpPost]
         [AllowAnonymous]
+        [RequireHttps]
         public ActionResult registration(ViewModel.UserModel model,FormCollection collection)
         {
             if (ModelState.IsValid)
@@ -136,6 +138,7 @@ namespace SODAPortalMvcApplication.Controllers
             }
             return View(model);
         }
+        [RequireHttps]
         public ActionResult purchaseDetails()
         {
             ViewBag.Country = portaClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www") || (Request.Url.Host == "localhost" && r.RegionName == "AU")).FirstOrDefault().RegionName;
@@ -143,6 +146,7 @@ namespace SODAPortalMvcApplication.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
+        [RequireHttps]
         public ActionResult purchaseDetails(ViewModel.UserModel model, FormCollection collection)
         {
             model.Password = "safety";
@@ -209,6 +213,7 @@ namespace SODAPortalMvcApplication.Controllers
 
             EmailHelper.SendEmail("test@sac-iis.com", model.Email, "Verification", "Click the link to continue." + Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("verify", "home", new { code = EncDec.EncryptData(model.Email) }).Replace("/portal", ""));
         }
+        [RequireHttps]
         public ActionResult verify(string code)
         {
             string username = EncDec.DecryptString(code);
@@ -243,6 +248,7 @@ namespace SODAPortalMvcApplication.Controllers
             return RedirectToAction("index");
         }
         [HttpPost]
+        [RequireHttps]
         public ActionResult EmailVerify(string cid)
         {
             var account = from accnt in accountClient.getAccount("")
@@ -264,7 +270,7 @@ namespace SODAPortalMvcApplication.Controllers
             Session.RemoveAll();
             return RedirectToAction("index");
         }
-       
+        [RequireHttps]
         public ActionResult forgotpassword()
         {
             return View();
@@ -272,6 +278,7 @@ namespace SODAPortalMvcApplication.Controllers
        
         [HttpPost]
         [AllowAnonymous]
+        [RequireHttps]
         public ActionResult forgotpassword(FormCollection collection)
         {
             if(!string.IsNullOrEmpty(collection["Username"]))
@@ -321,10 +328,12 @@ namespace SODAPortalMvcApplication.Controllers
                
             }
         }
+
         public ActionResult emailforgotpassword()
         {
             return View();
         }
+        [RequireHttps]
         public ActionResult resetpassword(string code)
         {
             var resetpass = accountClient.getRestPassword().Where(rp => rp.key == code);
@@ -338,6 +347,7 @@ namespace SODAPortalMvcApplication.Controllers
                 return Redirect("index");
         }
         [HttpPost]
+        [RequireHttps]
         public ActionResult resetpassword(FormCollection collection)
         {
               if(collection["Password"] == collection["ConfirmPassword"])
@@ -381,7 +391,7 @@ namespace SODAPortalMvcApplication.Controllers
                 default:return "";
             }
         }
-
+        [RequireHttps]
         public ActionResult changePassword(string returnurl)
         {
            
@@ -391,6 +401,7 @@ namespace SODAPortalMvcApplication.Controllers
         }
 
         [HttpPost]
+        [RequireHttps]
         public ActionResult changePassword(ViewModel.changePasswordModel changePasswordModel)
         {
              if(Session["Username"] != null)

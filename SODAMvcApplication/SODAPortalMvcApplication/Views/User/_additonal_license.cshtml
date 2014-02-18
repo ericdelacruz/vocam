@@ -49,8 +49,7 @@
             A Safety On Demand Subscription allows you pay every 1 month, 3 month or 6 month intervals to suit your training budget needs. Please note a 6 month minimum sign up is required on all subscriptions, from then you can cancel at any time. Save money by purchasing a payment in 6 month interval subscription. <strong>Great value!</strong><br><br>
         </p>
         <div class="row">
-            @if (latestLicensesType < 2)
-            {
+            
                 <div class="col-sm-4 border2 shadow">
                     <div class="monthSub">1 MONTH</div>
                     <div class="priceSub">@SalesCode.discountedPrice_A.ToString("C", culture) <br /><span class="serviceChargeCode">+ @SalesCode.region.ServiceChargeCode </span></div>
@@ -61,42 +60,30 @@
                     </div>
 
                 </div>
-            }
-            @if (latestLicensesType > 0 && latestLicensesType != 3)
-            {
+           
+            
                 <div class="col-sm-4 border2 shadow">
                     <div class="monthSub">3 MONTHS</div>
                     <div class="priceSub">@SalesCode.discountedPrice_B.ToString("C", culture) <br /><span class="serviceChargeCode">+ @SalesCode.region.ServiceChargeCode</span></div>
-                    @if (latestLicensesType == 2)
-                    {
-                        <div class="radioBg">
-                            <label><input type="radio" name="subscription" value="2" checked></label>
-                        </div>
-                    }
-                    else
-                    {
+                   
                         <div class="radioBg">
                             <label><input type="radio" name="subscription" value="2"></label>
                         </div>
-                    }
+                    
                 </div>
 
-            }
-            @if (latestLicensesType <= 3)
-            {
+            
+           
+
                 <div class="col-sm-4 border2 shadow">
                     <div class="monthSub">6 MONTHS</div>
                     <div class="priceSub">@SalesCode.discountedPrice_C.ToString("C", culture) <br /><span class="serviceChargeCode">+ @SalesCode.region.ServiceChargeCode </span></div>
-                    @if (latestLicensesType == 3)
-                    {
-                        <div class="radioBg"><label><input type="radio" name="subscription" value="3" checked></label></div>
-                    }
-                    else
-                    {
+                   
+                    
                         <div class="radioBg"><label><input type="radio" name="subscription" value="3"></label></div>
-                    }
+                    
                 </div>
-            }
+            
         </div>
         <br /><br />
         if (TempData["errorQuantity"] != null)

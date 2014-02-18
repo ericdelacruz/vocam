@@ -12,6 +12,7 @@ namespace SODAPortalMvcApplication.Controllers
         // GET: /sales/
         private AccountServiceRef.AccountServiceClient account = new AccountServiceRef.AccountServiceClient();
         private PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
+        [RequireHttps]
         public ActionResult Index(string df, string dt, string sc, int? page)
         {
             if (!isUserSessionActive())
@@ -67,6 +68,7 @@ namespace SODAPortalMvcApplication.Controllers
             base.Dispose(disposing);
         }
         [HttpPost]
+        [RequireHttps]
         public ActionResult index(FormCollection collection)
         {
             DateTime dtstart = DateTime.Parse(collection["start"]);
@@ -96,7 +98,7 @@ namespace SODAPortalMvcApplication.Controllers
                 return View(reportlist);
             }
         }
-        
+         [RequireHttps]
         public ActionResult adduser()
         {
             if (!isUserSessionActive())
@@ -107,6 +109,7 @@ namespace SODAPortalMvcApplication.Controllers
         }
         
         [HttpPost]
+        [RequireHttps]
         public ActionResult adduser(ViewModel.UserModel model)
         {
             if (ModelState.IsValid)
@@ -149,7 +152,7 @@ namespace SODAPortalMvcApplication.Controllers
         {
             return !string.IsNullOrEmpty(Session["Username"].ToString()) && AccountHelper.isActive(Session["Username"].ToString(), account);
         }
-
+         [RequireHttps]
         public ActionResult verify(string code)
         {
             string username = EncDec.DecryptString(code);

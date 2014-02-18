@@ -40,7 +40,7 @@
                 <table class="currentSub" border="0" cellspacing="0" cellpadding="0" style="width:100%;">
                     <tr class="currSubHead">
                         <td width="550" bgcolor="">DETAILS</td>
-                        @if(Model.First().contract  != null && Model.First().contract.DateEnd <= Model.First().contract.DateStart)
+                        @if(Model.First().contract  != null && (Model.First().contract.DateEnd.ToUniversalTime() - DateTime.UtcNow).TotalDays <= 0)
                         {                                             
                              <td>CANCEL SUBSCRIPTION</td>
                         }
@@ -58,7 +58,7 @@
                             <tr>
                                 @*<td>@string.Format(displayFormat,customer.customer.Licenses,customer.price.PriceAmt.ToString(culture),customer.price.FirstMonthFree?2:1,1) </td>*@
                                 <td>@string.Format(displayFormat, customer.customer.Licenses, pricepaid.ToString("C",culture), customer.price.FirstMonthFree ? 2 : 1, 1) </td>
-                                @if(customer.contract != null &&  customer.contract.DateEnd <= DateTime.Now )
+                                @if(customer.contract != null && (customer.contract.DateEnd.ToUniversalTime() - DateTime.UtcNow).TotalDays <= 0 )
                                 { 
                                  <td align="center"><a href=@Url.Action("unsubscribe", new {transid = customer.paypal.ECTransID })><button style="width:100px; margin-left:20%;" type="submit" class="fl btn btn-sm btn-primary" onclick="return confirm('Are you sure you want to delete the item?');">Cancel</button></a></td>
                                 }
@@ -68,7 +68,7 @@
                              <tr>
                                 @*<td>@string.Format(displayFormat,customer.customer.Licenses,customer.price.PriceAmt_B.ToString(culture),customer.price.FirstMonthFree?4:3,3) </td>*@
                                  <td>@string.Format(displayFormat, customer.customer.Licenses, pricepaid.ToString("C", culture), customer.price.FirstMonthFree ? 4 : 3, 3) </td>
-                                 @if (customer.contract != null && customer.contract.DateEnd <= DateTime.Now)
+                                 @if (customer.contract != null && (customer.contract.DateEnd.ToUniversalTime() - DateTime.UtcNow).TotalDays <= 0)
                                  {
                                    <td align="center"><a href=@Url.Action("unsubscribe", new {transid = customer.paypal.ECTransID })><button style="width:100px; margin-left:20%;" type="submit" class="fl btn btn-sm btn-primary" onclick="return confirm('Are you sure you want to delete the item?');">Cancel</button></a></td>
                                  }
@@ -78,7 +78,7 @@
                             <tr>
                                 @*<td>@string.Format(displayFormat,customer.customer.Licenses,customer.price.priceAmt_C.ToString(culture),customer.price.FirstMonthFree?7:6,6) </td>*@
                                 <td>@string.Format(displayFormat, customer.customer.Licenses, pricepaid.ToString("C", culture), customer.price.FirstMonthFree ? 7 : 6, 6) </td>
-                                @if (customer.contract != null && customer.contract.DateEnd <= DateTime.Now)
+                                @if (customer.contract != null && (customer.contract.DateEnd.ToUniversalTime() - DateTime.UtcNow).TotalDays <= 0)
                                 {
                                         <td align="center"><a href=@Url.Action("unsubscribe", new {transid = customer.paypal.ECTransID })><button style="width:100px; margin-left:20%;" type="submit" class="fl btn btn-sm btn-primary" onclick="return confirm('Are you sure you want to delete the item?');">Cancel</button></a></td>
                                 }

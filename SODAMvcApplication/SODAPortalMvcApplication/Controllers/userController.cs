@@ -205,7 +205,7 @@ namespace SODAPortalMvcApplication.Controllers
                            join PPT in paypalClient.getPayPalTrans() on cust.PPId equals PPT.Id
                            join r in portalClient.getRegion() on p.RegionId equals r.Id
                            join contract in portalClient.getCustomerContract() on user.Id equals contract.UserId
-                           where (PPT.Active == true && r.DefaultSalesCodeId != salescode.Id) 
+                           where ( r.DefaultSalesCodeId != salescode.Id) 
                            select new ViewModel.CustomerModel() { account = user, customer = cust, salesCode = salescode, salesPerson = sp, price = p, paypal = PPT, rejoin = r,contract = contract };
            
             var default_customer = from cust in portalClient.getCustomer()
@@ -217,7 +217,7 @@ namespace SODAPortalMvcApplication.Controllers
                                    join PPT in paypalClient.getPayPalTrans() on cust.PPId equals PPT.Id
                                    join p in portalClient.getPrice() on r.Id equals p.RegionId
                                    join contract in portalClient.getCustomerContract() on user.Id equals contract.UserId
-                                   where PPT.Active == true || (Request.Url.Host == "localhost" && r.Id == 27)
+                                   //where  r.DefaultSalesCodeId == salescode.Id || (Request.Url.Host == "localhost" && r.Id == 27)
                                    select new ViewModel.CustomerModel() { account = user, customer = cust, salesCode = salescode, paypal = PPT, rejoin = r, price = p, contract = contract };
 
             return customer.Count() > 0 && default_customer.Count() > 0 ? customer.Union(default_customer) :
@@ -703,17 +703,38 @@ namespace SODAPortalMvcApplication.Controllers
                  var customRecord = customerViewModel.First().customer;
                  customRecord.DateSubscriptionEnd = DateTime.Now;
 
+              
+
                  if (paypalClient.cancelSubscription(transid))
                  {
                      AuditLoggingHelper.LogUpdateAction(Session["Username"].ToString(), customerViewModel.First().customer, customRecord, portalClient);
+
                      portalClient.updateCustomer(customRecord);
+
+                     var old_licenseConsumption = portalClient.getLicenseConsumption().Where(lc => lc.UserId == customerViewModel.First().account.Id).FirstOrDefault();
+                     if (old_licenseConsumption != null)
+                     {
+                         var new_licenseConsumption = new PortalServiceReference.LicenseConsumption()
+                         {
+                             Id = old_licenseConsumption.Id,
+                             Consumed = 0,
+                             DateUpdated = DateTime.Now,
+                             UserId = old_licenseConsumption.UserId
+                         };
+                         AuditLoggingHelper.LogUpdateAction(Session["Username"].ToString(), old_licenseConsumption, new_licenseConsumption, portalClient);
+                         portalClient.updateLicenseConsumption(new_licenseConsumption);
+                     }
                  }
+                 
+                 
                  return RedirectToAction("index");
                  
              }
              else
                  return RedirectToAction("index");
         }
+
+
         [RequireHttps]
         public ActionResult downloads()
         {
