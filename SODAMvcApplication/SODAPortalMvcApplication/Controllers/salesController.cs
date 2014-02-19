@@ -67,6 +67,11 @@ namespace SODAPortalMvcApplication.Controllers
             portalClient.Close();
             base.Dispose(disposing);
         }
+        protected override IAsyncResult BeginExecute(System.Web.Routing.RequestContext requestContext, AsyncCallback callback, object state)
+        {
+            account.Authenticate("myS0D@P@ssw0rd");
+            return base.BeginExecute(requestContext, callback, state);
+        }
         [HttpPost]
         [RequireHttps]
         public ActionResult index(FormCollection collection)

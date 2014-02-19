@@ -184,6 +184,8 @@ namespace SODAPortalMvcApplication.Controllers
             {
                 paypalClient.initPayPalAccountSettings(region.Id);
             }
+
+            AccountClient.Authenticate("myS0D@P@ssw0rd");
             return base.BeginExecute(requestContext, callback, state);
         }
         

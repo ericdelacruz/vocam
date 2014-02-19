@@ -12,7 +12,11 @@ namespace CMSMvcApplication.Controllers
         private AccountServiceReference.AccountServiceClient accountClient = new AccountServiceReference.AccountServiceClient();
         //
         // GET: /Home/
-
+        protected override IAsyncResult BeginExecute(System.Web.Routing.RequestContext requestContext, AsyncCallback callback, object state)
+        {
+            accountClient.Authenticate("myS0D@P@ssw0rd");
+            return base.BeginExecute(requestContext, callback, state);
+        }
         public ActionResult Index()
         {
             

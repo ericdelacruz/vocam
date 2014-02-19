@@ -22,7 +22,11 @@ namespace SODAPortalMvcApplication.Controllers
              
             return View();
         }
-
+        protected override IAsyncResult BeginExecute(System.Web.Routing.RequestContext requestContext, AsyncCallback callback, object state)
+        {
+            accountClient.Authenticate("myS0D@P@ssw0rd");
+            return base.BeginExecute(requestContext, callback, state);
+        }
         private string getPhoneNum()
         {
             try
@@ -392,11 +396,21 @@ namespace SODAPortalMvcApplication.Controllers
             }
         }
         [RequireHttps]
-        public ActionResult changePassword(string returnurl)
+        public ActionResult changePassword(string returnurl,string role)
         {
            
-            TempData["ReturnUrl"] =Session["ReturnUrl"] != null? Session["ReturnUrl"].ToString(): returnurl;
-             
+            
+            if(role == "admin")
+            {
+                TempData["ReturnUrl"] = Url.Action("index", "admin");
+                ViewBag.CancelUrl = Url.Action("index", "admin");
+                ViewBag.enableCancel = true;
+            }
+            else
+            {
+                TempData["ReturnUrl"] = Session["ReturnUrl"] ?? returnurl;
+            }
+            //ViewBag.isAdmin = TempData["isAdmin"] ?? null;
             return View();
         }
 

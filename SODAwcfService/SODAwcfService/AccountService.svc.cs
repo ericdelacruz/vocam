@@ -14,7 +14,7 @@ namespace SODAwcfService
         SodaDBDataSetTableAdapters.AccountsTableAdapter AccountsTableAdapter;
         SodaDBDataSetTableAdapters.ResetPasswordTableAdapter resetAdapter;
         private string asdasd = EncDec.EncryptData("myS0D@P@ssw0rd");
-        private bool Allowed = false;
+        private static bool Allowed = false;
        
         enum Roles
         {
@@ -79,6 +79,10 @@ namespace SODAwcfService
         /// <returns></returns>
         public IEnumerable<Models.Account> getAccount(string UserName)
         {
+            if(!Allowed)
+            {
+                throw new FaultException("Access Denied");
+            }
             List<Models.Account> listAccounts = new List<Models.Account>();
             SodaDBDataSet.AccountsDataTable tbResult = new SodaDBDataSet.AccountsDataTable();
             try

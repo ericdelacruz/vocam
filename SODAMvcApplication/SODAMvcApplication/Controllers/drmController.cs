@@ -19,6 +19,7 @@ namespace SODAMvcApplication.Controllers
         public ActionResult authenticate(string username,string password, string contentid)
         {
             AccountServiceReference.AccountServiceClient accountClient = new AccountServiceReference.AccountServiceClient();
+            accountClient.Authenticate("myS0D@P@ssw0rd");
             PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
             CategoriesServiceReference.CatListingServiceClient catClient = new CategoriesServiceReference.CatListingServiceClient();
             //string filename = contentid;

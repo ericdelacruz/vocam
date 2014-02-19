@@ -73,7 +73,7 @@ namespace SODAwcfService
                 throw new FaultException("Express Checkout Failed:");
             }
 
-            return "https://www.sandbox.paypal.com/webscr&cmd=" + "_express-checkout&token=" + setECResponse.Token;
+            return PAY_REDIRECT_URL + "_express-checkout&token=" + setECResponse.Token;
         }
 
        

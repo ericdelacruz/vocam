@@ -12,7 +12,12 @@ namespace SODAMvcApplication.Controllers
         private PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
         private CategoriesServiceReference.CatListingServiceClient catClient = new CategoriesServiceReference.CatListingServiceClient();
         private AccountServiceReference.AccountServiceClient account = new AccountServiceReference.AccountServiceClient();
-        
+
+        protected override IAsyncResult BeginExecute(System.Web.Routing.RequestContext requestContext, AsyncCallback callback, object state)
+        {
+            account.Authenticate("myS0D@P@ssw0rd");
+            return base.BeginExecute(requestContext, callback, state);
+        }
         protected override void Dispose(bool disposing)
         {
             catClient.Close();

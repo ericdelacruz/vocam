@@ -6,7 +6,7 @@
         <li>@Html.ActionLink("PRICE", "price", "admin")</li>
         <li>@Html.ActionLink("REGION", "region", "admin")</li>
         <li>@Html.ActionLink("SALES CODE", "salescode", "admin")</li>
-        <li>@Html.ActionLink("CHANGE PASSWORD", "changepassword", "home")</li>
+        <li>@Html.ActionLink("CHANGE PASSWORD", "changepassword", "home", new {role="admin" },null)</li>
         
     </ul> <!-- end of portal user menu-->
     @if(Session["Username"]!= null)

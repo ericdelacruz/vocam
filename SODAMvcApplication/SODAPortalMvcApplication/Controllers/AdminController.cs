@@ -69,6 +69,7 @@ namespace SODAPortalMvcApplication.Controllers
         {
             if (requestContext.HttpContext.Session["Username"] == null)
                 requestContext.HttpContext.Response.Redirect("~/home");
+
             return base.BeginExecute(requestContext, callback, state);
 
            
