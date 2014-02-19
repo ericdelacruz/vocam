@@ -169,7 +169,10 @@ namespace SODAwcfService
                     PriceAmt = price.Price,
                     RegionId = price.RegionId,
                      PriceAmt_B = price.Price_b,
-                      priceAmt_C = price.Price_c
+                      priceAmt_C = price.Price_c,
+                       Active_b = price.Active_b,
+                        Active_c = price.Active_c,
+                         Description = price.Description
                 });
             }
             return priceList;
@@ -177,12 +180,12 @@ namespace SODAwcfService
 
         public int addPrice(Models.Price price)
         {
-            return priceTableAdapter.Insert(price.PriceAmt, price.FirstMonthFree, price.RegionId, price.Active, price.PriceAmt_B, price.priceAmt_C);
+            return priceTableAdapter.Insert(price.PriceAmt, price.FirstMonthFree, price.RegionId, price.Active, price.PriceAmt_B, price.priceAmt_C,price.Active_b,price.Active_c,price.Description);
         }
 
         public int updatePrice(Models.Price price)
         {
-            return priceTableAdapter.Update(price.PriceAmt, price.FirstMonthFree, price.RegionId, price.Active, price.PriceAmt_B, price.priceAmt_C, price.Id);
+            return priceTableAdapter.Update(price.PriceAmt, price.FirstMonthFree, price.RegionId, price.Active, price.PriceAmt_B, price.priceAmt_C,price.Active_b,price.Active_c,price.Description, price.Id);
         }
 
         public int deletePrice(int Id)

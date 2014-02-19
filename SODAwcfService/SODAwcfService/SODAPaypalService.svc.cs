@@ -18,6 +18,9 @@ namespace SODAwcfService
         private static string password = "1384995928";
         private static string signature = "AFcWxV21C7fd0v3bYYYRCpSSRl31ATsYWC6SETdiq-vn09q6FuTpA0Kp";
 
+        private string PAY_REDIRECT_URL { get { return System.Configuration.ConfigurationManager.AppSettings["PAYPAL_REDIRECT_URL"].ToString(); } }
+
+        private string MODE { get { return System.Configuration.ConfigurationManager.AppSettings["MODE"].ToString(); } }
         //private static PayPalConfiguration config = new PayPalConfiguration(PaymentEnvironment.Test, username, password, signature);
         //private static PayPalConfiguration config = new PayPalConfiguration(PaymentEnvironment.Test, "jon_api1.straightarrow.com", "1384995928", "AFcWxV21C7fd0v3bYYYRCpSSRl31ATsYWC6SETdiq-vn09q6FuTpA0Kp");
         
@@ -44,7 +47,7 @@ namespace SODAwcfService
                 throw new FaultException("Express Checkout Failed:");
             }
 
-            return "https://www.sandbox.paypal.com/webscr&cmd=" + "_express-checkout&token=" + setECResponse.Token;
+            return PAY_REDIRECT_URL + "_express-checkout&token=" + setECResponse.Token;
         }
 
         
@@ -511,7 +514,7 @@ namespace SODAwcfService
             Dictionary<string, string> configMap = new Dictionary<string, string>();
 
             // Endpoints are varied depending on whether sandbox OR live is chosen for mode
-            configMap.Add("mode", "sandbox");
+            configMap.Add("mode", MODE);
 
             // These values are defaulted in SDK. If you want to override default values, uncomment it and add your value.
             // configMap.Add("connectionTimeout", "5000");
@@ -723,5 +726,7 @@ namespace SODAwcfService
             }
             return result;
         }
+
+        
     }
 }

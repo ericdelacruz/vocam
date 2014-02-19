@@ -16,5 +16,11 @@ namespace SODAwcfService.Models
         public decimal PriceAmt_B { get; set; }
 
         public decimal priceAmt_C { get; set; }
+
+        public bool Active_b { get; set; }
+
+        public bool Active_c { get; set; }
+
+        public string Description { get; set; }
     }
 }
