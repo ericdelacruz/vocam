@@ -61,6 +61,9 @@
   <xs:complexType name="Price">
     <xs:sequence>
       <xs:element minOccurs="0" name="Active" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Active_b" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Active_c" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FirstMonthFree" type="xs:boolean" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="PriceAmt" type="xs:decimal" />

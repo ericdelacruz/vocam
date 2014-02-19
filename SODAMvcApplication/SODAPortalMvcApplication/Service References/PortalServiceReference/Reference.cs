@@ -417,6 +417,15 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         private bool ActiveField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool Active_bField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool Active_cField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescriptionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool FirstMonthFreeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -453,6 +462,45 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
                 if ((this.ActiveField.Equals(value) != true)) {
                     this.ActiveField = value;
                     this.RaisePropertyChanged("Active");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Active_b {
+            get {
+                return this.Active_bField;
+            }
+            set {
+                if ((this.Active_bField.Equals(value) != true)) {
+                    this.Active_bField = value;
+                    this.RaisePropertyChanged("Active_b");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Active_c {
+            get {
+                return this.Active_cField;
+            }
+            set {
+                if ((this.Active_cField.Equals(value) != true)) {
+                    this.Active_cField = value;
+                    this.RaisePropertyChanged("Active_c");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Description {
+            get {
+                return this.DescriptionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescriptionField, value) != true)) {
+                    this.DescriptionField = value;
+                    this.RaisePropertyChanged("Description");
                 }
             }
         }

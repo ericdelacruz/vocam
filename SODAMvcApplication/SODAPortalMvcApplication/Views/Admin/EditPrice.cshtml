@@ -35,12 +35,57 @@
             </select>
             <!-- Script by hscripts.com -->
 
+            <label><br />Subscription Details</label>
+            <textarea class="form-control" id="textarea" rows="3" cols="49" placeholder="" name="subscriptionDetails">@Model.Description</textarea>
+
             <label><br />Price per month* </label>
             <input type="text" class="form-control" name="Price" value=@string.Format("{0:0.00}",Model.PriceAmt)>
+            
+            if(Model.Active)
+            { 
+                <div class="fl" style="margin-right:10px;"><input type="radio" name="pricepermonthavailability" value="enable" checked="checked"/> Enable</div>
+            <div class="fl"><input type="radio" name="pricepermonthavailability" value="disable"  /> Disable</div>
+            }
+            else
+            {
+                 <div class="fl" style="margin-right:10px;"><input type="radio" name="pricepermonthavailability" value="enable"/> Enable</div>
+                <div class="fl"><input type="radio" name="pricepermonthavailability" value="disable" checked="checked" /> Disable</div>
+            }
+                
+            <br />
+
             <label><br />Price per 3 months*</label>
             <input type="text" class="form-control" name="PriceB" value=@string.Format("{0:0.00}",Model.PriceAmt_B)>
+            
+            if(Model.Active_b)
+            {
+                <div class="fl" style="margin-right:10px;"><input type="radio" name="priceperthreemonthavailability" value="enable" checked="checked"/> Enable</div>    
+            <div class="fl"><input type="radio" name="priceperthreemonthavailability" value="disable"/> Disable</div>    
+            }
+            else
+            {
+                <div class="fl" style="margin-right:10px;"><input type="radio" name="priceperthreemonthavailability" value="enable" /> Enable</div>    
+                <div class="fl"><input type="radio" name="priceperthreemonthavailability" value="disable" checked="checked" /> Disable</div>    
+            }
+            
+            
+            <br />
+
             <label><br />Price per 6 months*</label>
             <input type="text" class="form-control" name="PriceC" value=@string.Format("{0:0.00}",Model.priceAmt_C)>
+            if(Model.Active_c)
+            {
+                <div class="fl" style="margin-right:10px;"><input type="radio" name="pricepersixmonthavailability" value="enable" checked="checked"/> Enable</div>    
+                <div class="fl"><input type="radio" name="pricepersixmonthavailability" value="disable"/> Disable</div>    
+            }
+            else
+            {
+                 <div class="fl" style="margin-right:10px;"><input type="radio" name="pricepersixmonthavailability" value="enable" /> Enable</div>   
+                <div class="fl"><input type="radio" name="pricepersixmonthavailability" value="disable" checked="checked" /> Disable</div>    
+            }
+            
+            
+            <br />
           
         
            

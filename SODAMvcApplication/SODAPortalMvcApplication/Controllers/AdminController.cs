@@ -366,7 +366,11 @@ namespace SODAPortalMvcApplication.Controllers
                         PriceAmt = decimal.Parse(collection["Price"]),
                         PriceAmt_B = decimal.Parse(collection["Price3"]),
                         priceAmt_C = decimal.Parse(collection["Price6"]),
-                        FirstMonthFree = collection["monthFree"] == "Yes"
+                        FirstMonthFree = collection["monthFree"] == "Yes",
+                        Active = collection["pricepermonthavailability"] == "enable",
+                        Active_b = collection["priceperthreemonthavailability"] == "enable",
+                        Active_c = collection["pricepersixmonthavailability"] == "enable",
+                        Description = collection["subscriptionDetails"]
                     };
                 AuditLoggingHelper.LogCreateAction(Session["Username"].ToString(), price, portalClient);
                 portalClient.addPrice(price);
@@ -404,9 +408,10 @@ namespace SODAPortalMvcApplication.Controllers
                 FirstMonthFree = collection["monthFree"] == "Yes",
                 PriceAmt_B = decimal.Parse(collection["PriceB"].ToString()),
                 priceAmt_C = decimal.Parse(collection["PriceC"].ToString()),
-               
-                Active = true
-
+                Active = collection["pricepermonthavailability"] == "enable",
+                Active_b = collection["priceperthreemonthavailability"] == "enable",
+                        Active_c = collection["pricepersixmonthavailability"] == "enable",
+                        Description = collection["subscriptionDetails"].ToString()
             };
            
             AuditLoggingHelper.LogUpdateAction(Session["Username"].ToString(), new_price, old_price, portalClient);

@@ -179,7 +179,7 @@ namespace SODAPortalMvcApplication.Controllers
         }
         protected override IAsyncResult BeginExecute(System.Web.Routing.RequestContext requestContext, AsyncCallback callback, object state)
         {
-            var region = portalClient.getRegion().Where(r => r.WebsiteUrl == requestContext.HttpContext.Request.Url.Host.Replace("portal", "www") || (requestContext.HttpContext.Request.Url.Host == "localhost" && r.RegionName == "UK")).FirstOrDefault();
+            var region = portalClient.getRegion().Where(r => r.WebsiteUrl == requestContext.HttpContext.Request.Url.Host.Replace("portal", "www") || (requestContext.HttpContext.Request.Url.Host == "localhost" && r.RegionName == "AU")).FirstOrDefault();
             if (region != null)
             {
                 paypalClient.initPayPalAccountSettings(region.Id);
@@ -321,7 +321,7 @@ namespace SODAPortalMvcApplication.Controllers
         private int getRegionId()
         {
             //int RegionId = portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www")).First().Id;
-            return portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www")).Count() > 0? portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www")).First().Id:27;
+            return portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www")).Count() > 0? portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www")).First().Id:12;
         }
        
         [HttpPost]
@@ -367,7 +367,7 @@ namespace SODAPortalMvcApplication.Controllers
 
         private IEnumerable<ViewModel.VerifyModel> getVerifyViewModel(string salescode)
         {
-            var websiteURL = Request.Url.Host.Replace("portal", "www") != "localhost" ? Request.Url.Host.Replace("portal", "www") : "www.safetyondemand.co.uk";
+            var websiteURL = Request.Url.Host.Replace("portal", "www") != "localhost" ? Request.Url.Host.Replace("portal", "www") : "www.safetyondemand.com.au";
             //get SalesCode Details. Notes SalesCode depends on region.
             var salescodeList = from sp in portalClient.getSalePerson()
                                 join sc in portalClient.getSaleCode() on sp.SalesCodeId equals sc.Id
@@ -763,7 +763,7 @@ namespace SODAPortalMvcApplication.Controllers
         public FileStreamResult StreamFileFromDisk()
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + "Content/download/";
-            var region = portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www") || (Request.Url.Host == "localhost" && r.RegionName.ToLower()=="uk")).First();
+            var region = portalClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www") || (Request.Url.Host == "localhost" && r.RegionName.ToLower()=="au")).First();
             string filename = region.AirPlayerFileName;
             return File(new System.IO.FileStream(path + filename, System.IO.FileMode.Open), "application/vnd.adobe.air-application-installer-package+zip", filename);
         }
