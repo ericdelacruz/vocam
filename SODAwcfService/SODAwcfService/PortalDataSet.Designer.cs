@@ -1323,6 +1323,12 @@ namespace SODAwcfService {
             
             private global::System.Data.DataColumn columnDateEnd;
             
+            private global::System.Data.DataColumn columnLess_monthly;
+            
+            private global::System.Data.DataColumn columnLess_3months;
+            
+            private global::System.Data.DataColumn columnLess_6months;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public SalesCodeDataTable() {
@@ -1406,6 +1412,30 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn Less_monthlyColumn {
+                get {
+                    return this.columnLess_monthly;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn Less_3monthsColumn {
+                get {
+                    return this.columnLess_3months;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn Less_6monthsColumn {
+                get {
+                    return this.columnLess_6months;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1441,7 +1471,7 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public SalesCodeRow AddSalesCodeRow(SalesPersonRow parentSalesPersonRowByFK_SalesCode_ToSalesPerson, string Sales_Code, decimal Discount, System.DateTime DateCreated, System.DateTime DateEnd) {
+            public SalesCodeRow AddSalesCodeRow(SalesPersonRow parentSalesPersonRowByFK_SalesCode_ToSalesPerson, string Sales_Code, decimal Discount, System.DateTime DateCreated, System.DateTime DateEnd, decimal Less_monthly, decimal Less_3months, decimal Less_6months) {
                 SalesCodeRow rowSalesCodeRow = ((SalesCodeRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -1449,7 +1479,10 @@ namespace SODAwcfService {
                         Sales_Code,
                         Discount,
                         DateCreated,
-                        DateEnd};
+                        DateEnd,
+                        Less_monthly,
+                        Less_3months,
+                        Less_6months};
                 if ((parentSalesPersonRowByFK_SalesCode_ToSalesPerson != null)) {
                     columnValuesArray[1] = parentSalesPersonRowByFK_SalesCode_ToSalesPerson[0];
                 }
@@ -1488,6 +1521,9 @@ namespace SODAwcfService {
                 this.columnDiscount = base.Columns["Discount"];
                 this.columnDateCreated = base.Columns["DateCreated"];
                 this.columnDateEnd = base.Columns["DateEnd"];
+                this.columnLess_monthly = base.Columns["Less_monthly"];
+                this.columnLess_3months = base.Columns["Less_3months"];
+                this.columnLess_6months = base.Columns["Less_6months"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1505,6 +1541,12 @@ namespace SODAwcfService {
                 base.Columns.Add(this.columnDateCreated);
                 this.columnDateEnd = new global::System.Data.DataColumn("DateEnd", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDateEnd);
+                this.columnLess_monthly = new global::System.Data.DataColumn("Less_monthly", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLess_monthly);
+                this.columnLess_3months = new global::System.Data.DataColumn("Less_3months", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLess_3months);
+                this.columnLess_6months = new global::System.Data.DataColumn("Less_6months", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLess_6months);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -1517,6 +1559,9 @@ namespace SODAwcfService {
                 this.columnSales_Code.MaxLength = 30;
                 this.columnDiscount.AllowDBNull = false;
                 this.columnDateCreated.AllowDBNull = false;
+                this.columnLess_monthly.AllowDBNull = false;
+                this.columnLess_3months.AllowDBNull = false;
+                this.columnLess_6months.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4154,6 +4199,39 @@ namespace SODAwcfService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal Less_monthly {
+                get {
+                    return ((decimal)(this[this.tableSalesCode.Less_monthlyColumn]));
+                }
+                set {
+                    this[this.tableSalesCode.Less_monthlyColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal Less_3months {
+                get {
+                    return ((decimal)(this[this.tableSalesCode.Less_3monthsColumn]));
+                }
+                set {
+                    this[this.tableSalesCode.Less_3monthsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal Less_6months {
+                get {
+                    return ((decimal)(this[this.tableSalesCode.Less_6monthsColumn]));
+                }
+                set {
+                    this[this.tableSalesCode.Less_6monthsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public SalesPersonRow SalesPersonRow {
                 get {
                     return ((SalesPersonRow)(this.GetParentRow(this.Table.ParentRelations["FK_SalesCode_ToSalesPerson"])));
@@ -6191,6 +6269,9 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("Discount", "Discount");
             tableMapping.ColumnMappings.Add("DateCreated", "DateCreated");
             tableMapping.ColumnMappings.Add("DateEnd", "DateEnd");
+            tableMapping.ColumnMappings.Add("Less_monthly", "Less_monthly");
+            tableMapping.ColumnMappings.Add("Less_3months", "Less_3months");
+            tableMapping.ColumnMappings.Add("Less_6months", "Less_6months");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -6199,26 +6280,28 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [SalesCode] ([SalesPersonID], [Sales_Code], [Discount], [DateCreated]" +
-                ", [DateEnd]) VALUES (@SalesPersonID, @Sales_Code, @Discount, @DateCreated, @Date" +
-                "End)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [SalesCode] ([SalesPersonID], [Sales_Code], [Discount], [DateCreated], [DateEnd], [Less_monthly], [Less_3months], [Less_6months]) VALUES (@SalesPersonID, @Sales_Code, @Discount, @DateCreated, @DateEnd, @Less_monthly, @Less_3months, @Less_6months)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SalesPersonID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SalesPersonID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Sales_Code", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Sales_Code", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Discount", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 3, 2, "Discount", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DateCreated", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DateCreated", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DateEnd", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DateEnd", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Less_monthly", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Less_monthly", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Less_3months", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Less_3months", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Less_6months", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Less_6months", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE [SalesCode] SET [SalesPersonID] = @SalesPersonID, [Sales_Code] = @Sales_Co" +
-                "de, [Discount] = @Discount, [DateCreated] = @DateCreated, [DateEnd] = @DateEnd W" +
-                "HERE (([Id] = @Original_Id))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [SalesCode] SET [SalesPersonID] = @SalesPersonID, [Sales_Code] = @Sales_Code, [Discount] = @Discount, [DateCreated] = @DateCreated, [DateEnd] = @DateEnd, [Less_monthly] = @Less_monthly, [Less_3months] = @Less_3months, [Less_6months] = @Less_6months WHERE (([Id] = @Original_Id))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SalesPersonID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SalesPersonID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Sales_Code", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Sales_Code", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Discount", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 3, 2, "Discount", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DateCreated", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DateCreated", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DateEnd", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DateEnd", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Less_monthly", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Less_monthly", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Less_3months", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Less_3months", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Less_6months", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Less_6months", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
@@ -6318,7 +6401,7 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(global::System.Nullable<int> SalesPersonID, string Sales_Code, decimal Discount, System.DateTime DateCreated, global::System.Nullable<global::System.DateTime> DateEnd) {
+        public virtual int Insert(global::System.Nullable<int> SalesPersonID, string Sales_Code, decimal Discount, System.DateTime DateCreated, global::System.Nullable<global::System.DateTime> DateEnd, decimal Less_monthly, decimal Less_3months, decimal Less_6months) {
             if ((SalesPersonID.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((int)(SalesPersonID.Value));
             }
@@ -6339,6 +6422,9 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             else {
                 this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
+            this.Adapter.InsertCommand.Parameters[5].Value = ((decimal)(Less_monthly));
+            this.Adapter.InsertCommand.Parameters[6].Value = ((decimal)(Less_3months));
+            this.Adapter.InsertCommand.Parameters[7].Value = ((decimal)(Less_6months));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -6359,7 +6445,7 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(global::System.Nullable<int> SalesPersonID, string Sales_Code, decimal Discount, System.DateTime DateCreated, global::System.Nullable<global::System.DateTime> DateEnd, long Original_Id) {
+        public virtual int Update(global::System.Nullable<int> SalesPersonID, string Sales_Code, decimal Discount, System.DateTime DateCreated, global::System.Nullable<global::System.DateTime> DateEnd, decimal Less_monthly, decimal Less_3months, decimal Less_6months, long Original_Id) {
             if ((SalesPersonID.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(SalesPersonID.Value));
             }
@@ -6380,7 +6466,10 @@ namespace SODAwcfService.PortalDataSetTableAdapters {
             else {
                 this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((long)(Original_Id));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((decimal)(Less_monthly));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((decimal)(Less_3months));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((decimal)(Less_6months));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((long)(Original_Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {

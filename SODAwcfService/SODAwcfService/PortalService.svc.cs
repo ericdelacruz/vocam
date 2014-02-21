@@ -135,7 +135,10 @@ namespace SODAwcfService
                     SalesPersonID = salesCode.SalesPersonID,
                     Discount = salesCode.Discount,
                     DateCreated = salesCode.DateCreated,
-                    DateEnd = salesCode.DateEnd
+                    DateEnd = salesCode.DateEnd,
+                    Less_monthly= salesCode.Less_monthly,
+                    Less_3months= salesCode.Less_3months,
+                    Less_6months = salesCode.Less_6months
                 });
             }
             return listSalesCode;
@@ -143,12 +146,12 @@ namespace SODAwcfService
 
         public int addSalesCode(Models.SalesCode salesCode)
         {
-            return salesCodeTableAdapter.Insert(salesCode.SalesPersonID, salesCode.Sales_Code, salesCode.Discount, salesCode.DateCreated, salesCode.DateEnd);
+            return salesCodeTableAdapter.Insert(salesCode.SalesPersonID, salesCode.Sales_Code, salesCode.Discount, salesCode.DateCreated, salesCode.DateEnd,salesCode.Less_monthly,salesCode.Less_3months,salesCode.Less_6months);
         }
 
         public int updateSalsCode(Models.SalesCode salesCode)
         {
-            return salesCodeTableAdapter.Update(salesCode.SalesPersonID, salesCode.Sales_Code, salesCode.Discount, salesCode.DateCreated, salesCode.DateEnd, salesCode.Id);
+            return salesCodeTableAdapter.Update(salesCode.SalesPersonID, salesCode.Sales_Code, salesCode.Discount, salesCode.DateCreated, salesCode.DateEnd,salesCode.Less_monthly,salesCode.Less_3months,salesCode.Less_6months, salesCode.Id);
         }
 
         public int deleteSalesCode(long Id)

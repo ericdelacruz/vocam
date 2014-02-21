@@ -13,5 +13,11 @@ namespace SODAwcfService.Models
         public decimal Discount { get; set; }
         public System.DateTime DateCreated { get; set; }
         public Nullable<System.DateTime> DateEnd { get; set; }
+
+        public decimal Less_monthly { get; set; }
+
+        public decimal Less_3months { get; set; }
+
+        public decimal Less_6months { get; set; }
     }
 }
