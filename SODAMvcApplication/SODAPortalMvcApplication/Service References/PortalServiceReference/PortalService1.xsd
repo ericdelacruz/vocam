@@ -47,6 +47,9 @@
       <xs:element minOccurs="0" name="DateEnd" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Discount" type="xs:decimal" />
       <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Less_3months" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Less_6months" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Less_monthly" type="xs:decimal" />
       <xs:element minOccurs="0" name="SalesPersonID" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="Sales_Code" nillable="true" type="xs:string" />
     </xs:sequence>

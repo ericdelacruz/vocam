@@ -69,7 +69,7 @@ namespace SODAPortalMvcApplication.Controllers
         {
             if (requestContext.HttpContext.Session["Username"] == null)
                 requestContext.HttpContext.Response.Redirect("~/home");
-
+            account.Authenticate("myS0D@P@ssw0rd");
             return base.BeginExecute(requestContext, callback, state);
 
            
@@ -159,7 +159,7 @@ namespace SODAPortalMvcApplication.Controllers
 
         private void updateSalesCode(FormCollection collection, AccountServiceRef.Account account_New)
         {
-            var salesCode = from salecode in portalClient.getSaleCode()
+            var old_salesCode = from salecode in portalClient.getSaleCode()
                             where salecode.Id == long.Parse(collection["SalesCode"])
                             select salecode;
 
@@ -169,14 +169,20 @@ namespace SODAPortalMvcApplication.Controllers
             var new_SalesCode = new PortalServiceReference.SalesCode()
             {
 
-                Id = salesCode.First().Id,
-                Discount = decimal.Parse(collection["Discount"]) / 100,
+                Id = old_salesCode.First().Id,
+                //Discount = decimal.Parse(collection["Discount"]) / 100,
                 DateCreated = DateTime.Now,
                 SalesPersonID = salesPerson.First().Id,
-                Sales_Code = salesCode.First().Sales_Code,
-                DateEnd = salesCode.First().DateEnd
+                Sales_Code = old_salesCode.First().Sales_Code,
+                DateEnd = old_salesCode.First().DateEnd,
+                Discount = 0,
+                Less_monthly = decimal.Parse(collection["Discountpermonth"]??"0"),
+                Less_3months = decimal.Parse(collection["Discountper3months"]??"0"),
+                Less_6months = decimal.Parse(collection["Discountper6months"]??"0")
             };
-            AuditLoggingHelper.LogCreateAction(Session["Username"].ToString(), new_SalesCode, portalClient);
+            //AuditLoggingHelper.LogCreateAction(Session["Username"].ToString(), new_SalesCode, portalClient);
+            AuditLoggingHelper.LogUpdateAction(Session["Username"].ToString(), old_salesCode, new_SalesCode, portalClient);
+
             portalClient.updateSalsCode(new_SalesCode);
         }
 
@@ -237,6 +243,7 @@ namespace SODAPortalMvcApplication.Controllers
                                    where salesperson.Id == id
                                    select new ViewModel.SalesViewModel() { account = accnt, salesPerson = salesperson, salesCode = sc };
 
+            ViewBag.isDefaultSC = portalClient.getRegion().Where(r => r.DefaultSalesCodeId == salesPerson_orig.First().salesCode.Id).Count() > 0;
           
             return View(salesPerson_orig.First());
         }
@@ -264,29 +271,15 @@ namespace SODAPortalMvcApplication.Controllers
                 Status = 0
             });
 
-            //PortalServiceReference.SalesCode sc = portalClient.getSaleCode().Where(model => model.Id == salesPerson_orig.First().SalesCodeId).First();
-            //sc.Discount = decimal.Parse(collection["Discount"]) / 100;
-            //portalClient.updateSalsCode(sc);
-            
-            //portalClient.updateSalsCode(new PortalServiceReference.SalesCode()
-            //{
-            //    Id = long.Parse(collection["SalesCode"]),
-                
-            //    Discount = decimal.Parse(collection["Discount"])/100,
-            //    DateCreated = DateTime.Now,
-            //    SalesPersonID = salesPerson_orig.First().Id,
-            //    Sales_Code =  
-            //});
            
             long Salescodeid = 0;
             
                 var salesperson = (portalClient.getSalePerson().Where(sp => sp.Id == id)).First();
+
                 if (long.TryParse(collection["SalesCode"], out Salescodeid) && Salescodeid > 0)
                 {
-                    var salescode_new = portalClient.getSaleCode().Where(sc => sc.Id == Salescodeid).First();
-                    salescode_new.SalesPersonID = salesperson.Id;
-                    salescode_new.Discount = decimal.Parse(collection["Discount"]) / 100;
-                    portalClient.updateSalsCode(salescode_new);
+                    updatepreviousSC(salesperson);
+                    updateNew_SC(collection, Salescodeid, salesperson);
 
                     salesperson.SalesCodeId = Salescodeid;
                     portalClient.updateSalesPerson(salesperson);
@@ -296,17 +289,38 @@ namespace SODAPortalMvcApplication.Controllers
                 }
                 else
                 {
-                    var salescode_new = portalClient.getSaleCode().Where(sc => sc.Id == salesperson.SalesCodeId).First();
-                    //salescode_new.SalesPersonID = salesperson.Id;
-                    salescode_new.Discount = decimal.Parse(collection["Discount"]) / 100;
-                    portalClient.updateSalsCode(salescode_new);
-
+                    //var salescode_new = portalClient.getSaleCode().Where(sc => sc.Id == salesperson.SalesCodeId).First();
+                   
+                    //portalClient.updateSalsCode(salescode_new);
+                    updateNew_SC(collection, salesperson.SalesCodeId, salesperson);
                     salesperson.RegionId = int.Parse(collection["Region"]);
                     portalClient.updateSalesPerson(salesperson);
              
                 }
             //var salesperson = portalClient.getSalePerson().Where(sp=>sp.)
             return RedirectToAction("sales");
+        }
+
+        private void updatepreviousSC(PortalServiceReference.SalesPerson salesperson)
+        {
+            var prev_sc = portalClient.getSaleCode().Where(sc => sc.Id == salesperson.SalesCodeId).First();
+            prev_sc.Less_monthly = 0;
+            prev_sc.Less_6months = 0;
+            prev_sc.Less_3months = 0;
+            prev_sc.DateEnd = DateTime.Now;
+            portalClient.updateSalsCode(prev_sc);
+        }
+
+        private void updateNew_SC(FormCollection collection, long Salescodeid, PortalServiceReference.SalesPerson salesperson)
+        {
+            var salescode_new = portalClient.getSaleCode().Where(sc => sc.Id == Salescodeid).First();
+            salescode_new.SalesPersonID = salesperson.Id;
+            //salescode_new.Discount = decimal.Parse(collection["Discount"]) / 100;
+            salescode_new.Less_monthly = decimal.Parse(collection["Discountpermonth"] ?? "0");
+            salescode_new.Less_3months = decimal.Parse(collection["Discountper3months"] ?? "0");
+            salescode_new.Less_6months = decimal.Parse(collection["Discountper6months"] ?? "0");
+
+            portalClient.updateSalsCode(salescode_new);
         }
         [RequireHttps]
         public ActionResult deletesale(int id)
@@ -463,6 +477,7 @@ namespace SODAPortalMvcApplication.Controllers
                         DateCreated = DateTime.Now,
                         Discount = 0,
                         Sales_Code = collection["SalesCode"]
+                        
                     };
                 AuditLoggingHelper.LogCreateAction(Session["Username"].ToString(), new_sc, portalClient);
                 portalClient.addSalesCode(new_sc);

@@ -301,6 +301,15 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
         private long IdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal Less_3monthsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal Less_6monthsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal Less_monthlyField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<int> SalesPersonIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -364,6 +373,45 @@ namespace SODAPortalMvcApplication.PortalServiceReference {
                 if ((this.IdField.Equals(value) != true)) {
                     this.IdField = value;
                     this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal Less_3months {
+            get {
+                return this.Less_3monthsField;
+            }
+            set {
+                if ((this.Less_3monthsField.Equals(value) != true)) {
+                    this.Less_3monthsField = value;
+                    this.RaisePropertyChanged("Less_3months");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal Less_6months {
+            get {
+                return this.Less_6monthsField;
+            }
+            set {
+                if ((this.Less_6monthsField.Equals(value) != true)) {
+                    this.Less_6monthsField = value;
+                    this.RaisePropertyChanged("Less_6months");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal Less_monthly {
+            get {
+                return this.Less_monthlyField;
+            }
+            set {
+                if ((this.Less_monthlyField.Equals(value) != true)) {
+                    this.Less_monthlyField = value;
+                    this.RaisePropertyChanged("Less_monthly");
                 }
             }
         }

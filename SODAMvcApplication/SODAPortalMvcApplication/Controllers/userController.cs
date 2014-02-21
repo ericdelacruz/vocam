@@ -318,9 +318,12 @@ namespace SODAPortalMvcApplication.Controllers
                                 price = p,
                                 salescode = sc,
                                 region = r,
-                                discountedPrice_A = p.PriceAmt - (p.PriceAmt * sc.Discount),
-                                discountedPrice_B = p.PriceAmt_B - (p.PriceAmt_B * sc.Discount),
-                                discountedPrice_C = p.priceAmt_C - (p.priceAmt_C * sc.Discount),
+                                //discountedPrice_A = p.PriceAmt - (p.PriceAmt * sc.Discount),
+                                //discountedPrice_B = p.PriceAmt_B - (p.PriceAmt_B * sc.Discount),
+                                //discountedPrice_C = p.priceAmt_C - (p.priceAmt_C * sc.Discount),
+                                discountedPrice_A = p.PriceAmt - sc.Less_monthly,
+                                discountedPrice_B = p.PriceAmt_B - sc.Less_3months,
+                                discountedPrice_C =  p.priceAmt_C -sc.Less_6months,
                                 isDefaultSalesCode = true
                             };
             
@@ -377,7 +380,7 @@ namespace SODAPortalMvcApplication.Controllers
 
         private IEnumerable<ViewModel.VerifyModel> getVerifyViewModel(string salescode)
         {
-            var websiteURL = Request.Url.Host.Replace("portal", "www") != "localhost" ? Request.Url.Host.Replace("portal", "www") : "www.safetyondemand.com.au";
+            var websiteURL = Request.Url.Host.Replace("portal", "www") != "localhost" ? Request.Url.Host.Replace("portal", "www") : "www.sac-iis.com";
             //get SalesCode Details. Notes SalesCode depends on region.
             var salescodeList = from sp in portalClient.getSalePerson()
                                 join sc in portalClient.getSaleCode() on sp.SalesCodeId equals sc.Id
@@ -385,9 +388,12 @@ namespace SODAPortalMvcApplication.Controllers
                                 join r in portalClient.getRegion() on sp.RegionId equals r.Id
                                 where sc.Sales_Code.ToLower() == salescode.Trim().ToLower() &&  r.WebsiteUrl == websiteURL
                                 select new ViewModel.VerifyModel() { price = p, saleperson = sp, salescode = sc, region = r,
-                                discountedPrice_A = p.PriceAmt - (p.PriceAmt * sc.Discount),
-                                discountedPrice_B = p.PriceAmt_B - (p.PriceAmt_B * sc.Discount),
-                                discountedPrice_C = p.priceAmt_C - (p.priceAmt_C * sc.Discount),
+                                //discountedPrice_A = p.PriceAmt - (p.PriceAmt * sc.Discount),
+                                //discountedPrice_B = p.PriceAmt_B - (p.PriceAmt_B * sc.Discount),
+                                //discountedPrice_C = p.priceAmt_C - (p.priceAmt_C * sc.Discount),
+                                discountedPrice_A = p.PriceAmt - sc.Less_monthly,
+                                discountedPrice_B = p.PriceAmt_B - sc.Less_3months,
+                                discountedPrice_C = p.priceAmt_C - sc.Less_6months,
                                  isDefaultSalesCode = false
                                 };
            

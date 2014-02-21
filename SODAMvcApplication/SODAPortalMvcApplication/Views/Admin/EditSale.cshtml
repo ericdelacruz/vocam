@@ -71,10 +71,19 @@
             <input type="password" name="Password" class="form-control"  value=@Model.account.PASSWORD readonly>
             <label>Confirm Password</label>
             <input type="password" name="Password" class="form-control" value=@Model.account.PASSWORD readonly>
-            
-            <label>Discount Rate (%) ex. 12</label>
-            <input type="number" class="form-control" name="Discount"  value=@(Model.salesCode.Discount * 100)>
-
+          if(!ViewBag.isDefaultSC)
+            { 
+                <label>Discount Price per month</label>
+                <input type="text" class="form-control" name="Discountpermonth" value="@Model.salesCode.Less_monthly.ToString("0.00")">
+                <label>Discount Price per 3 months</label>
+                <input type="text" class="form-control" name="Discountper3months" value="@Model.salesCode.Less_3months.ToString("0.00")">
+                <label>Discount Price per 6 months</label>
+                <input type="text" class="form-control" name="Discountper6months" value="@Model.salesCode.Less_6months.ToString("0.00")">
+            }
+          else
+            {
+                <p> Can't set discount for default SalesCode. Please choose a different salescode if you want to set discount. </p>      
+            }
             <br>
             <button class="btnSubmit btn btn-lg btn-primary btn-block" type="submit">UPDATE</button>
             <br><br>
