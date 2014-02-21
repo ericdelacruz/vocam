@@ -70,7 +70,9 @@ namespace SODAwcfService
             if (setECResponse.Ack.Equals(AckCodeType.FAILURE) ||
                 (setECResponse.Errors != null && setECResponse.Errors.Count > 0))
             {
-                throw new FaultException("Express Checkout Failed:");
+                var errors = string.Join(",", setECResponse.Errors.ToList().Select(error => error.ShortMessage));
+                //throw new FaultException("Express Checkout Failed:",);
+                throw new FaultException("Express Checkout Failed. Short Msg:" + errors);
             }
 
             return PAY_REDIRECT_URL + "_express-checkout&token=" + setECResponse.Token;
@@ -290,13 +292,14 @@ namespace SODAwcfService
                                   where row.ECTransID == transid
                                   select row).First();
 
-                    if ((flag = cancel(result.RPProfile)))
-                    {
-                        result.Active = false;
+                    cancel(result.RPProfile);
+                    
+                     result.Active = false;
 
-                        paypalAdapter.Update(result);
-                    }
+                     paypalAdapter.Update(result);
+                    
                 }
+                
                 catch (Exception ex)
                 {
                     //log to textfile maybe
@@ -426,11 +429,13 @@ namespace SODAwcfService
             Dictionary<string, string> configurationMap = GetAcctAndConfig();
             PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
 
+         
             ManageRecurringPaymentsProfileStatusResponseType manageProfileStatusResponse =
                     service.ManageRecurringPaymentsProfileStatus(wrapper);
 
             string result = setKeyResponseObjects(service, manageProfileStatusResponse);
             return true;
+           
         }
 
         private string setKeyResponseObjects(PayPalAPIInterfaceServiceService service, ManageRecurringPaymentsProfileStatusResponseType response)
@@ -443,7 +448,12 @@ namespace SODAwcfService
                 (response.Errors != null && response.Errors.Count() > 0))
             {
                 //CurrContext.Items.Add("Response_error", response.Errors);
-                throw new Exception("Error");
+                var errors = string.Join(",", response.Errors.ToList().Select(error => error.LongMessage));
+                using (SodaDBDataSetTableAdapters.LogsTableTableAdapter logsAdapter = new SodaDBDataSetTableAdapters.LogsTableTableAdapter())
+                {
+                    logsAdapter.Insert("PP", "Cancel Subscription", "CancelError", null, null, errors, DateTime.Now);
+                }
+                 return errors;
             }
             else
             {

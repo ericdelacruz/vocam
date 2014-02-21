@@ -883,5 +883,28 @@ namespace SODAPortalMvcApplication.Controllers
             return RedirectToAction("marketer");
         }
         #endregion
+
+        public ActionResult changepassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult changepassword(ViewModel.changePasswordModel model)
+        {
+            if (!isUserSessionActive())
+            {
+                return RedirectToAction("login", "Home");
+            }
+
+            var accountModel = account.getAccount(Session["Username"].ToString()).First();
+            if (ModelState.IsValid)
+            {
+                account.updatePassword(accountModel.Id, accountModel.PASSWORD, model.Password);
+                ViewBag.isPasswordChange = true;
+            }
+            return View();
+
+            
+        }
     }
 }

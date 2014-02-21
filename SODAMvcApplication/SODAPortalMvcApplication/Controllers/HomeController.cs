@@ -396,20 +396,13 @@ namespace SODAPortalMvcApplication.Controllers
             }
         }
         [RequireHttps]
-        public ActionResult changePassword(string returnurl,string role)
+        public ActionResult changePassword(string returnurl)
         {
            
             
-            if(role == "admin")
-            {
-                TempData["ReturnUrl"] = Url.Action("index", "admin");
-                ViewBag.CancelUrl = Url.Action("index", "admin");
-                ViewBag.enableCancel = true;
-            }
-            else
-            {
-                TempData["ReturnUrl"] = Session["ReturnUrl"] ?? returnurl;
-            }
+            
+             TempData["ReturnUrl"] = Session["ReturnUrl"] ?? returnurl;
+            
             //ViewBag.isAdmin = TempData["isAdmin"] ?? null;
             return View();
         }

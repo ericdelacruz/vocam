@@ -165,9 +165,16 @@ namespace SODAPortalMvcApplication.Controllers
         }
         private bool isPayPalRecurActive(string ECTRans)
         {
-            var response = paypalClient.getRecurProfileDetailsByTransID(ECTRans);
-
-            return response.profileStatus.Value == SODAPayPalSerRef.RecurringPaymentsProfileStatusType.ACTIVEPROFILE;
+            try
+            {
+                var response = paypalClient.getRecurProfileDetailsByTransID(ECTRans);
+                return response.profileStatus.Value == SODAPayPalSerRef.RecurringPaymentsProfileStatusType.ACTIVEPROFILE;
+            }
+            catch
+            {
+                return false;
+            }
+           
         }
         protected override void Dispose(bool disposing)
         {
@@ -249,7 +256,8 @@ namespace SODAPortalMvcApplication.Controllers
             if (TempData["SalesCode"] == null)
             {
                 Session.Add("SalesCode", getDefaultVerifyViewModel().First());
-                TempData.Add("SalesCode", getDefaultVerifyViewModel().First());
+                //TempData.Add("SalesCode", getDefaultVerifyViewModel().First());
+                TempData["SalesCode"] = getDefaultVerifyViewModel().First();
                 TempData["DefaultSalesCode"] = true;
             }
             else if ((TempData["SalesCode"] as ViewModel.VerifyModel).salescode.Sales_Code == getDefaultVerifyViewModel().First().salescode.Sales_Code)
@@ -705,10 +713,10 @@ namespace SODAPortalMvcApplication.Controllers
                  var customRecord = customerViewModel.First().customer;
                  customRecord.DateSubscriptionEnd = DateTime.Now;
 
-              
 
-                 if (paypalClient.cancelSubscription(transid))
-                 {
+
+                 paypalClient.cancelSubscription(transid);
+                 
                      AuditLoggingHelper.LogUpdateAction(Session["Username"].ToString(), customerViewModel.First().customer, customRecord, portalClient);
 
                      portalClient.updateCustomer(customRecord);
@@ -731,9 +739,7 @@ namespace SODAPortalMvcApplication.Controllers
                  
                  return RedirectToAction("index");
                  
-             }
-             else
-                 return RedirectToAction("index");
+             
         }
 
 
