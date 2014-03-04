@@ -99,7 +99,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="soda.svc" />
     <Content Include="SODAPaypalService.svc" />
     <Content Include="trainnow.asmx" />
     <Content Include="VideoplayerService.svc" />
@@ -123,9 +122,6 @@
     <Compile Include="Models\PayPalModel.cs" />
     <Compile Include="Models\PayPalTrans.cs" />
     <Compile Include="Models\ResetPassword.cs" />
-    <Compile Include="soda.svc.cs">
-      <DependentUpon>soda.svc</DependentUpon>
-    </Compile>
     <Compile Include="trainnow.asmx.cs">
       <DependentUpon>trainnow.asmx</DependentUpon>
       <SubType>Component</SubType>

@@ -11,8 +11,7 @@ using SODAwcfService.XMLModels;
 
 namespace SODAwcfService
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "VideoplayerService" in code, svc and config file together.
-    // NOTE: In order to launch WCF Test Client for testing this service, please select VideoplayerService.svc or VideoplayerService.svc.cs at the Solution Explorer and start debugging.
+    //This is obselete. Refer to xmlController of SODAMVcApplication.
     public class VideoplayerService : IVideoplayerService
     {
         private AccountsTableAdapter account = new AccountsTableAdapter();

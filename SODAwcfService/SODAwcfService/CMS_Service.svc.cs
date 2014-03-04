@@ -8,8 +8,8 @@ using System.Data;
 
 namespace SODAwcfService
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "CMS_Service" in code, svc and config file together.
-    // NOTE: In order to launch WCF Test Client for testing this service, please select CMS_Service.svc or CMS_Service.svc.cs at the Solution Explorer and start debugging.
+   
+    
     public class CMS_Service : ICMS_Service
     {
 
@@ -17,17 +17,12 @@ namespace SODAwcfService
         private SodaDBDataSetTableAdapters.ContactTableAdapter contactTableAdapter;
         private SodaDBDataSetTableAdapters.FreePPTFileNamesTableAdapter freePPTAdapter;
         private SodaDBDataSetTableAdapters.RegionTableAdapter regionAdapter;
-        //todo place encrypted string here
-        private string asdasd = EncDec.EncryptData("myS0D@P@ssw0rd");
+        private string asdasd = EncDec.EncryptData("myS0D@P@ssw0rd"); // password key
         private static bool Allowed = true;//set this to false if prod
         private const string ACCESS_DENIED = "ACCESS DENIED";
      
         
-        /// <summary>
-        /// CMS web service 
-        /// </summary>
-        /// <param name="Password">Password for authentication</param>
-        /// <remarks> Throws exception if failed authentication</remarks>
+        
         public CMS_Service()
         {
             
@@ -37,7 +32,9 @@ namespace SODAwcfService
             freePPTAdapter = new SodaDBDataSetTableAdapters.FreePPTFileNamesTableAdapter();
             regionAdapter = new SodaDBDataSetTableAdapters.RegionTableAdapter();
         }
-
+        //Security feature that requires to authenticate the service before calling a service method.
+        //This feature is not currently active. To activate and use this feature you must set the Allowed property to false. Cont.
+        //Then override the BeginExec of the controller with the CMS service and call authenticate with the right password to access the function
         public bool Authenticate(string Password)
         {
             return Allowed = EncDec.DecryptString(asdasd).CompareTo(Password) == 0;

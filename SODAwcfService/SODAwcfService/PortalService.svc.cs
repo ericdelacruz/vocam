@@ -50,7 +50,12 @@ namespace SODAwcfService
             }
             return listCustomer;
         }
-
+        /// <summary>
+        /// Get Customer by date Range
+        /// </summary>
+        /// <param name="dateStart"></param>
+        /// <param name="dateEnd"></param>
+        /// <returns></returns>
         public IEnumerable<Models.Customer> getByDate(DateTime dateStart, DateTime? dateEnd)
         {
 
@@ -299,7 +304,7 @@ namespace SODAwcfService
             return Enum.GetNames(typeof(PayPal.PayPalAPIInterfaceService.Model.CurrencyCodeType));
         }
 
-
+      
         public int addToLogsTable(Models.LogModel log)
         {
             int result = 0;

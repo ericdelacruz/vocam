@@ -13,7 +13,7 @@ namespace SODAwcfService
     {
         SodaDBDataSetTableAdapters.AccountsTableAdapter AccountsTableAdapter;
         SodaDBDataSetTableAdapters.ResetPasswordTableAdapter resetAdapter;
-        private string asdasd = EncDec.EncryptData("myS0D@P@ssw0rd");
+        private string asdasd = EncDec.EncryptData("myS0D@P@ssw0rd");//this is the password key
         private static bool Allowed = false;
        
         enum Roles
@@ -35,7 +35,7 @@ namespace SODAwcfService
             AccountsTableAdapter = new SodaDBDataSetTableAdapters.AccountsTableAdapter();
             resetAdapter = new SodaDBDataSetTableAdapters.ResetPasswordTableAdapter();
         }
-
+        //This method authenticates the client before calling method. Sets the Allowed property to true if password matches.
         public bool Authenticate(string Password)
         {
             return Allowed = EncDec.DecryptString(asdasd).CompareTo(Password) == 0;
@@ -55,8 +55,7 @@ namespace SODAwcfService
                 return AccountsTableAdapter.Insert(account.USERNAME, EncDec.EncryptData(account.PASSWORD), account.FirstName, account.LastName, account.Role, account.Status, account.Email, account.Address,
                                                       account.City, account.Country,account.Gender.ToString(), account.ContactNo, account.Company, account.DateLogin, account.Birthdate, account.EmailVerified,account.CompanyUrl); 
             
-            //return AccountsTableAdapter.InsertAccount(account.USERNAME, EncDec.EncryptData(account.PASSWORD), account.FirstName, account.LastName, account.Role, account.Status, account.Email, account.Address,
-            //    account.City, account.Country, account.Gender.ToString(), account.ContactNo, account.Company, account.DateLogin,account.Birthdate);
+        
         }
         /// <summary>
         /// Update Acccount by Username
@@ -65,9 +64,7 @@ namespace SODAwcfService
         /// <returns></returns>
         public int updateAccount(Models.Account account)
         {
-            //return AccountsTableAdapter.Update(account.USERNAME, account.PASSWORD, account.FirstName, account.LastName, account.Role, account.Status, account.Email, account.Address,
-            //                                          account.City, account.Country, account.Gender.ToString(), account.ContactNo, account.Company, account.DateLogin, account.Birthdate, account.EmailVerified, account.Id
-            //                                          );
+                                               
 
             return AccountsTableAdapter.UpdateAccount(account.FirstName, account.LastName, account.Role, account.Status, account.Email, account.Address,
                 account.City, account.Country, account.Gender.ToString(), account.ContactNo, account.Company, account.DateLogin, account.Birthdate, account.EmailVerified, account.USERNAME,account.CompanyUrl);
@@ -79,6 +76,7 @@ namespace SODAwcfService
         /// <returns></returns>
         public IEnumerable<Models.Account> getAccount(string UserName)
         {
+            
             if(!Allowed)
             {
                 throw new FaultException("Access Denied");

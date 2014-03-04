@@ -14,6 +14,7 @@ namespace SODAwcfService
     public class SODAPaypalService : ISODAPaypalService
     {
 
+        //default values for username,password,signature
         private static string username = "jon_api1.straightarrow.com";
         private static string password = "1384995928";
         private static string signature = "AFcWxV21C7fd0v3bYYYRCpSSRl31ATsYWC6SETdiq-vn09q6FuTpA0Kp";
@@ -21,36 +22,14 @@ namespace SODAwcfService
         private string PAY_REDIRECT_URL { get { return System.Configuration.ConfigurationManager.AppSettings["PAYPAL_REDIRECT_URL"].ToString(); } }
 
         private string MODE { get { return System.Configuration.ConfigurationManager.AppSettings["MODE"].ToString(); } }
-        //private static PayPalConfiguration config = new PayPalConfiguration(PaymentEnvironment.Test, username, password, signature);
-        //private static PayPalConfiguration config = new PayPalConfiguration(PaymentEnvironment.Test, "jon_api1.straightarrow.com", "1384995928", "AFcWxV21C7fd0v3bYYYRCpSSRl31ATsYWC6SETdiq-vn09q6FuTpA0Kp");
         
-        public string checkout(decimal amt, CurrencyCodeType CType , string itemName, string itemDesc, string itemURL, string cancelurl, string confirmUrl)
-        {
-            // Create request object
-            SetExpressCheckoutRequestType request = new SetExpressCheckoutRequestType();
-            populateRequestObject(request,amt,CType,itemName,itemDesc,itemURL,cancelurl,confirmUrl);
+      
 
-            SetExpressCheckoutReq wrapper = new SetExpressCheckoutReq();
-            wrapper.SetExpressCheckoutRequest = request;
-
-            Dictionary<string, string> configurationMap = GetAcctAndConfig();
-
-            // Create the PayPalAPIInterfaceServiceService service object to make the API call
-            PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
-
-            // # API call 
-            // Invoke the SetExpressCheckout method in service wrapper object  
-            SetExpressCheckoutResponseType setECResponse = service.SetExpressCheckout(wrapper);
-            if (setECResponse.Ack.Equals(AckCodeType.FAILURE) ||
-                (setECResponse.Errors != null && setECResponse.Errors.Count > 0))
-            {
-                throw new FaultException("Express Checkout Failed:");
-            }
-
-            return PAY_REDIRECT_URL + "_express-checkout&token=" + setECResponse.Token;
-        }
-
-        
+        /// <summary>
+        /// Checkout
+        /// </summary>
+        /// <param name="model">Variables needed for the checkout encapsulated in an object/model</param>
+        /// <returns>URl to paypal express checkout page.</returns>
         public string checkoutModel(Models.PayPalCheckOutModel model)
         {
             SetExpressCheckoutRequestType request = new SetExpressCheckoutRequestType();
@@ -70,7 +49,7 @@ namespace SODAwcfService
             if (setECResponse.Ack.Equals(AckCodeType.FAILURE) ||
                 (setECResponse.Errors != null && setECResponse.Errors.Count > 0))
             {
-                var errors = string.Join(",", setECResponse.Errors.ToList().Select(error => error.ShortMessage));
+                var errors = string.Join(",", setECResponse.Errors.ToList().Select(error => error.LongMessage));
                 //throw new FaultException("Express Checkout Failed:",);
                 throw new FaultException("Express Checkout Failed. Short Msg:" + errors);
             }
@@ -116,7 +95,7 @@ namespace SODAwcfService
             //   1.Digital
             //   2.Physical
             //  This field is available since version 65.1. 
-            itemDetails.ItemCategory = ItemCategoryType.DIGITAL;
+            itemDetails.ItemCategory = ItemCategoryType.PHYSICAL;
 
             //itemTotal = 1;
 
@@ -143,40 +122,16 @@ namespace SODAwcfService
             request.SetExpressCheckoutRequestDetails = ecDetails;
         }
        
-
-        public string confirmation(long userid, string payorid, string token, decimal amt, decimal recur_amt, CurrencyCodeType cType, string itemName, string itemDesc, DateTime dateStart)
-        {
-             var details = getExpressCheckoutDetails(token);
-             DoExpressCheckoutPaymentResponseType doECResponse = DoExpressCheckOut(payorid, token, details);
-
-
-            var response =  CreateRecurringProfile(token, amt, cType, itemDesc, dateStart);
-           
-            if (response.Ack.Equals(AckCodeType.FAILURE) ||
-             (response.Errors != null && response.Errors.Count > 0))
-            {
-                throw new FaultException("Error on creating profile");
-            }
-
-            using (PortalDataSetTableAdapters.PaypalTransTableAdapter paypalAdapter = new PortalDataSetTableAdapters.PaypalTransTableAdapter())
-            {
-                try
-                {
-                    //paypalAdapter.Insert(userid, doECResponse.DoExpressCheckoutPaymentResponseDetails.PaymentInfo[0].TransactionID, response.CreateRecurringPaymentsProfileResponseDetails.ProfileID, true, DateTime.Now);
-                }
-                catch (Exception ex)
-                {
-                    //log to textfile instead
-                }
-            }
-            return doECResponse.DoExpressCheckoutPaymentResponseDetails.PaymentInfo[0].TransactionID + ";" + response.CreateRecurringPaymentsProfileResponseDetails.ProfileID;
-        }
+        /// <summary>
+        /// Confirm to paypal upon receiving payment then create recurring profile
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>TransactionID and Profile ID in ; sperator</returns>
         public string confirmationModel(Models.PayPalConfirmModel model)
         {
             var details = getExpressCheckoutDetails(model.token);
-            DoExpressCheckoutPaymentResponseType doECResponse = DoExpressCheckOut(details,model);
-             //DoExpressCheckoutPaymentResponseType doECResponse = DoExpressCheckOut(model.payorid, model.token, details);
-
+            DoExpressCheckoutPaymentResponseType doECResponse = DoExpressCheckOut(details,model);//this sends paypal confirmation that we have received the payment
+            
             var response = CreateRecurringProfile(model);
             
             if (response.Ack.Equals(AckCodeType.FAILURE) ||
@@ -185,12 +140,19 @@ namespace SODAwcfService
                 throw new FaultException("Error on creating profile");
             }
 
+            addPayPalTrans(model, doECResponse, response);//log the paypal transaction
+
+            return doECResponse.DoExpressCheckoutPaymentResponseDetails.PaymentInfo[0].TransactionID + ";" + response.CreateRecurringPaymentsProfileResponseDetails.ProfileID;
+        }
+
+        private static void addPayPalTrans(Models.PayPalConfirmModel model, DoExpressCheckoutPaymentResponseType doECResponse, CreateRecurringPaymentsProfileResponseType response)
+        {
             using (PortalDataSetTableAdapters.PaypalTransTableAdapter paypalAdapter = new PortalDataSetTableAdapters.PaypalTransTableAdapter())
             {
                 try
                 {
                     //paypalAdapter.Insert(model.userid,doECResponse.DoExpressCheckoutPaymentResponseDetails.PaymentInfo[0].TransactionID, response.CreateRecurringPaymentsProfileResponseDetails.ProfileID, true, DateTime.Now,model.SalesCodeId,model.PaymenytAmt,model.Qty);
-                    paypalAdapter.Insert(model.userid.Value,doECResponse.DoExpressCheckoutPaymentResponseDetails.PaymentInfo[0].TransactionID, response.CreateRecurringPaymentsProfileResponseDetails.ProfileID, true, DateTime.Now,model.SalesCodeId,model.PaymenytAmt,model.Qty);
+                    paypalAdapter.Insert(model.userid.Value, doECResponse.DoExpressCheckoutPaymentResponseDetails.PaymentInfo[0].TransactionID, response.CreateRecurringPaymentsProfileResponseDetails.ProfileID, true, DateTime.Now, model.SalesCodeId, model.PaymenytAmt, model.Qty);
                 }
                 catch (Exception ex)
                 {
@@ -201,7 +163,6 @@ namespace SODAwcfService
                     paypalAdapter.Connection.Close();
                 }
             }
-            return doECResponse.DoExpressCheckoutPaymentResponseDetails.PaymentInfo[0].TransactionID + ";" + response.CreateRecurringPaymentsProfileResponseDetails.ProfileID;
         }
 
         private CreateRecurringPaymentsProfileResponseType CreateRecurringProfile(Models.PayPalConfirmModel model)
@@ -296,7 +257,7 @@ namespace SODAwcfService
                     
                      result.Active = false;
 
-                     paypalAdapter.Update(result);
+                     paypalAdapter.Update(result);//update the paypal trans record
                     
                 }
                 
@@ -307,6 +268,8 @@ namespace SODAwcfService
             }
             return flag;
         }
+        
+        //The shorter way to do this is to just call getRecurProfileDetailsFromPaypal directly but it throws a long filename exception when publishing
         public Models.RecuringProfileDetails getRecurProfileDetails(long userid)
         {
             return new Models.RecuringProfileDetails() { profileStatus = getRecurProfileDetailsfromPayPal(userid).GetRecurringPaymentsProfileDetailsResponseDetails.ProfileStatus };
@@ -737,6 +700,61 @@ namespace SODAwcfService
             return result;
         }
 
-        
+        #region Obselete Methods
+        //This is obselete. To be Removed
+        public string checkout(decimal amt, CurrencyCodeType CType, string itemName, string itemDesc, string itemURL, string cancelurl, string confirmUrl)
+        {
+            // Create request object
+            SetExpressCheckoutRequestType request = new SetExpressCheckoutRequestType();
+            populateRequestObject(request, amt, CType, itemName, itemDesc, itemURL, cancelurl, confirmUrl);
+
+            SetExpressCheckoutReq wrapper = new SetExpressCheckoutReq();
+            wrapper.SetExpressCheckoutRequest = request;
+
+            Dictionary<string, string> configurationMap = GetAcctAndConfig();
+
+            // Create the PayPalAPIInterfaceServiceService service object to make the API call
+            PayPalAPIInterfaceServiceService service = new PayPalAPIInterfaceServiceService(configurationMap);
+
+            // # API call 
+            // Invoke the SetExpressCheckout method in service wrapper object  
+            SetExpressCheckoutResponseType setECResponse = service.SetExpressCheckout(wrapper);
+            if (setECResponse.Ack.Equals(AckCodeType.FAILURE) ||
+                (setECResponse.Errors != null && setECResponse.Errors.Count > 0))
+            {
+                throw new FaultException("Express Checkout Failed:");
+            }
+
+            return PAY_REDIRECT_URL + "_express-checkout&token=" + setECResponse.Token;
+        }
+        //this is obselete. to be removed
+        public string confirmation(long userid, string payorid, string token, decimal amt, decimal recur_amt, CurrencyCodeType cType, string itemName, string itemDesc, DateTime dateStart)
+        {
+            var details = getExpressCheckoutDetails(token);
+            DoExpressCheckoutPaymentResponseType doECResponse = DoExpressCheckOut(payorid, token, details);
+
+
+            var response = CreateRecurringProfile(token, amt, cType, itemDesc, dateStart);
+
+            if (response.Ack.Equals(AckCodeType.FAILURE) ||
+             (response.Errors != null && response.Errors.Count > 0))
+            {
+                throw new FaultException("Error on creating profile");
+            }
+
+            using (PortalDataSetTableAdapters.PaypalTransTableAdapter paypalAdapter = new PortalDataSetTableAdapters.PaypalTransTableAdapter())
+            {
+                try
+                {
+                    //paypalAdapter.Insert(userid, doECResponse.DoExpressCheckoutPaymentResponseDetails.PaymentInfo[0].TransactionID, response.CreateRecurringPaymentsProfileResponseDetails.ProfileID, true, DateTime.Now);
+                }
+                catch (Exception ex)
+                {
+                    //log to textfile instead
+                }
+            }
+            return doECResponse.DoExpressCheckoutPaymentResponseDetails.PaymentInfo[0].TransactionID + ";" + response.CreateRecurringPaymentsProfileResponseDetails.ProfileID;
+        }
+        #endregion
     }
 }
