@@ -29,15 +29,18 @@ namespace SODAMvcApplication.Services
 
             //reuse account service
             //AccountService accountService = new AccountService();
-            AccountServiceReference.AccountServiceClient accountService = new AccountServiceReference.AccountServiceClient();
 
+            AccountServiceReference.AccountServiceClient accountService = new AccountServiceReference.AccountServiceClient();
+            accountService.Authenticate("myS0D@P@ssw0rd");
             var user = accountService.getAccount(username);
 
             if (user.Count() > 0)
             {
+               
                 int maxLicenses = getMaxActiveLicenses(user.First().Id);
                 if (maxLicenses > 0)
                 {
+                    //for now it only accepts pclaptop product type
                     switch (productType)
                     {
                         case "pclaptop":
@@ -53,15 +56,21 @@ namespace SODAMvcApplication.Services
         }
 
 
-
+        /// <summary>
+        /// Consume a License if it is not yet max 
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="maxLicenses"></param>
+        /// <returns></returns>
         private bool consumeLicense(long userid, int maxLicenses)
         {
 
 
             PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
+            //get LicenseConsumed record if exists else insert and get a LC record
             var LCrecord = portalClient.getLicenseConsumption().Where(lc => lc.UserId == userid).Count() > 0 ? portalClient.getLicenseConsumption().Where(lc => lc.UserId == userid).First() :
                             insertLCRecord(userid, portalClient);
-
+            //If not yet reached max, Incerement Consumed property then update
             if (LCrecord.Consumed < maxLicenses)
             {
                 LCrecord.Consumed++;
@@ -91,7 +100,12 @@ namespace SODAMvcApplication.Services
             return portalClient.getLicenseConsumption().Where(lc => lc.UserId == userid).First();
         }
 
-
+        /// <summary>
+        /// Gets the Active Licenses of the User. Active license means a subscription that has not exceeded the end of their subscription.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
         private int getMaxActiveLicenses(long id)
         {
 
