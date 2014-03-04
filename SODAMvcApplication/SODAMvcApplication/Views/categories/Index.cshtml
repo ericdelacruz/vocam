@@ -15,16 +15,18 @@
                 <p>Safety On Demand Training titles are separated into various training categories. Select a Training category to view all our video training titles which relate to that area of training.</p>
             </div>
             <div class="contentBody border clearfix">
-               
+              
                 @{int i =1;}
+                @*Add categories content*@
                 @while(i <= Model.Count())
                 {
-                     
-                     if( i>1 && (i-1) % 4 == 0 && i <= Model.Count())
+                      
+                    //add line seperator after every four Category
+                    if( i>1 && (i-1) % 4 == 0 && i <= Model.Count())
                      { 
                         <hr class="hrLine clearfix">  
                      } 
-                     
+                     @*Max of 4 categories in a row. variable j tracks the row count variable i tracks overall categories*@
                     <div class="catThumbWrapper clearfix">
                     @for (int j = 0; j < 4 && i <= Model.Count(); j++,i++ )
                     {

@@ -15,23 +15,27 @@ namespace SODAMvcApplication.Controllers
         {
             return View();
         }
-
+        //
+        //Get:/drm/authenticate?username=&password=&contentid
         public ActionResult authenticate(string username,string password, string contentid)
         {
             AccountServiceReference.AccountServiceClient accountClient = new AccountServiceReference.AccountServiceClient();
+            //authenticate the service to allow access to methods
             accountClient.Authenticate("myS0D@P@ssw0rd");
+
             PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
             CategoriesServiceReference.CatListingServiceClient catClient = new CategoriesServiceReference.CatListingServiceClient();
-            //string filename = contentid;
+            //Error if contentid doesn't exists and the user is not authenticated, then show error state 
             if (catClient.get().Where(title => title.FileName == contentid).Count() == 0 && !accountClient.AuthenticateUser(username, password))
                 return View(new SODAMvcApplication.Models.drmModel() { Authorized = false, AccessExpirationDays = 0 });
             else
             {
-
+                
                 var customer = from c in portalClient.getCustomer()
                                join a in accountClient.getAccount(username) on c.UserId equals a.Id
                                orderby c.DateSubscriptionEnd descending
                                select new SODAMvcApplication.Models.drmModel() { Authorized = true, AccessExpirationDays = Convert.ToInt32(getDays(c)) };
+                //close service connections
                 accountClient.Close();
                 portalClient.Close();
                 catClient.Close();

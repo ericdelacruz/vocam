@@ -207,7 +207,6 @@
     <Compile Include="Controllers\EncDec.cs" />
     <Compile Include="Controllers\FileTransferHelper.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PaypalHelper.cs" />
     <Compile Include="Controllers\salesController.cs" />
     <Compile Include="Controllers\userController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />

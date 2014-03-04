@@ -11,11 +11,10 @@ namespace SODAMvcApplication.Controllers
     {
         CategoriesServiceReference.CatListingServiceClient categoriesServiceClient = new CategoriesServiceReference.CatListingServiceClient();
         PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
-        //private int RegionId = int.Parse(ConfigurationManager.AppSettings["RegionId"].ToString());
-        //private string Region = ConfigurationManager.AppSettings["Region"].ToString();
-        private string defaultRegion = "AU";
-        private string password = "myS0D@P@ssw0rd";
-        //
+   
+        private string defaultRegion = "AU"; //for debugging. Change this if you want to switch to different region 
+       
+      
         // GET: /Categories/
         /// <summary>
         /// List all Categories
@@ -23,11 +22,8 @@ namespace SODAMvcApplication.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-             if(!categoriesServiceClient.Authenticate(password))
-             {
-                 //error page
-             }
-
+            
+            //get the list of categories except for My Favorites and Downloads category which is reserved for the videoplayer
              var listCategories = from cat in categoriesServiceClient.get_Categories()
                                   where cat.CategoryId != 1 && cat.CategoryName.Trim() != "My Favorites" && cat.CategoryName.Trim() != "Downloads" 
                                   orderby ConvertGrade(cat.CategoryId)
@@ -55,16 +51,13 @@ namespace SODAMvcApplication.Controllers
         /// <returns></returns>
         public ActionResult Browse(string cat)
         {
+            
             string strCatName = HttpUtility.HtmlEncode(cat);
 
 
             long lCatID = getCategoryId(strCatName);
             //long.TryParse(HttpUtility.HtmlEncode(cID), out lCatID);
-            if (!categoriesServiceClient.Authenticate(password) || lCatID == 0)
-            {
-                //error page
-            }
-
+           
             var listSpecByCat = getTitlesByCategoryID(lCatID);
            
             ViewBag.SelCategory = categoriesServiceClient.get_Category(lCatID).First();
@@ -74,6 +67,7 @@ namespace SODAMvcApplication.Controllers
 
         private IEnumerable<CategoriesServiceReference.Specific> getTitlesByCategoryID(long lCatID)
         {
+            
             var listSpecByCat = from ca in categoriesServiceClient.getCatAssign()
                                 join spec in categoriesServiceClient.get() on ca.SpecID equals spec.Id
                                 join r in portalClient.getRegion() on spec.RegionId equals r.Id
@@ -82,7 +76,7 @@ namespace SODAMvcApplication.Controllers
                                 select spec;
             if(listSpecByCat.Count() > 0)
             return listSpecByCat;
-            else
+            else//for debugging
             {
                 return from ca in categoriesServiceClient.getCatAssign()
                        join spec in categoriesServiceClient.get() on ca.SpecID equals spec.Id
@@ -95,13 +89,14 @@ namespace SODAMvcApplication.Controllers
 
         private long getCategoryId(string strCatName)
         {
-            //long lCatID = 0;
+        
 
             var category = categoriesServiceClient.get_Categories().Select(c => c).Where(c => c.CategoryName.ToLower().Replace("-"," ") == strCatName.Replace("-", " ").ToLower());
 
             
             return category.Count() > 0? category.First().CategoryId:0;
         }
+
         //
         //GET:/Categories/Details/1234
         /// <summary>
@@ -115,14 +110,6 @@ namespace SODAMvcApplication.Controllers
         {
             
             
-            if (!categoriesServiceClient.Authenticate(password))
-            {
-                //error page
-            }
-            
-            
-            //var spec = categoriesServiceClient.get().Select(s => s).Where(s => s.Title.ToLower().Replace("-"," ") == id.Replace("-", " ").ToLower());
-            //var spec = categoriesServiceClient.get().Select(s => s).Where(s => s.Title.Trim().Replace(" ", "-").Replace("---", "-").ToLower() == id);
             var spec = from title in categoriesServiceClient.get()
                        join r in portalClient.getRegion() on title.RegionId equals r.Id
                        where r.WebsiteUrl == Request.Url.Host && title.Title.Trim().Replace(": ", "-").Replace(" ", "-").Replace("---", "-").ToLower() == id
@@ -141,8 +128,10 @@ namespace SODAMvcApplication.Controllers
 
 
             long lCatId = 0 ;
+            //if cat is not null, then getCateforyID by category name and set lCatId.
             if (cat == null)
             {
+                //check if Session["CatId"] is not null, set lCatId to Session["CatId"] else lookup categories and get the first match to where title is assigned to a category.
                 if (Session["CatID"] != null)
                     long.TryParse(Session["CatID"].ToString(), out lCatId);
                 else
@@ -158,12 +147,12 @@ namespace SODAMvcApplication.Controllers
             
             try
             {
-             
 
+                //gets all titles under selected cat
                     var listSpecByCat = from ca in categoriesServiceClient.getCatAssign()
                                         join s in categoriesServiceClient.get() on ca.SpecID equals s.Id
                                         where ca.CategoryId == lCatId && s.Id != spec.First().Id
-                                        select s;//this gets all titles under selected cat
+                                        select s;
                     var related = getRelatedTitles(listSpecByCat); //this filters the title list by region
                     ViewBag.Related = related;
  
@@ -177,13 +166,14 @@ namespace SODAMvcApplication.Controllers
 
         private IEnumerable<CategoriesServiceReference.Specific> getRelatedTitles(IEnumerable<CategoriesServiceReference.Specific> listSpecByCat)
         {
+            
             var related = from titleCat in listSpecByCat
                           join region in portalClient.getRegion() on titleCat.RegionId equals region.Id
                           where region.WebsiteUrl.ToLower() == Request.Url.Host.ToLower()
                           orderby titleCat.Title
                           select titleCat;
 
-
+            
             return related.Count() > 0 ? related : from titleCat in listSpecByCat
                                                    join region in portalClient.getRegion() on titleCat.RegionId equals region.Id
                                                    where region.RegionName.ToLower() == defaultRegion.ToLower()

@@ -15,6 +15,7 @@ namespace SODAMvcApplication.Controllers
 
         protected override IAsyncResult BeginExecute(System.Web.Routing.RequestContext requestContext, AsyncCallback callback, object state)
         {
+            //securty measure. 
             account.Authenticate("myS0D@P@ssw0rd");
             return base.BeginExecute(requestContext, callback, state);
         }
@@ -31,10 +32,10 @@ namespace SODAMvcApplication.Controllers
         {
             return View();
         }
-          
+        //Validate user. This method is for the videoplayer (air)  
         public ActionResult validate(string username, string password)
         {
-           
+            
             if(!string.IsNullOrEmpty(username.Trim()) && !string.IsNullOrEmpty(password.Trim()) && account.AuthenticateUser(username,password))
             {
                 var customer = getCustomer(username);
@@ -45,12 +46,15 @@ namespace SODAMvcApplication.Controllers
                 {
                     int daysleft = 0;
                     int consumed = 0;
-                    var CompanyWebsite = account.getAccount(username).First().CompanyUrl;
+                    
+                    
                     var maxActiveLicenses = customer.Sum(c => c.Licenses);
-
+                   
                     var LicenseConsumption = portalClient.getLicenseConsumption().Where(lc => lc.UserId == customer.First().UserId);
+                    //set consumed if LicenseConsumption exists
                     if (LicenseConsumption.Count() > 0)
                         consumed = LicenseConsumption.First().Consumed;
+                    //get and set the days remaining 
                     if (customer.First().DateSubscriptionEnd.HasValue)
                         daysleft = ((TimeSpan)(customer.First().DateSubscriptionEnd.Value - DateTime.Now)).Days;
                     return View(new Users() { authorized = true,daysleft=daysleft, shownews = false,PCLicenses=maxActiveLicenses, PCLicenseConsumed = consumed,CompanyWebsite=getWebsiteUrl(customer) });
@@ -79,11 +83,14 @@ namespace SODAMvcApplication.Controllers
 
         private string getWebsiteUrl(IEnumerable<PortalServiceReference.Customer> customer)
         {
+            
+            //get region setting by salescode
             var nonDefault = from salesCode in portalClient.getSaleCode()
                              join salesPerson in portalClient.getSalePerson() on salesCode.SalesPersonID equals salesPerson.Id
                              join region in portalClient.getRegion() on salesPerson.RegionId equals region.Id
                              where customer.First().SalesCodeId == salesCode.Id
                              select region;
+            //if the customer used a salescode, else use the default salescode as a basis for getting the region 
             if (nonDefault.Count() > 0)
             {
                 return "http://" + nonDefault.First().WebsiteUrl;
@@ -97,41 +104,23 @@ namespace SODAMvcApplication.Controllers
                 return "http://" + Default.First().WebsiteUrl;
             }
         }
-
-        private bool isSameRegion(IEnumerable<PortalServiceReference.Customer> customer)
-        {
-            var nonDefault = from salesCode in portalClient.getSaleCode()
-                                      join salesPerson in portalClient.getSalePerson() on salesCode.SalesPersonID equals salesPerson.Id
-                                      join region in portalClient.getRegion() on salesPerson.RegionId equals region.Id
-                                      where customer.First().SalesCodeId == salesCode.Id
-                                      select region;
-              if(nonDefault.Count() > 0)
-              {
-                  return nonDefault.First().WebsiteUrl == Request.Url.Host;
-              }
-              else
-              {
-                  var Default = from salesCode in portalClient.getSaleCode()
-                               
-                                join region in portalClient.getRegion() on salesCode.Id equals region.DefaultSalesCodeId
-                                where customer.First().SalesCodeId == salesCode.Id && region.WebsiteUrl == Request.Url.Host
-                                select region;
-                  return Default.Count() > 0;
-              }
-        }
+        
+        
         public ActionResult channels()
         {
             var channels = catClient.get_Categories().Where(c=> c.CategoryId != 1);
             return View(channels);
         }
-
+        //id is RegionName
         public ActionResult titles(string id)
         {
-            int regionId = id != null? portalClient.getRegion().Where(r => r.RegionName.ToLower() == id.ToLower().Trim()).First().Id:12; //default to 12 AU 
+            int regionId = id != null? portalClient.getRegion().Where(r => r.RegionName.ToLower() == id.ToLower().Trim()).First().Id:12; //default to 12 AU-for testing 
+            //get title by region name
             var titles = catClient.get().Where(title => title.RegionId == regionId).OrderBy(title => title.Title);
             
             return View(titles);
         }
+        //Id is the region name
         public ActionResult news(string id,string username)
         {
           var _account = account.getAccount(username);

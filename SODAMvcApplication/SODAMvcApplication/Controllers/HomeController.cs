@@ -21,20 +21,17 @@ namespace SODAMvcApplication.Controllers
         // GET: /Home/
         private CMSServiceReference.CMS_ServiceClient cmsServiceClient = new CMSServiceReference.CMS_ServiceClient();
         private CategoriesServiceReference.CatListingServiceClient catListingSerivceClient = new CategoriesServiceReference.CatListingServiceClient();
-        //private PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
-        //private string Region = "au";
+      
         private string defaultRegion = "AU";
+        
         private string password = "myS0D@P@ssw0rd";
 
         private const string HOME = "Home";
         private const string CONTACT = "Contact";
         private const string LEARN = "Learn";
-        //private string[] filenames = { "USO-AUS-PPS.pps", "USW-AUS-PPS.pps", "WHSE-AUS-PPS.pps" };
-        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
-        {
-            
-            base.Initialize(requestContext);
-        }
+
+       
+      
         public ActionResult Index()
         {
 
@@ -42,20 +39,15 @@ namespace SODAMvcApplication.Controllers
             if (!Request.Url.Host.Contains("www.") && Request.Url.Host != "localhost")
                 return Redirect("http://www." + Request.Url.Host);
 
-            //else if (Request.Url.Host == "www.sac-iis.com" || Request.Url.Host == "sac-iis.com")
-            //{
-            //    var websiteUrl = cmsServiceClient.getRegions().Where(r => r.Id == 12).First().WebsiteUrl;
-            //    return Redirect("http://" + websiteUrl);
-            //}
-
+              
               var  lContentDef = cmsServiceClient.getContent(HOME, string.Empty);
 
               var filterByRegion = getContents(lContentDef);
               
                
               var contact = cmsServiceClient.getContent(CONTACT,"PhoneNo").Where(cms=>cms.RegionId == filterByRegion.First().RegionId).First().Value;
-
-              Session.Add("PortalUrl", filterByRegion.Where(c => c.SectionName == "PortalUrl").First().Value);
+              
+            
               Session.Add("PhoneNo", contact);   
              
             return View(filterByRegion);
@@ -77,7 +69,7 @@ namespace SODAMvcApplication.Controllers
                        select content;
             }
         }
-
+        
         protected override void Dispose(bool disposing)
         {
            cmsServiceClient.Close();
@@ -96,17 +88,26 @@ namespace SODAMvcApplication.Controllers
         //GET: /ContactFreePpt/
         public ActionResult contactfreeppt()
         {
+
+            initFreePPtViewBag();
+            return View();
+        }
+
+        private void initFreePPtViewBag()
+        {
             var freeppt = from fppt in cmsServiceClient.getFreePPT()
                           join region in cmsServiceClient.getRegions() on fppt.RegionId equals region.Id
                           where region.WebsiteUrl == Request.Url.Host
                           select fppt;
-            if(freeppt.Count() == 0 && Request.Url.Host == "localhost")
+            //For debugging purpose (localhost)
+            if (freeppt.Count() == 0 && Request.Url.Host == "localhost")
             {
                 freeppt = from fppt in cmsServiceClient.getFreePPT()
                           join region in cmsServiceClient.getRegions() on fppt.RegionId equals region.Id
                           where region.RegionName == defaultRegion
                           select fppt;
             }
+
             ViewBag.pptList = freeppt.Select(fppt => new SelectListItem()
             {
                 Text = fppt.DisplayText,
@@ -114,7 +115,6 @@ namespace SODAMvcApplication.Controllers
                 Selected = false
 
             });
-            return View();
         }
 
         [HttpPost]
@@ -122,13 +122,14 @@ namespace SODAMvcApplication.Controllers
         {
 
             bool isValid = true;
+            /*validations*/
             if (!this.IsCaptchaValid("Captcha is not valid"))
             {
                 ModelState.AddModelError("", "Incorrect captcha answer.");
                 //return View(contact);
                 isValid = false;
             }
-            //validate input
+           
             if (!RegExHelper.IsValidEmail(contact.Email))
             {
                 ModelState.AddModelError("", "Please enter a valid email.");
@@ -148,6 +149,7 @@ namespace SODAMvcApplication.Controllers
                 isValid = false;
             }
 
+            //Send download link if email not yet exisiting and validation is ok else error. Also notifies Sales
             if (cmsServiceClient.getContact().Where(c => c.Email.Trim() == contact.Email.Trim()).Count() == 0 && isValid)
             {
                 sendDownloadLinkToCustomer(contact, collection);
@@ -158,40 +160,25 @@ namespace SODAMvcApplication.Controllers
             else
             {
                 ModelState.AddModelError("", "Email already exists! Sorry you can only download once.");
-                // return View(contact);
+                
             }
 
-            var freeppt = from fppt in cmsServiceClient.getFreePPT()
-                          join region in cmsServiceClient.getRegions() on fppt.RegionId equals region.Id
-                          where region.WebsiteUrl == Request.Url.Host
-                          select fppt;
-            if (freeppt.Count() == 0 && Request.Url.Host == "localhost")
-            {
-                freeppt = from fppt in cmsServiceClient.getFreePPT()
-                          join region in cmsServiceClient.getRegions() on fppt.RegionId equals region.Id
-                          where region.RegionName == defaultRegion
-                          select fppt;
-            }
-            ViewBag.pptList = freeppt.Select(fppt => new SelectListItem()
-            {
-                Text = fppt.DisplayText,
-                Value = fppt.PPTType,
-                Selected = collection["selectppt"] == fppt.PPTType
-
-            });
+           
+            initFreePPtViewBag();
             return View(contact);
         }
 
         //GET: /Sitemap/
         public ActionResult Sitemap()
         {
+           
             var sitemapData = from cat in catListingSerivceClient.get_Categories()
                               where cat.CategoryId > 1 && cat.CategoryName.Trim() != "My Favorites" && cat.CategoryName.Trim() != "Downloads" 
                               orderby ConvertGrade(cat.CategoryId)
                               select new Models.SiteMapModel()
                               {
                                   CatName = cat.CategoryName,
-                                  Titles = getTitlesUnderCat(cat.CategoryId),
+                                  Titles = getTitlesUnderCat(cat.CategoryId),//For each cattegory get Titles
                                   CatId = cat.CategoryId
                               };
 
@@ -219,7 +206,7 @@ namespace SODAMvcApplication.Controllers
                             select title.Title;
             if(catTitles.Count() >0)
             return catTitles;
-            else
+            else//for debugging purpose
             {
                 return from ca in catListingSerivceClient.getCatAssign()
                             join title in catListingSerivceClient.get() on ca.SpecID equals title.Id
@@ -242,6 +229,7 @@ namespace SODAMvcApplication.Controllers
         [HttpPost]
         public ActionResult contact(CMSServiceReference.Contact contact)
         {
+            /*Validation*/
             if (!this.IsCaptchaValid("Captcha is not valid"))
             {
                 ModelState.AddModelError("", "Incorrect captcha answer.");
@@ -262,27 +250,20 @@ namespace SODAMvcApplication.Controllers
                 ModelState.AddModelError("", "Please enter a valid Postal Code");
                 return (View(contact));
             }
-            //TypeDescriptor.AddProviderTransparent(new AssociatedMetadataTypeTypeDescriptionProvider(typeof(CMSServiceReference.Contact), typeof(CMSServiceReference.ContactMD)), typeof(CMSServiceReference.Contact));
-            //var context = new System.ComponentModel.DataAnnotations.ValidationContext(contact, null, null);
-            //var results = new List<ValidationResult>();
-            //var isValid = Validator.TryValidateObject(contact,context,results);
+            
             contact.isFreePPT = false;
             cmsServiceClient.addContact(contact);
-            //EmailHelper.SendEmail(contact.Email, "SODA Customer Inquiry", "Message sent. A customer representative will contact you shortly.");
+            //send email to customer and sales
             string from =Request.Url.Host != "localhost"? "no-reply" + Request.Url.Host.Replace("www.", "@"):"test@sac-iis.com";
             string replyto = Request.Url.Host != "localhost"? "sales" + Request.Url.Host.Replace("www.", "@"):"sales@safetyondemand.com.au";
-            //string from = "test@sac-iis.com";
-            //string replyto = "sales_test@safetyondemand.com.au";
-
-            //EmailHelper.SendEmail(from,contact.Email, "SODA Customer Inquiry", "Message sent. A customer representative will contact you shortly.",replyto);
-            //string body = "Your message sent. A customer representative will contact you shortly.";
+           
             ViewData.Add("Contact", contact);
             string body = EmailHelper.ToHtml("contactemail",ViewData,this.ControllerContext);
             EmailHelper.SendEmail(new System.Net.Mail.MailAddress(from, "Safety On Demand"), new System.Net.Mail.MailAddress(contact.Email),"SODA Customer Inquiry", body,true, replyto);
             sendCustomerDetailsToSales(contact, "SODA:Customer Inquiry");
             TempData["MsgSent"] = true;
             return RedirectToAction("contact");
-            //return View();
+            
         }
 
        
@@ -291,10 +272,7 @@ namespace SODAMvcApplication.Controllers
          
         public ActionResult LearnMore()
         {
-            if (cmsServiceClient.Authenticate(password))
-            {
-                //error page
-            }
+            
 
 
             var lContentDef = cmsServiceClient.getContent(LEARN, string.Empty);
@@ -321,6 +299,7 @@ namespace SODAMvcApplication.Controllers
             contact.isFreePPT = true;
             DateTime dateAdded = DateTime.Now;
             contact.isVerified = false;
+            //key is email plus dateadded.Ticks in MD5 hash format
             string key = EmailHelper.GetMd5Hash(contact.Email.Substring(0, contact.Email.IndexOf('@')) + dateAdded.Ticks.ToString());
             string selected = collection["selectppt"];
             contact.key = key;
@@ -329,7 +308,6 @@ namespace SODAMvcApplication.Controllers
             string from = Request.Url.Host != "localhost" ? "no-reply" + Request.Url.Host.Replace("www.", "@") : "test@sac-iis.com";
             string Replyto = Request.Url.Host != "localhost" ? "sales_test" + Request.Url.Host.Replace("www.", "@") : "sales_test@safetyondemand.com.au";
             ViewData.Add("Contact", contact);
-            //ViewData.Add("DLink", createDownloadPPTLink(key, selected));
             ViewData.Add("key", key);
             ViewData.Add("selected", collection["selectppt"]);
             string body = EmailHelper.ToHtml("email_freeppt_customer", ViewData, this.ControllerContext);
@@ -342,17 +320,18 @@ namespace SODAMvcApplication.Controllers
         }
         private void sendCustomerDetailsToSales(CMSServiceReference.Contact contact,string subject)
         {
+            
             string from = Request.Url.Host != "localhost" ? "no-reply" + Request.Url.Host.Replace("www.", "@") : "no-reply@sac-iis.com";
             string to = Request.Url.Host != "localhost" ? "sales" + Request.Url.Host.Replace("www.", "@") : "sales_test@sac-iis.com";
             
-            //string from = "no_reply_test@sac-iis.com";
-            //string to = "sales_test@sac-iis.com";
+            
             if(ViewData["Contact"] == null)
             ViewData.Add("Contact", contact);
             string body = EmailHelper.ToHtml("email_freeppt_details", ViewData, this.ControllerContext);
             //string subject = "SODA:Free PPT Customer Details";
             EmailHelper.SendEmail(new System.Net.Mail.MailAddress(from, "Safety On Demand"), new System.Net.Mail.MailAddress(to), subject, body, false, null,"P@ssw0rd12345");
         }
+
         public ActionResult email_freeppt_details()
         {
             return View();
@@ -362,6 +341,7 @@ namespace SODAMvcApplication.Controllers
             
             return Request.Url.GetLeftPart(UriPartial.Authority)+ Url.Action("download", new { key = key, selected = selected });
         }
+
         public ActionResult download(string key, string selected)
         {
             if(cmsServiceClient.State == System.ServiceModel.CommunicationState.Closed)
@@ -371,12 +351,12 @@ namespace SODAMvcApplication.Controllers
 
             
             var contact = cmsServiceClient.getContact().Where(c => c.key == key);
-            //get free ppt details
+            //get free ppt details depending on the region
             var freeppt = from fppt in cmsServiceClient.getFreePPT()
                           join region in cmsServiceClient.getRegions() on fppt.RegionId equals region.Id
                           where region.WebsiteUrl == Request.Url.Host && fppt.PPTType.ToLower().Trim() == selected.ToLower().Trim()
                           select fppt;
-
+            //for debugging purposes only
             if (freeppt.Count() == 0 && Request.Url.Host == "localhost")
             {
                 freeppt = from fppt in cmsServiceClient.getFreePPT()
@@ -384,6 +364,7 @@ namespace SODAMvcApplication.Controllers
                           where region.RegionName == defaultRegion && fppt.PPTType.ToLower().Trim() == selected.ToLower().Trim()
                           select fppt;
             }
+            //if contact has a match and not yet expired then verify and update contact
             if(contact.Count() >0 && (contact.First().DateLinkEx.Value - DateTime.Now).Hours < 1 && contact.First().isVerified == false)
             {
               
@@ -399,10 +380,11 @@ namespace SODAMvcApplication.Controllers
             return RedirectToAction("index");
         }
 
-       
+        //link to stream or download file
         public FileStreamResult StreamFileFromDisk(string selected)
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + "Content/download/";
+            //get the filename of the select ppt file to be downloaded by the customer. 
             var freeppt = from fppt in cmsServiceClient.getFreePPT()
                           join region in cmsServiceClient.getRegions() on fppt.RegionId equals region.Id
                           where (region.WebsiteUrl == Request.Url.Host || (Request.Url.Host =="localhost" && region.Id ==12)) && fppt.PPTType == selected
@@ -412,12 +394,7 @@ namespace SODAMvcApplication.Controllers
             {
                 filename = freeppt.First().FileName;
             }
-            else
-            {
-                //error
-                //return RedirectToAction("index");
-            }
-            //string filename = ;
+            //if freeppt.First().Url is null then look the file in the local directory.
             if(string.IsNullOrEmpty(freeppt.First().Url))
             return File(new System.IO.FileStream(path + filename, System.IO.FileMode.Open), "application/vnd.ms-powerpoint", filename);
             else

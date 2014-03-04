@@ -141,7 +141,6 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\drmController.cs" />
     <Compile Include="Controllers\EmailHelper.cs" />
-    <Compile Include="Controllers\ExceptionUtil.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RegExHelper.cs" />
     <Compile Include="Controllers\xmlController.cs" />

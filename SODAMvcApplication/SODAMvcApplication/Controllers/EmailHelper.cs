@@ -14,28 +14,18 @@ namespace SODAMvcApplication.Controllers
 {
     public static class EmailHelper
     {
+        
         public static void SendEmail(string from, string to, string subject, string body, string ReplyTo)
         {
-            //string host = ConfigurationManager.AppSettings["EmailHost"] != "" ? ConfigurationManager.AppSettings["EmailHost"] : "smtpout.asia.secureserver.net";
-            //int port = ConfigurationManager.AppSettings["Emailport"] != "" ? int.Parse(ConfigurationManager.AppSettings["Emailport"]) : 80;
+            
 
             MailMessage msg = new MailMessage(from, to, subject, body);
 
             if (!string.IsNullOrEmpty(ReplyTo))
                 msg.ReplyToList.Add(ReplyTo);
-            //MailMessage msg = new MailMessage();
-            //msg.To.Add(to);
-            //msg.Body = body;
-            //msg.Subject = subject;
-            //SmtpClient smtp = port == 0 ? new SmtpClient(host) : new SmtpClient(host, port);
+            
             SmtpClient smtp = new SmtpClient();
-            //string username = "test@sac-iis.com";
-            //string password = "P@ssw0rd12345";
-
-            //smtp.Credentials = new NetworkCredential(username, password);
-            //smtp.Credentials = new NetworkCredential();
-            //smtp.EnableSsl = true;
-            //smtp.UseDefaultCredentials = false;
+            
            
             try
             {
@@ -62,6 +52,8 @@ namespace SODAMvcApplication.Controllers
             msg.Subject = subject;
             msg.Body = body;
             msg.IsBodyHtml = isHTML;
+
+            /*CC for testing*/
             //msg.CC.Add("timt@vocam.com");
             //msg.CC.Add("ashley.lubguban@gmail.com");
             //msg.Bcc.Add("jon@straightarrow.com.ph");
@@ -77,9 +69,7 @@ namespace SODAMvcApplication.Controllers
             }
             catch (Exception exp)
             {
-                //SmtpClient smtp_alter = new SmtpClient();
-
-                //throw (exp);
+               
             }
             finally
             {
@@ -94,6 +84,7 @@ namespace SODAMvcApplication.Controllers
             msg.Subject = subject;
             msg.Body = body;
             msg.IsBodyHtml = isHTML;
+            //CC for testing
             //msg.CC.Add("timt@vocam.com");
             //msg.CC.Add("ashley.lubguban@gmail.com");
             //msg.Bcc.Add("jon@straightarrow.com.ph");
@@ -101,7 +92,7 @@ namespace SODAMvcApplication.Controllers
                 msg.ReplyToList.Add(ReplyTo);
 
             SmtpClient smtp = new SmtpClient();
-            //smtp.Credentials = new NetworkCredential(from.Address, password);
+            
 
             try
             {
@@ -109,9 +100,9 @@ namespace SODAMvcApplication.Controllers
             }
             catch (Exception exp)
             {
-                //SmtpClient smtp_alter = new SmtpClient();
-                logEx(exp);
-                //throw (exp);
+                
+                logEx(exp);//log exception if error
+               
             }
             finally
             {
@@ -119,7 +110,7 @@ namespace SODAMvcApplication.Controllers
                 smtp.Dispose();
             }
         }
-
+        
         private static void logEx(Exception exp)
         {
             PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
@@ -163,6 +154,7 @@ namespace SODAMvcApplication.Controllers
 
 
         }
+        //Converts cshtml to string variable
         public static string ToHtml(string viewToRender, ViewDataDictionary viewData, ControllerContext controllerContext)
         {
             var result = ViewEngines.Engines.FindView(controllerContext, viewToRender, null);
@@ -177,6 +169,7 @@ namespace SODAMvcApplication.Controllers
 
             return output.ToString();
         }
+        
         public static string GetMd5Hash(string input)
         {
             using (MD5 md5Hash = MD5.Create())
