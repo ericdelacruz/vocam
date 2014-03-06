@@ -5,7 +5,7 @@
 
 
 <div class="container row cmsWrap">
-
+    @*if invalid password, show access denied msg*@
     @if(ViewBag.AccessDenied != null && (ViewBag.AccessDenied as Nullable<bool>) == true)
     { 
         <div class="noteBox clearfix">

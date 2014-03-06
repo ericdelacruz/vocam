@@ -14,13 +14,16 @@ namespace CMSMvcApplication.Controllers
 
             try
             {
+                //list all properties if the object
                 var properties = new_obj.GetType().GetProperties();
+                //list the string values of each property on the object to be added
                 var values = properties.Select(p => getVal(new_obj, p));
                 client.addToLogsTable(new PortalServiceReference.LogModel()
                 {
                     Username = Username,
                     Action = "add",
                     DateLog = DateTime.Now,
+                    //place all elements into a string in a semi colon seperator.
                     Properties = string.Join(";", properties.Select(p => p.Name).ToArray()),
                     New_values = string.Join(";", values.ToArray()),
                     PropertyName = new_obj.GetType().Name
@@ -39,13 +42,16 @@ namespace CMSMvcApplication.Controllers
             try
             {
                 var properties = new_obj.GetType().GetProperties();
+                //get values of the previos state of the object
                 var old_values = properties.Select(p => getVal(old_obj, p));
+                //get values of the updated state of the object
                 var new_values = properties.Select(p => getVal(new_obj, p));
                 client.addToLogsTable(new PortalServiceReference.LogModel()
                 {
                     Username = Username,
                     Action = "update",
                     DateLog = DateTime.Now,
+                    //Join into a string in a semi colon seperator.
                     Properties = string.Join(";", properties.Select(p => p.Name).ToArray()),
                     Old_values = string.Join(";", old_values.ToArray()),
                     New_values = string.Join(";", new_values.ToArray()),
@@ -69,8 +75,11 @@ namespace CMSMvcApplication.Controllers
                 return;
             try
             {
+                //get the properties of the object to be deleted
                 var properties = old_obj.GetType().GetProperties();
+                //get the values
                 var values = properties.Select(p => getVal(old_obj, p));
+                //Join into a string in a semi colon seperator.
                 var strProperties = string.Join(";", properties.Select(p => p.Name).ToArray());
                 var strValues = string.Join(";", values.ToArray());
                 client.addToLogsTable(new PortalServiceReference.LogModel()

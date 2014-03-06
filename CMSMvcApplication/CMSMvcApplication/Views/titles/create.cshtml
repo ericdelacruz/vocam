@@ -13,18 +13,15 @@
     { 
         @Html.ValidationSummary()
         <label>Region: </label><br />
-        @*<select id="" class="form-control" name="titleRegion" style="width: 300px !important; margin-bottom:10px; ">
-            <option value="12">Australia</option>
-            <option value="27">GB</option>
-        </select>*@
+  
         @Html.DropDownList("titleRegion", regionList, new { @class = "form-control", style = "width: 300px !important; margin-bottom:10px;" })
        
         <br />
         <label>Title*</label>
         <input type="text" class="form-control" placeholder="Enter Title" autofocus="" name="Title" required value="@ViewBag.Name">
-        @*@Html.TextBox("Title", ViewBag.Name as string, new { @class = "form-control", placeholder = "Enter Title", required = "", autofocus = "" })*@
+       
         <label>Code*</label>
-        @*<input type="text" class="form-control" placeholder="Enter Title Code" autofocus="" name="Code" required>*@
+      
        @Html.TextBox("Code", ViewBag.TitleCode as string, new { @class = "form-control", placeholder = "Enter Title Code",required="",autofocus=""})
         
         <div class="panel panel-default">
@@ -38,6 +35,7 @@
                           }
 
                       </select>
+                      @*the js code for this one is located on the Shared layout *@
                       <button type="button" id="button" class="btn btn-default fl">Add</button>
                       <select id="tttt" name="t" multiple style="height:300px; width:200px; display:none;" ></select>
 
@@ -97,6 +95,7 @@
                       }
                           Name: <input name='chapterName[]' type='text' value='' class='ifield' autofocus placeholder='Input chapter name' /><br>
                             Time: &nbsp; <input name='chapterTime[]' type='text' value='' class='ifield' autofocus placeholder='Input chapter time' />
+                            @*the js code for this one is located on the Shared layout *@
                             <input type="button" class="btn btn-default chapterBtn" name="add" value="Add more chapter"  style="height: 32px; margin-left: 4px;"  />
 
 

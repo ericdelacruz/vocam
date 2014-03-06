@@ -12,20 +12,7 @@ namespace CMSMvcApplication.Controllers
     {
         private CatListingServiceReference.CatListingServiceClient catClient = new CatListingServiceReference.CatListingServiceClient();
         private PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
-        protected override IAsyncResult BeginExecute(System.Web.Routing.RequestContext requestContext, AsyncCallback callback, object state)
-        {
-            
-            return base.BeginExecute(requestContext, callback, state);
-        }
-
-        protected override IAsyncResult BeginExecuteCore(AsyncCallback callback, object state)
-        {
-            return base.BeginExecuteCore(callback, state);
-        }
-        protected override void OnActionExecuted(ActionExecutedContext filterContext)
-        {
-            base.OnActionExecuted(filterContext);
-        }
+       
         protected override void Dispose(bool disposing)
         {
             catClient.Close();
@@ -34,13 +21,21 @@ namespace CMSMvcApplication.Controllers
         }
         //
         // GET: /Titles/
-
+        /// <summary>
+        /// List all of the titles
+        /// </summary>
+        /// <param name="region">filter by region</param>
+        /// <param name="title">filter by title</param>
+        /// <param name="page"></param>
+        /// <returns></returns>
         public ActionResult Index(string region, string title, int? page)
         {
+            //redirect to login page if session expired
             if (Session["Username"] == null)
                 return RedirectToAction("login", "Home");
+            //get titles with no filters
             var catTitleList = getTitles("", "");
-
+            //filter by title if not null
             if(!string.IsNullOrEmpty(title))
             {
                 catTitleList = from titles in catTitleList
@@ -49,6 +44,7 @@ namespace CMSMvcApplication.Controllers
                                select titles;
 
             }
+            //filter by region if not null
             if (!string.IsNullOrEmpty(region) )
             {
                 catTitleList = from titles in catTitleList
@@ -62,35 +58,14 @@ namespace CMSMvcApplication.Controllers
             ViewBag.RegionName = region ?? null;
             ViewBag.TitleName = title ?? "";
 
-            int pageSize = 15;
+            int pageSize = 15;//max titles per page
             int pageNum = page ?? 1;
 
             return View(catTitleList.OrderBy(t=>t.Specific.Title).ToList().ToPagedList(pageNum,pageSize));
         }
+        
+       
 
-        //
-        // GET: /Titles/filter?title=test-1&cat=no-cat
-        [HttpPost]
-        public ActionResult filter(string title, string cat)
-        {
-            var catList = getTitles(title, cat);
-
-            return View(catList);
-        }
-        [HttpPost]
-        public ActionResult filterTitle(string title)
-        {
-            var catList = getTitles(title, "");
-
-            return View(catList);
-        }
-        [HttpPost]
-        public ActionResult filterCat(string cat)
-        {
-            var catList = getTitles("", cat);
-
-            return View(catList);
-        }
         private IEnumerable<ViewModels.Title> getTitles(string title, string cat)
         {
             
@@ -163,27 +138,10 @@ namespace CMSMvcApplication.Controllers
             DateTime dateQuestion = new DateTime();
 
             DateTime.TryParse(collection["datefrom"], out dateQuestion);
-            //string errorMsg = "";
-            //if(hasErrorInTitles(collection,out errorMsg))
-            //{
-            //    ModelState.AddModelError("", errorMsg);
-            //    ViewBag.catList = catClient.get_Categories();
-            //    return View();
-            //}
-            //if (Request.Files["importChapter"].ContentLength > 0)
-            //{
-            //    importchapters();
-            //    initCreateViewBagData();
-            //    ViewBag.Name = collection["Title"];
-            //    ViewBag.TitleCode = collection["Code"];
-            //    ViewBag.PageTitle = collection["TitlePageTitle"];
-            //    ViewBag.MetaKeywords = collection["TitleMetaKeywords"];
-            //    ViewBag.MetaDescription = collection["TitleMetaDescription"];
-            //    return View();
-            //}
+           
             try
             {
-                // TODO: Add insert logic here
+                //init title to be added
                 var new_title = new CatListingServiceReference.Specific()
                 {
                     Title = collection["Title"],
@@ -194,6 +152,7 @@ namespace CMSMvcApplication.Controllers
                     PageTitle = collection["TitlePageTitle"],
                     Metatags = collection["TitleMetaKeywords"],
                     MetaDesc = collection["TitleMetaDescription"],
+                    //upload and get fileURL, If no file uploaded default to "#"
                     ImageURL = !string.IsNullOrEmpty(Request.Files["Thumb"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority), FileTransferHelper.UploadImage(Request.Files["Thumb"], Server)) : "#",
                     BG_Img = !string.IsNullOrEmpty(Request.Files["BG"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority) + "/", FileTransferHelper.UploadImage(Request.Files["BG"], Server)) : "#",
                     VideoURL = collection["VidURL"],
@@ -209,11 +168,14 @@ namespace CMSMvcApplication.Controllers
                     RegionId = int.Parse(collection["titleRegion"]),
                     Id = 0
                 };
+                //log title
                 AuditLoggingHelper.LogCreateAction(Session["Username"].ToString(), new_title, portalClient);
+                //add to db
                 catClient.add_Specific(new_title);
 
-                
+                //get the title added
                 var title = catClient.get().Select(c => c).Where(c => c.TitleCode == collection["Code"]).First();
+                //if user assign categories to title
                 if (!string.IsNullOrEmpty(collection["t"]))
                 {
                     foreach (string strNum in collection["t"].Trim().Split(','))
@@ -221,17 +183,19 @@ namespace CMSMvcApplication.Controllers
                         catClient.addCatAssign(title.Id, long.Parse(strNum));
                     }
                 }
-                //addTopics(collection, title);
+                //add topics
                 addTopics(Request.Form.GetValues("topicName[]"), title);
-                //addChapters(collection, title);
+                //if import XML
                 if (Request.Files["importChapter"].ContentLength > 0)
                 {
+                    //deserialize XML to list
                     var Imported_ChapterList = importchapters();
                     foreach(var chapter in Imported_ChapterList)
                     {
                         catClient.addChapter(title.Id, chapter.ChapterName, chapter.time.Value);
                     }
                 }
+                //add chapters that are manually added
                 addChapters(Request.Form.GetValues("chapterName[]"), Request.Form.GetValues("chapterTime[]"), title);
                 return RedirectToAction("Index");
             }
@@ -247,6 +211,7 @@ namespace CMSMvcApplication.Controllers
 
         private void addChapters(string[] chapterNames,string[] chaterTimes, CatListingServiceReference.Specific title)
         {
+            //if chapters is not empty if null
             if(chapterNames != null && chapterNames.Count() >0)
             {
                 for(int i =0; i< chapterNames.Count();i++)
@@ -259,6 +224,7 @@ namespace CMSMvcApplication.Controllers
 
         private void addTopics(string[] topics, CatListingServiceReference.Specific title)
         {
+            //if topics is not null or empty
             if(topics != null && topics.Count() > 0)
             {
                 foreach(string topic in topics)
@@ -307,13 +273,14 @@ namespace CMSMvcApplication.Controllers
 
         public ActionResult Edit(long id)
         {
+            //redirect to login page if session expired
             if (Session["Username"] == null)
                 return RedirectToAction("login", "Home");
-            //var title = catClient.getSpecificByID(id).First();
+            //get title to be edited
             var title = catClient.get().Select(t => t).Where(t => t.Id == id);
+
             if (title.Count() == 0)
                 return Redirect("Titles");
-
 
             initEditTitleViewBagData(id, title);
                 return View(title.First());
@@ -322,15 +289,21 @@ namespace CMSMvcApplication.Controllers
 
         private void initEditTitleViewBagData(long id, IEnumerable<CatListingServiceReference.Specific> title)
         {
+            //get category assignment for the title to be edited
             var CAList = catClient.getCatAssign().Where(ca => ca.SpecID == id);
+            //list of cat id's to be excluded in the category list
             var excludeIds = new HashSet<long>(CAList.Select(ca => ca.CategoryId));
+            //get the category list except that are in the exclude lists
             ViewBag.CatList = catClient.get_Categories().Where(cat => !excludeIds.Contains(cat.CategoryId));
+            //get topics of the edited title
             ViewBag.TopicList = catClient.getTopics().Select(t => t).Where(t => t.SpecId == id);
+            //get the chapters of the edited title
             ViewBag.ChapterList = catClient.getChapter().Select(c => c).Where(c => c.SpecID == id);
+            //filter categories that are selected
             ViewBag.CAList = from CA in CAList
                              join cat in catClient.get_Categories() on CA.CategoryId equals cat.CategoryId
                              select cat;
-
+            //region list for the dropdown
             ViewBag.regionList = portalClient.getRegion().Select(r => new SelectListItem()
             {
                 Value = r.Id.ToString(),
@@ -345,19 +318,12 @@ namespace CMSMvcApplication.Controllers
         [HttpPost]
         public ActionResult Edit(long id, FormCollection collection)
         {
+            
             DateTime dateQuestion = new DateTime();
-
+             
             DateTime.TryParse(collection["datefrom"], out dateQuestion);
 
-            //if (Request.Files["importChapter"].ContentLength > 0)
-            //{
-            //    importchapters();
-            //    var title = catClient.get().Select(t => t).Where(t => t.Id == id);
-            //    initEditTitleViewBagData(id, title);
-            //    if (TempData["ImportChapterList"] != null)
-            //    ViewBag.ChapterList = TempData["ImportChapterList"] as IEnumerable<CatListingServiceReference.Chapter>;
-            //    return View(title.First());
-            //}
+          
             try
             {
                 // TODO: Add update logic here
@@ -374,6 +340,7 @@ namespace CMSMvcApplication.Controllers
                     PageTitle = collection["TitlePageTitle"],
                     Metatags = collection["TitleMetaKeywords"],
                     MetaDesc = collection["TitleMetaDescription"],
+                    //upload and get fileURL, If no file uploaded default to "#"
                     ImageURL = !string.IsNullOrEmpty(Request.Files["Thumb"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority), FileTransferHelper.UploadImage(Request.Files["Thumb"], Server)) : catClient.getSpecificByID(id).First().ImageURL,
                     BG_Img = !string.IsNullOrEmpty(Request.Files["BG_IMG"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority), FileTransferHelper.UploadImage(Request.Files["BG_IMG"], Server)) : catClient.getSpecificByID(id).First().BG_Img,
                     VideoURL = collection["VidURL"],
@@ -388,25 +355,30 @@ namespace CMSMvcApplication.Controllers
                     isDOwnloadNews = collection["isdownloadnews"] == "yes",
                     RegionId = int.Parse(collection["titleRegion"])
                 };
+                //log title to be updated
                 AuditLoggingHelper.LogUpdateAction(Session["Username"].ToString(), old_title, new_title, portalClient);
+                //update to db
                 catClient.update_Specific(new_title);
                 
-                
+                //get updated title
                 var title = catClient.get().Select(c => c).Where(c => c.Id == id).First();
+                //get topics of the title to be delete
                 var topics = catClient.getTopics().Select(t => t).Where(t => t.SpecId == id);
-
+                //delete topics
                 foreach (var topic in topics)
                 catClient.deleteTopic(topic.Id);
                 
-
+                //get chaters of the title to be deleted
                 var chapters = catClient.getChapter().Select(c => c).Where(c => c.SpecID == id);
+                //delete each chapters
                 foreach (var chap in chapters)
                 catClient.deleteChapter(chap.Id);
-
+                //get cat assign of title
                 var CAs = catClient.getCatAssign().Where(ca => ca.SpecID == id);
+                //delete CA
                 foreach (var ca in CAs)
                     catClient.deleteCatAssign(ca.Id);
-
+                //if assigned category, add new CA
                 if ( collection["t"] !=null && !string.IsNullOrEmpty(collection["t"]))
                 {
                     foreach (string strNum in collection["t"].Trim().Split(','))
@@ -414,17 +386,22 @@ namespace CMSMvcApplication.Controllers
                         catClient.addCatAssign(title.Id, long.Parse(strNum));
                     }
                 }
+                //add topics
                 addTopics(Request.Form.GetValues("topicName[]"), title);
-                //addChapters(collection, title);
+
+                //if import XML
                 if (Request.Files["importChapter"].ContentLength > 0)
                 {
+                    //deserialize chapters to list
                     var Imported_ChapterList = importchapters();
+                    //add the imported list
                     foreach (var chapter in Imported_ChapterList)
                     {
                         catClient.addChapter(title.Id, chapter.ChapterName, chapter.time.Value);
                     }
                 }
-                    addChapters(Request.Form.GetValues("chapterName[]"), Request.Form.GetValues("chapterTime[]"), title);
+                //add the chapters that are manually added   
+                addChapters(Request.Form.GetValues("chapterName[]"), Request.Form.GetValues("chapterTime[]"), title);
                 
 
 
@@ -443,26 +420,31 @@ namespace CMSMvcApplication.Controllers
 
         public ActionResult Delete(long id)
         {
+            //DO deletion of dependencies before deleting the title
             try
             {
+                //get chapters then delete chapters
                 var chapters = catClient.getChapter().Select(c => c).Where(c => c.SpecID == id);
                 foreach (var chap in chapters)
                 {
                     catClient.deleteChapter(chap.Id);
                 }
-
+                //get topics then delete
                 var topics = catClient.getTopics().Select(t => t).Where(t => t.SpecId == id);
 
                 foreach (var topic in topics)
                 {
                     catClient.deleteTopic(topic.Id);
                 }
-
+                //get Cat assign then delete
                 var catAssign = catClient.getCatAssign().Where(ca => ca.SpecID == id);
                 foreach (var ca in catAssign)
                 catClient.deleteCatAssign(ca.Id);
+                //get the current title to be deleted
                 var old_title = catClient.getSpecificByID(id).First();
+                //log
                 AuditLoggingHelper.LogDeleteAction(Session["Username"].ToString(), old_title, portalClient);
+                //delete to DB
                 catClient.delete_Specific(id);
                 return RedirectToAction("Index");
             }
@@ -478,7 +460,7 @@ namespace CMSMvcApplication.Controllers
             return View();
         }
         
-       
+        
         public IEnumerable<CatListingServiceReference.Chapter> importchapters()
         {
             

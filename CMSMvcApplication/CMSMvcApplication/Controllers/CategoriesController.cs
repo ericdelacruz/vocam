@@ -12,31 +12,25 @@ namespace CMSMvcApplication.Controllers
         PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
         //
         // GET: /Categories/
-
+       
         public ActionResult Index(int? page)
         {
             if (Session["Username"] == null)
                 return RedirectToAction("login", "Home");
+            //get categories 
             var catList = from cat in catListingClient.get_Categories()
                           where cat.CategoryId != 1
                          
                           select cat;
-            
+            //default region to au
             ViewBag.defaultRegion = portalClient.getRegion().Where(r => r.RegionName.ToLower() == "au").First();
+
             int pageMaxSize = 15;
             int pageNumber = page ?? 1;
             return View(catList.ToPagedList(pageNumber,pageMaxSize));
         }
 
-        //
-        // GET: /Categories/Details/5
-
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
-
-        //
+      
         // GET: /Categories/Create
         protected override void Dispose(bool disposing)
         {
@@ -60,6 +54,7 @@ namespace CMSMvcApplication.Controllers
             
             try
             {
+                //init new category to be added
                 var new_cat = new CatListingServiceReference.Category()
                 {
                     CategoryName = collection["CategoryTitle"].Replace("\n", "<br/>"),
@@ -72,7 +67,9 @@ namespace CMSMvcApplication.Controllers
                     Banner_IMG = !string.IsNullOrEmpty(Request.Files["Banner"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority), FileTransferHelper.UploadImage(Request.Files["Banner"], Server)) : "#",
                     BG_IMG = !string.IsNullOrEmpty(Request.Files["BG"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority), FileTransferHelper.UploadImage(Request.Files["BG"], Server)) : "#"
                 };
+                //log
                 AuditLoggingHelper.LogCreateAction(Session["Username"].ToString(), new_cat, portalClient);
+                //add to db
                 catListingClient.add_Category(new_cat);
                 
                 return RedirectToAction("Index");
@@ -91,6 +88,7 @@ namespace CMSMvcApplication.Controllers
 
         public ActionResult Edit(long id)
         {
+            //redirect to login if session expire
             if (Session["Username"] == null)
                 return RedirectToAction("login", "Home");
             CatListingServiceReference.Category category = new CatListingServiceReference.Category();
@@ -107,9 +105,9 @@ namespace CMSMvcApplication.Controllers
         {
             try
             {
-                // TODO: Add update logic here
+                //get the cat to be edited for logging
                 CatListingServiceReference.Category catTemp = catListingClient.get_Category(id).First();
-                
+                //init the updated cat
                 var new_cat = new CatListingServiceReference.Category()
                 {
                     CategoryId = id,
@@ -123,7 +121,9 @@ namespace CMSMvcApplication.Controllers
                     Banner_IMG = !string.IsNullOrEmpty(Request.Files["Banner"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority), FileTransferHelper.UploadImage(Request.Files["Banner"], Server)) : catTemp.Banner_IMG,
                     BG_IMG = !string.IsNullOrEmpty(Request.Files["BG"].FileName) ? string.Concat(Request.Url.GetLeftPart(UriPartial.Authority), FileTransferHelper.UploadImage(Request.Files["BG"], Server)) : catTemp.BG_IMG
                 };
+                //log
                 AuditLoggingHelper.LogUpdateAction(Session["Username"].ToString(), catTemp, new_cat, portalClient);
+                //update to DB
                 catListingClient.update_Category(new_cat);
                 return RedirectToAction("Index");
             }
@@ -141,9 +141,11 @@ namespace CMSMvcApplication.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
+                //get the cat to be delete for logging
                 var old_cat = catListingClient.get_Category(id).First();
+                //log
                 AuditLoggingHelper.LogDeleteAction(Session["Username"].ToString(), old_cat, portalClient);
+                //delete
                 catListingClient.delete_Category(id);
                 return RedirectToAction("Index");
             }
