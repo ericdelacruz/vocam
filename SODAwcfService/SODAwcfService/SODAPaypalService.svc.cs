@@ -14,7 +14,7 @@ namespace SODAwcfService
     public class SODAPaypalService : ISODAPaypalService
     {
 
-        //default values for username,password,signature
+        //default values for username,password,signature, if no papal setting is set in region.This is a SANDBOX ACCOUNT
         private static string username = "jon_api1.straightarrow.com";
         private static string password = "1384995928";
         private static string signature = "AFcWxV21C7fd0v3bYYYRCpSSRl31ATsYWC6SETdiq-vn09q6FuTpA0Kp";
@@ -46,6 +46,7 @@ namespace SODAwcfService
             // # API call 
             // Invoke the SetExpressCheckout method in service wrapper object  
             SetExpressCheckoutResponseType setECResponse = service.SetExpressCheckout(wrapper);
+            //checks paypal response
             if (setECResponse.Ack.Equals(AckCodeType.FAILURE) ||
                 (setECResponse.Errors != null && setECResponse.Errors.Count > 0))
             {
@@ -131,9 +132,9 @@ namespace SODAwcfService
         {
             var details = getExpressCheckoutDetails(model.token);
             DoExpressCheckoutPaymentResponseType doECResponse = DoExpressCheckOut(details,model);//this sends paypal confirmation that we have received the payment
-            
+            //create recurring profile
             var response = CreateRecurringProfile(model);
-            
+            //check paypal response
             if (response.Ack.Equals(AckCodeType.FAILURE) ||
              (response.Errors != null && response.Errors.Count > 0))
             {
