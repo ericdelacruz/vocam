@@ -13,6 +13,7 @@ using SODAPortalMvcApplication.Models;
 
 namespace SODAPortalMvcApplication.Controllers
 {
+    //OBselete. This was auto generated when project was created
     [Authorize]
     [InitializeSimpleMembership]
     public class AccountController : Controller

@@ -5,7 +5,9 @@
  
     
     var SalesCode = Session["SalesCode"] as SODAPortalMvcApplication.ViewModel.VerifyModel;
+    //get only items that have active recurring profile
     var ActiveSubscription = Model.Where(cust => cust.paypal.Active);
+    //flag if there are active subscription
     var isActiveSubs = ActiveSubscription.Count() > 0;
 }
 
@@ -26,9 +28,9 @@
 
     <div class="portalCont displayInline margin15">
 
-        @*<p>Sales Code: <strong>@Model.Last().salesCode.Sales_Code</strong></p>*@
        
-
+       
+        @*If currently active then display subscription details else show purchase additional license page*@
         @if (isActiveSubs)
         {
              <div class="panel panel-primary">
@@ -40,23 +42,27 @@
                 <table class="currentSub" border="0" cellspacing="0" cellpadding="0" style="width:100%;">
                     <tr class="currSubHead">
                         <td width="550" bgcolor="">DETAILS</td>
+                        @*Show label if it is already end of contract*@
                         @if(Model.First().contract  != null && (Model.First().contract.DateEnd.ToUniversalTime() - DateTime.UtcNow).TotalDays <= 0)
                         {                                             
                              <td>CANCEL SUBSCRIPTION</td>
                         }
+                        
                     @foreach(var customer in ActiveSubscription)
                     {
-                       //string displayFormat = "{0} License/s : {1:0.00} initial for {2} month/s plus {1:0.00} recurring every {3} month/s";
+                        
                         string displayFormat = "{0} License/s : {1} initial for {2} month/s plus {1} recurring every {3} month/s";
+                        //if you wish to add more currency list go to the definition of getCultureInfo and edit the mapping there
                         var culture = SODAPortalMvcApplication.ViewModel.VerifyModel.getCultureInfo((SODAPortalMvcApplication.ViewModel.VerifyModel.Currency)Enum.Parse(typeof(SODAPortalMvcApplication.ViewModel.VerifyModel.Currency),SalesCode.region.Currency));
-                        //var pricepaid = customer.paypal.TotalAmt / customer.customer.Licenses; 
+                       
                         var pricepaid = customer.paypal.TotalAmt; 
+                        //display current subscription details
                          switch(customer.customer.RecurringType)
                        {
-                           case 1:
+                           case 1://monthly
                               
                             <tr>
-                                @*<td>@string.Format(displayFormat,customer.customer.Licenses,customer.price.PriceAmt.ToString(culture),customer.price.FirstMonthFree?2:1,1) </td>*@
+                                
                                 <td>@string.Format(displayFormat, customer.customer.Licenses, pricepaid.ToString("C",culture), customer.price.FirstMonthFree ? 2 : 1, 1) </td>
                                 @if(customer.contract != null && (customer.contract.DateEnd.ToUniversalTime() - DateTime.UtcNow).TotalDays <= 0 )
                                 { 
@@ -64,9 +70,9 @@
                                 }
                             </tr>
                                break;
-                           case 2: 
+                           case 2: //3 months
                              <tr>
-                                @*<td>@string.Format(displayFormat,customer.customer.Licenses,customer.price.PriceAmt_B.ToString(culture),customer.price.FirstMonthFree?4:3,3) </td>*@
+                             
                                  <td>@string.Format(displayFormat, customer.customer.Licenses, pricepaid.ToString("C", culture), customer.price.FirstMonthFree ? 4 : 3, 3) </td>
                                  @if (customer.contract != null && (customer.contract.DateEnd.ToUniversalTime() - DateTime.UtcNow).TotalDays <= 0)
                                  {
@@ -74,9 +80,9 @@
                                  }
                             </tr>
                                break;
-                           case 3: 
+                           case 3: //6 months
                             <tr>
-                                @*<td>@string.Format(displayFormat,customer.customer.Licenses,customer.price.priceAmt_C.ToString(culture),customer.price.FirstMonthFree?7:6,6) </td>*@
+                                
                                 <td>@string.Format(displayFormat, customer.customer.Licenses, pricepaid.ToString("C", culture), customer.price.FirstMonthFree ? 7 : 6, 6) </td>
                                 @if (customer.contract != null && (customer.contract.DateEnd.ToUniversalTime() - DateTime.UtcNow).TotalDays <= 0)
                                 {
@@ -94,8 +100,9 @@
         </div>
        
         }
-        else
+        else//render purchse additional license page
         {
+            
             @RenderPage("_additonal_license.cshtml", new { SalesCode = SalesCode, LicenseType = Model.Last().customer.RecurringType });
         }
     </div>

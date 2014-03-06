@@ -7,6 +7,7 @@ using System.Web;
 
 namespace SODAPortalMvcApplication.Controllers
 {
+    //obselete. not being used because of medium trust issues with godaddy
     public static class DateHelper
     {
         public static DateTime UTCtoLocal(this DateTime dateTime, string usersTimezoneId)

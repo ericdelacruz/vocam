@@ -14,16 +14,20 @@ namespace SODAPortalMvcApplication.Controllers
         private AccountServiceRef.AccountServiceClient accountClient = new AccountServiceRef.AccountServiceClient();
         private PortalServiceReference.PortalServiceClient portaClient = new PortalServiceReference.PortalServiceClient();
         private CMSServiceReference.CMS_ServiceClient cmsClient = new CMSServiceReference.CMS_ServiceClient();
+        private static string defaultRegion = "AU";
         [RequireHttps]
         public ActionResult Index()
         {
+            //get phone number depending on what region. Returns string.empty if localhost
             string PhoneNo = getPhoneNum();
             Session.Add("PhoneNo", PhoneNo);
              
             return View();
         }
+
         protected override IAsyncResult BeginExecute(System.Web.Routing.RequestContext requestContext, AsyncCallback callback, object state)
         {
+            //Authenticate the account service so that we can call its methods
             accountClient.Authenticate("myS0D@P@ssw0rd");
             return base.BeginExecute(requestContext, callback, state);
         }
@@ -31,6 +35,7 @@ namespace SODAPortalMvcApplication.Controllers
         {
             try
             {
+               
                 int RegionId = portaClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www")).First().Id;
 
                 string PhoneNo = cmsClient.getContent("Contact", "PhoneNo").Where(c => c.RegionId == RegionId).First().Value;
@@ -55,19 +60,27 @@ namespace SODAPortalMvcApplication.Controllers
         {
 
             string cmsurl = "http://"+Request.Url.Host.Replace("portal","cms");
+            
             if (accountClient.AuthenticateUser(collection["Username"], collection["Password"].Split(',')[0]))
             {
                 Session.Add("Username", collection["Username"]);
                 AccountServiceRef.Account account = accountClient.getAccount(collection["Username"]).First();
                 Session.Add("UserId", account.Id);
+                //log user to auditlogs
                 AuditLoggingHelper.LogAuthenticationAction(Session["Username"].ToString(), true, portaClient);
+                //redirection rules for different roles of account
+                //0 - admin
+                //1-marketer/cms
+                //2- sales
+                //3 - customer
                 switch (account.Role)
                 {
                     case 0: return RedirectToAction("Index", "Admin");
 
-                    case 1: return Redirect(cmsurl);
+                    case 1: return Redirect(cmsurl);//redirect marketer user to cms
 
                     case 2:
+                        //if password is the default password (safety) then redirect to change password
                         if (EncDec.DecryptString(account.PASSWORD) != "safety")
                         return RedirectToAction("Index", "Sales");
                         else if (EncDec.DecryptString(account.PASSWORD) == "safety")
@@ -81,6 +94,7 @@ namespace SODAPortalMvcApplication.Controllers
                             return View(collection);
                         }
                     case 3:
+                        //if password is the default password (safety) then redirect to change password
                         if (EncDec.DecryptString(account.PASSWORD) != "safety")
                         return RedirectToAction("Index", "User");
                         else
@@ -97,11 +111,13 @@ namespace SODAPortalMvcApplication.Controllers
             }
                 return View(collection);
         }
+        //Obselete. See purchasedetails instead
         [RequireHttps]
         public ActionResult registration()
         {
             return View();
         }
+        //obselete. see purchasedetails instead
         [HttpPost]
         [AllowAnonymous]
         [RequireHttps]
@@ -142,10 +158,12 @@ namespace SODAPortalMvcApplication.Controllers
             }
             return View(model);
         }
+
         [RequireHttps]
         public ActionResult purchaseDetails()
         {
-            ViewBag.Country = portaClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www") || (Request.Url.Host == "localhost" && r.RegionName == "AU")).FirstOrDefault().RegionName;
+            //this sets the default country depending on the regionname. sets to AU if localhost
+            ViewBag.Country = portaClient.getRegion().Where(r => r.WebsiteUrl == Request.Url.Host.Replace("portal", "www") || (Request.Url.Host == "localhost" && r.RegionName == defaultRegion)).FirstOrDefault().RegionName;
             return View();
         }
         [HttpPost]
@@ -153,9 +171,11 @@ namespace SODAPortalMvcApplication.Controllers
         [RequireHttps]
         public ActionResult purchaseDetails(ViewModel.UserModel model, FormCollection collection)
         {
+            //set deafult password to safety
             model.Password = "safety";
-            model.ConfirmPassword = "safety";
+            model.ConfirmPassword = "safety";//required for validation of the model
             model.Country = collection["country"];
+            //parse email if valid
             if(!IsValidEmail(model.Email))
             {
                 ModelState.AddModelError("", "Invalid Email");
@@ -217,15 +237,21 @@ namespace SODAPortalMvcApplication.Controllers
 
             EmailHelper.SendEmail("test@sac-iis.com", model.Email, "Verification", "Click the link to continue." + Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("verify", "home", new { code = EncDec.EncryptData(model.Email) }).Replace("/portal", ""));
         }
+        /// <summary>
+        /// Verify account when the user clicks the link in their email
+        /// </summary>
+        /// <param name="code">Username in encrypted form</param>
+        /// <returns></returns>
         [RequireHttps]
         public ActionResult verify(string code)
         {
             string username = EncDec.DecryptString(code);
             if(!string.IsNullOrEmpty(username))
             {
+                
                 var user = from accnt in accountClient.getAccount(username)
                            select accnt;
-
+                //if user exists then update email verified to true then redirect to the user page.
                 if(user.Count() >0)
                 {
                     AccountServiceRef.Account accnt = user.First();
@@ -251,29 +277,19 @@ namespace SODAPortalMvcApplication.Controllers
             }
             return RedirectToAction("index");
         }
-        [HttpPost]
-        [RequireHttps]
-        public ActionResult EmailVerify(string cid)
-        {
-            var account = from accnt in accountClient.getAccount("")
-                          where accnt.Id == long.Parse(cid)
-                          select accnt;
-
-            account.First().EmailVerified = true;
-
-            accountClient.updateAccount(account.First());
-
-            return View();
-        }
+        
         public ActionResult logout(string username)
         {
+            
             if (Session["Username"] == null)
                 return RedirectToAction("index");
+           
             AuditLoggingHelper.LogAuthenticationAction(Session["Username"].ToString(), false, portaClient);
             accountClient.LogOff(username);
             Session.RemoveAll();
             return RedirectToAction("index");
         }
+
         [RequireHttps]
         public ActionResult forgotpassword()
         {
@@ -289,26 +305,16 @@ namespace SODAPortalMvcApplication.Controllers
             {
                 if(accountClient.getAccount(collection["Username"]).Count() > 0)
                 {
-                    //long userid = accountClient.getAccount(collection["Username"]).First().Id;
-                    //DateTime dateSent = DateTime.Now;
-                    //DateTime dateEx = dateSent.AddDays(1);
                     
-                    //string key = EmailHelper.GetMd5Hash(collection["Username"] + ";" + dateSent.ToString());
-                    //accountClient.addResetPassword(key, dateSent, dateEx, userid);
-                    //ViewData.Add("resetlink", Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("resetpassword", new { code = key }));
-                    //string body = EmailHelper.ToHtml("forgotpasswordemail",ViewData, this.ControllerContext);
-                    //EmailHelper.SendEmail("test@sec-iis.com", collection["Username"], "Reset password", body);
-                    //TempData["ResetPassSent"] = true;
+              
                     var accnt = accountClient.getAccount(collection["Username"]).First();
                     string portalurl = "http://" + Request.Url.Host;
-                         //string body = "Hi " + accnt.FirstName + " " + accnt.LastName +". Your password is " + EncDec.DecryptString(accnt.PASSWORD);
-                    //string body = "Hi " + accnt.FirstName + " " + accnt.LastName + "," + "\n" + "\n" + "Your password is " + 
-                    //              EncDec.DecryptString(accnt.PASSWORD) + "\n" + "\n" + "Copy and paste the site URL for the login page" + "\n" +
-                    //              portalurl + "Regards," + "\n" + "SafetyOnDemand.com";
+                      
                     ViewData.Add("CustomerName", accnt.FirstName + " " + accnt.LastName);
                     ViewData.Add("Password", EncDec.DecryptString(accnt.PASSWORD));
+                    //converts emailforgotpassword.cshtml to string variable. to see the format goto emailforgotpassword method then goto view
                     string body = EmailHelper.ToHtml("emailforgotpassword", ViewData, this.ControllerContext);     
-                    //EmailHelper.SendEmail("test@sac-iis.com", collection["Username"], "Forgot password", body);
+                    //if localhost set to test@sac-iis.com
                     string from = Request.Url.Host != "localhost" ? "no-reply" + Request.Url.Host.Replace("portal.", "@") : "test@sac-iis.com";
                     EmailHelper.SendEmail(new System.Net.Mail.MailAddress(from, "Safety On Demand"), new System.Net.Mail.MailAddress(collection["Username"]), "Forgot Password", body, true,null);
                     TempData["ResetPassSent"] = true;
@@ -337,64 +343,8 @@ namespace SODAPortalMvcApplication.Controllers
         {
             return View();
         }
-        [RequireHttps]
-        public ActionResult resetpassword(string code)
-        {
-            var resetpass = accountClient.getRestPassword().Where(rp => rp.key == code);
-           
-            if (resetpass.Count() > 0)
-            {
-                TempData["resetuserid"] = resetpass.First().UserId.ToString();
-                return View();
-            }
-            else
-                return Redirect("index");
-        }
-        [HttpPost]
-        [RequireHttps]
-        public ActionResult resetpassword(FormCollection collection)
-        {
-              if(collection["Password"] == collection["ConfirmPassword"])
-              {
-                  long userid = 0;
-                  if (long.TryParse(TempData["resetuserid"].ToString(), out userid))
-                  {
-                      var accnt = accountClient.getAccount("").Where(a => a.Id == userid).First();
-                      accountClient.updatePassword(userid, accnt.PASSWORD, collection["Password"]);
-                      string redirectLink = getRedirectLinkByRole(accnt.Role);
-                      Session.Add("Username", accnt.USERNAME);
-                      TempData["PasswordUpdated"] = true;//reuse tempdata for redirection link
-                      return View(); 
-                  }
-                  else
-                  {
-                      ModelState.AddModelError("", "Error");
-                      return View();
-                  }
-              }
-              else
-              {
-                  ModelState.AddModelError("", "Password does not match! Please try again.");
-                  return View();
-              }
-        }
-
-        private string getRedirectLinkByRole(int Role)
-        {
-            switch(Role)
-            {
-                case 0: return Url.Action("index","admin");
-
-                //case 1: return Redirect(string.Format(CMSURL, collection["Username"]));
-
-                case 2:
-                        return Url.Action("index","sales");
-                case 3:
-
-                        return Url.Action("index", "user");
-                default:return "";
-            }
-        }
+        
+        
         [RequireHttps]
         public ActionResult changePassword(string returnurl)
         {
@@ -414,6 +364,7 @@ namespace SODAPortalMvcApplication.Controllers
              if(Session["Username"] != null)
              {
                  var account = accountClient.getAccount(Session["Username"].ToString()).First();
+                 //if model is valid, update the password then email the new password
                  if (ModelState.IsValid)
                  {
                      accountClient.updatePassword(account.Id, account.PASSWORD, changePasswordModel.Password);
@@ -440,6 +391,7 @@ namespace SODAPortalMvcApplication.Controllers
             ViewData.Add("CustomerName", account.FirstName + " " + account.LastName);
             ViewData.Add("Password", changePasswordModel.Password);
             ViewData.Add("Username", account.USERNAME);
+            //convert changepasswordemail.cshtml to variable string. to see the format goto changepasswordemail() then goto view
             string body = EmailHelper.ToHtml("changepasswordemail", ViewData, this.ControllerContext);
             EmailHelper.SendEmail(new System.Net.Mail.MailAddress(from, "Safety On Demand"), new System.Net.Mail.MailAddress(to), "Your TrainNow Password Changed", body, true, null);
 

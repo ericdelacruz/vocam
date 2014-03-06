@@ -9,17 +9,18 @@
 <h4>If Sales Code not available, proceed to Step 2.</h4>
 @using (@Html.BeginForm("reverify", "user"))
 {
+    //If sales code is vefified
     if (SalesCode != null && !SalesCode.isDefaultSalesCode)
     {
         <div style="text-align:center; font-size:14px;" class="alert alert-success"><strong>@SalesCode.salescode.Sales_Code</strong>: Sales Code Verified!</div> <br />
         <label>Sales Code:</label><input type="text" value="@SalesCode.salescode.Sales_Code" name="salesCode" class="form-control" style="margin-right:5px;" />
     }
-    else if (TempData["error"] != null)
+    else if (TempData["error"] != null)//if error
     {
         <div style="text-align:center; font-size:14px;" class="alert alert-danger clearfix">Sales Code not verified! Please try again.</div> <br />
         <label>Sales Code:</label><input type="text" value="" name="salesCode" class="form-control" style="margin-right:5px;" />
     }
-    else
+    else//not yet verified or error
     {
 
         <br />
@@ -32,11 +33,13 @@
 
 
 <br /><br /><br />
+
 @if (SalesCode != null)
 {
+     
     var latestLicensesType = Page.LicenseType;
     var culture = SODAPortalMvcApplication.ViewModel.VerifyModel.getCultureInfo((SODAPortalMvcApplication.ViewModel.VerifyModel.Currency)Enum.Parse(typeof(SODAPortalMvcApplication.ViewModel.VerifyModel.Currency), SalesCode.region.Currency));
-    //string displayFormat = "{0} License/s : {1} initial for {2} month/s plus {1} recurring every {3} month/s";
+    
 
     using (@Html.BeginForm("index", "user", FormMethod.Post))
     {
@@ -95,13 +98,10 @@
             <div style="text-align:center; font-size:14px;" class="alert alert-danger clearfix">@TempData["errorQuantity"].ToString()</div>
         }
         <label>Quantity:</label><input type="text" name="quantity" class="form-control" value="1">
-        @*<label>Quantity:</label><input type="text" name="quantity" class="form-control" value="1">
-               <label>Sales Code:</label><input type="text" value="@Model.Last().salesCode.Sales_Code" name="salesCode" class="form-control" style="margin-right:5px;" />
-               <button type="submit" class="btn btn-default fl" value="verify" name="verify">Verify</button>
-            @Html.ValidationSummary()*@
+        //this hidden field is used for computing the date time on the client side. init by the js function located in the _Layout.cshtml
         @Html.Hidden("dateTimeOffset");
         <button type="submit" class="btn btn-lg btn-primary btn-block" style="width: 200px; float: right; margin-right: 5%;">Purchase </button>
-        @*<a href="@Url.Action("reverify", new { salescode = @Model.Last().salesCode.Sales_Code })"><button type="submit" class="btn btn-default fl">Verify</button></a>*@
+        
     }
 
 }

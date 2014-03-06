@@ -12,6 +12,14 @@ namespace SODAPortalMvcApplication.Controllers
         // GET: /sales/
         private AccountServiceRef.AccountServiceClient account = new AccountServiceRef.AccountServiceClient();
         private PortalServiceReference.PortalServiceClient portalClient = new PortalServiceReference.PortalServiceClient();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="df">DateFrom</param>
+        /// <param name="dt">DateTo</param>
+        /// <param name="sc">SalesCode</param>
+        /// <param name="page">Page Number</param>
+        /// <returns></returns>
         [RequireHttps]
         public ActionResult Index(string df, string dt, string sc, int? page)
         {
@@ -22,6 +30,8 @@ namespace SODAPortalMvcApplication.Controllers
             else
             {
 
+                //list all transactions done by the customer under the assigned sales code
+               
                 var reportlist = from customer in portalClient.getCustomer()  
                                  join salescode in portalClient.getSaleCode() on customer.SalesCodeId equals salescode.Id
                                  join salesperson in portalClient.getSalePerson() on salescode.SalesPersonID equals salesperson.Id
@@ -31,7 +41,7 @@ namespace SODAPortalMvcApplication.Controllers
                                  orderby customer.DatePurchase descending
                                   
                                  select new ViewModel.ReportViewModel() { account = cust_accnt, customer = customer, salesCode = salescode,DateContractEnd=contract.DateEnd };
-
+                //filter list if datefrom add dateto is not null
                 if (!string.IsNullOrEmpty(df) && !string.IsNullOrEmpty(dt))
                 {
                     reportlist = from report in reportlist
@@ -39,13 +49,13 @@ namespace SODAPortalMvcApplication.Controllers
                                  select report;
 
                 }
-                else if (!string.IsNullOrEmpty(df))
+                else if (!string.IsNullOrEmpty(df))//filter if only datefrom is not null
                 {
                     reportlist = from report in reportlist
                                  where report.customer.DatePurchase == DateTime.Parse(df)
                                  select report;
                 }
-
+                //filter list by salescode if sc is not null
                 if (!string.IsNullOrEmpty(sc))
                 {
                     reportlist = from report in reportlist
@@ -69,40 +79,11 @@ namespace SODAPortalMvcApplication.Controllers
         }
         protected override IAsyncResult BeginExecute(System.Web.Routing.RequestContext requestContext, AsyncCallback callback, object state)
         {
+            //security measure. to gain access to account service
             account.Authenticate("myS0D@P@ssw0rd");
             return base.BeginExecute(requestContext, callback, state);
         }
-        [HttpPost]
-        [RequireHttps]
-        public ActionResult index(FormCollection collection)
-        {
-            DateTime dtstart = DateTime.Parse(collection["start"]);
-            DateTime dtend = collection["end"] != "" ? DateTime.Parse(collection["end"]) : default(DateTime);
-            if (!isUserSessionActive())
-            {
-                return RedirectToAction("login", "Home");
-            }
-            if (collection["end"] != null && collection["end"] != "")
-            {
-                var reportlist = from customer in portalClient.getCustomer()
-                                 join accnt in account.getAccount(Session["Username"].ToString()) on customer.Id equals accnt.Id
-                                 join sc in portalClient.getSaleCode() on customer.SalesCodeId equals sc.Id
-                                 join sp in portalClient.getSalePerson() on customer.SalesCodeId equals sp.SalesCodeId
-                                 where customer.DatePurchase.Value.DayOfYear >= dtstart.DayOfYear && customer.DatePurchase.Value.DayOfYear < dtend.DayOfYear 
-                                 select new ViewModel.ReportViewModel() { account = accnt, customer = customer,salesCode = sc };
-                return View(reportlist);
-            }
-            else
-            {
-                var reportlist = from customer in portalClient.getCustomer()
-                                 join accnt in account.getAccount(Session["Username"].ToString()) on customer.Id equals accnt.Id
-                                 join sc in portalClient.getSaleCode() on customer.SalesCodeId equals sc.Id
-                                 join sp in portalClient.getSalePerson() on customer.SalesCodeId equals sp.SalesCodeId
-                                 where customer.DatePurchase.Value.DayOfYear == dtstart.DayOfYear //&& sp.UserId == accnt.Id
-                                 select new ViewModel.ReportViewModel() { account = accnt, customer = customer, salesCode =sc };
-                return View(reportlist);
-            }
-        }
+       
          [RequireHttps]
         public ActionResult adduser()
         {
@@ -121,6 +102,7 @@ namespace SODAPortalMvcApplication.Controllers
             {
                 try
                 {
+                    //init new account to be added
                     var new_user = new AccountServiceRef.Account()
                     {
                         USERNAME = model.Email,
@@ -134,9 +116,10 @@ namespace SODAPortalMvcApplication.Controllers
                         LastName = model.LastName,
 
                     };
+                    //log account to be added
                     AuditLoggingHelper.LogCreateAction(Session["Username"].ToString(), new_user, portalClient);
                     account.addAccount(new_user);
-
+                    //send email to the customer
                     sendEmailVerification(model);
                     TempData["EmailSent"] = true;
                     return RedirectToAction("adduser");
@@ -151,12 +134,17 @@ namespace SODAPortalMvcApplication.Controllers
         private void sendEmailVerification(ViewModel.UserModel model)
         {
 
-            EmailHelper.SendEmail("test@sac-iis.com", model.Email, "Verification", "Click the link to continue." + Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("verify", "home", new { code = EncDec.EncryptData(model.Email) }));
+            EmailHelper.SendEmail("no-reply@safetyondemand.com.au", model.Email, "Verification", "Click the link to continue." + Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("verify", "home", new { code = EncDec.EncryptData(model.Email) }));
         }
         private bool isUserSessionActive()
         {
             return !string.IsNullOrEmpty(Session["Username"].ToString()) && AccountHelper.isActive(Session["Username"].ToString(), account);
         }
+         /// <summary>
+         /// Verify sales account when the sales user clicks the link in the email
+         /// </summary>
+         /// <param name="code"></param>
+         /// <returns></returns>
          [RequireHttps]
         public ActionResult verify(string code)
         {

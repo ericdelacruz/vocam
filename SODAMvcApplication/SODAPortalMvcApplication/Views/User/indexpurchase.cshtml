@@ -37,12 +37,12 @@
                 <img src="/Content/images/portal/step1.jpg" alt="Step 1: Enter Your Sales Code"><br />
                 <h4>If Sales Code not available, proceed to Step 2.</h4>
                 <br />
-
+                @*If not default salescode*@
                 @if (TempData["DefaultSalesCode"] == null)
                 {
                     <div style="text-align:center; font-size:14px;" class="alert alert-success"><strong>@SalesCode.salescode.Sales_Code</strong>: Sales Code Verified!</div>
                 }
-                else if (TempData["error"] != null)
+                else if (TempData["error"] != null)//if error
                 {
                    
                     <div style="text-align:center; font-size:14px;" class="alert alert-danger clearfix">Sales Code Not Verified! Please try again.</div>
@@ -65,10 +65,7 @@
               
                <p>&nbsp;</p>
                
-            
-             
-                        
-               @*<p>@DiscountedSubcriptionPrice for the first 6 months then @DiscountedPermonthPrice monthly recurring </p>*@
+
                
             <p>&nbsp;</p>
                
@@ -77,11 +74,11 @@
                            
                         <img src="/Content/images/portal/step2.jpg" alt="Step 2: Choose Your Subscription">
                    
-                        @*<p style="margin-right:10%;"><br />To subscribe, simply select your preferred payment interval for your recurring subscription from the list below.<br><br>
-A Safety On Demand Subscription allows you pay every 1 month, 3 month or 6 month intervals to suit your training budget needs. Please note a 6 month minimum sign up is required on all subscriptions, from then you can cancel at any time. Save money by purchasing a payment in 6 month interval subscription. <strong>Great value!</strong><br><br></p>*@
+                     
                         <p style="margin-right:10%;">@SalesCode.price.Description</p>
                      
                         <div class="row">
+                            @*if monthly option is enabled*@
                             @if(SalesCode.price.Active)
                             { 
                                 <div class="col-sm-4 border2 shadow">
@@ -94,6 +91,7 @@ A Safety On Demand Subscription allows you pay every 1 month, 3 month or 6 month
                                     </div>
                                 </div>
                             }
+                            @*if 3 months option is enabled*@
                             @if(SalesCode.price.Active_b)
                             { 
                                 <div class="col-sm-4 border2 shadow">
@@ -106,6 +104,7 @@ A Safety On Demand Subscription allows you pay every 1 month, 3 month or 6 month
                                     </div>
                                 </div>
                             }
+                            @*if 6 months option is enabled*@
                             @if(SalesCode.price.Active_c)
                             { 
                                 <div class="col-sm-4 border2 shadow">

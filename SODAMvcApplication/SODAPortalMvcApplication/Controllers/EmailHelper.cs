@@ -17,21 +17,16 @@ namespace SODAPortalMvcApplication.Controllers
         
         public static void SendEmail(string from, string to, string subject, string body)
         {
-            //string host = ConfigurationManager.AppSettings["EmailHost"] != "" ? ConfigurationManager.AppSettings["EmailHost"] : "smtpout.asia.secureserver.net";
-            //int port = ConfigurationManager.AppSettings["Emailport"] != "" ? int.Parse(ConfigurationManager.AppSettings["Emailport"]) : 80;
+            
 
             MailMessage msg = new MailMessage(from, to, subject, body);
 
-            //SmtpClient smtp = port == 0 ? new SmtpClient(host) : new SmtpClient(host, port);
+            
             SmtpClient smtp = new SmtpClient();
             msg.IsBodyHtml = true;
-            //string username = "test@sac-iis.com";
-            //string password = "P@ssw0rd12345";
-
-            //smtp.Credentials = new NetworkCredential(username, password);
+            
             smtp.Credentials = new NetworkCredential();
-            //smtp.EnableSsl = true;
-            //smtp.UseDefaultCredentials = false;
+            
 
             try
             {
@@ -51,6 +46,7 @@ namespace SODAPortalMvcApplication.Controllers
 
 
         }
+
         public static string GetMd5Hash(string input)
         {
             using (MD5 md5Hash = MD5.Create())
@@ -115,7 +111,7 @@ namespace SODAPortalMvcApplication.Controllers
                 msg.ReplyToList.Add(ReplyTo);
 
             SmtpClient smtp = new SmtpClient();
-            //smtp.Credentials = new NetworkCredential(from.Address, password);
+            
 
             try
             {
@@ -133,6 +129,13 @@ namespace SODAPortalMvcApplication.Controllers
                 smtp.Dispose();
             }
         }
+        /// <summary>
+        /// Converts View file (.cshtml) to string variable
+        /// </summary>
+        /// <param name="viewToRender"></param>
+        /// <param name="viewData"></param>
+        /// <param name="controllerContext"></param>
+        /// <returns></returns>
         public static string ToHtml(string viewToRender, ViewDataDictionary viewData, ControllerContext controllerContext)
         {
             var result = ViewEngines.Engines.FindView(controllerContext, viewToRender, null);
