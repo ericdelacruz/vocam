@@ -80,24 +80,7 @@ namespace SODAMvcApplication
             public bool Match(HttpContextBase httpContext, Route route, string parameterName, RouteValueDictionary values, RouteDirection routeDirection)
             {
 
-                //CategoriesServiceReference.CatListingServiceClient client = new CategoriesServiceReference.CatListingServiceClient();
-                //bool result = false;
-                //try
-                //{
-                //    string strCat = values[parameterName].ToString().Trim().Replace(" ", "-").ToLower();
-                //    result = client.get_Categories().Where(c => c.CategoryName.Trim().Replace(" ", "-").ToLower() == strCat).Count() > 0;
-                    
-                //}
-                //catch
-                //{
-                   
-                //}
-                //finally
-                //{
-                //    client.Close();
-                    
-                //}
-                //return result;
+                //path names that are not considered categories
                 List<string> ignoreList = new List<string>() { "learn-more", "contact", "sitemap", "users", "defaultcaptcha", "scripts", "home", "xml", "categories", "favicon.ico","drm" };
                 return ignoreList.Where(url => url == values[parameterName].ToString().Trim().ToLower()).Count() == 0;
             }
